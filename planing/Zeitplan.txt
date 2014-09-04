@@ -1,0 +1,10 @@
+0. Observer + Observable + Log
+1. Lexer (+ Token / TokenKind)
+2. Parser (Commands(ohne execute!))
+3. Translator
+4. Team
+5. Object
+6. Actor + Ship
+7. Field
+8. Map
+9. execute in Commands
