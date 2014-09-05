@@ -1,0 +1,22 @@
+Fragen + Antworten zum Projekt:
+
+1. wie kommt man an die Schätze die im Mittelpunkt einer Insel sind? (S.13 Doku)
+- garnicht
+
+2. Wie Starten die Schiffe?
+- Jedes Schiff startet auf einem Basispunkt der eigenen Fraktion, diese Basispunkte sind zusammenhängend. Schauen richtung 0
+
+3. Wieviele Schiffe hat eine Fraktion?
+- unbekannt
+
+4. Wie groß ist eine Basis?
+- unbekannt
+
+5. Können wir verschiene Taktiken verwenden für Tunier / Sparrow?
+- ja es darf danach noch daran geschliffen werden
+
+6. Wird die Karte gegen Sparrow im vorhinein bekannt gegeben?
+- die Karte ja, die Taktik nein
+
+7. Wenn ich auf eine Insel Move bewege ich mich dann tatsächlich auf die Insel oder bleibe ich davor stehen?
+- ich bleibe vor ihr stehen
