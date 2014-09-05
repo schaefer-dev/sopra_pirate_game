@@ -2,7 +2,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-
 public class Main {
 
 	private static final char emptyIsland = '#';
@@ -14,7 +13,6 @@ public class Main {
 	private static final double islandChance = 0.05;
 	private static final double islandSize = 4.6;
 
-	
 	private static Integer height;
 	private static Integer width;
 	private static Integer teamsPerMap;
@@ -38,6 +36,7 @@ public class Main {
 	private static char[][] build(){
 		Random gen = new Random();
 		
+		//Set world
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 			
@@ -58,15 +57,17 @@ public class Main {
 			}
 		}
 		
+		//Set treasures
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				
 				float pick = gen.nextFloat();
 				if((fields[y][x] == emptyIsland) && (pick < treasureChance))
-						fields[y][x] = treasure;
+					fields[y][x] = treasure;
 			}
 		}
 		
+		//Set bases
 		for(int i = 0; i < bases.length; i++){
 			boolean set = false;
 			while(!set){
@@ -79,7 +80,6 @@ public class Main {
 					set = true;
 				}
 			}
-			
 		}	
 		return fields;	
 	}
@@ -113,63 +113,35 @@ public class Main {
 	}
 	
 	private static void generateBases(int teamNumber, int y, int x){
-
 		Random gen = new Random();
+		int[] ys = {y-1, y, y+1};
+		int[] xs = {x-1, x, x+1};
 		
-		//Top left
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		float pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y-1, height)][mod(x-1, width)] = teamName(teamNumber);
-		//Top right
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y-1, height)][mod(x, width)] = teamName(teamNumber);
-		//Left
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y, height)][mod(x-1, width)] = teamName(teamNumber);
-		//Right
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y, height)][mod(x+1, width)] = teamName(teamNumber);
-		//Bottom left
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y+1, height)][mod(x-1, width)] = teamName(teamNumber);
-		//Bottom right
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y+1, height)][mod(x, width)] = teamName(teamNumber);
+		while(countBases(teamNumber) < boatsPerTeam){
+			int xPick;
+			if(y%2 == 0)
+				xPick = gen.nextInt(xs.length-1);
+			else
+				xPick = 1 + gen.nextInt(xs.length-1);
 		
-		if(countBases(teamNumber) < boatsPerTeam){
-			generateBases(teamNumber, y-1, x-1);
-			generateBases(teamNumber, y-1, x);
-			generateBases(teamNumber, y, x-1);
-			generateBases(teamNumber, y, x+1);
-			generateBases(teamNumber, y+1, x-1);
-			generateBases(teamNumber, y+1, x-1);
-		}		
+			int yPick = gen.nextInt(ys.length);
+			
+			if(generateBase(teamNumber, ys[yPick], xs[xPick]))
+				generateBases(teamNumber, ys[yPick], xs[xPick]);	
+		}
 	}
 	
-	private static void generateBase(int teamNumber, int y, int x){
-		Random gen = new Random();
-		if(countBases(teamNumber) >= boatsPerTeam)
-			return;
-		float pick = gen.nextFloat();
-		if(pick < baseChance)
-			fields[mod(y-1, height)][mod(x-1, width)] = teamName(teamNumber);
+	private static boolean generateBase(int teamNumber, int y, int x){
+		if(countBases(teamNumber) < boatsPerTeam){
+			
+			Random gen = new Random();
+			float pick = gen.nextFloat();
+			if(pick < baseChance){
+				fields[mod(y, height)][mod(x, width)] = teamName(teamNumber);
+				return true;
+			}			
+		}
+		return false;
 	}
 	
 	private static int countBases(int teamNumber){
