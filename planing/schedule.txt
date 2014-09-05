@@ -1,0 +1,10 @@
+0. Observer + Observable + Log 			(Rafael) 25.09
+1. Lexer (+ Token / TokenKind)			(Andreas) 25.09-26.09
+2. Parser (Commands(ohne execute!))		(Andreas) 25.09-26.09
+3. Translator						(Andreas) 25.09-26.09
+4. Team						(Janna) 25.09
+5. Object						(Janna) 25.09
+6. Actor + Ship					(Daniel) 25.09
+7. Field							(Janna + Daniel) 25.09-26.09
+8. Map							(Jan + Rafael) 25.09-26.09
+9. execute in Commands				(Aufteilung Erfolg noch je nach abarbeitung der vorherigen Implementierungen) 26.09-01.10
