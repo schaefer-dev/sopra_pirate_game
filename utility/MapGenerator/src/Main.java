@@ -10,19 +10,21 @@ public class Main {
 	
 	private static final double treasureChance = 0.3;
 	private static final double baseChance = 0.7;
-	private static final double islandChance = 0.05;
+	private static final double islandChance = 1;
 
 	private static Integer height;
 	private static Integer width;
 	private static Integer islandsCount;
-	private static Integer minIslandSize = 100;
-	private static Integer maxIslandSize = 500;
+	private static Integer minIslandSize = 80;
+	private static Integer maxIslandSize = 300;
 	private static Integer teamsPerMap;
 	private static Integer boatsPerTeam;
 	private static int[] bases;
 	private static int[] islandSizes;
-	private static int[] currIslandSizes;
 	private static char[][] fields;
+	
+	private static boolean baseMustBeNearIsland = false;		//broken
+	
 	
 	public static void main(String[] args) throws FileNotFoundException{
 				
@@ -33,16 +35,15 @@ public class Main {
 		boatsPerTeam = Integer.parseInt(args[4]);
 		
 		islandSizes = new int[islandsCount];
-		currIslandSizes = new int[islandsCount];
 		bases = new int[teamsPerMap];
 		fields = new char[height][width];
 		
-		write(build());
-		System.out.println("end");
+		build();
+		write();
 	}
 	
 	
-	private static void write(char[][] fields) throws FileNotFoundException{
+	private static void write() throws FileNotFoundException{
 		
 		PrintWriter out = new PrintWriter("map.txt");
 		out.write(height.toString() + '\n');
@@ -62,18 +63,16 @@ public class Main {
 	}
 	
 	
-	private static char[][] build(){		
+	private static void build(){	
+		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++)
 				fields[y][x] = water;
 		}
-		
 		setIslands();
 		setTreasures();
 		setBases();
 		cleanUp();
-		
-		return fields;	
 	}
 	
 	private static void setIslands(){
@@ -89,7 +88,7 @@ public class Main {
 				
 				if(fields[y][x] == water){
 					fields[y][x] = emptyIsland;
-					currIslandSizes[i]++;
+					islandSizes[i]--;
 					generateIslandSwarm(i, y, x);
 					set = true;
 				}
@@ -123,6 +122,9 @@ public class Main {
 				int y = gen.nextInt(height);
 				
 				if(fields[y][x] == water){
+					if(baseMustBeNearIsland && (hasNeigbor(y, x, emptyIsland) < 3))
+						continue;
+					
 					fields[y][x] = teamName(i);
 					generateBaseSwarm(i, y, x);
 					set = true;
@@ -131,14 +133,6 @@ public class Main {
 		}
 	}
 	
-	
-	private static int mod(int a, int b){
-		return (a%b + b) % b;
-	}
-	
-	private static char teamName(int number){
-		return ((char) (97 + number));
-	}
 	
 	private static void generateBaseSwarm(int teamNumber, int y, int x){
 		Random gen = new Random();
@@ -177,7 +171,7 @@ public class Main {
 		int[] ys = {y-1, y, y+1};
 		int[] xs = {x-1, x, x+1};
 		
-		while(currIslandSizes[islandIndex] < islandSizes[islandIndex]){
+		while(islandSizes[islandIndex] > 0){
 			int xPick;
 			if(y%2 == 0)
 				xPick = gen.nextInt(xs.length-1);
@@ -192,13 +186,13 @@ public class Main {
 	}
 	
 	private static boolean generateIsland(int islandIndex, int y, int x){
-		if(currIslandSizes[islandIndex] < islandSizes[islandIndex]){
+		if(islandSizes[islandIndex] > 0){
 			
 			Random gen = new Random();
 			float pick = gen.nextFloat();
 			if(pick < islandChance){
 				fields[mod(y, height)][mod(x, width)] = emptyIsland;
-				currIslandSizes[islandIndex]++;
+				islandSizes[islandIndex]--;
 				return true;
 			}			
 		}
@@ -247,7 +241,6 @@ public class Main {
 			counter++;
 		
 		return counter;
-		
 	}
 	
 	private static boolean hasNeighbor(int y, int x, char fieldType){
@@ -261,11 +254,20 @@ public class Main {
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 			
-				if((fields[y][x] == emptyIsland) || (fields[y][x] == treasure)){
-					if(!(hasNeighbor(y, x, emptyIsland) || hasNeighbor(y, x, treasure)))
-						fields[y][x] = water;
+				if(fields[y][x] == water){
+					int neighborCount = hasNeigbor(y, x, emptyIsland) + hasNeigbor(y, x, treasure); 
+					if(neighborCount > 6)
+						fields[y][x] = emptyIsland;
 				}
 			}
 		}
+	}
+	
+	private static int mod(int a, int b){
+		return (a%b + b) % b;
+	}
+	
+	private static char teamName(int number){
+		return ((char) (97 + number));
 	}
 }
