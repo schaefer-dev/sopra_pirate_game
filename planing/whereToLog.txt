@@ -1,0 +1,35 @@
+whereToLog
+
+
+Simulator:
+	Logstep
+		bei Erstellung + jeder Äenderung loggen
+
+
+Schiffe:
+	Initialisierung mit Teamangehörigkeit
+	Initialisierung mit Direction
+	Initiialisierung mit Moral
+	Initiialisierung mit PC
+	Initiialisierung mit xCoord
+	Initiialisierung mit yCorrd
+	Initiialisierung mit Resting
+	Initiialisierung mit Value (Ladung)
+		alle Aenderungen dieser Register werden geloggt
+	Zerstörung von Schiffen
+
+Treasure:
+	Value
+	xCoord
+	yCoord
+		bei Erstellung + jeder Äenderung loggen
+
+Buoy:
+	Teamangehörigkeit
+	Value
+	xCoord
+	yCoord
+
+Teams:
+	Score
+		bei Erstellung + jeder Äenderung loggen
