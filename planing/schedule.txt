@@ -1,8 +1,8 @@
-Unit Tests: 
+Unit Tests:  Deadline 16.09
 
-0. Log 							Andreas
-1. Lexer (+ Token / TokenKind)			Jan
-2. Parser (Commands(ohne execute!))		Jan
+0. Log 							Andreas	
+1. Lexer (+ Token / TokenKind)			Jan		
+2. Parser (Commands(ohne execute!))		Jan 		
 3. Translator						Jan
 4. Team						Daniel
 5. Entity						Daniel
