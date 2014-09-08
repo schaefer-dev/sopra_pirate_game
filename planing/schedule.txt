@@ -1,8 +1,8 @@
-Unit Tests: 
+Unit Tests:  Deadline 16.09
 
-0. Log 							Andreas
-1. Lexer (+ Token / TokenKind)			Jan
-2. Parser (Commands(ohne execute!))		Jan
+0. Log  + Simulator					Andreas	
+1. Lexer (+ Token / TokenKind)			Jan		
+2. Parser (Commands(ohne execute!))		Jan 		
 3. Translator						Jan
 4. Team						Daniel
 5. Entity						Daniel
@@ -14,7 +14,7 @@ Unit Tests:
 
 Implementation:
 
-0. Log 							(Rafael) 25.09
+0. Log 	+ Simulator					(Rafael) 25.09
 1. Lexer (+ Token / TokenKind)			(Andreas) 25.09-26.09
 2. Parser (Commands(ohne execute!))		(Andreas) 25.09-26.09
 3. Translator						(Andreas) 25.09-26.09
