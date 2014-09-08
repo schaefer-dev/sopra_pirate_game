@@ -40,10 +40,6 @@ public class Transformer {
 					fields[y][x] = water;
 				else
 					fields[y][x] = emptyIsland;
-				/*
-				if(b < 180)
-					fields[y][x] = emptyIsland;
-				*/
 			}
 		}	
 		return fields;
