@@ -38,6 +38,7 @@ Buoy:
 	Valuet
 	xCoord
 	yCoord
+		wird in placeLog in Field geloggt, dort auch überprüfung ob überhaupt geloggt werden kann
 
 Teams:
 	Score
