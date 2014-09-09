@@ -1,4 +1,4 @@
-whereToLog
+﻿whereToLog
 
 
 Simulator:
@@ -15,8 +15,17 @@ Schiffe:
 	Initiialisierung mit yCorrd
 	Initiialisierung mit Resting
 	Initiialisierung mit Value (Ladung)
+	Initialisierung mit Condition
 		alle Aenderungen dieser Register werden geloggt
-	Zerstörung von Schiffen
+
+
+Änderung PC: im Schiff bei setPC
+Änderung Moral: im Schiff bei setMoral
+Änderung Direction: im Schiff bei setDirection
+Änderung Resting: im Schiff bei setBreak
+Änderung Value: im Schiff mit setValue
+Änderung Condition: im Schiff mit setCondition
+Zerstörung des Schiffes: Loggen in Ship.destroy
 
 Treasure:
 	Value
