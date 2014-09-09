@@ -31,14 +31,14 @@ Treasure:
 	Value
 	xCoord
 	yCoord
-		bei Erstellung + jeder Änderung loggen
+		bei Erstellung + jeder Änderung loggen in Field
 
 Buoy:
 	Teamangehörigkeit
-	Value
+	Valuet
 	xCoord
 	yCoord
 
 Teams:
 	Score
-		bei Erstellung + jeder Änderung loggen
+		bei Erstellung + jeder Änderung loggen in Team (incPoints, setPoints)
