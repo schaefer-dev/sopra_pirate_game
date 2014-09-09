@@ -3,26 +3,26 @@ whereToLog
 
 Simulator:
 	Logstep
-		bei Erstellung + jeder Äenderung loggen
+		bei Erstellung + jeder Änderung loggen
 
 
 Schiffe:
 	Initialisierung mit Teamangehörigkeit
 	Initialisierung mit Direction
-	Initiialisierung mit Moral
-	Initiialisierung mit PC
-	Initiialisierung mit xCoord
-	Initiialisierung mit yCorrd
-	Initiialisierung mit Resting
-	Initiialisierung mit Value (Ladung)
-		alle Aenderungen dieser Register werden geloggt
+	Initialisierung mit Moral
+	Initialisierung mit PC
+	Initialisierung mit xCoord
+	Initialisierung mit yCorrd
+	Initialisierung mit Resting
+	Initialisierung mit Value (Ladung)
+		alle Änderungen dieser Register werden geloggt
 	Zerstörung von Schiffen
 
 Treasure:
 	Value
 	xCoord
 	yCoord
-		bei Erstellung + jeder Äenderung loggen
+		bei Erstellung + jeder Änderung loggen
 
 Buoy:
 	Teamangehörigkeit
@@ -32,4 +32,4 @@ Buoy:
 
 Teams:
 	Score
-		bei Erstellung + jeder Äenderung loggen
+		bei Erstellung + jeder Änderung loggen
