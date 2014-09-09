@@ -42,3 +42,9 @@ Buoy:
 Teams:
 	Score
 		bei Erstellung + jeder Änderung loggen in Team (incPoints, setPoints)
+
+PC loggen:
+
+	in Aktor am Ende der "act"-Methode, da in execute in den Commands die PCs beliebig geändert werden könnten und dann der neue PC EINMAL am ende des act-Zuges eines Aktors geloggt wird über beispielsweise eine Hilfsmethode in Aktor logPC();
+	
+	PC wird VOR aufrufen des Command executes um 1 erhöht, da er nicht den gesetzten wert nach den Commands um 1 erhöht sondern nur falls diese NICHTS ändern um 1 erhöht wird
