@@ -5,10 +5,10 @@ Simulator:
 	Logstep
 		bei Erstellung + jeder Änderung loggen
 
-
 Schiffe:
 	Initialisierung mit Teamangehörigkeit
 	Initialisierung mit Direction
+
 	Initialisierung mit Moral
 	Initialisierung mit PC
 	Initialisierung mit xCoord
@@ -17,6 +17,15 @@ Schiffe:
 	Initialisierung mit Value (Ladung)
 		alle Änderungen dieser Register werden geloggt
 	Zerstörung von Schiffen
+
+Änderung PC: im Schiff bei setPC
+Änderung Moral: im Schiff bei setMoral
+Änderung Direction: im Schiff bei setDirection
+Änderung Resting: im Schiff bei setBreak
+Änderung Value: im Schiff mit setValue
+Änderung Condition: im Schiff mit setCondition
+Zerstörung des Schiffes: Loggen in Ship.destroy
+
 
 Treasure:
 	Value

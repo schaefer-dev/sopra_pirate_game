@@ -1,4 +1,4 @@
-Fragen + Antworten zum Projekt:
+﻿Fragen + Antworten zum Projekt:
 
 1. wie kommt man an die Schätze die im Mittelpunkt einer Insel sind? (S.13 Doku)
 - garnicht
@@ -20,3 +20,6 @@ Fragen + Antworten zum Projekt:
 
 7. Wenn ich auf eine Insel Move bewege ich mich dann tatsächlich auf die Insel oder bleibe ich davor stehen?
 - ich bleibe vor ihr stehen
+
+8. Konsolenargumente Main: Wie?
+- Lassen sich aus dem System auslesen.
