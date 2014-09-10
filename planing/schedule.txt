@@ -1,26 +1,31 @@
 Unit Tests:  Deadline 16.09
 
-0. Log  + Simulator					Andreas	
-1. Lexer (+ Token / TokenKind)			Jan		
-2. Parser (Commands(ohne execute!))		Jan 		
-3. Translator						Jan
-4. Team						Daniel
-5. Entity						Daniel
-6. Actor + Ship					Janna
-7. Field							Jan + Rafael
-8. Map							Janna + Daniel
-9. execute in Commands				(Aufteilung Erfolg noch je nach abarbeitung der vorherigen Implementierungen) 
-
+1. Log  + Simulator							Andreas			
+2. Translator								Jan
+3. Team										Daniel
+4. Entity + Treasure + Buoy + Kraken		Daniel
+5. Ship										Janna
+6. Field									Jan + Rafael
+7. Map										Janna + Daniel
+8. execute in Commands				(Aufteilung Erfolg noch je nach abarbeitung der vorherigen Implementierungen) 
+9. Turn + Mark + Unmark						Daniel
+10. Move									Janna
+11. Pickup + Drop + Refresh + Repair		Jan
+12. Flipzero + Goto + Sense					Andreas
+13. If, Ifall, IfAny + Comparison			Rafael
 
 Implementation:
 
-0. Log + Simulator					(Rafael) 25.09
-1. Lexer (+ Token / TokenKind)			(Andreas) 25.09-26.09
-2. Parser (Commands(ohne execute!))		(Andreas) 25.09-26.09
-3. Translator						(Andreas) 25.09-26.09
-4. Team						(Janna) 25.09
-5. Entity						(Janna) 25.09
-6. Actor + Ship					(Daniel) 25.09
-7. Field							(Janna + Daniel) 25.09-26.09
-8. Map							(Jan + Rafael) 25.09-26.09
-9. execute in Commands				(Aufteilung Erfolg noch je nach abarbeitung der vorherigen Implementierungen) 26.09-01.10
+1. Log + Simulator							(Rafael) 25.09
+2. Translator								(Andreas) 25.09-26.09
+3. Team										(Janna) 25.09
+4. Entity+ Treasure + Buoy + Kraken			(Janna) 25.09
+5. Ship										(Daniel) 25.09
+6. Field									(Janna + Daniel) 25.09-26.09
+7. Map										(Jan + Rafael) 25.09-26.09
+8. execute in Commands						(Aufteilung Erfolg noch je nach abarbeitung der vorherigen Implementierungen) 26.09-01.10
+9. Turn + Mark + Unmark						Janna
+10. Move									Daniel
+11. Pickup + Drop + Refresh + Repair		Andreas
+12. Flipzero + Goto + Sense					Rafael
+13. If, Ifall, IfAny + Comparison			Jan
