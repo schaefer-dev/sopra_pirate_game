@@ -26,9 +26,11 @@
 
 9. Alle Felder Loggen mit addCell Loggen, bevor Schiffe etc. mit create() geloggt werden, oder geht das auch durcheinander?
 Kann man also die Gegenstände auf den Feldern direkt nach dem erstllen des Feldes loggen?
+- Vielleicht
 
 10. Ist es erlaubt mehr Taktikdateien als Teams auf der Karte zu haben, bzw. bei einer Taktikdatei Teams auf der Karte zu ueberspringen?
 Kann es auf einer Karte z.B. nur die Basen fuer die Teams a, b, d,f geben?
-
+- Darf nicht passieren
 11. Kann es vorkommen, bzw. muss man abfangen, dass eine Karte nicht den in den ersten beiden Zeilen angegebenen
 Maßen entspricht?
+- Ja, muss man abfangen.
