@@ -24,8 +24,8 @@ Implementation:
 6. Field									(Janna + Daniel) 25.09-26.09
 7. Map										(Jan + Rafael) 25.09-26.09
 8. execute in Commands						(Aufteilung Erfolg noch je nach abarbeitung der vorherigen Implementierungen) 26.09-01.10
-9. Turn + Mark + Unmark						Janna
-10. Move									Daniel
-11. Pickup + Drop + Refresh + Repair		Andreas
-12. Flipzero + Goto + Sense					Rafael
-13. If, Ifall, IfAny + Comparison			Jan
+9. Turn + Mark + Unmark						Janna 	30.09
+10. Move									Daniel 	30.09
+11. Pickup + Drop + Refresh + Repair		Andreas 30.09
+12. Flipzero + Goto + Sense					Rafael 	30.09
+13. If, Ifall, IfAny + Comparison			Jan 	30.09
