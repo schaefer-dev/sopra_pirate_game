@@ -14,7 +14,7 @@ Unit Tests:  Deadline 16.09
 
 Implementation:
 
-0. Log 	+ Simulator					(Rafael) 25.09
+0. Log + Simulator					(Rafael) 25.09
 1. Lexer (+ Token / TokenKind)			(Andreas) 25.09-26.09
 2. Parser (Commands(ohne execute!))		(Andreas) 25.09-26.09
 3. Translator						(Andreas) 25.09-26.09
