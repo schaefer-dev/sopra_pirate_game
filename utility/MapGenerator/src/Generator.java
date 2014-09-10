@@ -9,9 +9,10 @@ public class Generator {
 
 	private final char emptyIsland = '#';
 	private final char water = '.';
-	private final char treasure = '$';
+	private final char provision = '$';
 	
-	private final double treasureChance = 0.3;
+	private final double provisionChance = 0.1;
+	private final double treasureChance = 0.2;
 	private final double baseChance = 0.7;
 	private final double islandChance = 0.8;
 
@@ -93,7 +94,8 @@ public class Generator {
 		}
 		
 		smoothIslands(5);
-		setTreasures();
+		setProvision();
+		setTreasure();
 		setBases();	
 
 		placed = true;
@@ -136,15 +138,30 @@ public class Generator {
 	}
 	
 
-	private void setTreasures(){
+	private void setProvision(){
 		Random gen = new Random();
 		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				
 				float pick = gen.nextFloat();
-				if((fields[y][x] == emptyIsland) && (pick < treasureChance) && hasNeighbor(y, x, water))
-					fields[y][x] = treasure;		
+				if((fields[y][x] == emptyIsland) && (pick < provisionChance) && hasNeighbor(y, x, water))
+					fields[y][x] = provision;		
+			}
+		}
+	}
+	
+	private void setTreasure(){
+		Random gen = new Random();
+				
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
+				
+				float pick = gen.nextFloat();
+				if((fields[y][x] == emptyIsland) && (pick < treasureChance) && hasNeighbor(y, x, water)){
+					int treasureSize = 1 + gen.nextInt(9);
+					fields[y][x] = (char)(48 + treasureSize);	
+				}		
 			}
 		}
 	}

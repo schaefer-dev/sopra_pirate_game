@@ -34,7 +34,7 @@ public class Main {
 				write(gen.generate());	
 				break;
 			case "url":
-				if(!createImageFromURL(args[5])){
+				if(!createImageFromURL(args[5], args[1])){
 					System.out.println("Invalid input");
 					return;
 				}
@@ -117,12 +117,12 @@ public class Main {
 		return colors;
 	}
 	
-	public static boolean createImageFromURL(String location){
+	public static boolean createImageFromURL(String location, String fileLocation){
 		
 		location = location.replaceAll(" ", "");
 		try{
 		    BufferedImage img = ImageIO.read(new URL("http://maps.googleapis.com/maps/api/staticmap?center="+location+"+&zoom=5&scale=false&size=600x600&maptype=terrain&sensor=false&format=png&visual_refresh=true"));
-		    File outputfile = new File("map.png");
+		    File outputfile = new File(fileLocation);
 		    ImageIO.write(img, "png", outputfile);
 		    return true;
 		} 
