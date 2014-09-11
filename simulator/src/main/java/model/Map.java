@@ -9,7 +9,7 @@ public class Map {
 
 	private int height;
 	private int width;
-	private Field[] fields;
+	private Field[][] fields;
 	private int nextFreeActorID;
 	private int nextFreeEntityID;
 	private LogWriter log;
@@ -54,5 +54,10 @@ public class Map {
 	public List<Kraken> getKraken(){
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void setMapValues(Field[][] fields, int nextFreeActorId, int nextFreeEntityId,
+												Ship firstShip, List<Kraken> kraken){
+		// TODO Auto-generated method stub
 	}
 }
