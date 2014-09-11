@@ -10,6 +10,10 @@ public class CellTypeComparison implements Comparison {
 	private Register register;
 	private CellType type;
 	
+	public CellTypeComparison(Operator opr, Register register, CellType type) {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public boolean eval(Ship ship) {
 		// TODO Auto-generated method stub
