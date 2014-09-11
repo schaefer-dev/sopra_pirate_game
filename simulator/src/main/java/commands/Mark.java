@@ -16,5 +16,16 @@ public class Mark implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Mark)
+		{
+			Mark other = (Mark) o;
+			if(other.type == type)
+				return true;
+		}
+		return false;
+	}
 
 }

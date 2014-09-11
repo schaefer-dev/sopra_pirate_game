@@ -16,5 +16,16 @@ public class Sense implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Sense)
+		{
+			Sense other = (Sense) o;
+			if(other.direction == direction)
+				return true;
+		}
+		return false;
+	}
 
 }

@@ -18,5 +18,17 @@ public class If implements Command {
 	public void execute(Ship ship) {
 		// TODO Auto-generated method stub
 	}
+	
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof If)
+		{
+			If other = (If) o;
+			if(other.elsePC == elsePC && other.comparison.equals(comparison))
+				return true;
+		}
+		return false;
+	}
 
 }

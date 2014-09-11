@@ -21,5 +21,16 @@ public class IfAny implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof IfAny)
+		{
+			IfAny other = (IfAny) o;
+			if(other.elsePC == elsePC && other.clauses.equals(clauses))
+				return true;
+		}
+		return false;
+	}
 
 }

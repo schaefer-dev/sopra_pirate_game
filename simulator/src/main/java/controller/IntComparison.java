@@ -27,5 +27,17 @@ public class IntComparison implements Comparison {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof IntComparison)
+		{
+			IntComparison other = (IntComparison) o;
+			if(left == other.left && right == other.right && constant == other.constant && opr == other.opr)
+				return true;
+		}
+		return false;
+	}
 
 }

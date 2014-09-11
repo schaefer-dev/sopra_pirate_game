@@ -16,5 +16,15 @@ public class Goto implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Goto)
+		{
+			if(((Goto) o).pc == pc)
+				return true;
+		}
+		return false;
+	}
 
 }
