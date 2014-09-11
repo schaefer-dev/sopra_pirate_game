@@ -1,5 +1,6 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -18,33 +19,76 @@ import model.Water;
 
 public class TestObjectConstructor {
 	
-	public List<Base> testBases; 
-	public List<Buoy> testBouys;
-	public List<Island> testIslands;
-	public List<Kraken> testKraken;
-	public List<Map> testMaps; 
-	public List<ProvisionIsland> testProvisionIsland;
-	public List<Ship> testShips; 
-	public List<Team> testTeams;
-	public List<Treasure> testTreasures;
-	public List<Water> testWater;
+	private List<String> tacticStringList;
 	
 	
 	public TestObjectConstructor(int seed) {
+		
 		Random randomGen = new Random(seed);
-		this.testBases = new LinkedList();
-		this.testBouys =new LinkedList();
-		this.testIslands = new LinkedList();
-		this.testKraken = new LinkedList();
-		this.testMaps = new LinkedList();
-		this.testProvisionIsland = new LinkedList();
-		this.testShips = new LinkedList();
-		this.testTeams = new LinkedList();
-		this.testTreasures = new LinkedList();
-		this.testWater = new LinkedList();	
+		List<String> tacticStringList = new ArrayList();
+		
 	}
 	
-	private void generate(){
+	private void generateTacticLines(){
+		tacticStringList.add("sense 0");
+		tacticStringList.add("ifall sense_treasure ship_load<4 else 4");
+		tacticStringList.add("pickup 0 else 6");
+		tacticStringList.add("goto 14");
+		tacticStringList.add("if ship_load>3 else 6");
+		tacticStringList.add("goto 14");
+		tacticStringList.add("move else 8");
+		tacticStringList.add("goto 0");
+		tacticStringList.add("flipzero 3 else 11");
+		tacticStringList.add("turn left");
+		tacticStringList.add("goto 0");
+		tacticStringList.add("sense 0");
+		tacticStringList.add("if sense_celltype==home else 19");
+		tacticStringList.add("move else 21");
+		tacticStringList.add("drop");
+		tacticStringList.add("goto 0");
+		tacticStringList.add("move else 21");
+		tacticStringList.add("drop");
+		tacticStringList.add("goto 0");
+		tacticStringList.add("move else 21");
+		tacticStringList.add( "goto 14");
+		tacticStringList.add("flipzero 3 else 24");
+		tacticStringList.add("turn left");
+		tacticStringList.add("goto 14");
+		tacticStringList.add("flipzero 2 else 26");
+		tacticStringList.add("turn right");
+		tacticStringList.add("goto 14");
+	}
+	
+	private void generateSimulator(){
+		
+		List<String> shipTaktiks = new ArrayList() ;
+		shipTaktiks.add("sense 0"
+				+ "ifall sense_treasure ship_load<4 else 4"
+				+ "pickup 0 else 6"
+				+ "goto 14"
+				+ "if ship_load>3 else 6"
+				+ "goto 14"
+				+ "move else 8"
+				+ "goto 0"
+				+ "flipzero 3 else 11"
+				+ "turn left"
+				+ "goto 0"
+				+ "sense 0"
+				+ "if sense_celltype==home else 19"
+				+ "move else 21"
+				+ "drop"
+				+ "goto 0"
+				+ "move else 21"
+				+ "drop"
+				+ "goto 0"
+				+ "move else 21"
+				+ "goto 14"
+				+ "flipzero 3 else 24"
+				+ "turn left"
+				+ "goto 14"
+				+ "flipzero 2 else 26"
+				+ "turn right"
+				+ "goto 14");
 		
 		
 	}
