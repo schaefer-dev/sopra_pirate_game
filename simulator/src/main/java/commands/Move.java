@@ -7,6 +7,10 @@ public class Move implements Command {
 
 	private int elsePC;
 	
+	public Move(int pc){
+		this.elsePC = pc;
+	}
+	
 	@Override
 	public void execute(Ship ship) {
 		// TODO Auto-generated method stub
