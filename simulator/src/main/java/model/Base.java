@@ -5,7 +5,7 @@ public class Base extends Water {
 	private Team team;
 	
 	public Base(Map map, int x, int y, Team team) {
-		super(map, x, y);
+		super(map, x, y, null);
 		// TODO Auto-generated constructor stub
 	}
 
