@@ -17,5 +17,17 @@ public class BoolComparison implements Comparison {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof BoolComparison)
+		{
+			BoolComparison other = (BoolComparison) o;
+			if(register == other.register && invert == other.invert)
+				return true;
+		}
+		return false;
+	}
 
 }

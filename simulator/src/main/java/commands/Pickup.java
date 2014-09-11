@@ -18,5 +18,16 @@ public class Pickup implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Pickup)
+		{
+			Pickup other = (Pickup) o;
+			if(other.direction == direction && elsePC == other.elsePC)
+				return true;
+		}
+		return false;
+	}
 
 }

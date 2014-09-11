@@ -15,7 +15,16 @@ public class Flipzero implements Command{
 	@Override
 	public void execute(Ship ship) {
 		// TODO Auto-generated method stub
-
-	
+	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Flipzero)
+		{
+			Flipzero other = (Flipzero) o;
+			if(other.p == p && elsePC == other.elsePC)
+				return true;
+		}
+		return false;
 	}
 }

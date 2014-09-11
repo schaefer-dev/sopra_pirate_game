@@ -16,5 +16,16 @@ public class Unmark implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Unmark)
+		{
+			Unmark other = (Unmark) o;
+			if(other.type == type)
+				return true;
+		}
+		return false;
+	}
 
 }

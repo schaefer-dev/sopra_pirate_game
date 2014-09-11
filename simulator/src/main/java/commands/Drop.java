@@ -14,5 +14,10 @@ public class Drop implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals(Object o)
+	{
+		return o instanceof Drop;
+	}
 
 }

@@ -18,5 +18,16 @@ public class Refresh implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Refresh)
+		{
+			Refresh other = (Refresh) o;
+			if(other.direction == direction && elsePC == other.elsePC)
+				return true;
+		}
+		return false;
+	}
 
 }

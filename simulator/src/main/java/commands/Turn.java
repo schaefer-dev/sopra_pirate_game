@@ -16,5 +16,16 @@ public class Turn implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof Turn)
+		{
+			Turn other = (Turn) o;
+			if(other.left == left)
+				return true;
+		}
+		return false;
+	}
 
 }

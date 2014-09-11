@@ -6,3 +6,5 @@ public interface Comparison {
 
 	public boolean eval(Ship ship);
 }
+
+

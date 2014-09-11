@@ -21,5 +21,17 @@ public class IfAll implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof IfAll)
+		{
+			IfAll other = (IfAll) o;
+			if(other.elsePC == elsePC && other.clauses.equals(clauses))
+				return true;
+		}
+		return false;
+	}
 
 }

@@ -19,5 +19,17 @@ public class ShipTypeComparison implements Comparison {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public boolean equals (Object o)
+	{
+		if(o instanceof ShipTypeComparison)
+		{
+			ShipTypeComparison other = (ShipTypeComparison) o;
+			if(register == other.register && type == other.type && opr == other.opr)
+				return true;
+		}
+		return false;
+	}
 
 }
