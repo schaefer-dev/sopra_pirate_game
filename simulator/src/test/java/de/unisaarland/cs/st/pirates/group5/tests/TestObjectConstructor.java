@@ -20,17 +20,24 @@ import model.Water;
 public class TestObjectConstructor {
 	
 	private List<String> tacticStringList;
+	private List<String> tacticLineStringList;
+	private Random randomGen;
 	
 	
 	public TestObjectConstructor(int seed) {
 		
-		Random randomGen = new Random(seed);
-		List<String> tacticStringList = new ArrayList();
+		this.randomGen = new Random(seed);
+		this.tacticLineStringList = new ArrayList();
+		this.tacticStringList = new ArrayList();
 		
+		
+		this.generateTacticLineStringList();
+		this.generateTacticList();
 	}
 	
-	private void generateTacticLines(){
-		tacticStringList.add("sense 0");
+	private void generateTacticLineStringList(){
+		/* creating single TacticLines in tacticStringList for later usage */
+		tacticLineStringList.add("sense 0");
 		tacticStringList.add("ifall sense_treasure ship_load<4 else 4");
 		tacticStringList.add("pickup 0 else 6");
 		tacticStringList.add("goto 14");
@@ -59,38 +66,16 @@ public class TestObjectConstructor {
 		tacticStringList.add("goto 14");
 	}
 	
-	private void generateSimulator(){
-		
-		List<String> shipTaktiks = new ArrayList() ;
-		shipTaktiks.add("sense 0"
-				+ "ifall sense_treasure ship_load<4 else 4"
-				+ "pickup 0 else 6"
-				+ "goto 14"
-				+ "if ship_load>3 else 6"
-				+ "goto 14"
-				+ "move else 8"
-				+ "goto 0"
-				+ "flipzero 3 else 11"
-				+ "turn left"
-				+ "goto 0"
-				+ "sense 0"
-				+ "if sense_celltype==home else 19"
-				+ "move else 21"
-				+ "drop"
-				+ "goto 0"
-				+ "move else 21"
-				+ "drop"
-				+ "goto 0"
-				+ "move else 21"
-				+ "goto 14"
-				+ "flipzero 3 else 24"
-				+ "turn left"
-				+ "goto 14"
-				+ "flipzero 2 else 26"
-				+ "turn right"
-				+ "goto 14");
-		
-		
+	private void generateTacticList(){
+		/* generates Tactic for every single Line in tacticStringList and a Tactic which contains all the tacticLines together in a big file*/
+		List<String> shipTactics = new ArrayList() ;
+		String tactic = "";
+		String bigTactic = "";
+		for (int i=0; i<tacticStringList.size(); i++){		//connects commandLines into big TacticString
+			bigTactic += tacticStringList.get(i);
+			shipTactics.add(tacticLineStringList.get(i));
+		}
+		shipTactics.add(bigTactic);		
 	}
 
 	
