@@ -6,7 +6,7 @@ public enum Register {
 	ship_moral,
 	ship_condition,
 	sense_celltype,
-	sense_treaure,
+	sense_treasure,
 	sense_marker0,
 	sense_marker1,
 	sense_marker2,
@@ -17,5 +17,5 @@ public enum Register {
 	sense_shiptype,
 	sense_shipdirection,
 	sense_shiploaded,
-	sense_suppy
+	sense_supply
 }

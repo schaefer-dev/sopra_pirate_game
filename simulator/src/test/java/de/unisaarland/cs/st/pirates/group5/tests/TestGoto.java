@@ -27,7 +27,7 @@ public class TestGoto {
 	go = new Goto(pc);
 	goList.add(go);
 	test = new Team('a', goList);
-	ship = new Ship(test,null,1);
+	ship = new Ship(test,null,1,null);
 	}
 
 	@Test
