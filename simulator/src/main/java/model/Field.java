@@ -70,5 +70,9 @@ public abstract class Field {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public void deleteBuoy(Team team, int value){
+		// TODO Auto-generated method stub
+		return;
+	}
 	
 }
