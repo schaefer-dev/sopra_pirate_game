@@ -19,84 +19,56 @@ public class CommandTurnTests {
 	public void TestTurnLeft1(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
+		DoTurnXTimes(1, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 5);	
 	}
 	@Test
 	public void TestTurnLeft2(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(2, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 4);	
 	}
 	@Test
 	public void TestTurnLeft3(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(3, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 3);	
 	}
 	@Test
 	public void TestTurnLeft4(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(4, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 2);	
 	}
 	@Test
 	public void TestTurnLeft5(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(5, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 1);	
 	}
 	@Test
 	public void TestTurnLeft6(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(6, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 0);	
 	}
 	@Test
 	public void TestTurnLeft7CornerCase(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(7, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 5);	
 	}
 	@Test
 	public void TestTurnLeft8CornerCase(){
 		Turn testTurn = new Turn(true);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(8, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 4);	
 	}
 	
@@ -104,71 +76,55 @@ public class CommandTurnTests {
 	public void TestTurnRight1(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
+		DoTurnXTimes(1, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 1);	
 	}
 	@Test
 	public void TestTurnRight2(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(2, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 2);	
 	}
 	@Test
 	public void TestTurnRight3(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(3, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 3);	
 	}
 	@Test
 	public void TestTurnRight4(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(4, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 4);	
 	}
 	@Test
 	public void TestTurnRight5(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(5, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 5);	
 	}
 	@Test
 	public void TestTurnRight6CornerCase(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(6, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 0);	
 	}
 	@Test
 	public void TestTurnRight7CornerCase(){
 		Turn testTurn = new Turn(false);
 		Ship ship = new Ship(null,null,0,null);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
-		testTurn.execute(ship);
+		DoTurnXTimes(7, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 1);	
+	}
+	
+	public void DoTurnXTimes (int x, Turn turn, Ship ship){
+		for (int i=0; (i < x); i++)
+			turn.execute(ship);
 	}
 	
 	
