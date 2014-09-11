@@ -4,7 +4,7 @@ public class Treasure extends Entity {
 
 	private int value;
 	
-	protected Treasure(int id, int value) {
+	public Treasure(int id, int value) {
 		super(id);
 		// TODO Auto-generated method stub
 	}

@@ -25,33 +25,33 @@ public class TestObjectConstructor {
 	
 	private void generateTacticLineStringList(){
 		/* creating single TacticLines in tacticStringList for later usage */
-		tacticLineStringList.add("sense 0");
-		tacticStringList.add("ifall sense_treasure ship_load<4 else 4");
-		tacticStringList.add("pickup 0 else 6");
-		tacticStringList.add("goto 14");
-		tacticStringList.add("if ship_load>3 else 6");
-		tacticStringList.add("goto 14");
-		tacticStringList.add("move else 8");
-		tacticStringList.add("goto 0");
-		tacticStringList.add("flipzero 3 else 11");
-		tacticStringList.add("turn left");
-		tacticStringList.add("goto 0");
-		tacticStringList.add("sense 0");
-		tacticStringList.add("if sense_celltype==home else 19");
-		tacticStringList.add("move else 21");
-		tacticStringList.add("drop");
-		tacticStringList.add("goto 0");
-		tacticStringList.add("move else 21");
-		tacticStringList.add("drop");
-		tacticStringList.add("goto 0");
-		tacticStringList.add("move else 21");
-		tacticStringList.add( "goto 14");
-		tacticStringList.add("flipzero 3 else 24");
-		tacticStringList.add("turn left");
-		tacticStringList.add("goto 14");
-		tacticStringList.add("flipzero 2 else 26");
-		tacticStringList.add("turn right");
-		tacticStringList.add("goto 14");
+		tacticLineStringList.add("sense 0\n");
+		tacticStringList.add("ifall sense_treasure ship_load<4 else 4\n");
+		tacticStringList.add("pickup 0 else 6\n");
+		tacticStringList.add("goto 14\n");
+		tacticStringList.add("if ship_load>3 else 6\n");
+		tacticStringList.add("goto 14\n");
+		tacticStringList.add("move else 8\n");
+		tacticStringList.add("goto 0\n");
+		tacticStringList.add("flipzero 3 else 11\n");
+		tacticStringList.add("turn left\n");
+		tacticStringList.add("goto 0\n");
+		tacticStringList.add("sense 0\n");
+		tacticStringList.add("if sense_celltype==home else 19\n");
+		tacticStringList.add("move else 21\n");
+		tacticStringList.add("drop\n");
+		tacticStringList.add("goto 0\n");
+		tacticStringList.add("move else 21\n");
+		tacticStringList.add("drop\n");
+		tacticStringList.add("goto 0\n");
+		tacticStringList.add("move else 21\n");
+		tacticStringList.add( "goto 14\n");
+		tacticStringList.add("flipzero 3 else 24\n");
+		tacticStringList.add("turn left\n");
+		tacticStringList.add("goto 14\n");
+		tacticStringList.add("flipzero 2 else 26\n");
+		tacticStringList.add("turn right\n");
+		tacticStringList.add("goto 14\n");
 	}
 	
 	private void generateTacticList(){
