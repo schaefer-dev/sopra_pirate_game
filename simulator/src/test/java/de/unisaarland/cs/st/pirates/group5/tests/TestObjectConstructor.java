@@ -1,20 +1,8 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import model.Base;
-import model.Buoy;
-import model.Island;
-import model.Kraken;
-import model.Map;
-import model.ProvisionIsland;
-import model.Ship;
-import model.Team;
-import model.Treasure;
-import model.Water;
  
 
 public class TestObjectConstructor {
@@ -27,8 +15,8 @@ public class TestObjectConstructor {
 	public TestObjectConstructor(int seed) {
 		
 		this.randomGen = new Random(seed);
-		this.tacticLineStringList = new ArrayList();
-		this.tacticStringList = new ArrayList();
+		this.tacticLineStringList = new ArrayList<String>();
+		this.tacticStringList = new ArrayList<String>();
 		
 		
 		this.generateTacticLineStringList();
@@ -68,16 +56,13 @@ public class TestObjectConstructor {
 	
 	private void generateTacticList(){
 		/* generates Tactic for every single Line in tacticStringList and a Tactic which contains all the tacticLines together in a big file*/
-		List<String> shipTactics = new ArrayList() ;
-		String tactic = "";
+		List<String> shipTactics = new ArrayList<String>() ;
 		String bigTactic = "";
 		for (int i=0; i<tacticStringList.size(); i++){		//connects commandLines into big TacticString
 			bigTactic += tacticStringList.get(i);
 			shipTactics.add(tacticLineStringList.get(i));
 		}
 		shipTactics.add(bigTactic);		
-	}
-
-	
+	}	
 	
 }
