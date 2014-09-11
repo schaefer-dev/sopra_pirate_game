@@ -1,0 +1,175 @@
+package de.unisaarland.cs.st.pirates.group5.tests;
+
+import static org.junit.Assert.*;
+import model.Ship;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import commands.Turn;
+
+public class CommandTurnTests {
+	
+	@Before
+	public void setUp(){
+		
+	}
+
+	@Test
+	public void TestTurnLeft1(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 5);	
+	}
+	@Test
+	public void TestTurnLeft2(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 4);	
+	}
+	@Test
+	public void TestTurnLeft3(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 3);	
+	}
+	@Test
+	public void TestTurnLeft4(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 2);	
+	}
+	@Test
+	public void TestTurnLeft5(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 1);	
+	}
+	@Test
+	public void TestTurnLeft6(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 0);	
+	}
+	@Test
+	public void TestTurnLeft7CornerCase(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 5);	
+	}
+	@Test
+	public void TestTurnLeft8CornerCase(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		ship.changeDirection(true);
+		assertTrue(ship.getShipDirection() == 4);	
+	}
+	
+	@Test
+	public void TestTurnRight1(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 1);	
+	}
+	@Test
+	public void TestTurnRight2(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 2);	
+	}
+	@Test
+	public void TestTurnRight3(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 3);	
+	}
+	@Test
+	public void TestTurnRight4(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 4);	
+	}
+	@Test
+	public void TestTurnRight5(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 5);	
+	}
+	@Test
+	public void TestTurnRight6CornerCase(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 0);	
+	}
+	@Test
+	public void TestTurnRight7CornerCase(){
+		Turn testTurn = new Turn(true);
+		Ship ship = new Ship(null,null,0,null);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		ship.changeDirection(false);
+		assertTrue(ship.getShipDirection() == 1);	
+	}
+	
+	
+}
