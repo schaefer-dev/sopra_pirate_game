@@ -41,4 +41,18 @@ public class Map {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void setFirstShip(Ship ship){
+		// TODO Auto-generated method stub
+	}
+	
+	public Ship getFirstShip(){
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public List<Kraken> getKraken(){
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -7,6 +7,8 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 public class Log implements LogWriter {
 
+	private LogWriter logger;
+	private LogWriter guiController;
 	@Override
 	public LogWriter addCell(Cell arg0, Integer arg1, int arg2, int arg3)
 			throws NullPointerException, ArrayIndexOutOfBoundsException,
