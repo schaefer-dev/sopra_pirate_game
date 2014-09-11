@@ -17,7 +17,6 @@ public class If implements Command {
 	@Override
 	public void execute(Ship ship) {
 		// TODO Auto-generated method stub
-
 	}
 
 }
