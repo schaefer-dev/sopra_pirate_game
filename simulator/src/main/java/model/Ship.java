@@ -11,14 +11,20 @@ public class Ship {
 	private Field field;
 	private int noPositivActionCounter;
 	private int[] registers = new int[18];
+	private Ship previousShip;
+	private Ship nextShip;
 	
-	public Ship(Team team, Field field, int id){
+	public Ship(Team team, Field field, int id, Ship previous){
 		this.id = id;
 		// TODO Auto-generated method stub
 	}
 	
 	public void act(){
 		// TODO Auto-generated method stub
+	}
+	
+	public int getPC(){
+		return this.pc;
 	}
 	
 	public Team getTeam(){
@@ -54,7 +60,7 @@ public class Ship {
 		return 0;
 	}
 	
-	public void changeDirection(int direction){
+	public void changeDirection(boolean left){
 		// TODO Auto-generated method stub
 	}
 	
@@ -112,8 +118,18 @@ public class Ship {
 		// TODO Auto-generated method stub
 	}
 	
+	public Ship getNextShip(){
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void setNextShip(Ship next){
+		// TODO Auto-generated method stub
+	}
+	
 	private void destroy(){
 		// TODO Auto-generated method stub
 	}
+	
 	
 }
