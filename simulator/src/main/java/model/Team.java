@@ -31,4 +31,13 @@ public class Team {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean equals(final Object other) {
+		if (other instanceof Team) {
+			if ((this.name)==((Team)other).name)
+				return true;
+		}
+		return false;
+	}
 }
