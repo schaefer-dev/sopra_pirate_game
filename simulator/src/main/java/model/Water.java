@@ -4,7 +4,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 public class Water extends Field {
 
-	public Water(Map map, int x, int y) {
+	public Water(Map map, int x, int y, Kraken kraken) {
 		super(map, x, y, null);
 		// TODO Auto-generated constructor stub
 	}
