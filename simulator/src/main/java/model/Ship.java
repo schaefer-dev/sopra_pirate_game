@@ -21,6 +21,10 @@ public class Ship {
 		// TODO Auto-generated method stub
 	}
 	
+	public int getPC(){
+		return this.pc;
+	}
+	
 	public Team getTeam(){
 		// TODO Auto-generated method stub
 		return null;
