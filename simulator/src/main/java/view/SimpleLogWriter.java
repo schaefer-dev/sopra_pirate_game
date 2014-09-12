@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
-
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
+
 
 public class SimpleLogWriter implements LogWriter {
 	
@@ -25,7 +23,7 @@ public class SimpleLogWriter implements LogWriter {
 	private Date now;
 	private boolean init;
 	private int teamCount;
-	private static String transcation = "";
+	private String transStart;
 	
 	@Override
 	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
@@ -115,8 +113,9 @@ public class SimpleLogWriter implements LogWriter {
 		if(!init) throw new IllegalStateException("Logger hasn't been initialised");
 		
 		round++;
-		write(LogType.Info, "====================");
+		write(LogType.None, "=========================");
 	}
+	
 	@Override
 	public LogWriter create(Entity arg0, int arg1, Key[] arg2, int[] arg3) throws NullPointerException, IllegalArgumentException, ArrayIndexOutOfBoundsException, IllegalStateException {
 		if(arg0 == null || arg2 == null || arg3 == null) throw new NullPointerException();
@@ -173,24 +172,33 @@ public class SimpleLogWriter implements LogWriter {
 	@Override
 	public Transaction beginTransaction(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		
+		Integer id = arg1;
+		transStart = arg0.toString() + "(" + id.toString() + "):\n";
 		
 		return new Transaction() {
 			
+			private String transaction = "";
 			@Override
 			public Transaction set(Key arg0, int arg1) throws NullPointerException,
 					IllegalArgumentException {
 				
-				transcation += "asdgsdg";
+				Integer value = arg1;
+				transaction += arg0.toString() + " changed to " + value.toString();
+				transaction += "\n";
 				return this;
+			}
+			
+			@Override
+			public String toString(){
+				return transaction;
 			}
 		};
 	}
 
 	@Override
 	public LogWriter commitTransaction(Transaction arg0) throws NullPointerException, IllegalArgumentException, IllegalStateException {
-		write(LogType.Info, transcation);
-		transcation = "";
-		
+		write(LogType.None, transStart);	
+		write(LogType.Info, arg0.toString());
 		return this;
 	}
 	

@@ -132,7 +132,7 @@ public class TestObjectConstructor {
 		tacticStringList.add("turn right\n");
 		tacticCommandList.add(new Turn(false));
 		
-		tacticStringList.add("goto 14\n");
+		tacticStringList.add("goto 14");
 		tacticCommandList.add(new Goto(14));
 	}
 	
