@@ -25,7 +25,7 @@ public class CommandUnMarkTests {
 		waterField.placeBuoy(0, teamA);
 		waterField.deleteBuoy(teamA,0);
 		
-		assertTrue(waterField.getBuoys().size()==1);	
+		assertTrue(waterField.getBuoys().size()==0);	
 	}
 	
 	@Test
@@ -72,6 +72,9 @@ public class CommandUnMarkTests {
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(2, teamC);
 		waterField.placeBuoy(0, teamA);
+		waterField.deleteBuoy(teamC,2);
+		waterField.deleteBuoy(teamA,0);
+		waterField.deleteBuoy(teamC,2);
 		waterField.deleteBuoy(teamC,2);
 		waterField.deleteBuoy(teamA,0);
 		assertTrue(waterField.getBuoys().size()==1);	
