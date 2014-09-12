@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import model.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,17 +15,18 @@ public class MapGeneratorTest {
 	
 	private InputStream stream;
 	private MapGenerator mapgen;
+	private Map map;
 	
 	@Before
 	public void setUp() throws FileNotFoundException {
-		stream = new FileInputStream("/Users/Janna/sopra/simulator/src/test/Resources/map2x2.txt");
+		stream = getClass().getResourceAsStream("/map2x2.txt");
 		mapgen = new MapGenerator(null);
 		
 	}
 
 	@Test
 	public void mapGenTest(){
-		mapgen.createMap(stream, null, null);
+		map = mapgen.createMap(stream, null, null);
 	}
 	
 }
