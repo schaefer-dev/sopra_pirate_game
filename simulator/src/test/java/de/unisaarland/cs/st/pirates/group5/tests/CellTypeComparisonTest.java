@@ -62,7 +62,7 @@ public class CellTypeComparisonTest {
 	@Test
 	public void WrongOperatorTest(){
 		
-		String message = "Operator undefined for ShipTypeComparison";
+		String message = "Operator undefined for CellTypeComparison";
 		
 		try{
 			compare = new CellTypeComparison(Operator.Less, Register.sense_celltype, CellType.Empty);
