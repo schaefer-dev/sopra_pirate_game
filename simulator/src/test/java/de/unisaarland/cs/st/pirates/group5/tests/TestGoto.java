@@ -22,12 +22,11 @@ public class TestGoto {
 	Ship ship;
 	
 	@Before
-	
 	public void setUp(){
-	go = new Goto(pc);
-	goList.add(go);
-	test = new Team('a', goList);
-	ship = new Ship(test,null,1,null);
+		go = new Goto(pc);
+		goList.add(go);
+		test = new Team('a', goList);
+		ship = new Ship(test,null,1,null);
 	}
 
 	@Test
