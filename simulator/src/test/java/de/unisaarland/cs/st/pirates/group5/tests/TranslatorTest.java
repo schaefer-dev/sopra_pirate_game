@@ -11,11 +11,13 @@ import commands.Goto;
 import commands.If;
 import commands.IfAll;
 import commands.IfAny;
+import commands.Mark;
 import commands.Move;
 import commands.Pickup;
 import commands.Repair;
 import commands.Sense;
 import commands.Turn;
+import commands.Unmark;
 
 import org.junit.Test;
 
@@ -121,6 +123,105 @@ public class TranslatorTest {
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of the tactic with an ifany command does not give the correct result", sollErg, erg);
 	}
+	
+	public void testBouys()
+	{
+		String tactic = "sense 6\n"
+						+ "if sense_treasure!=0 else 7\n"
+						+ "pickup 6 else 7\n"
+						+"if 0!=sense_treasure else 7\n"
+						+ "mark 5\n" +lines.get(6) + lines.get(7)
+						+"unmark 5\n"
+						+lines.get(12)
+						+ "goto 5";
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(new Sense(6));
+		Comparison comp = new IntComparison(UNEQUAL, Register.sense_treasure, 0);
+		sollErg.add(new If(comp, 7));
+		sollErg.add(new Pickup(6, 7));
+		comp = new IntComparison(UNEQUAL, 0, Register.sense_treasure);
+		sollErg.add(new If(comp, 7));
+		sollErg.add(new Mark(5));
+		sollErg.add(commands.get(6));
+		sollErg.add(commands.get(7));
+		sollErg.add(new Unmark(5));
+		sollErg.add(commands.get(12));
+		sollErg.add(new Goto(5));
+		List<Command> erg = translator.run(stringToStream(tactic));
+		assertEquals("Translation of the tactic setting bouys does not give the correct result", sollErg, erg);
+	}
+	
+	public void testMarkWrongBouy()
+	{
+		String badTactic = lines.get(17) + "mark 6\n" + lines.get(18);
+		InputStream in = stringToStream(badTactic);
+		try{
+			translator.run(in);
+			fail("Translator should not allow bouys of type 6");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	
+	public void testUnmarkWrongBouy()
+	{
+		String badTactic = lines.get(17) + "unmark 6\n" + lines.get(18);
+		InputStream in = stringToStream(badTactic);
+		try{
+			translator.run(in);
+			fail("Translator should not allow bouys of type 6");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	
+	public void testNonsense()
+	{
+		String noTactic = "sanmashfkasl";
+		InputStream in = stringToStream(noTactic);
+		try{
+			translator.run(in);
+			fail("Translator should not allow gibberish");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	
+	public void testNoBoolComparison1()
+	{
+		String badTactic = lines.get(0) + "ifall sense_treasure==true ship_load<4 else 0\n"+
+							"goto 0";
+		InputStream in = stringToStream(badTactic);
+		
+		try{
+			translator.run(in);
+			fail("Comparisons with true and false are not allowed");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	public void testNoBoolComparison2()
+	{
+		String badTactic = lines.get(0) + "ifany sense_treasure==true ship_load<4 else 0\n"+
+				"goto 0";
+		InputStream in = stringToStream(badTactic);
+		
+		try{
+			translator.run(in);
+			fail("Comparisons with true and false are not allowed");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	
+	public void testNoBoolComparison3()
+	{
+		String badTactic = lines.get(0) + "if sense_treasure==true else 0\n"+
+				"goto 0";
+		InputStream in = stringToStream(badTactic);
+		
+		try{
+			translator.run(in);
+			fail("Comparisons with true and false are not allowed");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	
 	private InputStream stringToStream(String tactic)
 	{
 		byte[] temp = tactic.getBytes();
