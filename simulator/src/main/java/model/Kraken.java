@@ -13,8 +13,17 @@ public class Kraken {
 	public void move(){
 		// TODO Auto-generated method stub
 	}
-	
-	public void setField(Field field){
-		// TODO Auto-generated method stub
+	public Field getField() {
+		return field;
 	}
+
+	public void setField(Field field) {
+		this.field = field;
+	}
+
+	public int getId() {
+		return id;
+	}
+	
+	
 }
