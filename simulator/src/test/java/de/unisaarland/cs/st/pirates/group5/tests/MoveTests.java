@@ -59,7 +59,9 @@ public class MoveTests {
 	
 
 	@Before
-	protected void setUp(){
+	public void setUp(){
+		
+		fields = new Field[3][3];
 		
 		moveit = new Move(0);
 		map = new Map(null);
