@@ -39,7 +39,6 @@ public class TranslatorTest {
 	
 	@Test
 	public void testExampleTactic(){
-		TestObjectConstructor constr = new TestObjectConstructor();
 		String tactic = lines.get(lines.size()-1);
 		byte[] temp = tactic.getBytes();
 		InputStream in = new ByteArrayInputStream(temp);
