@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
+
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 
@@ -59,8 +60,14 @@ public class SimpleLogWriter implements LogWriter {
 
 	@Override
 	public void close() throws IllegalStateException, IOException {
-		out.flush();
-		out.close();
+		if(round == 0) throw new IllegalStateException();
+		try{
+			out.flush();
+			out.close();	
+		}
+		catch(Exception e){
+			throw new IOException();
+		}
 	}
 	
 	private void write(LogType type, String message){
@@ -110,10 +117,15 @@ public class SimpleLogWriter implements LogWriter {
 
 	@Override
 	public void logStep() throws IllegalStateException, IOException {
-		if(!init) throw new IllegalStateException("Logger hasn't been initialised");
+		if(!init) throw new IllegalStateException();
 		
 		round++;
-		write(LogType.None, "=========================");
+		try{
+			write(LogType.None, "=========================");
+		}
+		catch(Exception e){
+			throw new IOException();
+		}
 	}
 	
 	@Override
@@ -122,11 +134,13 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg1 < 0) throw new IllegalArgumentException();
 		if(!init) throw new IllegalStateException();
 		if(arg2.length != arg3.length) throw new ArrayIndexOutOfBoundsException();
-		//TODO: missing exception
+		
 		
 		Integer id = arg1;
 		write(LogType.None, "Create: " + arg0.toString() + "(" + id.toString() + "):");
 		for(int i = 0; i < arg2.length; i++){
+			if(!validKey(arg0, arg2[i])) throw new IllegalArgumentException();
+			
 			Integer arg = arg3[i];
 			write(LogType.Init, "Create: " + arg2[i].toString() + ": " + arg.toString());
 		}
@@ -161,7 +175,7 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg0 == null | arg2 == null) throw new NullPointerException();
 		if(arg1 < 0) throw new IllegalArgumentException();
 		if(round == 0) throw new IllegalStateException();
-		//TODO: missing exception
+		if(!validKey(arg0,  arg2)) throw new IllegalArgumentException();
 		
 		Integer id = arg1;
 		Integer value = arg3;
@@ -171,6 +185,9 @@ public class SimpleLogWriter implements LogWriter {
 	
 	@Override
 	public Transaction beginTransaction(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
+		if(arg0 == null) throw new NullPointerException();
+		if(arg1 < 0) throw new IllegalArgumentException();
+		if(!init) throw new IllegalStateException();
 		
 		Integer id = arg1;
 		transStart = arg0.toString() + "(" + id.toString() + "):\n";
@@ -179,15 +196,15 @@ public class SimpleLogWriter implements LogWriter {
 			
 			private String transaction = "";
 			@Override
-			public Transaction set(Key arg0, int arg1) throws NullPointerException,
-					IllegalArgumentException {
+			public Transaction set(Key arg0, int arg1) throws NullPointerException, IllegalArgumentException {
+				if(arg0 == null) throw new NullPointerException();
+				//TODO: missing exception
 				
 				Integer value = arg1;
 				transaction += arg0.toString() + " changed to " + value.toString();
 				transaction += "\n";
 				return this;
-			}
-			
+			}			
 			@Override
 			public String toString(){
 				return transaction;
@@ -197,6 +214,10 @@ public class SimpleLogWriter implements LogWriter {
 
 	@Override
 	public LogWriter commitTransaction(Transaction arg0) throws NullPointerException, IllegalArgumentException, IllegalStateException {
+		if(arg0 == null) throw new NullPointerException();
+		if(arg0.toString().length() == 0) throw new IllegalArgumentException();
+		if(round == 0) throw new IllegalStateException();
+		
 		write(LogType.None, transStart);	
 		write(LogType.Info, arg0.toString());
 		return this;
@@ -204,5 +225,57 @@ public class SimpleLogWriter implements LogWriter {
 	
 	private String teamName(int i){
 		return "" + (i + 'a');
+	}
+	
+	private boolean validKey(Entity e, Key k){
+		if(e.equals(Entity.BUOY)){
+			switch(k){
+				case FLEET:
+				case VALUE:
+				case X_COORD:
+				case Y_COORD:
+					return true;
+				default:
+					return false;
+			}	
+		}
+		else if(e.equals(Entity.TREASURE)){
+			switch(k){
+				case VALUE:
+				case X_COORD:
+				case Y_COORD:
+					return true;
+				default:
+					return false;
+			}		
+		}
+		else if(e.equals(Entity.SHIP)){
+			switch(k){
+				case DIRECTION:
+				case CONDITION:
+				case FLEET:
+				case MORAL:
+				case PC:
+				case RESTING:
+				case VALUE:
+				case X_COORD:
+				case Y_COORD:
+					return true;
+				default:
+					return false;
+			}			
+		}
+		else if(e.equals(Entity.KRAKEN)){
+			switch(k){
+				case PC:
+				case X_COORD:
+				case Y_COORD:
+					return true;
+				default:
+					return false;
+			}				
+		}
+		
+		return false;
 	}
 }
