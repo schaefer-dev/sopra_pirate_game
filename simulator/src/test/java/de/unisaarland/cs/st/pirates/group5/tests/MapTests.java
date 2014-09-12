@@ -55,8 +55,8 @@ public class MapTests {
 		map.setMapValues(fields, 4, 2, first, krakens);
 	}
 	
-	@Test
-	public void test(){
+	@Test (expected=Exception.class)
+	public void testGetNeighbour(){
 		
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 0), geradeaus);
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 1), rechtsUntenVorne);
@@ -65,21 +65,29 @@ public class MapTests {
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 4), linksObenVorne);
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 5), linksObenHinten);
 		assertEquals("getNeighbour fail!",map.getNeighbour(geradeaus, 3), water);
-
+	}
+	@Test 
+	public void testGetFirstShip(){
 
 		assertEquals("Konstukter Set FirstShip fail!",map.getFirstShip(), first);
 			map.setFirstShip(second);
 			assertEquals("SetFirstShip fail!",map.getFirstShip(), second);
-		
-		assertEquals("Map/Kraken Relation broken!", map.getKraken().size(), 1);
+	}
+	@Test 
+	public void testGetKraken(){	
+		assertEquals("Map/Kraken relation broken!", map.getKraken().size(), 1);
 			assertTrue("Ultra sinnloser Test.",map.getKraken().contains(kraken));
-		
+	}
+	@Test (expected=Exception.class)
+	public void testGetIDs(){
 		assertEquals("Not next free ActorID.",map.giveNewActorID(),4);
 			assertEquals("Not next free ActorID.",map.giveNewActorID(),5);
 
 		assertEquals("Not next free EntityID.",map.giveNewEntityID(),2);
 			assertEquals("Not next free EntityID.",map.giveNewEntityID(),3);
-			
+	}
+	@Test (expected=Exception.class)
+	public void testGetTreasure(){		
 		if(linksObenHinten.getTreasure() == null)
 			fail("da muss ein Schatz liegen");
 		

@@ -24,6 +24,7 @@ import controller.Command;
 
 
 
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -188,7 +189,9 @@ public class TestField {
 		assertEquals("",rechtsUntenHinten.getTeam().getName(),a);
 	}	
 		
-		/*	firstShip.act();
+		/*	@Test (expected=Exception.class)
+		public void testWithExtendedSetup(){ 
+		firstShip.act();
 			assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),3);
 				
 				//Fall2: Ein Schiff, das stand, versinkt
@@ -223,7 +226,7 @@ public class TestField {
 							assertEquals("ExchangeTreasure broken.", elsewhere.getShip().getLoad(),4);
 
 
-	*/
+		}*/
 		
 	
 	

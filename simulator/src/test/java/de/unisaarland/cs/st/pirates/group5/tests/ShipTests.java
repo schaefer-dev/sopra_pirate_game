@@ -62,7 +62,7 @@ public class ShipTests {
 	}
 	
 	@Test
-	public void testChengeMoral3(){
+	public void testChangeMoral3(){
 		ship.changeMoral(-7);
 		assertTrue (ship.getMoral() == 0) ;
 	}

@@ -31,7 +31,7 @@ public class TestGoto {
 
 	@Test
 	public void test() {
-		assertEquals("blabla",ship.getPC(),pc);
+		assertEquals("Falscher PC.",ship.getPC(),pc);
 	}
 
 }
