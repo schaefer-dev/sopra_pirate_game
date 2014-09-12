@@ -150,9 +150,16 @@ public class TestField {
 		
 		water.placeBuoy(1, a);
 		assertEquals("buoy not placed",water.getBuoys().size(),1);
+		assertFalse("Cant not be placed twice", water.placeBuoy(1,a));
 		
 		water.deleteBuoy(a, 1);
 		assertEquals("buoy not deleted",water.getBuoys().size(),0);
+		
+		assertTrue("why not buoy 1", water.placeBuoy(1,a));
+		assertTrue("why not buoy 2", water.placeBuoy(2,a));
+		assertTrue("why not buoy 3", water.placeBuoy(3,a));
+		assertTrue("why not buoy 4", water.placeBuoy(4,a));
+		assertTrue("why not buoy 5", water.placeBuoy(5,a));
 		
 		Ship firstShip = new Ship(a,null,0,null);
 		water.setShip(firstShip);
