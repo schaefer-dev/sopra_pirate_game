@@ -22,7 +22,7 @@ public class KrakenTests {
 	 */
 	
 	@Test
-	public void moveKrakenWaterWithoutKraken(){
+	public void moveKrakenWaterWithoutKraken01(){
 		
 		/* no kraken on field */
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
@@ -42,10 +42,12 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==2);
 		assertTrue(testKraken.getField().getY()==2);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==null);
+		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==testKraken);
 	}
 	
 	@Test
-	public void moveKrakenWaterWithKraken(){
+	public void moveKrakenWaterWithKraken01(){
 		
 		/* with kraken on field */
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
@@ -68,6 +70,8 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
+		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
 	
 	
@@ -92,6 +96,8 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
+		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
 	
 	@Test
@@ -114,6 +120,8 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
+		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
 	
 	@Test
@@ -136,6 +144,8 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
+		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
 	
 	
