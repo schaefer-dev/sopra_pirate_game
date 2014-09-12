@@ -63,7 +63,7 @@ public class MoveTests {
 		
 		fields = new Field[3][3];
 		
-		moveit = new Move(0);
+		moveit = new Move(13);
 		map = new Map(null);
 		a = 0;
 		b = 1;
@@ -76,7 +76,7 @@ public class MoveTests {
 		shipenemy = new Ship(te, waterenemy, 1, null);
 		shipfriend = new Ship(tf, waterfriend, 2, null);
 		
-		island1 = new Island(map, 0, 0);
+		island1 = new Island(map, 0, 0, null);
 		water1 = new Water(map, 1, 0, null);
 		provision1 = new ProvisionIsland(map, 2, 0);
 		baseenemy = new Base(map, 0, 1, te);
@@ -123,6 +123,7 @@ public class MoveTests {
 		moveit.execute(shipme);
 		assertTrue (shipme.getPosition().equals(waterme));
 		assertTrue(waterme.getShip().equals(shipme));
+		assertTrue(shipme.getPC() == 13);
 	}
 	
 	@Test
@@ -143,6 +144,8 @@ public class MoveTests {
 		assertTrue (shipme.getCondition() == mecon);
 		assertTrue (shipenemy.getCondition() == (enemycon + 1));
 		
+		assertTrue(shipme.getPC() == 13);
+		
 	}
 	
 	@Test
@@ -162,6 +165,8 @@ public class MoveTests {
 		assertTrue (shipme.getCondition() == mecon);
 		assertTrue (shipenemy.getCondition() == 0);
 		
+		assertTrue(shipme.getPC() != 13);
+		
 	}
 	
 	@Test
@@ -180,6 +185,7 @@ public class MoveTests {
 		
 		assertTrue (shipenemy.getCondition() == enemycon);
 		assertTrue (shipme.getCondition() == (mecon + 1));
+		assertTrue(shipme.getPC() == 13);
 	}
 	@Test
 	public void testMoveShipEnemyLooseNotSurvive(){
@@ -197,6 +203,7 @@ public class MoveTests {
 		
 		assertTrue (shipme.getCondition() == 0);
 		assertTrue (shipenemy.getCondition() == enemycon);
+		assertTrue(shipme.getPC() != 13);
 	}
 	
 	@Test
@@ -208,6 +215,8 @@ public class MoveTests {
 		assertTrue (waterkraken.getShip().equals(shipme));
 		
 		assertTrue (shipme.getCondition() == (mecon+1));
+		
+		assertTrue(shipme.getPC() != 13);
 		
 		
 	}
@@ -222,6 +231,8 @@ public class MoveTests {
 		
 		assertTrue(shipme.getPosition().equals(waterme));
 		assertTrue (shipme.getCondition() == mecon);
+		
+		assertTrue(shipme.getPC() == 13);
 	}
 	
 	@Test
@@ -235,6 +246,8 @@ public class MoveTests {
 		assertTrue(baseenemy.getShip().equals(shipenemy));
 		
 		assertTrue (shipenemy.getCondition() == enemycon);
+		
+		assertTrue(shipme.getPC() != 13);
 		
 		
 	}
@@ -255,6 +268,8 @@ public class MoveTests {
 		assertTrue(shipme.getCondition() == (mecon+1));
 		assertTrue (shipme.getLoad() <= meload);
 		
+		assertTrue(shipme.getPC() == 13);
+		
 	}
 	
 	@Test
@@ -266,6 +281,8 @@ public class MoveTests {
 		assertTrue(shipme.getPosition().equals(waterme));
 		assertTrue(shipme.getCondition() == (mecon+1));
 		assertTrue (shipme.getLoad() <= meload);
+		
+		assertTrue(shipme.getPC() == 13);
 		
 	}
 }

@@ -27,7 +27,7 @@ public class MapGeneratorTest {
 	public void setUp() throws FileNotFoundException {
 		stream = getClass().getResourceAsStream("/map2x2.txt");
 		mapgen = new MapGenerator(null);
-		field = new Island(map, 0, 0);
+		field = new Island(map, 0, 0, null);
 		field2 = new Water(map, 1, 0, null);
 		
 	}

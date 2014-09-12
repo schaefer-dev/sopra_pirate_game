@@ -1,6 +1,7 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
+import model.Register;
 import model.Ship;
 import model.Field;
 import model.Water;
@@ -17,7 +18,25 @@ public class ShipTests {
 	private Ship shipn;
 	private Field field1;
 	private Field field;
+	private Ship sship;
 	
+	private Register shipdirection;
+	private Register shipload;
+	private Register shipmoral;
+	private Register shipcondition;
+	private Register sensecelltype;
+	private Register sensetreasure;
+	private Register sensemarker0;
+	private Register sensemarker1;
+	private Register sensemarker2;
+	private Register sensemarker3;
+	private Register sensemarker4;
+	private Register sensemarker5;
+	private Register senseenemymarker;
+	private Register senseshiptype;
+	private Register sensedirection;
+	private Register senseloaded;
+	private Register sensesupply;
 	
 	@Before
 	public void setUp(){
@@ -26,6 +45,7 @@ public class ShipTests {
 		shipn = new Ship(null, null, 0, null);
 		field = new Water(null, 0, 0, null);
 		field.setShip(ship);
+		sship = new Ship(null, field, 0, shipn);
 	}
 	
 	@Test
@@ -38,10 +58,11 @@ public class ShipTests {
 	public void testChangeMoral2(){
 		ship.changeMoral(3);
 		assertTrue (ship.getMoral() == 4) ;
+		assertTrue (ship.getNoPositivActionCounter() == 0);
 	}
 	
 	@Test
-	public void testChengeMoral3(){
+	public void testChangeMoral3(){
 		ship.changeMoral(-7);
 		assertTrue (ship.getMoral() == 0) ;
 	}
@@ -60,8 +81,10 @@ public class ShipTests {
 	
 	@Test
 	public void testChangeCondition3(){
-		ship.changeCondition(-7);
-		assertTrue (ship.getCondition() == 0);
+		ship.changeCondition(-1);
+		ship.changeCondition(-1);
+		ship.changeCondition(-1);
+		assertNull (field.getShip());
 	}
 	
 
@@ -190,7 +213,7 @@ public class ShipTests {
 	}
 	@Test
 	public void testDestroy(){
-		field  = ship.getPosition();
+		field1  = ship.getPosition();
 		ship.changeCondition(-7);
 		assertNull (ship.getPosition());
 		assertNull (field1.getShip());
@@ -198,5 +221,336 @@ public class ShipTests {
 		
 		//vorgaengerschiff testen
 	}
+	
+	@Test
+	public void testSenseRegistershipdirection1(){
+		sship.setSenseRegister(shipdirection, 5);
+		assertTrue (sship.getSenseRegister(shipdirection) == 5);
 		
+		sship.setSenseRegister(shipdirection, 0);
+		assertTrue (sship.getSenseRegister(shipdirection) == 0);
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistershipdirection2(){
+		sship.setSenseRegister(shipdirection, -1);
+		assertTrue (sship.getSenseRegister(shipdirection) == -1);
+		
+		sship.setSenseRegister(shipdirection, 6);
+		assertTrue (sship.getSenseRegister(shipdirection) == 6);
+	}
+	
+	@Test
+	public void testSenseRegistershipload1(){
+		sship.setSenseRegister(shipload, 0);
+		assertTrue (sship.getSenseRegister(shipload) == 0);
+		
+		sship.setSenseRegister(shipload, 4);
+		assertTrue (sship.getSenseRegister(shipload) == 4);
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistershipload2(){
+		sship.setSenseRegister(shipload, -1);
+		assertTrue (sship.getSenseRegister(shipload) == -1);
+		
+		sship.setSenseRegister(shipload, 5);
+		assertTrue (sship.getSenseRegister(shipload) == 5);
+	}
+	
+	@Test
+	public void testSenseRegistershipmoral(){
+		sship.setSenseRegister(shipmoral, 0);
+		assertTrue (sship.getSenseRegister(shipmoral) == 0);
+		
+		sship.setSenseRegister(shipmoral, 4);
+		assertTrue (sship.getSenseRegister(shipmoral) == 4);
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistershipmoral2(){
+		sship.setSenseRegister(shipmoral, -1);
+		assertTrue (sship.getSenseRegister(shipmoral) == -1);
+		
+		sship.setSenseRegister(shipmoral, 5);
+		assertTrue (sship.getSenseRegister(shipmoral) == 5);
+	}
+		
+	@Test
+	public void testSenseRegistershipcondition1(){
+		sship.setSenseRegister(shipcondition, 3);
+		assertTrue (sship.getSenseRegister(shipcondition) == 3);
+		
+		sship.setSenseRegister(shipcondition, 0);
+		assertTrue (sship.getSenseRegister(shipcondition) == 0);
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistershipcondition2(){
+		sship.setSenseRegister(shipcondition, -1);
+		assertTrue (sship.getSenseRegister(shipcondition) == -1);
+		
+		sship.setSenseRegister(shipcondition, 4);
+		assertTrue (sship.getSenseRegister(shipcondition) == 4);
+	}
+	
+	@Test
+	public void testSenseRegistersensecelltype1(){
+		sship.setSenseRegister(sensecelltype, 0);
+		assertTrue (sship.getSenseRegister(sensecelltype) == 0);
+		
+		sship.setSenseRegister(sensecelltype, 1);
+		assertTrue (sship.getSenseRegister(sensecelltype) == 1);
+		
+		sship.setSenseRegister(sensecelltype, 2);
+		assertTrue (sship.getSenseRegister(sensecelltype) == 2);
+		
+		sship.setSenseRegister(sensecelltype, 3);
+		assertTrue (sship.getSenseRegister(sensecelltype) == 3);
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensecelltype2(){
+		sship.setSenseRegister(sensecelltype, -1);
+		assertTrue (sship.getSenseRegister(sensecelltype) == -1);
+		
+		sship.setSenseRegister(sensecelltype, 4);
+		assertTrue (sship.getSenseRegister(sensecelltype) == 4);
+	}
+	
+	@Test
+	public void testSenseRegistersense1(){
+		sship.setSenseRegister(sensetreasure, 0);
+		assertTrue (sship.getSenseRegister(sensetreasure) == 0);
+		
+		sship.setSenseRegister(sensetreasure, 1);
+		assertTrue (sship.getSenseRegister(sensetreasure) == 1);
+		
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensetreasure2(){
+		sship.setSenseRegister(sensetreasure, -1);
+		assertTrue (sship.getSenseRegister(sensetreasure) == -1);
+		
+		sship.setSenseRegister(sensetreasure, 2);
+		assertTrue (sship.getSenseRegister(sensetreasure) == 2);
+	}
+	
+	@Test
+	public void testSenseRegistersensesupply1(){
+		sship.setSenseRegister(sensesupply, 0);
+		assertTrue (sship.getSenseRegister(sensesupply) == 0);
+		
+		sship.setSenseRegister(sensesupply, 1);
+		assertTrue (sship.getSenseRegister(sensesupply) == 1);
+		
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesupply2(){
+		sship.setSenseRegister(sensesupply, -1);
+		assertTrue (sship.getSenseRegister(sensesupply) == -1);
+		
+		sship.setSenseRegister(sensesupply, 2);
+		assertTrue (sship.getSenseRegister(sensesupply) == 2);
+	}
+	
+	@Test
+	public void testSenseRegistersenseenemymarker(){
+		sship.setSenseRegister(senseenemymarker, 0);
+		assertTrue (sship.getSenseRegister(senseenemymarker) == 0);
+		
+		sship.setSenseRegister(senseenemymarker, 1);
+		assertTrue (sship.getSenseRegister(senseenemymarker) == 1);
+		
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersenseenemymarker2(){
+		sship.setSenseRegister(senseenemymarker, -1);
+		assertTrue (sship.getSenseRegister(senseenemymarker) == -1);
+		
+		sship.setSenseRegister(senseenemymarker, 2);
+		assertTrue (sship.getSenseRegister(senseenemymarker) == 2);
+	}
+	
+	@Test
+	public void testSenseRegistersenseshiptype1(){
+		sship.setSenseRegister(senseshiptype, 0);
+		assertTrue (sship.getSenseRegister(senseshiptype) == 0);
+		
+		sship.setSenseRegister(senseshiptype, 1);
+		assertTrue (sship.getSenseRegister(senseshiptype) == 1);
+		
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersenseshiptype2(){
+		sship.setSenseRegister(senseshiptype, -1);
+		assertTrue (sship.getSenseRegister(senseshiptype) == -1);
+		
+		sship.setSenseRegister(senseshiptype, 2);
+		assertTrue (sship.getSenseRegister(senseshiptype) == 2);
+	}
+	
+
+	@Test
+	public void testSenseRegistersenseshiploaded1(){
+		sship.setSenseRegister(senseloaded, 0);
+		assertTrue (sship.getSenseRegister(senseloaded) == 0);
+		
+		sship.setSenseRegister(senseloaded, 1);
+		assertTrue (sship.getSenseRegister(senseloaded) == 1);
+		
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersenseshiploaded2(){
+		sship.setSenseRegister(senseloaded, -1);
+		assertTrue (sship.getSenseRegister(senseloaded) == -1);
+		
+		sship.setSenseRegister(senseloaded, 2);
+		assertTrue (sship.getSenseRegister(senseloaded) == 2);
+	}
+	
+	@Test
+	public void testSenseRegistersenseshipdirection1(){
+		sship.setSenseRegister(sensedirection, 0);
+		assertTrue (sship.getSenseRegister(sensedirection) == 0);
+		
+		sship.setSenseRegister(sensedirection, 1);
+		assertTrue (sship.getSenseRegister(sensedirection) == 1);
+		
+		sship.setSenseRegister(sensedirection, 2);
+		assertTrue (sship.getSenseRegister(sensedirection) == 2);
+		
+		sship.setSenseRegister(sensedirection, 3);
+		assertTrue (sship.getSenseRegister(sensedirection) == 3);
+		
+		sship.setSenseRegister(sensedirection, 4);
+		assertTrue (sship.getSenseRegister(sensedirection) == 4);
+		
+		sship.setSenseRegister(sensedirection, 5);
+		assertTrue (sship.getSenseRegister(sensedirection) == 5);
+		
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersenseshipcondition2(){
+		sship.setSenseRegister(sensedirection, -1);
+		assertTrue (sship.getSenseRegister(sensedirection) == -1);
+		
+		sship.setSenseRegister(sensedirection, 6);
+		assertTrue (sship.getSenseRegister(sensedirection) == 6);
+	}
+	
+	@Test
+	public void testSenseRegistersensesmarker21(){
+		sship.setSenseRegister(sensemarker2, 0);
+		assertTrue (sship.getSenseRegister(sensemarker2) == 0);
+		
+		sship.setSenseRegister(sensemarker2, 1);
+		assertTrue (sship.getSenseRegister(sensemarker2) == 1);
+			
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesensemarker22(){
+		sship.setSenseRegister(sensemarker2, -1);
+		assertTrue (sship.getSenseRegister(sensemarker2) == -1);
+		
+		sship.setSenseRegister(sensemarker2, 2);
+		assertTrue (sship.getSenseRegister(sensemarker2) == 2);
+	}
+	
+	@Test
+	public void testSenseRegistersensesmarker31(){
+		sship.setSenseRegister(sensemarker3, 0);
+		assertTrue (sship.getSenseRegister(sensemarker3) == 0);
+		
+		sship.setSenseRegister(sensemarker3, 1);
+		assertTrue (sship.getSenseRegister(sensemarker3) == 1);
+			
+	}
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesensemarker32(){
+		sship.setSenseRegister(sensemarker3, -1);
+		assertTrue (sship.getSenseRegister(sensemarker3) == -1);
+		
+		sship.setSenseRegister(sensemarker3, 2);
+		assertTrue (sship.getSenseRegister(sensemarker3) == 2);
+	}
+	
+
+	@Test 
+	public void testSenseRegistersensesensemarker41(){
+		sship.setSenseRegister(sensemarker4, 0);
+		assertTrue (sship.getSenseRegister(sensemarker4) == 0);
+		
+		sship.setSenseRegister(sensemarker4, 1);
+		assertTrue (sship.getSenseRegister(sensemarker4) == 1);
+	}
+	
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesensemarker42(){
+		sship.setSenseRegister(sensemarker4, -1);
+		assertTrue (sship.getSenseRegister(sensemarker4) == -1);
+		
+		sship.setSenseRegister(sensemarker4, 2);
+		assertTrue (sship.getSenseRegister(sensemarker4) == 2);
+	}
+	
+	@Test
+	public void testSenseRegistersensesmarker51(){
+		sship.setSenseRegister(sensemarker5, 0);
+		assertTrue (sship.getSenseRegister(sensemarker5) == 0);
+		
+		sship.setSenseRegister(sensemarker5, 1);
+		assertTrue (sship.getSenseRegister(sensemarker5) == 1);
+			
+	}
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesensemarker52(){
+		sship.setSenseRegister(sensemarker5, -1);
+		assertTrue (sship.getSenseRegister(sensemarker5) == -1);
+		
+		sship.setSenseRegister(sensemarker5, 2);
+		assertTrue (sship.getSenseRegister(sensemarker5) == 2);
+	}
+	
+
+	@Test
+	public void testSenseRegistersensesmarker01(){
+		sship.setSenseRegister(sensemarker0, 0);
+		assertTrue (sship.getSenseRegister(sensemarker0) == 0);
+		
+		sship.setSenseRegister(sensemarker0, 1);
+		assertTrue (sship.getSenseRegister(sensemarker0) == 1);
+			
+	}
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesensemarker02(){
+		sship.setSenseRegister(sensemarker0, -1);
+		assertTrue (sship.getSenseRegister(sensemarker0) == -1);
+		
+		sship.setSenseRegister(sensemarker0, 2);
+		assertTrue (sship.getSenseRegister(sensemarker0) == 2);
+	}
+	
+	
+	
+	
 }
