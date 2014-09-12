@@ -41,7 +41,7 @@ public class TestSense {
 	List<Command> senses = new ArrayList<Command>();
 	Team a = new Team('a',senses);
 	Team b;
-	Field[][] fields = new Field[3][3];
+	Field[][] fields = new Field[4][4];
 	Random random;
 	Map map = new Map(random);
 	Water water = new Water(map, 0, 3,null);

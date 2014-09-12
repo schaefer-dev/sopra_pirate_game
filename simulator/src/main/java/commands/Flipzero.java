@@ -4,12 +4,16 @@ import controller.Command;
 import model.Ship;
 
 public class Flipzero implements Command{
-	private int p;
+	private int p, random;
 	private int elsePC;
 	
 	public Flipzero(int p, int pc){
 		this.p = p;
 		this.elsePC = pc;
+	}
+	
+	public int getRandom(){
+		return random;
 	}
 	
 	@Override
