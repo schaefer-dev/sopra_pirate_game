@@ -32,13 +32,13 @@ public class MapTests {
 	Kraken kraken = new Kraken(1, null);
 	List<Kraken> krakens = new ArrayList<Kraken>();
 	Water water = new Water(map, 0, 0, kraken);
-	Island geradeaus = new Island(map, 1,0);
+	Island geradeaus = new Island(map, 1,0,null);
 	Water rechtsUntenVorne = new Water(map,0,1,null);
 	Water rechtsUntenHinten = new Water(map,3,1,null);
 	Water hinten = new Water(map,3,0,null);
 	ProvisionIsland linksObenVorne = new ProvisionIsland(map,0,3);
 	Treasure treasure = new Treasure(0, 9);
-	Island linksObenHinten = new Island(map,3,3);	
+	Island linksObenHinten = new Island(map,3,3,treasure);	
 	
 	@Before
 	public void setUp(){
@@ -79,6 +79,12 @@ public class MapTests {
 
 		assertEquals("Not next free EntityID.",map.giveNewEntityID(),2);
 			assertEquals("Not next free EntityID.",map.giveNewEntityID(),3);
+			
+		if(linksObenHinten.getTreasure() == null)
+			fail("da muss ein Schatz liegen");
+		
+		if(geradeaus.getTreasure() != null )
+			fail("da darf kein Schatz liegen");
 				
 	}
 }

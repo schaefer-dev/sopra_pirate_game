@@ -130,6 +130,5 @@ public class Ship {
 	private void destroy(){
 		// TODO Auto-generated method stub
 	}
-	
-	
+		
 }

@@ -16,6 +16,7 @@ import model.ProvisionIsland;
 import model.Ship;
 import model.ShipType;
 import model.Team;
+import model.Treasure;
 import model.Water;
 import model.Register;
 
@@ -28,6 +29,7 @@ import commands.Sense;
 import controller.Command;
 
 public class TestSense {
+	
 	Sense sense1 = new Sense(0);
 	Sense sense2 = new Sense(1);
 	Sense sense3 = new Sense(2);
@@ -37,16 +39,20 @@ public class TestSense {
 	Sense sense7 = new Sense(6);
 	Move  move   = new Move(0);
 	Goto  goto7  = new Goto(7);
+	
+	Treasure treasure = new Treasure(15,9);
 
 	List<Command> senses = new ArrayList<Command>();
 	Team a = new Team('a',senses);
 	Team b;
+	
 	Field[][] fields = new Field[4][4];
 	Random random;
 	Map map = new Map(random);
+	
 	Water water = new Water(map, 0, 3,null);
 	ProvisionIsland provision = new ProvisionIsland(map,0,1);
-	Island island = new Island(map,1,0);
+	Island island = new Island(map,1,0, treasure);
 	Base enemyBase = new Base(map,3,1,b);
 	Water alliedship = new Water(map,3,3,null);
 	Water enemyship = new Water(map,0,3,null);
@@ -67,18 +73,16 @@ public class TestSense {
 			senses.add(move);
 			senses.add(goto7);
 
-			homeBase.setShip(ship);
-			island.exchangeTreasure(9);//3,1
+			homeBase.setShip(ship);//0,0
 			alliedship.setShip(alienShip2);//3,3
 			alliedship.placeBuoy(3, a);
 			alliedship.placeBuoy(4, a);
 			enemyship.setShip(alienShip1);//1,0
 			enemyship.placeBuoy(5, a);
-			water.placeBuoy(1, a);//0,0
+			water.placeBuoy(1, a);//0,3
 			water.placeBuoy(1, b);
 			water.placeBuoy(4, a);
 			water.placeBuoy(2, a);
-			water.exchangeTreasure(5);
 			
 			ship.setLoad(3);
 	
@@ -118,16 +122,15 @@ public class TestSense {
 			assertEquals("",ship.getSenseRegister(Register.sense_supply), BoolWert.True);
 			assertEquals("",ship.getSenseRegister(Register.sense_shiptype),ShipType.Undefined);
 		
-			ship.act();//schaut nach 3,1. Hat: island, schatz. (2)
+			ship.act();//schaut nach 3,1. Hat: island. (1)
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Island);
-			assertEquals("",ship.getSenseRegister(Register.sense_treasure),BoolWert.True); 
+			assertEquals("",ship.getSenseRegister(Register.sense_treasure),BoolWert.False); 
 			assertEquals("",ship.getSenseRegister(Register.sense_marker5),BoolWert.False);
 			assertEquals("",ship.getSenseRegister(Register.sense_supply), BoolWert.False);
 
 
 			ship.act();//schaut nach 3,0. Hat:  EnemyBase (1)
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.EnemyHome);
-			assertEquals("",ship.getSenseRegister(Register.sense_treasure),BoolWert.False);
 	
 			ship.act();//schaut nach 3,3. Hat: water, verbuendetes Schiff (2)
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Empty);
