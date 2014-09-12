@@ -112,7 +112,7 @@ public class KrakenTests {
 		
 		for (int i=0; (i<2); i++){
 			for (int z=0; (z<2); z++){
-				fieldArray[z][i]=new Island(testMap,z,i);
+				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);

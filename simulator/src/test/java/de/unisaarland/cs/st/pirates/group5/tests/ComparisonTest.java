@@ -42,7 +42,7 @@ public class ComparisonTest {
 		}
 		
 		try{
-			shiCo = new ShipTypeComparison(Operator.Less, Register.sense_celltype, ShipType.Enemy);
+			shiCo = new ShipTypeComparison(Operator.Equal, Register.sense_celltype, ShipType.Enemy);
 			fail(message);
 		}
 		catch(Exception e){
@@ -58,7 +58,7 @@ public class ComparisonTest {
 		}
 		
 		try{
-			ceCo = new CellTypeComparison(Operator.Unequal, Register.sense_enemymarker, CellType.EnemyHome);
+			ceCo = new CellTypeComparison(Operator.Equal, Register.sense_enemymarker, CellType.EnemyHome);
 			fail(message);
 		}
 		catch(Exception e){
@@ -80,7 +80,47 @@ public class ComparisonTest {
 		}
 		
 		try{
-			shiCo = new ShipTypeComparison(Operator.Less, Register.sense_shiptype, null);
+			intCo = new IntComparison(Operator.Equal, null, 2);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			intCo = new IntComparison(Operator.Equal, 2, null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			intCo = new IntComparison(Operator.Equal, null, null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			shiCo = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			shiCo = new ShipTypeComparison(Operator.Equal, null, ShipType.Friend);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			shiCo = new ShipTypeComparison(null, Register.sense_shiptype, null);
 			fail(message);
 		}
 		catch(Exception e){
@@ -96,7 +136,31 @@ public class ComparisonTest {
 		}
 		
 		try{
-			intCo = new IntComparison(Operator.Greater, 3, Register.ship_load);
+			ceCo = new CellTypeComparison(null, Register.sense_celltype, CellType.EnemyHome);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			ceCo = new CellTypeComparison(Operator.Equal, null, CellType.EnemyHome);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			ceCo = new CellTypeComparison(Operator.Equal, Register.sense_celltype, null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			intCo = new IntComparison(Operator.Equal, 3, Register.ship_load);
 			intCo.eval(null);
 			fail(message);
 		}
@@ -116,6 +180,16 @@ public class ComparisonTest {
 		try{
 			boCo = new BoolComparison(Register.sense_marker1, true);
 			boCo.eval(null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		
+		try{
+			ceCo = new CellTypeComparison(Operator.Equal, Register.sense_celltype, CellType.Empty);
+			ceCo.eval(null);
 			fail(message);
 		}
 		catch(Exception e){

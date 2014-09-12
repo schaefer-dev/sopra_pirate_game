@@ -47,7 +47,35 @@ public class ShipTypeComparisonTest {
 		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Enemy);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
 		assertTrue(compare.eval(ship));
+		
+		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Enemy);
+		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
+		assertFalse(compare.eval(ship));
+		
+		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Undefined);
+		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
+		assertTrue(compare.eval(ship));
 	}
 	
-	
+	@Test
+	public void WrongOperatorTest(){
+		
+		String message = "Operator undefined for ShipTypeComparison";
+		
+		try{
+			compare = new ShipTypeComparison(Operator.Less, Register.sense_shiptype, ShipType.Enemy);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+		
+		try{
+			compare = new ShipTypeComparison(Operator.Greater, Register.sense_shiptype, ShipType.Enemy);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+	}
 }
