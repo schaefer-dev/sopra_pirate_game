@@ -61,7 +61,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
 		
@@ -101,7 +101,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
 		
@@ -141,7 +141,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
 		
@@ -181,7 +181,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
 		
@@ -220,7 +220,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
@@ -258,7 +258,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		fieldArray[0][0]=new Water(testMap,0,0,null);
 		
@@ -304,7 +304,7 @@ public class CommandPickupTests {
 		}	
 		testMap.setMapValues(fieldArray, 0, 0, null, null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
+		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		fieldArray[0][0]=new Water(testMap,0,0,null);
 		
