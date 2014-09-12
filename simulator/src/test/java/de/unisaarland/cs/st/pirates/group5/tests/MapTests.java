@@ -9,10 +9,12 @@ import java.util.Random;
 
 import model.Island;
 import model.Map;
+import model.ProvisionIsland;
 import model.Ship;
 import model.Field;
 import model.Kraken;
 import model.Team;
+import model.Treasure;
 import model.Water;
 
 import org.junit.Before;
@@ -34,11 +36,9 @@ public class MapTests {
 	Water rechtsUntenVorne = new Water(map,0,1,null);
 	Water rechtsUntenHinten = new Water(map,3,1,null);
 	Water hinten = new Water(map,3,0,null);
-	Island rechtsOben = new Island(map,0,3);
-	Island linksOben = new Island(map,3,3);
-	
-	
-	
+	ProvisionIsland linksObenVorne = new ProvisionIsland(map,0,3);
+	Treasure treasure = new Treasure(0, 9);
+	Island linksObenHinten = new Island(map,3,3);	
 	
 	@Before
 	public void setUp(){
@@ -49,8 +49,8 @@ public class MapTests {
 		fields[0][1] = rechtsUntenVorne;
 		fields[3][1] = rechtsUntenHinten;
 		fields[3][0] = hinten;
-		fields[0][3] = rechtsOben;
-		fields[3][3] = linksOben;
+		fields[0][3] = linksObenVorne;
+		fields[3][3] = linksObenHinten;
 		
 		map.setMapValues(fields, 4, 2, first, krakens);
 	}
@@ -62,8 +62,8 @@ public class MapTests {
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 1), rechtsUntenVorne);
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 2), rechtsUntenHinten);
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 3), hinten);
-		assertEquals("getNeighbour fail!",map.getNeighbour(water, 4), rechtsOben);
-		assertEquals("getNeighbour fail!",map.getNeighbour(water, 5), linksOben);
+		assertEquals("getNeighbour fail!",map.getNeighbour(water, 4), linksObenVorne);
+		assertEquals("getNeighbour fail!",map.getNeighbour(water, 5), linksObenHinten);
 		assertEquals("getNeighbour fail!",map.getNeighbour(geradeaus, 3), water);
 
 
@@ -79,5 +79,6 @@ public class MapTests {
 
 		assertEquals("Not next free EntityID.",map.giveNewEntityID(),2);
 			assertEquals("Not next free EntityID.",map.giveNewEntityID(),3);
+				
 	}
 }
