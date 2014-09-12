@@ -337,13 +337,26 @@ public class TranslatorTest {
 	}
 	
 	@Test(expected= IllegalArgumentException.class)
-	public void testNoNegativNumber()
+	public void testNoNegativNumber1()
 	{
 		String badTactic = "move else -10\n"
 							+"goto 0";
 		InputStream in = stringToStream(badTactic);
 		translator.run(in);
 		fail("A tactic must not go to negative instructions.");		
+	}
+	
+	
+	@Test(expected= IllegalArgumentException.class)
+	public void testNoNegativNumber2()
+	{
+		String badTactic = "move else 2\n"
+							+ "pickup -1 else 0\n"
+							+ lines.get(13);
+							
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("There cannot be any negative directions.");		
 	}
 	
 	@Test(expected= IllegalArgumentException.class)
