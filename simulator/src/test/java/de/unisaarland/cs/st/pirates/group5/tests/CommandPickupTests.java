@@ -63,7 +63,7 @@ public class CommandPickupTests {
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
-		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
+		fieldArray[1][0]=new Island(testMap,1,0,testTreasure);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
@@ -80,7 +80,7 @@ public class CommandPickupTests {
 		assertTrue(testShip.getLoad()==1);
 		assertTrue(testShip.getMoral()==4);
 		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
-		assertTrue(fieldArray[0][0].getTreasure()==null);	
+		assertTrue(fieldArray[1][0].getTreasure()==null);	
 	}
 	
 	@Test
@@ -103,7 +103,7 @@ public class CommandPickupTests {
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
-		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
+		fieldArray[1][0]=new Island(testMap,1,0,testTreasure);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
@@ -120,7 +120,7 @@ public class CommandPickupTests {
 		assertTrue(testShip.getLoad()==1);
 		assertTrue(testShip.getMoral()==3);
 		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
-		assertTrue(fieldArray[0][0].getTreasure()==null);
+		assertTrue(fieldArray[1][0].getTreasure()==null);
 	}
 	
 	@Test
@@ -143,7 +143,7 @@ public class CommandPickupTests {
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
-		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
+		fieldArray[1][0]=new Island(testMap,1,0,testTreasure);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
@@ -160,7 +160,7 @@ public class CommandPickupTests {
 		assertTrue(testShip.getLoad()==4);
 		assertTrue(testShip.getMoral()==3);
 		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
-		assertTrue(fieldArray[0][0].getTreasure().getValue()==1);
+		assertTrue(fieldArray[1][0].getTreasure().getValue()==1);
 	}
 	
 	@Test
@@ -183,7 +183,7 @@ public class CommandPickupTests {
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
-		fieldArray[0][0]=new Island(testMap,0,0,testTreasure);
+		fieldArray[1][0]=new Island(testMap,1,0,testTreasure);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
@@ -200,7 +200,7 @@ public class CommandPickupTests {
 		assertTrue(testShip.getLoad()==4);
 		assertTrue(testShip.getMoral()==1);
 		assertTrue(testShip.getPC()==10);				// else Part
-		assertTrue(fieldArray[0][0].getTreasure().getValue()==5);
+		assertTrue(fieldArray[1][0].getTreasure().getValue()==5);
 	}
 	
 	@Test
@@ -237,7 +237,7 @@ public class CommandPickupTests {
 		assertTrue(testShip.getLoad()==1);
 		assertTrue(testShip.getMoral()==1);
 		assertTrue(testShip.getPC()==10);				// else Part
-		assertTrue(fieldArray[0][0].getTreasure().getValue()==5);
+		assertTrue(fieldArray[1][0].getTreasure().getValue()==5);
 	}
 	
 	@Test
@@ -260,13 +260,13 @@ public class CommandPickupTests {
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
-		fieldArray[0][0]=new Water(testMap,0,0,null);
+		fieldArray[1][0]=new Water(testMap,1,0,null);
 		
 		assertTrue(fieldArray[0][0].getTreasure()==null);
 		
-		fieldArray[0][0].exchangeTreasure(5);
+		fieldArray[1][0].exchangeTreasure(5);
 		
-		assertTrue(fieldArray[0][0].getTreasure()!=null);
+		assertTrue(fieldArray[1][0].getTreasure()!=null);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
@@ -306,13 +306,13 @@ public class CommandPickupTests {
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
-		fieldArray[0][0]=new Water(testMap,0,0,null);
+		fieldArray[1][0]=new Water(testMap,1,0,null);
 		
-		assertTrue(fieldArray[0][0].getTreasure()==null);
+		assertTrue(fieldArray[1][0].getTreasure()==null);
 		
-		fieldArray[0][0].exchangeTreasure(1);
+		fieldArray[1][0].exchangeTreasure(1);
 		
-		assertTrue(fieldArray[0][0].getTreasure()!=null);
+		assertTrue(fieldArray[1][0].getTreasure()!=null);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
 		
