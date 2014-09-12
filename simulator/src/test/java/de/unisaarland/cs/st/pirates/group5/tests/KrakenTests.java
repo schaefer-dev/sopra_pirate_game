@@ -43,6 +43,7 @@ public class KrakenTests {
 		assertTrue(testKraken.getField().getX()==2);
 		assertTrue(testKraken.getField().getY()==2);
 		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==null);
+		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()!=null);
 		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==testKraken);
 	}
 	
@@ -70,6 +71,7 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()!=null);
 		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
 		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
@@ -96,6 +98,7 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()!=null);
 		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
 		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
@@ -120,6 +123,7 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()!=null);
 		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
 		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
@@ -144,6 +148,7 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue(testKraken.getField().getX()==1);
 		assertTrue(testKraken.getField().getY()==1);
+		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()!=null);
 		assertTrue(testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
 		assertTrue(testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 	}
