@@ -146,8 +146,7 @@ public class TeamTests {
 	@Test (expected=Exception.class)
 	public void TestShipDelException01(){
 		Team teamA = new Team('a', null);
-		teamA.deleteShip();
-		
+		teamA.deleteShip();	
 	}
 	
 	@Test (expected=Exception.class)
@@ -156,8 +155,24 @@ public class TeamTests {
 		teamA.addShip();
 		teamA.deleteShip();
 		teamA.deleteShip();
-		teamA.addShip();
+		teamA.addShip();	
+	}
+	
+	@Test
+	public void TestGetCommand01(){
+		Command commandA= new Move(12);
+		Command commandB= new Unmark(3);
+		Command commandC= new Drop();
+		ArrayList<Command> commandListA=new ArrayList<Command>();
+		commandListA.add(commandA);
+		commandListA.add(commandB);
+		commandListA.add(commandC);
 		
+		Team teamA = new Team('a', commandListA);
+		
+		assertTrue(teamA.getCommands().get(0).equals(commandA));
+		assertTrue(teamA.getCommands().get(1).equals(commandB));
+		assertTrue(teamA.getCommands().get(2).equals(commandC));
 	}
 	
 	@Test
