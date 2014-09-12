@@ -4,8 +4,9 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 public class Island extends Field {
 
-	public Island(Map map, int x, int y) {
+	public Island(Map map, int x, int y, Treasure treasure) {
 		super(map, x, y, null);
+		this.treasure = treasure;
 		// TODO Auto-generated constructor stub
 	}
 
