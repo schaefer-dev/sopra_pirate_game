@@ -3,6 +3,8 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 import model.Ship;
 import model.Field;
+import model.Water;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +15,7 @@ public class ShipTests {
 	private Ship ship;
 	private Ship shipv;
 	private Ship shipn;
+	private Field field1;
 	private Field field;
 	
 	
@@ -21,6 +24,8 @@ public class ShipTests {
 		shipv = new Ship(null, null, 0, ship);
 		ship = new Ship(null, null, 0, shipn);
 		shipn = new Ship(null, null, 0, null);
+		field = new Water(null, 0, 0, null);
+		field.setShip(ship);
 	}
 	
 	@Test
@@ -185,10 +190,10 @@ public class ShipTests {
 	}
 	@Test
 	public void testDestroy(){
-		field = ship.getPosition();
+		field  = ship.getPosition();
 		ship.changeCondition(-7);
-		assertTrue (ship.getPosition() == null);
-		assertTrue (field.getShip() == null);
+		assertNull (ship.getPosition());
+		assertNull (field1.getShip());
 		assertTrue (shipv.getNextShip().getID() == shipn.getID());
 		
 		//vorgaengerschiff testen
