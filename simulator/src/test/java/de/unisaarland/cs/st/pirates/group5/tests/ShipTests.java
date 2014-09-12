@@ -46,6 +46,24 @@ public class ShipTests {
 		field = new Water(null, 0, 0, null);
 		field.setShip(ship);
 		sship = new Ship(null, field, 0, shipn);
+		
+		 shipdirection = Register.ship_direction;
+		 shipload = Register.ship_load;
+		 shipmoral = Register.ship_moral;
+		 shipcondition = Register.ship_direction;
+		 sensecelltype = Register.sense_celltype;
+		 sensetreasure = Register.sense_treasure;
+		 sensemarker0 = Register.sense_marker0;
+		 sensemarker1 = Register.sense_marker1;
+		 sensemarker2 = Register.sense_marker2;
+		 sensemarker3 = Register.sense_marker3;
+		sensemarker4 = Register.sense_marker4;
+		sensemarker5 = Register.sense_marker5;
+		senseenemymarker = Register.sense_enemymarker;
+		senseshiptype = Register.sense_shiptype;
+		sensedirection = Register.sense_shipdirection;
+		senseloaded = Register.sense_shiploaded;
+		sensesupply = Register.sense_supply;
 	}
 	
 	@Test
