@@ -46,7 +46,7 @@ public class ComparisonTest {
 			fail(message);
 		}
 		catch(Exception e){
-
+			assertTrue(true);
 		}
 		
 		try{
@@ -54,7 +54,7 @@ public class ComparisonTest {
 			fail(message);
 		}
 		catch(Exception e){
-
+			assertTrue(true);
 		}
 		
 		try{
@@ -103,6 +103,24 @@ public class ComparisonTest {
 		catch(Exception e){
 			assertTrue(true);
 		}	
+		
+		try{
+			shiCo = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Enemy);
+			shiCo.eval(null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}	
+		
+		try{
+			boCo = new BoolComparison(Register.sense_marker1, true);
+			boCo.eval(null);
+			fail(message);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
 	}
 	
 }

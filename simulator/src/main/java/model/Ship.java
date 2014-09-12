@@ -114,7 +114,7 @@ public class Ship {
 		return 0;
 	}
 	
-	public void setSenseRegister(Register reg){
+	public void setSenseRegister(Register reg, int value){
 		// TODO Auto-generated method stub
 	}
 	
