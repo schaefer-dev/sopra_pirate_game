@@ -369,7 +369,16 @@ public class TranslatorTest {
 		translator.run(in);
 		fail("Flipzero can only be called with values greater than one.");		
 	}
-	
+	@Test(expected= IllegalArgumentException.class)
+	public void testNoJumpFurther1999()
+	{
+		String badTactic  = "move else 2\n"
+				+"goto 0\n"
+				+"flipzero 1 else 2000";
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("Probably jumps to lines greater than 1999 are not allowed in tacticfiles.");
+	}
 	@Test
 	public void testCommandList()
 	{
