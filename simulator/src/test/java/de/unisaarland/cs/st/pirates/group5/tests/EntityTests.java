@@ -42,5 +42,19 @@ public class EntityTests {
 		assertTrue(testBuoy.getTeam().equals(teamA));
 		assertTrue(testBuoy.getType()==3);
 	}
+	@Test (expected=Exception.class)
+	public void testCreateBuoyInvalid01(){
+		Team teamA = new Team('a',null);
+		Buoy testBuoy = new Buoy(0,teamA,6);
+		assertTrue(testBuoy.getTeam().equals(teamA));
+		assertTrue(testBuoy.getType()==6);
+	}
+	@Test (expected=Exception.class)
+	public void testCreateBuoyInvalid02(){
+		Team teamA = new Team('a',null);
+		Buoy testBuoy = new Buoy(0,teamA,-1);
+		assertTrue(testBuoy.getTeam().equals(teamA));
+		assertTrue(testBuoy.getType()==-1);
+	}
 	
 }
