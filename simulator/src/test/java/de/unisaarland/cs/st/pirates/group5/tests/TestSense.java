@@ -103,7 +103,7 @@ public class TestSense {
 
 
 
-		@Test
+		@Test (expected=Exception.class)
 		public void test() {
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Undefined);
 		
@@ -152,7 +152,9 @@ public class TestSense {
 			assertEquals("",ship.getSenseRegister(Register.sense_marker4),BoolWert.False);
 			assertEquals("",ship.getSenseRegister(Register.sense_enemymarker),BoolWert.False);
 			assertEquals("",ship.getSenseRegister(Register.sense_treasure),BoolWert.False);	
-		
+		}
+		@Test (expected=Exception.class)
+		public void testaftercombat(){
 			ship.act();//Kaempft gegen enemyship
 			ship.act();//springt auf sensecommand 7
 			ship.act();//schaut auf 1,0
