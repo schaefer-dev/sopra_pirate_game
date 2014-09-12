@@ -14,6 +14,7 @@ import commands.IfAny;
 import commands.Mark;
 import commands.Move;
 import commands.Pickup;
+import commands.Refresh;
 import commands.Repair;
 import commands.Sense;
 import commands.Turn;
@@ -149,6 +150,7 @@ public class TranslatorTest {
 		sollErg.add(new Goto(5));
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of the tactic setting bouys does not give the correct result", sollErg, erg);
+		
 	}
 	
 	public void testMarkWrongBouy()
@@ -211,7 +213,7 @@ public class TranslatorTest {
 	
 	public void testNoBoolComparison3()
 	{
-		String badTactic = lines.get(0) + "if sense_treasure==true else 0\n"+
+		String badTactic = lines.get(0) + "if sense_treasure==false else 0\n"+
 				"goto 0";
 		InputStream in = stringToStream(badTactic);
 		
@@ -220,6 +222,43 @@ public class TranslatorTest {
 			fail("Comparisons with true and false are not allowed");
 			}
 			catch(IllegalArgumentException e){}
+	}
+	
+	public void testNoUndefined()
+	{
+		String badTactic = lines.get(0)+ "if sense_celltype==undefined else 0\n"
+							+ lines.get(7);
+		InputStream in = stringToStream(badTactic);
+		
+		try{
+			translator.run(in);
+			fail("Comparisons with undefined are not allowed");
+			}
+			catch(IllegalArgumentException e){}
+	}
+	
+	public void testRefresh()
+	{
+		String tactic = lines.get(0) + "ifall sense_supply ship_moral!=4 else 3\n"
+									+ "refresh 0 else 3\n"
+									+ "move else 5\n" + lines.get(10) + lines.get(9) + lines.get(10);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		Comparison comp = new BoolComparison(Register.sense_supply, false);
+		List <Comparison> compsLs = new LinkedList<Comparison>();
+		compsLs.add(comp);
+		comp = new IntComparison(UNEQUAL, Register.ship_moral, 4);
+		compsLs.add(comp);
+		sollErg.add(new IfAll(compsLs, 3));
+		sollErg.add(new Refresh(0, 3));
+		sollErg.add(new Move(5));
+		sollErg.add(commands.get(10));
+		sollErg.add(commands.get(9));
+		sollErg.add(commands.get(10));
+		
+		List<Command> erg = translator.run(stringToStream(tactic));
+		assertEquals("Translation of Refresh does not give correct result", sollErg, erg);
+		
 	}
 	
 	private InputStream stringToStream(String tactic)

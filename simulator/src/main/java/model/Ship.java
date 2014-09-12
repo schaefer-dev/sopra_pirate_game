@@ -104,7 +104,7 @@ public class Ship {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+		
 	public void setLoad(int i){
 		// TODO Auto-generated method stub
 	}
