@@ -1,0 +1,24 @@
+[#][HEADER] Map has size 3x3
+[#][HEADER] Teams on map {a,b}
+
+[#][Create] Cell: ISLAND at (1,1)  (2s)
+[#][Create] Cell: BASE(c) at (2,2)  (2s)
+[#][Create] Obj : SHIP(152)  (3s)
+[#][Create] 	  ->CONDITION: 3
+[#][Create] 	  ->MORAL: 4
+[#][Create] 	  ->DIRECTION: 0
+[#][Create] Obj : TREASURE(34)  (3s)
+[#][Create] 	  ->X_COORD: 2
+[#][Create] 	  ->Y_COORD: 1
+[#][Create] 	  ->VALUE: 9
+[1][nRound] . . . . . . . . . . . . . . . . . . . .
+[1][Update] SHIP(152) MORAL changed to 3  (3s)
+[2][nRound] . . . . . . . . . . . . . . . . . . . .
+[2][Update] SHIP(152) destroyed  (3s)
+[2][Update] TEAM(a)   has score: 200  (3s)
+[2][Update] BUOY(32):
+                  ->FLEET changed to 1
+                  ->X_COORD changed to 1
+                  ->Y_COORD changed to   (4s)
+
+terminated after 4 seconds

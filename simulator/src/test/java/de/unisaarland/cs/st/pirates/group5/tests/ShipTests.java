@@ -40,9 +40,9 @@ public class ShipTests {
 	
 	@Before
 	public void setUp(){
-		shipv = new Ship(null, null, 0, ship);
-		ship = new Ship(null, null, 0, shipn);
-		shipn = new Ship(null, null, 0, null);
+		shipv = new Ship(null, null, 0, null);
+		ship = new Ship(null, null, 0, shipv);
+		shipn = new Ship(null, null, 0, ship);
 		field = new Water(null, 0, 0, null);
 		field.setShip(ship);
 		sship = new Ship(null, field, 0, shipn);
