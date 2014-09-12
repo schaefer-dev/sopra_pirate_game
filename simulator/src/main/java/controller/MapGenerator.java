@@ -6,6 +6,7 @@ import java.util.Random;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import model.Field;
+import model.Map;
 import model.Team;
 
 public class MapGenerator {
@@ -16,7 +17,8 @@ public class MapGenerator {
 		// TODO Auto-generated method stub
 	}
 	
-	public void createMap(InputStream TextFile, List<Team> teams, LogWriter log){
+	public Map createMap(InputStream TextFile, List<Team> teams, LogWriter log){
+		return null;
 		// TODO Auto-generated method stub
 	}
 }

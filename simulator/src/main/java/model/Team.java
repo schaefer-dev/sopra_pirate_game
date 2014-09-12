@@ -9,7 +9,7 @@ public class Team {
 	private int score;
 	private char name;
 	private List<Command> commands;
-	private List<Ship> ships;
+	private int shipCount;
 	
 	public Team(char name, List<Command> commands){
 		// TODO Auto-generated method stub
@@ -19,17 +19,29 @@ public class Team {
 		// TODO Auto-generated method stub
 	}
 	
-	public void addShip(Ship ship){
+	public void addShip(){
 		// TODO Auto-generated method stub
 	}
 	
-	public void deleteShip(Ship ship){
+	public void deleteShip(){
 		// TODO Auto-generated method stub
 	}
 	
 	public List<Command> getCommands(){
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public int getScore() {
+		return score;
+	}
+
+	public char getName() {
+		return name;
+	}
+
+	public int getShipCount() {
+		return shipCount;
 	}
 	
 	@Override
