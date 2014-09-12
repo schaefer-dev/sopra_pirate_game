@@ -14,7 +14,7 @@ public class Kraken {
 		// TODO Auto-generated method stub
 	}
 	
-	public void setField(){
+	public void setField(Field field){
 		// TODO Auto-generated method stub
 	}
 }
