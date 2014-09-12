@@ -22,7 +22,14 @@ public class Ship {
 	public void act(){
 		// TODO Auto-generated method stub
 	}
+
 	
+	public int getNoPositivActionCounter() {
+		return noPositivActionCounter;
+	}
+
+	
+
 	public int getPC(){
 		return this.pc;
 	}
