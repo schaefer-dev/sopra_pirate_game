@@ -2,7 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +16,13 @@ import model.ProvisionIsland;
 import model.FieldType;
 import model.Kraken;
 import model.Base;
-//import controller.Command;
+import controller.Command;
+
+
+
+
+
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,8 +37,11 @@ public class TestField {
 	
 	Random random;
 	Map map = new Map(random);
-	List<Kraken> krakens;
-	Team b,a;
+	List<Kraken> krakens = new ArrayList<Kraken>();
+	List<Command> tactics = new ArrayList<Command>();
+	Team a = new Team('a', tactics);
+	List<Command> btactics = new ArrayList<Command>();
+	Team b = new Team('b', btactics);	
 	Field[][] fields = new Field[4][4];
 	Kraken kraken = new Kraken(0, null);
 	
@@ -46,8 +55,8 @@ public class TestField {
 	//Water  elsewhere = new Water(map, 2,0,null);
 	//Water  nextToElseWhere = new Water(map, 1,1, null);
 
-	/*List<Command> tactics = new ArrayList<Command>();
-	List<Command> btactics = new ArrayList<Command>();
+	/*
+	;
 	Move goAhead = new Move(0);
 	Drop letItGo = new Drop();
 	
@@ -61,6 +70,7 @@ public class TestField {
 	
 	@Before
 	public void setUp(){
+		kraken.setField(hinten);
 		krakens.add(kraken);
 
 		fields[0][0] = water;//ship
@@ -82,7 +92,7 @@ public class TestField {
 		b = new Team('b',btactics);
 		a = new Team('a',tactics); 
 		
-		kraken.setField(hinten);
+		
 		hinten.setKraken(kraken);
 		hinten.exchangeTreasure(5);
 		water.setShip(firstShip);
@@ -118,9 +128,8 @@ public class TestField {
 		nextToElseWhere.setShip(enemyShip2);		*/
 	}
 	
-	@Test
-	public void test() {
-		//Testet Methode getNeighbour
+	@Test (expected=Exception.class)
+	public void testGetNeighbour() {
 		assertEquals("getNeighbour fail!",water.getNeigbour(0),geradeaus);
 		assertEquals("getNeighbour fail!",water.getNeigbour(1),rechtsUntenVorne);
 		assertEquals("getNeighbour fail!",water.getNeigbour(2),rechtsUntenHinten);
@@ -130,8 +139,9 @@ public class TestField {
 			assertEquals("getNeighbour fail!",hinten.getNeigbour(0),water);
 			assertEquals("getNeighbour fail!",linksObenHinten.getNeigbour(1),water);
 			assertEquals("getNeighbour fail!",linksObenHinten.getNeigbour(0),linksObenVorne);
-			
-		//Testet Methode getFieldType	
+	}		
+	@Test (expected=Exception.class)
+	public void testGetFieldType(){
 		assertEquals("FieldType broken",geradeaus.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",water.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",hinten.getFieldType(), FieldType.Water);
@@ -139,15 +149,21 @@ public class TestField {
 		assertEquals("FieldType broken",rechtsUntenHinten.getFieldType(), FieldType.Base);
 		assertEquals("FieldType broken",linksObenHinten.getFieldType(), FieldType.Island);
 		assertEquals("FieldType broken",linksObenVorne.getFieldType(), FieldType.ProvisionIsland);
-		
+	}	
+	@Test 
+	public void testExchangeTreasure(){
 		hinten.exchangeTreasure(5);
 		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),5);
-		
+	}
+	@Test (expected=Exception.class)
+	public void testMoveKraken(){
 		hinten.moveKraken(water);
 		assertEquals("moveKraken hat nicht funktioniert", kraken.getField(), water);
 		assertEquals("",hinten.getKraken(), null);
 		assertEquals("",water.getKraken(),kraken);
-		
+	}
+	@Test (expected=Exception.class)
+	public void testBuoyfunctions(){
 		water.placeBuoy(1, a);
 		assertEquals("buoy not placed",water.getBuoys().size(),1);
 		assertFalse("Cant not be placed twice", water.placeBuoy(1,a));
@@ -160,13 +176,17 @@ public class TestField {
 		assertTrue("why not buoy 3", water.placeBuoy(3,a));
 		assertTrue("why not buoy 4", water.placeBuoy(4,a));
 		assertTrue("why not buoy 5", water.placeBuoy(5,a));
-		
+	}
+	@Test 
+	public void testSetShip(){
 		Ship firstShip = new Ship(a,null,0,null);
 		water.setShip(firstShip);
 		assertNotNull("",water.getShip());
-		
-		assertEquals("",rechtsUntenHinten.getTeam().getName(),'a');
-		
+	}
+	@Test
+	public void testCheckBase(){	
+		assertEquals("",rechtsUntenHinten.getTeam().getName(),a);
+	}	
 		
 		/*	firstShip.act();
 			assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),3);
@@ -206,6 +226,6 @@ public class TestField {
 	*/
 		
 	
-	}
+	
 
 }
