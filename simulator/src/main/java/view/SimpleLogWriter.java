@@ -195,6 +195,7 @@ public class SimpleLogWriter implements LogWriter {
 		return new Transaction() {
 			
 			private String transaction = "";
+
 			@Override
 			public Transaction set(Key arg0, int arg1) throws NullPointerException, IllegalArgumentException {
 				if(arg0 == null) throw new NullPointerException();
@@ -204,7 +205,8 @@ public class SimpleLogWriter implements LogWriter {
 				transaction += arg0.toString() + " changed to " + value.toString();
 				transaction += "\n";
 				return this;
-			}			
+			}		
+				
 			@Override
 			public String toString(){
 				return transaction;

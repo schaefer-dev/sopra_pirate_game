@@ -13,7 +13,6 @@ public class Kraken {
 	public void move(){
 		// TODO Auto-generated method stub
 	}
-
 	public Field getField() {
 		return field;
 	}

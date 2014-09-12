@@ -17,7 +17,7 @@ public class Treasure extends Entity {
 	private void setValue(int newValue){
 		// TODO Auto-generated method stub
 	}
-	public void changeValue(int newValue){ 			//Änderung relativ, ruft intern setter auf
+	public void changeValue(int newValue){ 			//Aenderung relativ, ruft intern setter auf
 		// TODO Auto-generated method stub
 	}
 	
