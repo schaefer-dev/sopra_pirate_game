@@ -74,5 +74,20 @@ public abstract class Field {
 		// TODO Auto-generated method stub
 		return;
 	}
+
+	public int getX() {
+		return x;
+	}
+
+
+	public int getY() {
+		return y;
+	}
+
+	public Kraken getKraken() {
+		return kraken;
+	}
+	
+	
 	
 }
