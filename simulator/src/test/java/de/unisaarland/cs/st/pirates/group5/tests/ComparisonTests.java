@@ -227,7 +227,7 @@ public class ComparisonTests {
 		assertFalse(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Greater, Register.ship_load, 666);
-		ship.setLoad(5);
+		ship.setLoad(4);
 		assertFalse(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Greater, Register.ship_load, 4);
@@ -239,7 +239,7 @@ public class ComparisonTests {
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Greater, Register.ship_load, 2);
-		ship.setLoad(5);
+		ship.setLoad(4);
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Greater, Register.ship_load, 3);
@@ -251,11 +251,11 @@ public class ComparisonTests {
 		assertFalse(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Less, Register.ship_load, 2);
-		ship.setLoad(5);
+		ship.setLoad(4);
 		assertFalse(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Less, 2, Register.ship_load);
-		ship.setLoad(5);
+		ship.setLoad(4);
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Less, Register.ship_load, 1);
@@ -279,11 +279,11 @@ public class ComparisonTests {
 		Ship ship = new Ship(null, null, 0, null);
 		
 		compare = new IntComparison(Operator.Equal, Register.ship_moral, 3);
-		ship.changeMoral(3);
+		ship.changeMoral(-1);
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Equal, Register.ship_moral, 1);
-		ship.changeMoral(1);
+		ship.changeMoral(-3);
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Equal, 1, Register.ship_moral);
@@ -322,7 +322,145 @@ public class ComparisonTests {
 		ship.changeMoral(1);
 		assertFalse(compare.eval(ship));
 		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 666);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 4);
+		ship.changeMoral(2);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, 4, Register.ship_load);
+		ship.changeMoral(2);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 2);
+		ship.changeMoral(4);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 3);
+		ship.changeMoral(4);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, 3, Register.ship_load);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, Register.ship_load, 2);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, 2, Register.ship_load);
+		ship.changeMoral(4);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, Register.ship_load, 1);
+		ship.changeMoral(2);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, Register.ship_load, 3);
+		ship.changeMoral(1);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, 3, Register.ship_load);
+		ship.changeMoral(1);
+		assertFalse(compare.eval(ship));
+		
 	}
 	
+	public void CompareConditionTest(){
+		
+		IntComparison compare;
+		Ship ship = new Ship(null, null, 0, null);
+		
+		compare = new IntComparison(Operator.Equal, Register.ship_moral, 3);
+		ship.changeCondition(3);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, Register.ship_moral, 1);
+		ship.changeCondition(1);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, 1, Register.ship_moral);
+		ship.changeCondition(1);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, Register.ship_moral, 0);
+		ship.changeMoral(0);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, Register.ship_moral, 5);
+		ship.changeMoral(2);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, 5, Register.ship_moral);
+		ship.changeMoral(2);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, Register.ship_moral, -3);
+		ship.changeMoral(3);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Equal, Register.ship_moral, 666);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Unequal, Register.ship_moral, -3);
+		ship.changeMoral(3);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Unequal, 1, Register.ship_moral);
+		ship.changeMoral(1);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Unequal, Register.ship_moral, 1);
+		ship.changeMoral(1);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 666);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 4);
+		ship.changeMoral(2);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, 4, Register.ship_load);
+		ship.changeMoral(2);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 2);
+		ship.changeMoral(4);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, Register.ship_load, 3);
+		ship.changeMoral(4);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Greater, 3, Register.ship_load);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, Register.ship_load, 2);
+		ship.changeMoral(4);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, 2, Register.ship_load);
+		ship.changeMoral(4);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, Register.ship_load, 1);
+		ship.changeMoral(2);
+		assertFalse(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, Register.ship_load, 3);
+		ship.changeMoral(1);
+		assertTrue(compare.eval(ship));
+		
+		compare = new IntComparison(Operator.Less, 3, Register.ship_load);
+		ship.changeMoral(1);
+		assertFalse(compare.eval(ship));
+		
+	}
 	
 }
