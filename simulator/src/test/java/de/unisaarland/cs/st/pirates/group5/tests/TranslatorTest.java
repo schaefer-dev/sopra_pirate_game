@@ -81,7 +81,7 @@ public class TranslatorTest {
 		
 		
 	}
-	
+	@Test
 	public void testRepair()
 	{
 		String tactic = lines.get(0) + "ifall ship_condition<3 sense_celltype==home else 3\n"
@@ -104,7 +104,7 @@ public class TranslatorTest {
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of the tactic repairing a ship in it's home did not give the correct result", sollErg, erg);
 	}
-	
+	@Test
 	public void testIfAny()
 	{
 		String tactic = lines.get(0) + "ifany sense_celltype==empty sense_celltype==home else 4\n"
@@ -124,7 +124,7 @@ public class TranslatorTest {
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of the tactic with an ifany command does not give the correct result", sollErg, erg);
 	}
-	
+	@Test
 	public void testBouys()
 	{
 		String tactic = "sense 6\n"
@@ -152,7 +152,7 @@ public class TranslatorTest {
 		assertEquals("Translation of the tactic setting bouys does not give the correct result", sollErg, erg);
 		
 	}
-	
+	@Test
 	public void testMarkWrongBouy()
 	{
 		String badTactic = lines.get(17) + "mark 6\n" + lines.get(18);
@@ -163,7 +163,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	
+	@Test
 	public void testUnmarkWrongBouy()
 	{
 		String badTactic = lines.get(17) + "unmark 6\n" + lines.get(18);
@@ -174,7 +174,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	
+	@Test
 	public void testNonsense()
 	{
 		String noTactic = "sanmashfkasl";
@@ -185,7 +185,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	
+	@Test
 	public void testNoBoolComparison1()
 	{
 		String badTactic = lines.get(0) + "ifall sense_treasure==true ship_load<4 else 0\n"+
@@ -198,6 +198,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
+	@Test
 	public void testNoBoolComparison2()
 	{
 		String badTactic = lines.get(0) + "ifany sense_treasure==true ship_load<4 else 0\n"+
@@ -210,7 +211,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	
+	@Test
 	public void testNoBoolComparison3()
 	{
 		String badTactic = lines.get(0) + "if sense_treasure==false else 0\n"+
@@ -223,7 +224,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	
+	@Test
 	public void testNoUndefined()
 	{
 		String badTactic = lines.get(0)+ "if sense_celltype==undefined else 0\n"
@@ -236,7 +237,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	
+	@Test
 	public void testRefresh()
 	{
 		String tactic = lines.get(0) + "ifall sense_supply ship_moral!=4 else 3\n"
@@ -255,12 +256,113 @@ public class TranslatorTest {
 		sollErg.add(commands.get(10));
 		sollErg.add(commands.get(9));
 		sollErg.add(commands.get(10));
-		
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of Refresh does not give correct result", sollErg, erg);
 		
 	}
+	@Test(expected= IllegalArgumentException.class)
+	public void testNoNewLine()
+	{
+		String badTactic = lines.get(26)+ lines.get(13);
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("Only one command in each line is allowed.");
+		
+	}
 	
+	@Test
+	public void testIgnoreComments1()
+	{
+		String tactic = lines.get(0)
+				+ "turn right; Eine Drehung nach Rechts!§\"s()€@#*~+-2,/*yY<>||^°$%}{[]\\`´;:dsadas²³?=\n"
+				+ lines.get(7);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		sollErg.add(commands.get(12)); // Dies ist ein turn-right
+		sollErg.add(commands.get(7));
+		InputStream in = stringToStream(tactic);
+		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
+	}
+	@Test
+	public void testIgnoreComments2()
+	{
+		String tactic = lines.get(0)
+				+ "turn right; turn left\n"
+				+ lines.get(7);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		sollErg.add(commands.get(12)); // Dies ist ein turn-right
+		sollErg.add(commands.get(7));
+		InputStream in = stringToStream(tactic);
+		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
+	}
+	@Test(expected= IllegalArgumentException.class)
+	public void testCommentLine()
+	{
+		String badTactic = "turn left\n"
+							+";\n"
+							+ lines.get(7);
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("A line must not only contain a comment");
+	}
+	@Test
+	public void testCorrectLength()
+	{
+		String tactic = "";
+		List<Command> sollErg = new LinkedList<Command>();
+		for(int i = 0; i<2000; i++)
+		{
+			sollErg.add(commands.get(0));
+			tactic += lines.get(0);
+		}
+		InputStream in = stringToStream(tactic);
+		assertEquals("Tactic length is 2000 i.e. OK.", sollErg, translator.run(in));
+		
+	}
+	
+	@Test(expected= IllegalArgumentException.class)
+	public void testWrongLength()
+	{
+		String badTactic = "";
+		List<Command> sollErg = new LinkedList<Command>();
+		for(int i = 0; i<=2000; i++)
+		{
+			sollErg.add(commands.get(0));
+			badTactic += lines.get(0);
+		}
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("A tactic must not have 2001 instructions");		
+	}
+	
+	@Test(expected= IllegalArgumentException.class)
+	public void testNoNegativNumber()
+	{
+		String badTactic = "move else -10\n"
+							+"goto 0";
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("A tactic must not go to negative instructions.");		
+	}
+	
+	@Test(expected= IllegalArgumentException.class)
+	public void testNoOneInFlipzero()
+	{
+		String badTactic = "move else 2\n"
+							+"goto 0\n"
+							+"flipzero 1 else 0";
+		InputStream in = stringToStream(badTactic);
+		translator.run(in);
+		fail("Flipzero can only be called with values greater than one.");		
+	}
+	
+	@Test
+	public void testCommandList()
+	{
+		assertEquals("List of commands is wrong",new Goto(14),commands.get(26));
+		assertEquals("List of commands is wrong",new Sense(0),commands.get(14));
+	}
 	private InputStream stringToStream(String tactic)
 	{
 		byte[] temp = tactic.getBytes();

@@ -16,7 +16,6 @@ public class Translator {
 	}
 	
 	public List<Command> run(InputStream textFile){
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -34,3 +34,5 @@ Kann es auf einer Karte z.B. nur die Basen fuer die Teams a, b, d,f geben?
 11. Kann es vorkommen, bzw. muss man abfangen, dass eine Karte nicht den in den ersten beiden Zeilen angegebenen
 Maßen entspricht?
 - Ja, muss man abfangen.
+
+12. Soll der Translator goto Befehle etc. fuer groeßere Werte als 1999 annehmen und soll das Schiff dann sinken?
