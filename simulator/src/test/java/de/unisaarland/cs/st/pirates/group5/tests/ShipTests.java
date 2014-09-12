@@ -457,6 +457,26 @@ public class ShipTests {
 	}
 	
 	@Test
+	public void testSenseRegistersensesmarker11(){
+		sship.setSenseRegister(sensemarker1, 0);
+		assertTrue (sship.getSenseRegister(sensemarker1) == 0);
+		
+		sship.setSenseRegister(sensemarker1, 1);
+		assertTrue (sship.getSenseRegister(sensemarker1) == 1);
+			
+	}
+	
+
+	@Test (expected = AssertionError.class)
+	public void testSenseRegistersensesensemarker12(){
+		sship.setSenseRegister(sensemarker1, -1);
+		assertTrue (sship.getSenseRegister(sensemarker1) == -1);
+		
+		sship.setSenseRegister(sensemarker1, 2);
+		assertTrue (sship.getSenseRegister(sensemarker1) == 2);
+	}
+	
+	@Test
 	public void testSenseRegistersensesmarker21(){
 		sship.setSenseRegister(sensemarker2, 0);
 		assertTrue (sship.getSenseRegister(sensemarker2) == 0);

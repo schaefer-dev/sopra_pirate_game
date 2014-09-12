@@ -1,8 +1,6 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
-import java.io.InputStream;
-
 import model.Base;
 import model.Island;
 import model.Kraken;
@@ -16,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import commands.Move;
-import controller.MapGenerator;
+
 import model.Field;
 
 
