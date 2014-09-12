@@ -34,11 +34,11 @@ public class TestFlipzero {
 	@Test
 	public void Test(){
 		int check = flip.getRandom();
-		if (check <= 3 || check > 0)
+		if (check <= 2 || check > 0)
 			assertEquals("",ship.getPC(),0); 
 		else if (check == 0)
 			assertEquals("", ship.getPC(),2);
-		else if (check > 3 || check <0)
+		else if (check > 2 || check < 0)
 			fail("Die erzeugte RandomZahl ist außerhalb des Intervalls");
 	}
 	

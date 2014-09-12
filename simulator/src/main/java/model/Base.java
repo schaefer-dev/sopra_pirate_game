@@ -26,4 +26,9 @@ public class Base extends Water {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Team getTeam(){
+		return team;
+	}
+	
 }

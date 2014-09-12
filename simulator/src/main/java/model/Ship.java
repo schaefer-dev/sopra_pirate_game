@@ -22,7 +22,14 @@ public class Ship {
 	public void act(){
 		// TODO Auto-generated method stub
 	}
+
 	
+	public int getNoPositivActionCounter() {
+		return noPositivActionCounter;
+	}
+
+	
+
 	public int getPC(){
 		return this.pc;
 	}
@@ -114,7 +121,7 @@ public class Ship {
 		return 0;
 	}
 	
-	public void setSenseRegister(Register reg){
+	public void setSenseRegister(Register reg, int value){
 		// TODO Auto-generated method stub
 	}
 	
@@ -130,6 +137,5 @@ public class Ship {
 	private void destroy(){
 		// TODO Auto-generated method stub
 	}
-	
-	
+		
 }

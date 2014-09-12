@@ -2,7 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,46 +16,53 @@ import model.ProvisionIsland;
 import model.FieldType;
 import model.Kraken;
 import model.Base;
-import controller.Command;
+//import controller.Command;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Move;
+//import commands.Drop;
+//import commands.Move;
 
 public class TestField {
-
+/*enthaelt noch Tests, wenn nachher die Commands fertig sind, die exchangeTreasure(i), in verschiedenen Situationen, 
+ * die von verschiedenen Commandos; gleichen Commandos mit unterschieldichen Ausgaengen; ausgeloest
+ * werden, testen.*/
+	
 	Random random;
 	Map map = new Map(random);
-	Field[][] fields = new Field[4][4];
-	List<Command> tactics = new ArrayList<Command>();
-	List<Command> btactics = new ArrayList<Command>();
 	List<Kraken> krakens;
-	Team b = new Team('b',btactics);
-	Team a = new Team('a',tactics); 
-	Move goAhead = new Move(0);
+	Team b,a;
+	Field[][] fields = new Field[4][4];
 	Kraken kraken = new Kraken(0, null);
 	
 	Water water = new Water(map, 0, 0, kraken);
 	Water geradeaus = new Water(map, 1,0,null);
-	Water rechtsUntenVorne = new Base(map,0,1,b);
-	Water rechtsUntenHinten = new Base(map,3,1,a);
+	Base rechtsUntenVorne = new Base(map,0,1,b);
+	Base rechtsUntenHinten = new Base(map,3,1,a);
 	Water hinten = new Water(map,3,0,null);
-	Island linksObenVorne = new Island(map,0,3);
+	Island linksObenVorne = new Island(map,0,3,null);
 	Island linksObenHinten = new ProvisionIsland(map,3,3);
-	Water  elsewhere = new Water(map, 2,0,null);
-	Water  nextToElseWhere = new Water(map, 1,1, null);
+	//Water  elsewhere = new Water(map, 2,0,null);
+	//Water  nextToElseWhere = new Water(map, 1,1, null);
+
+	/*List<Command> tactics = new ArrayList<Command>();
+	List<Command> btactics = new ArrayList<Command>();
+	Move goAhead = new Move(0);
+	Drop letItGo = new Drop();
+	
+	
 	
 	Ship firstShip = new Ship(a,null,0,null);
 	Ship alliedShip = new Ship(a,null,1,firstShip);
 	Ship enemyShip = new Ship(b,null,2,alliedShip);
 	Ship enemyShip2 = new Ship(b,null,3,enemyShip);
-	Ship alliedShip2 = new Ship(a,null,1,enemyShip2);
+	Ship alliedShip2 = new Ship(a,null,1,enemyShip2);*/
 	
 	@Before
 	public void setUp(){
 		krakens.add(kraken);
-		
+
 		fields[0][0] = water;//ship
 		fields[0][1] = rechtsUntenVorne;//EnemyBase, enemyShip
 		fields[1][0] = geradeaus;//alliedsip
@@ -63,14 +70,18 @@ public class TestField {
 		fields[0][3] = linksObenVorne;
 		fields[3][3] = linksObenHinten; //ProvisionIsland
 		fields[3][1] = rechtsUntenHinten;//Base
-		fields[2][0] = elsewhere; //enemyship2
-		fields[1][1] = nextToElseWhere;//alliedship2
+	//	fields[2][0] = elsewhere; //enemyship2
+	//	fields[1][1] = nextToElseWhere;//alliedship2
 		
-		map.setMapValues(fields, 1, 1, firstShip, krakens);
+		map.setMapValues(fields, 1, 1, null/*firstShip*/, krakens);
 		
-		tactics.add(goAhead);
+		/*tactics.add(goAhead);
 		btactics.add(goAhead);
-
+		btactics.add(letItGo);
+		
+		b = new Team('b',btactics);
+		a = new Team('a',tactics); 
+		
 		kraken.setField(hinten);
 		hinten.setKraken(kraken);
 		hinten.exchangeTreasure(5);
@@ -104,12 +115,12 @@ public class TestField {
 		
 		enemyShip2.setField(nextToElseWhere);
 		enemyShip2.changeDirection(true);
-		nextToElseWhere.setShip(enemyShip2);		
+		nextToElseWhere.setShip(enemyShip2);		*/
 	}
 	
 	@Test
 	public void test() {
-		
+		//Testet Methode getNeighbour
 		assertEquals("getNeighbour fail!",water.getNeigbour(0),geradeaus);
 		assertEquals("getNeighbour fail!",water.getNeigbour(1),rechtsUntenVorne);
 		assertEquals("getNeighbour fail!",water.getNeigbour(2),rechtsUntenHinten);
@@ -120,6 +131,7 @@ public class TestField {
 			assertEquals("getNeighbour fail!",linksObenHinten.getNeigbour(1),water);
 			assertEquals("getNeighbour fail!",linksObenHinten.getNeigbour(0),linksObenVorne);
 			
+		//Testet Methode getFieldType	
 		assertEquals("FieldType broken",geradeaus.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",water.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",hinten.getFieldType(), FieldType.Water);
@@ -128,10 +140,29 @@ public class TestField {
 		assertEquals("FieldType broken",linksObenHinten.getFieldType(), FieldType.Island);
 		assertEquals("FieldType broken",linksObenVorne.getFieldType(), FieldType.ProvisionIsland);
 		
-		//Fall1: Ein Schiff wird vom Kraken versenkt
+		hinten.exchangeTreasure(5);
 		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),5);
-			firstShip.act();
-			assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),8);
+		
+		hinten.moveKraken(water);
+		assertEquals("moveKraken hat nicht funktioniert", kraken.getField(), water);
+		assertEquals("",hinten.getKraken(), null);
+		assertEquals("",water.getKraken(),kraken);
+		
+		water.placeBuoy(1, a);
+		assertEquals("buoy not placed",water.getBuoys().size(),1);
+		
+		water.deleteBuoy(a, 1);
+		assertEquals("buoy not deleted",water.getBuoys().size(),0);
+		
+		Ship firstShip = new Ship(a,null,0,null);
+		water.setShip(firstShip);
+		assertNotNull("",water.getShip());
+		
+		assertEquals("",rechtsUntenHinten.getTeam().getName(),'a');
+		
+		
+		/*	firstShip.act();
+			assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),3);
 				
 				//Fall2: Ein Schiff, das stand, versinkt
 				alliedShip.act();
@@ -163,6 +194,11 @@ public class TestField {
 							enemyShip2.act();
 							assertEquals("ExchangeTreasure broken.", nextToElseWhere.getTreasure().getValue(),1);
 							assertEquals("ExchangeTreasure broken.", elsewhere.getShip().getLoad(),4);
+
+
+	*/
+		
+	
 	}
 
 }
