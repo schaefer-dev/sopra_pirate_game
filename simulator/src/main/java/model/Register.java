@@ -7,6 +7,7 @@ public enum Register {
 	ship_condition,
 	sense_celltype,
 	sense_treasure,
+	//Bitte Reihenfolge der Marker nicht mehr ändern bzw. nur nach Absprache
 	sense_marker0,
 	sense_marker1,
 	sense_marker2,
