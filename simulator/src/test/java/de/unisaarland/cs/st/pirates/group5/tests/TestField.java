@@ -153,9 +153,14 @@ public class TestField {
 	}	
 	@Test 
 	public void testExchangeTreasure(){
-		hinten.exchangeTreasure(5);
+		hinten.exchangeTreasure(4);
 		try{
-		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),5);
+		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),4);
+		hinten.exchangeTreasure(-1);
+		assertEquals("ExchangeTreasure broken. ", hinten.getTreasure().getValue(),3);
+		hinten.exchangeTreasure(-3);
+		assertNull("Treasure was not deleted!", hinten.getTreasure());
+		
 		}
 		catch(NullPointerException e)
 		{
