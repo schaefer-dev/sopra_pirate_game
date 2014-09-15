@@ -23,6 +23,7 @@ import model.Register;
 import org.junit.Before;
 import org.junit.Test;
 
+import view.SimpleLogWriter;
 import commands.Goto;
 import commands.Move;
 import commands.Sense;
@@ -48,7 +49,8 @@ public class TestSense {
 	
 	Field[][] fields = new Field[4][4];
 	Random random;
-	Map map = new Map(random);
+	SimpleLogWriter simpleLog = new SimpleLogWriter();
+	Map map = new Map(random,simpleLog);
 	
 	Water water = new Water(map, 0, 3,null);
 	ProvisionIsland provision = new ProvisionIsland(map,0,1);
@@ -98,7 +100,7 @@ public class TestSense {
 			fields[1][0] = enemyship;
 			fields[0][3] = water;
 	
-			map.setMapValues(fields, 4, 14, ship, null);
+			map.setMapValues(fields, null);
 		}
 
 

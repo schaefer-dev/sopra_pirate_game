@@ -24,8 +24,10 @@ import view.SimpleLogWriter;
 
 public class MapTests {
 
+
 	Random random;
 	Map map = new Map(random, new SimpleLogWriter());
+
 	Team a;
 	Field[][] fields = new Field[4][4];
 	Ship first = new Ship(a, null, 1, null);
@@ -82,11 +84,11 @@ public class MapTests {
 	}
 	@Test (expected=Exception.class)
 	public void testGetIDs(){
-		assertEquals("Not next free ActorID.",map.giveNewActorID(),4);
-			assertEquals("Not next free ActorID.",map.giveNewActorID(),5);
+		assertEquals("Not next free ActorID.",map.giveNewActorID(),0);
+			assertEquals("Not next free ActorID.",map.giveNewActorID(),1);
 
-		assertEquals("Not next free EntityID.",map.giveNewEntityID(),2);
-			assertEquals("Not next free EntityID.",map.giveNewEntityID(),3);
+		assertEquals("Not next free EntityID.",map.giveNewEntityID(),0);
+			assertEquals("Not next free EntityID.",map.giveNewEntityID(),1);
 	}
 	
 	@Test (expected=Exception.class)
