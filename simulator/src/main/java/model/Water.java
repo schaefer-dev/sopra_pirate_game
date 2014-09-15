@@ -12,6 +12,7 @@ public class Water extends Field {
 	@Override
 	public boolean setShip(Ship ship) {
 		// TODO Auto-generated method stub
+		this.ship=ship;
 		return false;
 	}
 
@@ -24,6 +25,7 @@ public class Water extends Field {
 	@Override
 	public boolean setKraken(Kraken kraken) {
 		// TODO Auto-generated method stub
+		this.kraken=kraken;
 		return false;
 	}
 
