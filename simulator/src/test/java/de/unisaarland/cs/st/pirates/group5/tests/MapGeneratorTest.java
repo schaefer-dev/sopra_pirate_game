@@ -43,7 +43,7 @@ public class MapGeneratorTest {
 	}
 
 	@Test
-	public void mapGenTest2x2() throws IOException {
+	public void mapGenTest() throws IOException {
 		map = mapgen.createMap(stream, null, null, null);
 		assertTrue (map.giveNewEntityID() == 0);
 		assertTrue (map.giveNewActorID() == 1);
