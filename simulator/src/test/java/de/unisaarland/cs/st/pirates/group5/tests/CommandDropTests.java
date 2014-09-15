@@ -69,7 +69,7 @@ public class CommandDropTests {
 		testDrop.execute(testShip);
 		
 		assertTrue(testShip.getLoad()==0);
-		assertTrue(testShip.getMoral()==3);
+		assertTrue(testShip.getMoral()==3); // No Load so moral does not change.
 		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
 		assertTrue(fieldArray[1][1].getTreasure()==null);	
 	}
@@ -187,11 +187,11 @@ public class CommandDropTests {
 		
 		fieldArray[1][1].setShip(testShip);
 		
-		assertTrue(fieldArray[0][0].getTreasure()==null);
+		assertTrue(fieldArray[0][0].getTreasure()==null); // TODO: Strange order of asserts
 		
 		fieldArray[1][1]=new Base(testMap, 1, 1, testTeam, testShip);
 		
-		assertTrue(fieldArray[0][0].getTreasure()!=null);
+		assertTrue(fieldArray[0][0].getTreasure()!=null); // TODO: stange order of asserts
 		
 		testShip.setLoad(3);
 		
