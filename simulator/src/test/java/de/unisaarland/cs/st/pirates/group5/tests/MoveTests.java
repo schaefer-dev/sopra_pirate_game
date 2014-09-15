@@ -1,6 +1,9 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import model.Base;
 import model.Island;
 import model.Kraken;
@@ -14,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import commands.Move;
-
+import controller.MapGenerator;
 import model.Field;
 
 
@@ -64,6 +67,7 @@ public class MoveTests {
 		moveit = new Move(13);
 		map = new Map(null, null);
 		
+		
 		a = 0;
 		b = 1;
 		teamfriend = new Team(a, null);
@@ -80,7 +84,9 @@ public class MoveTests {
 		provision1 = new ProvisionIsland(map, 2, 0);
 		baseenemy = new Base(map, 0, 1, teamenemy);
 		waterme = new Water(map, 1, 1, null);
+		waterme.setShip(shipme);
 		waterkraken = new Water(map, 2, 1, kraken);
+		waterkraken.setKraken(kraken);
 		basefriend = new Base(map, 0, 2, teamfriend);
 		waterenemy = new Water(map, 1, 2, null);
 		waterenemy.setShip(shipenemy);
@@ -96,6 +102,11 @@ public class MoveTests {
 		fields[0][2] = basefriend;
 		fields[1][2] = waterenemy;
 		fields[2][2] = waterfriend;
+		
+		ArrayList<Kraken> krakenlist = new ArrayList<Kraken>();
+		krakenlist.add(kraken);
+		
+		map.setMapValues(fields, shipme, krakenlist);
 		
 		mecondition = shipme.getCondition();
 		enemycondition = shipenemy.getCondition();
