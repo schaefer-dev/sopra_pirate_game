@@ -13,17 +13,17 @@ public class Goto implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
-
+		if(ship == null) throw new NullPointerException();
+		
+		ship.setPC(pc);
 	}
 	@Override
-	public boolean equals (Object o)
-	{
-		if(o instanceof Goto)
-		{
+	public boolean equals (Object o){
+		if(o instanceof Goto){
 			if(((Goto) o).pc == pc)
 				return true;
 		}
+		
 		return false;
 	}
 

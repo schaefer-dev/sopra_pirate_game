@@ -32,13 +32,7 @@ public class MapGenerator {
 		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
 		if(teams.size() < 2 || teams.size() > 26) throw new IllegalArgumentException();
 		
-		List<Command> tactic1 = teams.get(0).getCommands();
-		List<Command> tactic2 = teams.get(1).getCommands();
-		boolean oneTactic = false;
-		//Either all teams have a different tactic or all teams have the same one
-		//If the 2 first teams have the same tactic => all teams have the same tactic
-		if(tactic1.equals(tactic2))
-			oneTactic = true;
+
 		
 		Map map = new Map(random, log);
 		List<Kraken> kraken = new ArrayList<Kraken>();
@@ -135,8 +129,15 @@ public class MapGenerator {
 			
 			lineNumber++;
 		}
-				
-		if(oneTactic){	
+		
+		if(lineNumber != y) throw new IllegalArgumentException();
+		reader.close();
+			
+		List<Command> tactic1 = teams.get(0).getCommands();
+		List<Command> tactic2 = teams.get(1).getCommands();
+		//Either all teams have a different tactic or all teams have the same one
+		//If the first 2 teams have the same tactic => all teams have the same tactic
+		if(tactic1.equals(tactic2)){	
 			boolean lastShip = false;
 			for(int i = teams.size() - 1; i >= 0; i++){
 				Team team = teams.get(i);
@@ -158,10 +159,7 @@ public class MapGenerator {
 			if(team.getShipCount() <= 0)
 				throw new IllegalArgumentException("Not every team has bases/ships on the map");
 		}
-		
-		if(lineNumber != y) throw new IllegalArgumentException();
-		reader.close();
-		
+				
 		map.setMapValues(fields, kraken);
 		return map;
 	}
