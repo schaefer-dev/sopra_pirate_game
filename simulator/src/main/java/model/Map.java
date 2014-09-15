@@ -27,6 +27,9 @@ public class Map {
 	}
 	
 	public Field getNeighbour(Field field, int direction){
+		return field;
+		
+		/*code not yet to implement
 		int x = field.getX();
 		int y = field.getY();
 		
@@ -51,7 +54,7 @@ public class Map {
 				return field;
 			default:
 				throw new IllegalArgumentException();
-		}  
+		}  */
 	}
 	
 	public int giveNewActorID(){

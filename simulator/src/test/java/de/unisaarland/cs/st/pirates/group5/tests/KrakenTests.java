@@ -107,6 +107,8 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
 		assertTrue("KrakenY wrong", testKraken.getField().getY()==1);
+		
+		//assertTrue("Kraken found on wrong field",testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 		assertTrue("Kraken found on wrong field",testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 		assertTrue("No Kraken found where it should be", testMap.getNeighbour(fieldArray[1][1], 1).getKraken()!=null);
 		assertTrue("No correct Kraken found where it should be", testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);
