@@ -4,20 +4,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
+
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 public class Log implements LogWriter {
 
 	private List<LogWriter> loggers = new LinkedList<LogWriter>();
 	
+	
 	public void addLogger(LogWriter l){
+		if(l == null) throw new NullPointerException();
 		loggers.add(l);
 	}
-	
-	public void deleteLogger(LogWriter l){
-		loggers.remove(l);
-	}
-	
 	@Override
 	public LogWriter addCell(Cell arg0, Integer arg1, int arg2, int arg3) throws NullPointerException, ArrayIndexOutOfBoundsException, IllegalArgumentException, IllegalStateException {
 		for(LogWriter log: loggers)
@@ -35,8 +33,12 @@ public class Log implements LogWriter {
 	}
 
 	@Override
-	public Transaction beginTransaction(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {		
-		throw new NullPointerException("Don't call this method");
+	public Transaction beginTransaction(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {	
+		List<Transaction> transactions = new LinkedList<Transaction>();
+		for(LogWriter log: loggers)
+			transactions.add(log.beginTransaction(arg0, arg1));	
+		
+		return new CompTransaction(transactions);
 	}
 
 	@Override
@@ -47,7 +49,11 @@ public class Log implements LogWriter {
 
 	@Override
 	public LogWriter commitTransaction(Transaction arg0) throws NullPointerException, IllegalArgumentException, IllegalStateException {
-		throw new NullPointerException("Don't call this method");
+		CompTransaction trans = (CompTransaction) arg0;
+		for(int i = 0; i < loggers.size(); i++)
+			loggers.get(i).commitTransaction(trans.getTranscation(i));
+	
+		return this;
 	}
 
 	@Override
@@ -59,7 +65,7 @@ public class Log implements LogWriter {
 	}
 
 	@Override
-	public LogWriter destroy(Entity arg0, int arg1)throws NullPointerException, IllegalArgumentException, IllegalStateException {
+	public LogWriter destroy(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		for(LogWriter log: loggers)
 			log.destroy(arg0, arg1);
 		
@@ -76,6 +82,8 @@ public class Log implements LogWriter {
 
 	@Override
 	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
+		if(loggers.size() == 0) throw new IllegalThreadStateException("No loggers added");
+		
 		for(LogWriter log: loggers)
 			log.init(arg0, arg1, arg2);
 	}
