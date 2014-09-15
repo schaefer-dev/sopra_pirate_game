@@ -1,6 +1,6 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -186,10 +186,14 @@ public class TeamTests {
 		commandListA.add(commandC);
 		
 		Team teamA = new Team('a', commandListA);
-		
-		assertTrue(teamA.getCommands().get(0).equals(commandA));
-		assertTrue(teamA.getCommands().get(1).equals(commandB));
-		assertTrue(teamA.getCommands().get(2).equals(commandC));
+			assertNotNull("commandlist not correctly implemented",teamA.getCommands());
+			assertNotNull("commandlist not correctly implemented",teamA.getCommands().get(0));
+			assertNotNull("commandlist not correctly implemented",teamA.getCommands().get(1));
+			assertNotNull("commandlist not correctly implemented",teamA.getCommands().get(2));
+			assertTrue(teamA.getCommands().get(0).equals(commandA));
+			assertTrue(teamA.getCommands().get(1).equals(commandB));
+			assertTrue(teamA.getCommands().get(2).equals(commandC));
+	
 	}
 	
 	@Test

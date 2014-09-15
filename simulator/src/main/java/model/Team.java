@@ -29,7 +29,7 @@ public class Team {
 	
 	public List<Command> getCommands(){
 		// TODO Auto-generated method stub
-		return null;
+		return commands;
 	}
 	
 	public int getScore() {
