@@ -4,8 +4,9 @@ public class Base extends Water {
 
 	private Team team;
 	
-	public Base(Map map, int x, int y, Team team) {
+	public Base(Map map, int x, int y, Team team, Ship ship) {
 		super(map, x, y, null);
+		this.ship = ship;
 		// TODO Auto-generated constructor stub
 	}
 
