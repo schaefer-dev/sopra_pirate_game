@@ -17,5 +17,6 @@ public enum Register {
 	sense_shiptype,
 	sense_shipdirection,
 	sense_shiploaded,
-	sense_supply
+	sense_supply,
+	sense_shipcondition
 }
