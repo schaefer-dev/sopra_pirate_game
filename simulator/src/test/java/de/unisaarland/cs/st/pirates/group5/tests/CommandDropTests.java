@@ -189,7 +189,7 @@ public class CommandDropTests {
 		
 		assertTrue(fieldArray[0][0].getTreasure()==null);
 		
-		fieldArray[1][1]=new Base(testMap, 1, 1, testTeam);
+		fieldArray[1][1]=new Base(testMap, 1, 1, testTeam, testShip);
 		
 		assertTrue(fieldArray[0][0].getTreasure()!=null);
 		
