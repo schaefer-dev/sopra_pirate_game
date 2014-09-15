@@ -18,7 +18,6 @@ public class CommandUnMarkTests {
 	@Test
 	public void TestUnMarkBuoy(){
 		Team teamA = new Team('a', null);
-		
 		Field waterField = new Water(null, 0,0, null);
 		waterField.placeBuoy(0, teamA);
 		

@@ -1,6 +1,8 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
+
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 public abstract class Field {
@@ -8,7 +10,7 @@ public abstract class Field {
 	protected Treasure treasure;
 	protected Ship ship;
 	protected Kraken kraken;
-	protected List<Buoy> buoys;
+	protected List<Buoy> buoys = new LinkedList<Buoy>();
 	protected Map map;
 	protected int x;
 	protected int y;
