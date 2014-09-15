@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import view.Log;
 import view.SimpleLogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
@@ -20,7 +21,8 @@ public class SimpleLogWriterTest {
 		
 		File file = new File("src/test/resources/log.log");
 		FileOutputStream stream = new FileOutputStream(file);
-		SimpleLogWriter log = new SimpleLogWriter();
+		Log log = new Log();
+		log.addLogger(new SimpleLogWriter());
 		
 		String map = "4 3 \n# # # \n. . . \n# # #";
 		
@@ -30,7 +32,7 @@ public class SimpleLogWriterTest {
 		
 		log.init(stream, map, tactics);
 		
-		log.addCell(Cell.ISLAND, null, 1, 1);
+		log.addCell(Cell.ISLAND, null, 5, 1);
 		log.addCell(Cell.WATER, 2, 2, 2);
 		Key[] keys = {Key.CONDITION,  Key.MORAL, Key.DIRECTION};
 		int[] values = {3, 4, 0};

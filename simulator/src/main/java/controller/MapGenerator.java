@@ -110,6 +110,7 @@ public class MapGenerator {
 					previousShip = ship;
 					
 					field = new Base(map, i, lineNumber, team);
+					//TODO: add ship to field
 					log.addCell(Cell.WATER, teamNumber, i, lineNumber);
 				}
 				else if(isDigit(c)){
@@ -164,7 +165,7 @@ public class MapGenerator {
 		map.setMapValues(fields, kraken);
 		return map;
 		*/
-		return null;
+		return new Map(random, log);
 	}
 	
 	/*
