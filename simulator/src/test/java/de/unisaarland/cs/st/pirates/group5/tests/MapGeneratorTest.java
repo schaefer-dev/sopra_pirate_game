@@ -36,6 +36,7 @@ public class MapGeneratorTest {
 		mapgen = new MapGenerator();
 		field = new Island(map, 0, 0, null);
 		field2 = new Water(map, 1, 0, null);
+		ship = new Ship(null, null, 0, null);
 		field3 = new Base(map, 0, 1, null, ship);
 		ship.setField(field3);
 		field4 = new ProvisionIsland(map, 1, 1);
