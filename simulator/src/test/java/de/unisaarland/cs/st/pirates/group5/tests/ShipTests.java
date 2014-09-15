@@ -162,8 +162,8 @@ public class ShipTests {
 	public void testChangeMoral2(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changeMoral(3);
+		
 		assertTrue ("ChangeMoral bigger 4",ship.getMoral() == 4) ;
 		assertTrue ("NoPositivActionCounter not 0 after positiv action", ship.getNoPositivActionCounter() == 0);
 	}
@@ -172,8 +172,8 @@ public class ShipTests {
 	public void testChangeMoral3(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changeMoral(-7);
+		
 		assertTrue ("ChangeMoral must not < 0", ship.getMoral() == 0) ;
 	}
 	
@@ -193,8 +193,8 @@ public class ShipTests {
 	public void testChangeCondition2(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changeCondition(3);
+		
 		assertTrue ("ChangeCondition: Condition must not be bigger 3", ship.getCondition() == 3);
 	}
 	
@@ -202,10 +202,10 @@ public class ShipTests {
 	public void testChangeCondition3(){
 		
 		ship = new Ship(null, null, 0, shipv);
+		ship.changeCondition(-1);
+		ship.changeCondition(-1);
+		ship.changeCondition(-1);
 		
-		ship.changeCondition(-1);
-		ship.changeCondition(-1);
-		ship.changeCondition(-1);
 		assertNull ("ChangeCondition == 0 : ship must be deleted", field.getShip());
 	}
 	
@@ -213,8 +213,8 @@ public class ShipTests {
 	public void testChangeCondition4(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changeCondition(0);
+		
 		assertTrue ("ChangeCondition: Condition must be 3 at the beginning", ship.getCondition() == 3);
 	}
 
@@ -222,8 +222,8 @@ public class ShipTests {
 	public void testChangePause1(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changePause(0);
+		
 		assertTrue ("ChangePause: Pause must be 0 at the beginning", ship.getPause() == 0);
 	}
 	
@@ -231,8 +231,8 @@ public class ShipTests {
 	public void testChangePause2(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changePause(1);
+		
 		assertTrue ("ChangePause up", ship.getPause() == 1);
 	}
 	
@@ -240,8 +240,8 @@ public class ShipTests {
 	public void testChangePause3(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changePause(9);
+		
 		assertTrue ("ChangePause" ,ship.getPause() == 9);
 	}
 	
@@ -250,8 +250,8 @@ public class ShipTests {
 	public void testChangePause4(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
 		ship.changePause(-9);
+		
 		assertTrue ("ChangePause: Pause must not be < 0", ship.getPause() == 0);
 	}
 	
@@ -404,6 +404,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistershipload1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(shipload, 0);
 		assertTrue (sship.getSenseRegister(shipload) == 0);
 		
@@ -415,6 +416,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistershipload2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(shipload, -1);
 		assertTrue ("Shipload not <0", sship.getSenseRegister(shipload) == -1);
 		
@@ -425,6 +427,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistershipmoral(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(shipmoral, 0);
 		assertTrue (sship.getSenseRegister(shipmoral) == 0);
 		
@@ -436,6 +439,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistershipmoral2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(shipmoral, -1);
 		assertTrue ("Shipmoral not <0", sship.getSenseRegister(shipmoral) == -1);
 		
@@ -446,6 +450,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistershipcondition1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(shipcondition, 3);
 		assertTrue (sship.getSenseRegister(shipcondition) == 3);
 		
@@ -457,6 +462,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistershipcondition2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(shipcondition, -1);
 		assertTrue ("Shipcondition not <0", sship.getSenseRegister(shipcondition) == -1);
 		
@@ -467,6 +473,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensecelltype1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensecelltype, 0);
 		assertTrue (sship.getSenseRegister(sensecelltype) == 0);
 		
@@ -484,6 +491,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensecelltype2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensecelltype, -1);
 		assertTrue ("Sensecelltype not < 0", sship.getSenseRegister(sensecelltype) == -1);
 		
@@ -494,6 +502,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersense1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensetreasure, 0);
 		assertTrue (sship.getSenseRegister(sensetreasure) == 0);
 		
@@ -506,6 +515,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensetreasure2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensetreasure, -1);
 		assertTrue ("Sensetreasure not < 0", sship.getSenseRegister(sensetreasure) == -1);
 		
@@ -516,6 +526,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensesupply1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensesupply, 0);
 		assertTrue (sship.getSenseRegister(sensesupply) == 0);
 		
@@ -528,6 +539,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesupply2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensesupply, -1);
 		assertTrue ("Sensesupply not <0", sship.getSenseRegister(sensesupply) == -1);
 		
@@ -538,6 +550,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersenseenemymarker(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(senseenemymarker, 0);
 		assertTrue (sship.getSenseRegister(senseenemymarker) == 0);
 		
@@ -550,6 +563,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersenseenemymarker2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(senseenemymarker, -1);
 		assertTrue ("Senseenemymarker not <0", sship.getSenseRegister(senseenemymarker) == -1);
 		
@@ -560,6 +574,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersenseshiptype1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(senseshiptype, 0);
 		assertTrue (sship.getSenseRegister(senseshiptype) == 0);
 		
@@ -572,6 +587,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersenseshiptype2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(senseshiptype, -1);
 		assertTrue ("Senseshiptype not <0", sship.getSenseRegister(senseshiptype) == -1);
 		
@@ -583,6 +599,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersenseshiploaded1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(senseloaded, 0);
 		assertTrue (sship.getSenseRegister(senseloaded) == 0);
 		
@@ -595,6 +612,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersenseshiploaded2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(senseloaded, -1);
 		assertTrue ("Senseloaded not <0", sship.getSenseRegister(senseloaded) == -1);
 		
@@ -605,6 +623,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersenseshipdirection1(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensedirection, 0);
 		assertTrue (sship.getSenseRegister(sensedirection) == 0);
 		
@@ -629,6 +648,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersenseshipcondition2(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensedirection, -1);
 		assertTrue ("Sensedirection not <0", sship.getSenseRegister(sensedirection) == -1);
 		
@@ -640,6 +660,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensesmarker01(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker0, 0);
 		assertTrue (sship.getSenseRegister(sensemarker0) == 0);
 		
@@ -650,6 +671,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesensemarker02(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker0, -1);
 		assertTrue ("Sensemarker not < 0", sship.getSenseRegister(sensemarker0) == -1);
 		
@@ -660,6 +682,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensesmarker11(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker1, 0);
 		assertTrue (sship.getSenseRegister(sensemarker1) == 0);
 		
@@ -672,6 +695,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesensemarker12(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker1, -1);
 		assertTrue ("Sensemarker1 not < 0", sship.getSenseRegister(sensemarker1) == -1);
 		
@@ -682,6 +706,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensesmarker21(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker2, 0);
 		assertTrue (sship.getSenseRegister(sensemarker2) == 0);
 		
@@ -694,6 +719,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesensemarker22(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker2, -1);
 		assertTrue ("Sensemarker2 not < 0", sship.getSenseRegister(sensemarker2) == -1);
 		
@@ -704,6 +730,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensesmarker31(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker3, 0);
 		assertTrue (sship.getSenseRegister(sensemarker3) == 0);
 		
@@ -714,6 +741,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesensemarker32(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker3, -1);
 		assertTrue ("Sensemarker3 not < 0", sship.getSenseRegister(sensemarker3) == -1);
 		
@@ -725,6 +753,7 @@ public class ShipTests {
 	@Test 
 	public void testSenseRegistersensesensemarker41(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker4, 0);
 		assertTrue (sship.getSenseRegister(sensemarker4) == 0);
 		
@@ -735,6 +764,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesensemarker42(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker4, -1);
 		assertTrue ("Sensemarker4 not < 0", sship.getSenseRegister(sensemarker4) == -1);
 		
@@ -745,6 +775,7 @@ public class ShipTests {
 	@Test
 	public void testSenseRegistersensesmarker51(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker5, 0);
 		assertTrue (sship.getSenseRegister(sensemarker5) == 0);
 		
@@ -755,6 +786,7 @@ public class ShipTests {
 	@Test (expected = AssertionError.class)
 	public void testSenseRegistersensesensemarker52(){
 		sship = new Ship(null, field, 0, shipn);
+		
 		sship.setSenseRegister(sensemarker5, -1);
 		assertTrue ("Sensemarker5 not < 0", sship.getSenseRegister(sensemarker5) == -1);
 		
