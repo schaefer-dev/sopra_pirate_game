@@ -43,7 +43,7 @@ public class CommandRepairTest {
 	{
 		Team teamA = new Team('a', null);
 		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip();
+		teamA.addShip(ship);
 		DummyLogWriter log = new DummyLogWriter();
 		DummyMap map = new DummyMap(log);
 		Field field = new Base(map,0,0,teamA);
@@ -71,7 +71,7 @@ public class CommandRepairTest {
 	{
 		Team teamA = new Team('a', null);
 		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip();
+		teamA.addShip(ship);
 		DummyLogWriter log = new DummyLogWriter();
 		DummyMap map = new DummyMap(log);
 		Field field = new Base(map,0,0,teamA);
@@ -99,7 +99,7 @@ public class CommandRepairTest {
 	{
 		Team teamA = new Team('a', null);
 		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip();
+		teamA.addShip(ship);
 		DummyLogWriter log = new DummyLogWriter();
 		DummyMap map = new DummyMap(log);
 		Field field = new Water(map, 0, 0, null);
@@ -126,7 +126,7 @@ public class CommandRepairTest {
 	{
 		Team teamA = new Team('a', null);
 		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip();
+		teamA.addShip(ship);
 		DummyLogWriter log = new DummyLogWriter();
 		DummyMap map = new DummyMap(log);
 		Field field = new Base(map,0,0,teamA);
@@ -148,5 +148,4 @@ public class CommandRepairTest {
 		Integer nul = new Integer (0);
 		assertTrue(vals.remove(nul) && vals.remove(nul) && vals.remove(new Integer(1)) && vals.remove(new Integer(Key.RESTING.ordinal())) && vals.remove(new Integer(4))); // tests if the ids of Team and the ship as well as the Key.ordinal for Resting and the new values of score and resting where logged
 	}
-	
 }

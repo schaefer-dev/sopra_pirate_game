@@ -89,7 +89,7 @@ public class TestField {
 	//	fields[2][0] = elsewhere; //enemyship2
 	//	fields[1][1] = nextToElseWhere;//alliedship2
 		
-		map.setMapValues(fields, null/*firstShip*/, krakens);
+		map.setMapValues(fields, krakens);
 		
 		/*tactics.add(goAhead);
 		btactics.add(goAhead);
@@ -216,25 +216,92 @@ public class TestField {
 	
 	@Test
 	public void testMoveKraken(){
+		log.entities.clear();
+		log.values.clear();
+		log.what.clear();
 		hinten.moveKraken(water);
 		assertEquals("moveKraken hat nicht funktioniert", kraken.getField(), water);
 		assertEquals("Kraken was not removed from old field",hinten.getKraken(), null);
 		assertEquals("Kraken was not set on new field",water.getKraken(),kraken);
+		assertTrue("move of Kraken wasn't logged.",log.what.remove("notify") && log.entities.remove(Entity.KRAKEN) && log.values.remove(toInteger(kraken.getId())) && log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(water.getX())));
+		assertFalse("Y-Coordinate was logged although it hasn't changed.", log.values.contains(toInteger(Key.Y_COORD)));
+		assertTrue("Logged to much", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		
 	}
 	@Test
 	public void testBuoyfunctions(){
+		log.entities.clear();
+		log.values.clear();
+		log.what.clear();
+		log.cells.clear();
+		assertTrue("Bouy appeared out of nowhere. That's not good." ,water.getBuoys().size() == 0);
+		int idBefore = map.giveNewEntityID();
 		water.placeBuoy(1, a);
 		assertEquals("buoy not placed",water.getBuoys().size(),1);
-		assertFalse("Cannot be placed twice", water.placeBuoy(1,a));
+		assertTrue("No new bouy was created.", log.what.remove("create"));
+		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
+		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(1)) && log.values.remove(toInteger('a'-'a')));
+		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		assertFalse("Bouy cannot be placed twice", water.placeBuoy(1,a) || log.what.contains("create") || log.what.contains("notify"));
 		
 		water.deleteBuoy(a, 1);
 		assertEquals("buoy not deleted",water.getBuoys().size(),0);
+		assertTrue("Deletion of Bouy not logged correctly.", log.what.remove("destroy") && log.entities.remove(Entity.BUOY) && log.values.remove(toInteger(idBefore+1)));
 		
+		idBefore = map.giveNewEntityID();
 		assertTrue("why not buoy 1", water.placeBuoy(1,a));
+		assertEquals("buoy not placed",water.getBuoys().size(),1);
+		assertTrue("No new bouy was created.", log.what.remove("create"));
+		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
+		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(1)) && log.values.remove(toInteger('a'-'a')));
+		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		
+		idBefore = map.giveNewEntityID();
 		assertTrue("why not buoy 2", water.placeBuoy(2,a));
+		assertEquals("buoy not placed",water.getBuoys().size(),2);
+		assertTrue("No new bouy was created.", log.what.remove("create"));
+		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
+		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(2)) && log.values.remove(toInteger('a'-'a')));
+		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		
+		idBefore = map.giveNewEntityID();
 		assertTrue("why not buoy 3", water.placeBuoy(3,a));
+		assertEquals("buoy not placed",water.getBuoys().size(),3);
+		assertTrue("No new bouy was created.", log.what.remove("create"));
+		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
+		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(3)) && log.values.remove(toInteger('a'-'a')));
+		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		
+		idBefore = map.giveNewEntityID();
 		assertTrue("why not buoy 4", water.placeBuoy(4,a));
+		assertEquals("buoy not placed",water.getBuoys().size(),4);
+		assertTrue("No new bouy was created.", log.what.remove("create"));
+		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
+		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(4)) && log.values.remove(toInteger('a'-'a')));
+		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		
+		idBefore = map.giveNewEntityID();
 		assertTrue("why not buoy 5", water.placeBuoy(5,a));
+		assertEquals("buoy not placed",water.getBuoys().size(),5);
+		assertTrue("No new bouy was created.", log.what.remove("create"));
+		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
+		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(5)) && log.values.remove(toInteger('a'-'a')));
+		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
+		
+		water.deleteBuoy(b, 3);
+		assertTrue("Deleted Bouy did not exist, thus no logging should take place.", log.entities.size()==0 && log.values.size() == 0 && log.what.size() == 0 && log.cells.size() == 0);
 	}
 	@Test 
 	public void testSetShip(){
