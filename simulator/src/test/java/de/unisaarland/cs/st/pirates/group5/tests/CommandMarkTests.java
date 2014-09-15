@@ -2,6 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 import model.Field;
+import model.Map;
 import model.Ship;
 import model.Team;
 import model.Water;
@@ -9,8 +10,10 @@ import model.Water;
 import org.junit.Before;
 import org.junit.Test;
 
+import view.SimpleLogWriter;
 import commands.Mark;
 import commands.Turn;
+import commands.Unmark;
 
 public class CommandMarkTests {
 	
@@ -21,8 +24,22 @@ public class CommandMarkTests {
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
 		
-		Field waterField = new Water(null, 0,0, null);
-		waterField.placeBuoy(0, teamA);
+		
+		
+		Mark testMark0 = new Mark(0);
+		Mark testMark1 = new Mark(1);
+		Mark testMark3 = new Mark(3);
+		
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
+		
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		
+		testMark0.execute(shipA);
 		
 		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
@@ -37,7 +54,19 @@ public class CommandMarkTests {
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
 		
-		Field waterField = new Water(null, 0,0, null);
+		Mark testMark0 = new Mark(0);
+		Mark testMark1 = new Mark(1);
+		Mark testMark3 = new Mark(3);
+		
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
+		
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(0, teamB);
 		
@@ -54,7 +83,19 @@ public class CommandMarkTests {
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
 		
-		Field waterField = new Water(null, 0,0, null);
+		Mark testMark0 = new Mark(0);
+		Mark testMark1 = new Mark(1);
+		Mark testMark3 = new Mark(3);
+		
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
+		
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(0, teamA);
 		
@@ -72,7 +113,19 @@ public class CommandMarkTests {
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
 		
-		Field waterField = new Water(null, 0,0, null);
+		Mark testMark0 = new Mark(0);
+		Mark testMark1 = new Mark(1);
+		Mark testMark3 = new Mark(3);
+		
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
+		
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(3, teamB);
@@ -95,7 +148,19 @@ public class CommandMarkTests {
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
 		
-		Field waterField = new Water(null, 0,0, null);
+		Mark testMark0 = new Mark(0);
+		Mark testMark1 = new Mark(1);
+		Mark testMark3 = new Mark(3);
+		
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
+		
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(3, teamB);
