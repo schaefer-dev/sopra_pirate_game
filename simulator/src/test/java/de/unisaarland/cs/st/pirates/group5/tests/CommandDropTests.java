@@ -52,7 +52,7 @@ public class CommandDropTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 0, 0, null);
 		
@@ -91,7 +91,7 @@ public class CommandDropTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 0, 0, null);
 		
@@ -131,7 +131,7 @@ public class CommandDropTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 0, 0, null);
 		
@@ -177,7 +177,7 @@ public class CommandDropTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		Team testTeam = new Team('a', null);
 		

@@ -2,6 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import model.Field;
@@ -26,15 +27,15 @@ public class MapGeneratorTest {
 	@Before
 	public void setUp() throws FileNotFoundException {
 		stream = getClass().getResourceAsStream("/map2x2.txt");
-		mapgen = new MapGenerator(null);
+		mapgen = new MapGenerator();
 		field = new Island(map, 0, 0, null);
 		field2 = new Water(map, 1, 0, null);
 		
 	}
 
 	@Test
-	public void mapGenTest(){
-		map = mapgen.createMap(stream, null, null);
+	public void mapGenTest() throws IOException{
+		map = mapgen.createMap(stream, null, null, null);
 		assertTrue (map.giveNewEntityID() == 0);
 		assertTrue (map.giveNewActorID() == 1);
 		assertNull (map.getKraken());

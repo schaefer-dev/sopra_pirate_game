@@ -40,7 +40,7 @@ public class CommandRefreshTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][0]=new ProvisionIsland(testMap, 1, 0);
 		
@@ -77,7 +77,7 @@ public class CommandRefreshTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		//fieldArray[1][0]=new ProvisionIsland(testMap, 1, 0);
 		
@@ -114,7 +114,7 @@ public class CommandRefreshTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][0]=new Base(testMap, 1, 0, null);
 		
@@ -151,7 +151,7 @@ public class CommandRefreshTests {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][0]=new Island(testMap, 1, 0, null);
 		

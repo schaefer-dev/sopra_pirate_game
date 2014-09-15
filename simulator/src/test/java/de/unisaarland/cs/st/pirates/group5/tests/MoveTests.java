@@ -40,8 +40,8 @@ public class MoveTests {
 	private Ship shipfriend;
 	private Ship shipenemy;
 	
-	private Team tf;
-	private Team te;
+	private Team teamfriend;
+	private Team teamenemy;
 	
 	private char a;
 	private char b;
@@ -50,8 +50,8 @@ public class MoveTests {
 	
 	private Move moveit;
 	
-	private int mecon;
-	private int enemycon;
+	private int mecondition;
+	private int enemycondition;
 	private int meload;
 
 	
@@ -62,25 +62,26 @@ public class MoveTests {
 		fields = new Field[3][3];
 		
 		moveit = new Move(13);
-		map = new Map(null);
+		map = new Map(null, null);
+		
 		a = 0;
 		b = 1;
-		tf = new Team(a, null);
-		te = new Team(b, null);
+		teamfriend = new Team(a, null);
+		teamenemy = new Team(b, null);
 		
 		kraken = new Kraken(0, waterkraken);
 		
-		shipme = new Ship(tf, waterme, 0, shipfriend);
-		shipenemy = new Ship(te, waterenemy, 1, null);
-		shipfriend = new Ship(tf, waterfriend, 2, null);
+		shipme = new Ship(teamfriend, waterme, 0, shipfriend);
+		shipenemy = new Ship(teamenemy, waterenemy, 1, null);
+		shipfriend = new Ship(teamfriend, waterfriend, 2, null);
 		
 		island1 = new Island(map, 0, 0, null);
 		water1 = new Water(map, 1, 0, null);
 		provision1 = new ProvisionIsland(map, 2, 0);
-		baseenemy = new Base(map, 0, 1, te);
+		baseenemy = new Base(map, 0, 1, teamenemy);
 		waterme = new Water(map, 1, 1, null);
 		waterkraken = new Water(map, 2, 1, kraken);
-		basefriend = new Base(map, 0, 2, tf);
+		basefriend = new Base(map, 0, 2, teamfriend);
 		waterenemy = new Water(map, 1, 2, null);
 		waterenemy.setShip(shipenemy);
 		waterfriend = new Water(map, 2, 2, null);
@@ -96,8 +97,8 @@ public class MoveTests {
 		fields[1][2] = waterenemy;
 		fields[2][2] = waterfriend;
 		
-		mecon = shipme.getCondition();
-		enemycon = shipenemy.getCondition();
+		mecondition = shipme.getCondition();
+		enemycondition = shipenemy.getCondition();
 		meload = shipme.getLoad();
 		
 				
@@ -109,8 +110,8 @@ public class MoveTests {
 		shipme.changeDirection(true);
 		
 		moveit.execute(shipme);
-		assertTrue (shipme.getPosition().equals(water1));
-		assertNull(waterme.getShip());
+		assertTrue ("move to water1", shipme.getPosition().equals(water1));
+		assertNull("Ship must be deleted from old field",waterme.getShip());
 		 
 		 
 	 }
@@ -119,9 +120,9 @@ public class MoveTests {
 	public void testMoveShipFriend(){
 		shipme.changeDirection(false);
 		moveit.execute(shipme);
-		assertTrue (shipme.getPosition().equals(waterme));
-		assertTrue(waterme.getShip().equals(shipme));
-		assertTrue(shipme.getPC() == 13);
+		assertTrue ("move must not be succesfull", shipme.getPosition().equals(waterme));
+		assertTrue("ship must not move, still old field",waterme.getShip().equals(shipme));
+		assertTrue("pc must be changed to else case",shipme.getPC() == 13);
 	}
 	
 	@Test
@@ -134,15 +135,15 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue (shipme.getPosition().equals(waterme));
-		assertTrue(waterme.getShip().equals(shipme));
-		assertTrue (shipenemy.getPosition().equals(waterenemy));
-		assertTrue(waterenemy.getShip().equals(shipenemy));
+		assertTrue ("ship must not changed fields",shipme.getPosition().equals(waterme));
+		assertTrue("ship must not changed fields",waterme.getShip().equals(shipme));
+		assertTrue ("ship must not changed fields",shipenemy.getPosition().equals(waterenemy));
+		assertTrue("ship must not changed fields",waterenemy.getShip().equals(shipenemy));
 		
-		assertTrue (shipme.getCondition() == mecon);
-		assertTrue (shipenemy.getCondition() == (enemycon + 1));
+		assertTrue ("winner ship must not changed condition",shipme.getCondition() == mecondition);
+		assertTrue ("loser ship must loose condition",shipenemy.getCondition() == (enemycondition + 1));
 		
-		assertTrue(shipme.getPC() == 13);
+		assertTrue("pc must changed to else case",shipme.getPC() == 13);
 		
 	}
 	
@@ -156,14 +157,14 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue (shipme.getPosition().equals(waterenemy));
-		assertNull(waterme.getShip());
-		assertTrue(waterenemy.getShip().equals(shipme));
+		assertTrue ("move must be succesfull, ship must changed fieds",shipme.getPosition().equals(waterenemy));
+		assertNull("move must be succesfull, ship must changed fieds",waterme.getShip());
+		assertTrue("move must be succesfull, ship must changed fieds",waterenemy.getShip().equals(shipme));
 		
-		assertTrue (shipme.getCondition() == mecon);
-		assertTrue (shipenemy.getCondition() == 0);
+		assertTrue ("winner ship must not changed condition",shipme.getCondition() == mecondition);
+		//assertTrue (shipenemy.getCondition() == 0);
 		
-		assertTrue(shipme.getPC() != 13);
+		assertTrue("pc not in else case",shipme.getPC() != 13);
 		
 	}
 	
@@ -176,14 +177,14 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue (shipme.getPosition().equals(waterme));
-		assertTrue(waterme.getShip().equals(shipme));
-		assertTrue (shipenemy.getPosition().equals(waterenemy));
-		assertTrue(waterenemy.getShip().equals(shipenemy));
+		assertTrue ("move not succesfull, fields must not changed",shipme.getPosition().equals(waterme));
+		assertTrue("move not succesfull, fields must not changed",waterme.getShip().equals(shipme));
+		assertTrue ("move not succesfull, fields must not changed",shipenemy.getPosition().equals(waterenemy));
+		assertTrue("move not succesfull, fields must not changed",waterenemy.getShip().equals(shipenemy));
 		
-		assertTrue (shipenemy.getCondition() == enemycon);
-		assertTrue (shipme.getCondition() == (mecon + 1));
-		assertTrue(shipme.getPC() == 13);
+		assertTrue ("winner ship must not changed condition",shipenemy.getCondition() == enemycondition);
+		assertTrue ("loser ship must loose condition",shipme.getCondition() == (mecondition + 1));
+		assertTrue("pc must changed to else case",shipme.getPC() == 13);
 	}
 	@Test
 	public void testMoveShipEnemyLooseNotSurvive(){
@@ -195,13 +196,13 @@ public class MoveTests {
 		moveit.execute(shipme);
 		
 		
-		assertNull(waterme.getShip());
-		assertTrue (shipenemy.getPosition().equals(waterenemy));
-		assertTrue(waterenemy.getShip().equals(shipenemy));
+		assertNull("ship looses, must be destroyed",waterme.getShip());
+		assertTrue ("ship must not changed fields",shipenemy.getPosition().equals(waterenemy));
+		assertTrue("ship must not changed fields",waterenemy.getShip().equals(shipenemy));
 		
-		assertTrue (shipme.getCondition() == 0);
-		assertTrue (shipenemy.getCondition() == enemycon);
-		assertTrue(shipme.getPC() != 13);
+		//assertTrue (shipme.getCondition() == 0);
+		assertTrue ("winnership must not changed condition",shipenemy.getCondition() == enemycondition);
+		//assertTrue(shipme.getPC() != 13);
 	}
 	
 	@Test
@@ -209,12 +210,12 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue(shipme.getPosition().equals(waterkraken));
-		assertTrue (waterkraken.getShip().equals(shipme));
+		assertTrue("move was succesfull",shipme.getPosition().equals(waterkraken));
+		assertTrue ("move was succesfull",waterkraken.getShip().equals(shipme));
 		
-		assertTrue (shipme.getCondition() == (mecon+1));
+		assertTrue ("condition must changed", shipme.getCondition() == (mecondition+1));
 		
-		assertTrue(shipme.getPC() != 13);
+		assertTrue("move was succesfull",shipme.getPC() != 13);
 		
 		
 	}
@@ -227,10 +228,10 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue(shipme.getPosition().equals(waterme));
-		assertTrue (shipme.getCondition() == mecon);
+		assertTrue("move not succesfull",shipme.getPosition().equals(waterme));
+		assertTrue ("must not loose condition", shipme.getCondition() == mecondition);
 		
-		assertTrue(shipme.getPC() == 13);
+		assertTrue("move not succesfull, else case", shipme.getPC() == 13);
 	}
 	
 	@Test
@@ -240,12 +241,12 @@ public class MoveTests {
 		
 		moveit.execute(shipenemy);
 		
-		assertTrue(shipenemy.getPosition().equals(baseenemy));
-		assertTrue(baseenemy.getShip().equals(shipenemy));
+		assertTrue("move succesfull", shipenemy.getPosition().equals(baseenemy));
+		assertTrue("move succesfull", baseenemy.getShip().equals(shipenemy));
 		
-		assertTrue (shipenemy.getCondition() == enemycon);
+		assertTrue (" must not loose condition",shipenemy.getCondition() == enemycondition);
 		
-		assertTrue(shipme.getPC() != 13);
+		assertTrue("move was succesfull, not else case", shipme.getPC() != 13);
 		
 		
 	}
@@ -262,11 +263,11 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue(shipme.getPosition().equals(water1));
-		assertTrue(shipme.getCondition() == (mecon+1));
-		assertTrue (shipme.getLoad() <= meload);
+		assertTrue("move not succesfull", shipme.getPosition().equals(water1));
+		assertTrue("must loose condition",shipme.getCondition() == (mecondition+1));
+		assertTrue ("must loose treasure", shipme.getLoad() <= meload);
 		
-		assertTrue(shipme.getPC() == 13);
+		assertTrue("move not succesfull, else case",shipme.getPC() == 13);
 		
 	}
 	
@@ -276,11 +277,11 @@ public class MoveTests {
 		
 		moveit.execute(shipme);
 		
-		assertTrue(shipme.getPosition().equals(waterme));
-		assertTrue(shipme.getCondition() == (mecon+1));
-		assertTrue (shipme.getLoad() <= meload);
+		assertTrue("move not succesfull", shipme.getPosition().equals(waterme));
+		assertTrue("must loose condition",shipme.getCondition() == (mecondition+1));
+		assertTrue (shipme.getLoad() <= meload); //???
 		
-		assertTrue(shipme.getPC() == 13);
+		assertTrue("move not succesfull, else case",shipme.getPC() == 13);
 		
 	}
 }
