@@ -16,6 +16,7 @@ import model.Water;
 
 import org.junit.Test;
 
+import view.SimpleLogWriter;
 import commands.Drop;
 import commands.Pickup;
 import commands.Refresh;
@@ -29,7 +30,8 @@ public class CommandRefreshTests {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -65,7 +67,8 @@ public class CommandRefreshTests {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -101,7 +104,8 @@ public class CommandRefreshTests {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -137,7 +141,8 @@ public class CommandRefreshTests {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
