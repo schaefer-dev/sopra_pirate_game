@@ -116,9 +116,11 @@ public class CommandRefreshTests {
 		}	
 		testMap.setMapValues(fieldArray, null);
 		
-		fieldArray[1][0]=new Base(testMap, 1, 0, null);
+		Ship testShip1 = new Ship(null, fieldArray[1][0], 0, null);
 		
-		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
+		fieldArray[1][0]=new Base(testMap, 1, 0, null, testShip1);
+		
+		Ship testShip = new Ship(null, fieldArray[1][1], 1, null);
 		
 		fieldArray[1][1].setShip(testShip);
 		
