@@ -38,7 +38,7 @@ public class KrakenTests {
 				fieldArray[z][i]=new Water(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		
@@ -68,7 +68,7 @@ public class KrakenTests {
 		Kraken errorKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[2][2] = new Water(testMap,2,2,errorKraken);
 		
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		
@@ -98,7 +98,7 @@ public class KrakenTests {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[1][1]=new Water(testMap,1,1,testKraken);
 		
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
@@ -124,7 +124,7 @@ public class KrakenTests {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[1][1]=new Water(testMap,1,1,testKraken);
 		
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
@@ -151,7 +151,7 @@ public class KrakenTests {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[1][1]=new Water(testMap,1,1,testKraken);
 		
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);

@@ -61,7 +61,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -102,7 +102,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -143,7 +143,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -184,7 +184,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -224,7 +224,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -263,7 +263,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -310,7 +310,7 @@ public class CommandPickupTests {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, 0, 0, null, null);
+		testMap.setMapValues(fieldArray, null, null);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
