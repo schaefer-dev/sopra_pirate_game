@@ -63,6 +63,15 @@ public class ShipTests {
 	}
 	
 	@Test
+	public void testNoPositivActionCounter(){
+		
+		ship = new Ship(null, null, 0, null);
+		
+		assertTrue(ship.getNoPositivActionCounter() == 0);
+	
+	}
+	
+	@Test
 	public void testAct(){
 		
 		random = new Random(1);	
@@ -88,6 +97,27 @@ public class ShipTests {
 		assertTrue(ship.getPC() == 0);
 		assertTrue ( testlog.what.remove("notify"));
 		
+	}
+	
+	@Test
+	public void testgetCommand(){
+		
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		Drop drops = new Drop();
+		Goto go= new Goto(0);
+		commands.add(drops);
+		commands.add(go);
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
+		
+		
+		assertTrue (ship.getCommand().equals(drops));
 	}
 	
 	@Test
@@ -296,6 +326,7 @@ public class ShipTests {
 		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeCondition(3);
 		
 		assertTrue ("ChangeCondition: Condition must not be bigger 3", ship.getCondition() == 3);
