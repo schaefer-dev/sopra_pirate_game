@@ -22,7 +22,7 @@ public class Flipzero implements Command {
 	}
 	
 	@Override
-	public void execute(Ship ship) {
+	public void execute(Ship ship){
 		if(ship == null) throw new NullPointerException();
 		
 		Random random = ship.getPosition().getMap().getRandom();

@@ -4,6 +4,8 @@ import controller.Command;
 
 public class Ship {
 
+	public static final int undefined = 6;
+	
 	private Team team;
 	private int pc;
 	private int pause;
