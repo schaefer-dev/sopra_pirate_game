@@ -86,4 +86,51 @@ public class CommandUnMarkTests {
 		assertTrue(waterField.getBuoys().size()==0);	
 	}
 	
+	@Test
+	public void TestUnMark2Buoys04(){
+		Team teamA = new Team('a', null);
+		Team teamB = new Team('b', null);
+		Team teamC = new Team('c', null);
+		Team teamD = new Team('d', null);
+		
+		Field waterField = new Water(null, 0,0, null);
+		waterField.placeBuoy(0, teamA);
+		waterField.placeBuoy(2, teamB);
+		waterField.placeBuoy(2, teamC);
+		waterField.placeBuoy(0, teamA);
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		Unmark testUnmark = new Unmark(0);
+		Unmark testUnmark2 = new Unmark(2);
+		testUnmark2.execute(shipB);
+		testUnmark2.execute(shipC);
+		testUnmark.execute(shipA);
+		testUnmark.execute(shipD);
+		assertTrue(waterField.getBuoys().size()==0);	
+	}
+	
+	@Test
+	public void TestUnMark2Buoys05(){
+		Team teamA = new Team('a', null);
+		Team teamB = new Team('b', null);
+		Team teamC = new Team('c', null);
+		Team teamD = new Team('d', null);
+		
+		Field waterField = new Water(null, 0,0, null);
+		Ship shipA = new Ship(teamA, waterField, 0, null);
+		Ship shipB = new Ship(teamB, waterField, 0, null);
+		Ship shipC = new Ship(teamC, waterField, 0, null);
+		Ship shipD = new Ship(teamD, waterField, 0, null);
+		Unmark testUnmark = new Unmark(0);
+		Unmark testUnmark2 = new Unmark(2);
+		testUnmark2.execute(shipB);
+		testUnmark2.execute(shipC);
+		testUnmark.execute(shipA);
+		testUnmark.execute(shipD);
+		assertTrue(waterField.getBuoys().size()==0);	
+		assertTrue(waterField.getBuoys()==null);		//depending on implementation, might not be null if implemented in array?
+	}
+	
 }

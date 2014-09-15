@@ -12,14 +12,15 @@ public class Map {
 	private Field[][] fields;
 	private int nextFreeActorID;
 	private int nextFreeEntityID;
-	private LogWriter log;
+	private LogWriter logWriter;
 	private Ship firstShip;
 	private List<Kraken> kraken;
 	
 	public final Random random;
 	
-	public Map(Random newRandom){
-		random = newRandom;
+	public Map(Random random, LogWriter logWriter){
+		this.random = random;
+		this.logWriter = logWriter;
 	}
 	
 	public Field getNeighbour(Field field, int direction){

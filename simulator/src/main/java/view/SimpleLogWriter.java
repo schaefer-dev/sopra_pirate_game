@@ -1,16 +1,21 @@
 package view;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.List;
+
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
 public class SimpleLogWriter implements LogWriter {
 	
 	public enum LogType{
 		HEADER,
+		FOOTER,
+		_Field,
 		Create,
+		Values,
 		Update,
 		Error,
 		Debug,
@@ -18,26 +23,35 @@ public class SimpleLogWriter implements LogWriter {
 	
 	private PrintWriter out;
 	private Integer round;
-	private Date now;
 	private Long startTime;
 	private int teamCount;
-	private String transStart;
+	private int[] teamScores;
 	
 	private boolean init;
 	private boolean headerEnd;
 	
+	private String border = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+	
 	@Override
 	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
-		if(arg0 == null || arg1 == null || arg2 == null) throw new NullPointerException();
+		if(/*arg0 == null ||*/arg1 == null || arg2 == null) throw new NullPointerException();
 		if(arg2.length == 0) throw new ArrayIndexOutOfBoundsException();
 		
+		if (arg0 == null){
+			File file = new File("src/test/resources/log.log");
+			out = new PrintWriter(file);
+		}
+		else
+			out = new PrintWriter(arg0);
+			
 		init = true;
 		round = 0;
-		out = new PrintWriter(arg0);
-		teamCount = arg2.length;
-		now = new Date();
-		startTime = now.getTime();
 		
+		teamCount = arg2.length;
+		teamScores = new int[teamCount];
+		startTime = System.nanoTime();
+		
+		//Read map size
 		int i = arg1.indexOf(' ');		
 		String first = arg1.substring(0, i);
 		String rest = arg1.substring(i);
@@ -45,13 +59,15 @@ public class SimpleLogWriter implements LogWriter {
 		i = rest.indexOf(' ');
 		String second = rest.substring(0, i);
 		
-		String teams = "Teams on map {";
+		//Read teams
+		String teams = "Teams: {";
 		for(int j = 0; j < arg2.length; j++)
 			teams += teamName(j) + ",";
 		teams = teams.substring(0, teams.length()-1);
 		teams += "}";
 		
 		try{
+			out.write("\n");
 			addCustomHeaderData("Map has size " + first + "x" + second);
 			addCustomHeaderData(teams);
 		}
@@ -63,10 +79,8 @@ public class SimpleLogWriter implements LogWriter {
 	@Override
 	public void close() throws IllegalStateException, IOException {
 		if(round == 0) throw new IllegalStateException();
-		try{
-			now = new Date();
-			Long time = now.getTime() - startTime;		
-			out.write("\nterminated after " + time.toString() + " seconds");
+		try{	
+			addFooterData();
 			out.flush();
 			out.close();	
 		}
@@ -75,31 +89,56 @@ public class SimpleLogWriter implements LogWriter {
 		}
 	}
 	
+	
 	private void write(LogType type, String message, boolean showTime){
-		now = new Date();
-		Long t = now.getTime() - startTime;		
-		String time = (showTime) ? "  (" + t.toString() + "s)" : "";
+		if(showTime) checkBorder(type);
+		
 		String step = (round > 0) ? round.toString() : "#";
+		String time = (showTime) ? "  (" + elapsedTime() + "s)" : "";
+			
+		out.write("[" + step + "]" + "[" + type + "] " + message + time + "\n");
+	}
+	
+	private void write(LogType type, String prefix, String object, String bridge, String value, boolean showTime){
+		if(showTime) checkBorder(type);
 		
-		if(!headerEnd && type.equals(LogType.Create)){
-			out.write("\n");
-			headerEnd = true;
-		}
+		prefix = "[" + prefix + "]";
+		String time = (showTime) ? "  (" + elapsedTime() + "s)" : "";
 		
-		out.write("[" + step + "]"
-					  + "[" + type + "] "
-				      + message 
-				      + time + "\n");
+		object = String.format("%-15s", object).replace(' ', ' ');
+		bridge = String.format("%-15s", bridge).replace(' ', ' ');
+		value  = String.format("%-10s", value).replace(' ', ' ');
+		
+		out.write(prefix + "[" + type + "] " + object + bridge + value + time + "\n");
+	}
+	
+	private void write(LogType type, String object, String bridge, String value, boolean showTime){
+		write(type, round.toString(), object, bridge, value, showTime);
 	}
 
 	@Override
 	public LogWriter addCustomHeaderData(String arg0) throws NullPointerException, ArrayIndexOutOfBoundsException {
 		if(arg0 == null) throw new NullPointerException();
-		if(arg0.length() > 1000000) throw new ArrayIndexOutOfBoundsException();
+		if(arg0.length() > 1e6) throw new ArrayIndexOutOfBoundsException();
 		if(!(init && round == 0)) throw new IllegalStateException();
 		
 		write(LogType.HEADER, arg0, false);
 		return this;
+	}
+	
+	
+	public void addFooterData(){
+		out.write("\nFinished " + border);
+		
+		int winner = 0;
+		for(int i = 1; i < teamScores.length; i++){
+			if(teamScores[i] > teamScores[winner])
+				winner = i;
+		}
+		Integer winnerPoints = teamScores[winner];
+		write(LogType.FOOTER, "#", "Winner:", "Team " + teamName(winner), winnerPoints.toString() + " points" , false);
+		
+		write(LogType.FOOTER, "#", "Duration:", elapsedTime() + "s", "", false);
 	}
 	
 	@Override
@@ -113,10 +152,10 @@ public class SimpleLogWriter implements LogWriter {
 		}
 		
 		if(arg1 == null)
-			write(LogType.Create, "Cell: " + arg0.toString() + " at (" + arg2 + "," + arg3 + ")", true);
+			write(LogType._Field, "#", arg0.toString(), "at", "(" + arg2 + "," + arg3 + ")", true);
 		else
-			write(LogType.Create, "Cell: " + "BASE" + "(" + teamName(arg1) + ")" + " at (" + arg2 + "," + arg3 + ")", true);
-		
+			write(LogType._Field, "#", "BASE" + "(" + teamName(arg1) + ")", "at", "(" + arg2 + "," + arg3 + ")", true);
+	
 		return this;
 	}
 
@@ -126,7 +165,7 @@ public class SimpleLogWriter implements LogWriter {
 		
 		round++;
 		try{
-			out.write("[" + round.toString() + "][nRound] . . . . . . . . . . . . . . . . . . . .\n");
+			out.write("\nRound " + round.toString() + "  " + border);
 		}
 		catch(Exception e){
 			throw new IOException();
@@ -140,14 +179,13 @@ public class SimpleLogWriter implements LogWriter {
 		if(!init) throw new IllegalStateException();
 		if(arg2.length != arg3.length) throw new ArrayIndexOutOfBoundsException();
 		
-		
-		Integer id = arg1;
-		write(LogType.Create, "Obj : " + arg0.toString() + "(" + id.toString() + ")", true);
+		String prefix = (round > 0) ? round.toString() : "#";
+		write(LogType.Create, prefix, entityName(arg0, arg1), "", "", true);
 		for(int i = 0; i < arg2.length; i++){
 			if(!validKey(arg0, arg2[i])) throw new IllegalArgumentException();
 			
 			Integer arg = arg3[i];
-			write(LogType.Create, "	  ->" + arg2[i].toString() + ": " + arg.toString(), false);
+			write(LogType.Values, prefix, "", arg2[i].toString() + ":", arg.toString(), false);
 		}
 		
 		return this;
@@ -159,8 +197,7 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg1 < 0) throw new IllegalArgumentException();
 		if(round == 0) throw new IllegalStateException();
 
-		Integer id = arg1;
-		write(LogType.Update, arg0.toString() + "(" + id.toString() + ") destroyed", true);
+		write(LogType.Update, entityName(arg0, arg1), "destroyed", "", true);		
 		return this;
 	}
 
@@ -171,7 +208,9 @@ public class SimpleLogWriter implements LogWriter {
 		if(!init) throw new IllegalStateException();
 		
 		Integer score = arg1;
-		write(LogType.Update, "TEAM(" + teamName(arg0) + ")   has score: " + score.toString(), true);
+		teamScores[arg0] = score;
+		write(LogType.Update, "TEAM " + teamName(arg0), "Score:", "->" + score.toString(), true);
+		
 		return this;
 	}
 
@@ -182,9 +221,9 @@ public class SimpleLogWriter implements LogWriter {
 		if(round == 0) throw new IllegalStateException();
 		if(!validKey(arg0,  arg2)) throw new IllegalArgumentException();
 		
-		Integer id = arg1;
 		Integer value = arg3;
-		write(LogType.Update, arg0.toString() + "(" + id.toString() + ") " + arg2.toString() + " changed to " + value.toString(), true);
+		write(LogType.Update, entityName(arg0, arg1), arg2.toString() + ":", "->" + value.toString(), true);
+		
 		return this;
 	}
 	
@@ -194,29 +233,7 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg1 < 0) throw new IllegalArgumentException();
 		if(!init) throw new IllegalStateException();
 		
-		Integer id = arg1;
-		transStart = arg0.toString() + "(" + id.toString() + "):\n";
-		
-		return new Transaction() {
-			
-			private String transaction = "";
-			
-			@Override
-			public Transaction set(Key arg0, int arg1) throws NullPointerException, IllegalArgumentException {
-				if(arg0 == null) throw new NullPointerException();
-				//TODO: missing exception
-				
-				Integer value = arg1;
-				transaction += "                  ->" + arg0.toString() + " changed to " + value.toString();
-				transaction += "\n";
-				return this;
-			}		
-				
-			@Override
-			public String toString(){
-				return transaction;
-			}
-		};
+		return new SimpleTransaction(entityName(arg0, arg1), arg0, this);
 	}
 
 	@Override
@@ -225,19 +242,45 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg0.toString().length() == 0) throw new IllegalArgumentException();
 		if(round == 0) throw new IllegalStateException();
 		
-		String body = arg0.toString();
-		body = body.substring(0, body.length() - 2);
-		write(LogType.Update, transStart + body, true);	
+		SimpleTransaction trans = (SimpleTransaction) arg0;
+		write(LogType.Update, trans.getIntro(), "", "", true);
+		
+		for(List<String> key: trans.getTransactions())
+			write(LogType.Values, key.get(0), key.get(1), "->" + key.get(2), false);
+			
 		return this;
 	}
 	
 	
+	private String elapsedTime(){
+		Long t = System.nanoTime() - startTime;		
+		Double d = t.doubleValue()/1e9;
+		d = Math.floor(d * 1e4)/1e4;
+		String time = d.toString();
+		
+		return time;
+	}
+	
+	private void checkBorder(LogType type){
+		if(!headerEnd){
+			if(type.equals(LogType.Create) || type.equals(LogType._Field )){
+				out.write("\nCreation " + border + "\n");
+				headerEnd = true;
+			}
+		}
+	}
+	
+	private String entityName(Entity entity, int id){
+		Integer myId = id;
+		return entity.toString() + "(#" + myId.toString() + ")";
+	}
+	
 	private String teamName(int i){
-		char x = ((char) (97 + i));
+		char x = ((char)('A' + i));
 		return "" + x;
 	}
 	
-	private boolean validKey(Entity e, Key k){
+	public boolean validKey(Entity e, Key k){
 		if(e.equals(Entity.BUOY)){
 			switch(k){
 				case FLEET:
@@ -277,7 +320,6 @@ public class SimpleLogWriter implements LogWriter {
 		}
 		else if(e.equals(Entity.KRAKEN)){
 			switch(k){
-				case PC:
 				case X_COORD:
 				case Y_COORD:
 					return true;
