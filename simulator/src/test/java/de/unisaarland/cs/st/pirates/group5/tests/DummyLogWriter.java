@@ -149,4 +149,12 @@ public class DummyLogWriter implements LogWriter {
 		return this;
 	}
 	
+	public void emptyLists()
+	{
+		what.clear();
+		entities.clear();
+		cells.clear();
+		values.clear();
+	}
+	
 }

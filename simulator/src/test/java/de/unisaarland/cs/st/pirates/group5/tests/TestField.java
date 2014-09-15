@@ -18,15 +18,6 @@ import model.Kraken;
 import model.Base;
 import controller.Command;
 
-
-
-
-
-
-
-
-
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,15 +41,18 @@ public class TestField {
 	List<Command> btactics = new ArrayList<Command>();
 	Team b = new Team('b', btactics);	
 	Field[][] fields = new Field[4][4];
-	Kraken kraken = new Kraken(map.giveNewEntityID(), null);
+	Kraken kraken;
+	Ship shipB;
+	Ship shipA;
 	
-	Water water = new Water(map, 0, 0, null);
-	Water geradeaus = new Water(map, 1,0,null);
-	Base rechtsUntenVorne = new Base(map,0,1,b);
-	Base rechtsUntenHinten = new Base(map,3,1,a);
-	Water hinten = new Water(map,3,0,kraken);
-	Island linksObenVorne = new Island(map,0,3,null);
-	Island linksObenHinten = new ProvisionIsland(map,3,3);
+	Water water;
+	Water geradeaus;
+	Base rechtsUntenVorne;
+	Base rechtsUntenHinten;
+	Water hinten;
+	Island linksObenVorne;
+	Island linksObenHinten;
+	
 	//Water  elsewhere = new Water(map, 2,0,null);
 	//Water  nextToElseWhere = new Water(map, 1,1, null);
 
@@ -77,6 +71,19 @@ public class TestField {
 	
 	@Before
 	public void setUp(){
+		
+		
+		kraken = new Kraken(map.giveNewEntityID(), null);
+		shipB = new Ship(b, null, map.giveNewActorID(), null);
+		shipA = new Ship(a, null, map.giveNewActorID(), shipB);
+		
+		water = new Water(map, 0, 0, null);
+		geradeaus = new Water(map, 1,0,null);
+		rechtsUntenVorne = new Base(map,0,1,b,shipB);
+		rechtsUntenHinten = new Base(map,3,1,a, shipA);
+		hinten = new Water(map,3,0,kraken);
+		linksObenVorne = new Island(map,0,3,null);
+		linksObenHinten = new ProvisionIsland(map,3,3);
 		krakens.add(kraken);
 
 		fields[0][0] = water;//ship
@@ -165,10 +172,7 @@ public class TestField {
 	}	
 	@Test 
 	public void testExchangeTreasure(){
-		log.cells.clear();
-		log.entities.clear();
-		log.values.clear();
-		log.what.clear();
+		log.emptyLists();
 		hinten.exchangeTreasure(4);
 		try{
 		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),4);
@@ -216,9 +220,7 @@ public class TestField {
 	
 	@Test
 	public void testMoveKraken(){
-		log.entities.clear();
-		log.values.clear();
-		log.what.clear();
+		log.emptyLists();
 		hinten.moveKraken(water);
 		assertEquals("moveKraken hat nicht funktioniert", kraken.getField(), water);
 		assertEquals("Kraken was not removed from old field",hinten.getKraken(), null);
@@ -230,10 +232,7 @@ public class TestField {
 	}
 	@Test
 	public void testBuoyfunctions(){
-		log.entities.clear();
-		log.values.clear();
-		log.what.clear();
-		log.cells.clear();
+		log.emptyLists();
 		assertTrue("Bouy appeared out of nowhere. That's not good." ,water.getBuoys().size() == 0);
 		int idBefore = map.giveNewEntityID();
 		water.placeBuoy(1, a);
@@ -306,8 +305,23 @@ public class TestField {
 	@Test 
 	public void testSetShip(){
 		Ship firstShip = new Ship(a,water,map.giveNewActorID(),null);
+		log.emptyLists();
 		water.setShip(firstShip);
 		assertEquals("Ship insertion failed.",firstShip, water.getShip());
+		assertFalse("setting of Ship should not habe been logged since ships positions has not changed.",log.what.remove("notify"));
+	}
+	
+	@Test
+	public void testMoveShip()
+	{
+		log.emptyLists();
+		rechtsUntenHinten.moveShip(hinten);
+		assertEquals("moveShip hat nicht funktioniert", shipA.getPosition(), hinten);
+		assertEquals("Ship was not removed from old field",rechtsUntenHinten.getShip(), null);
+		assertEquals("Ship was not set on new field", hinten.getShip(),shipA);
+		assertTrue("move of Kraken wasn't logged.",log.what.remove("notify") && log.entities.remove(Entity.SHIP) && log.values.remove(toInteger(shipA.getID())) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(hinten.getY())));
+		assertFalse("X-Coordinate was logged although it hasn't changed.", log.values.contains(toInteger(Key.X_COORD)));
+		assertTrue("Logged to much", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 	}
 	@Test
 	public void testCheckBase(){	
@@ -351,9 +365,6 @@ public class TestField {
 							assertEquals("ExchangeTreasure broken.", elsewhere.getShip().getLoad(),4);
 
 
-		}*/
-		
-	
-	
+		}*/	
 
 }

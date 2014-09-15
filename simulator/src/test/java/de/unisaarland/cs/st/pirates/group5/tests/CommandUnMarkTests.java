@@ -25,7 +25,6 @@ public class CommandUnMarkTests {
 		Ship shipA = new Ship(teamA, waterField, 0, null);
 		Unmark testUnmark = new Unmark(0);
 		testUnmark.execute(shipA);
-		
 		assertTrue(waterField.getBuoys().size()==0);	
 	}
 	
