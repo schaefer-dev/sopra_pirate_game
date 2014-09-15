@@ -25,8 +25,13 @@ import controller.Command;
 
 
 
+
+
 import org.junit.Before;
 import org.junit.Test;
+
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
 //import commands.Drop;
 //import commands.Move;
@@ -37,7 +42,8 @@ public class TestField {
  * werden, testen.*/
 	
 	Random random;
-	Map map = new Map(random, null);
+	DummyLogWriter log = new DummyLogWriter();
+	Map map = new Map(random, log);
 	List<Kraken> krakens = new ArrayList<Kraken>();
 	List<Command> tactics = new ArrayList<Command>();
 	Team a = new Team('a', tactics);
@@ -46,11 +52,11 @@ public class TestField {
 	Field[][] fields = new Field[4][4];
 	Kraken kraken = new Kraken(map.giveNewEntityID(), null);
 	
-	Water water = new Water(map, 0, 0, kraken);
+	Water water = new Water(map, 0, 0, null);
 	Water geradeaus = new Water(map, 1,0,null);
 	Base rechtsUntenVorne = new Base(map,0,1,b);
 	Base rechtsUntenHinten = new Base(map,3,1,a);
-	Water hinten = new Water(map,3,0,null);
+	Water hinten = new Water(map,3,0,kraken);
 	Island linksObenVorne = new Island(map,0,3,null);
 	Island linksObenHinten = new ProvisionIsland(map,3,3);
 	//Water  elsewhere = new Water(map, 2,0,null);
@@ -71,7 +77,6 @@ public class TestField {
 	
 	@Before
 	public void setUp(){
-		kraken.setField(hinten);
 		krakens.add(kraken);
 
 		fields[0][0] = water;//ship
@@ -128,7 +133,14 @@ public class TestField {
 		enemyShip2.changeDirection(true);
 		nextToElseWhere.setShip(enemyShip2);		*/
 	}
-	
+	public static Integer toInteger(int i)
+	{
+		return new Integer(i);
+	}
+	public static Integer toInteger(Key k)
+	{
+		return toInteger(k.ordinal());
+	}
 	@Test
 	public void testGetNeighbour() {
 		assertEquals("getNeighbour fail!",water.getNeigbour(0),geradeaus);
@@ -153,26 +165,61 @@ public class TestField {
 	}	
 	@Test 
 	public void testExchangeTreasure(){
+		log.cells.clear();
+		log.entities.clear();
+		log.values.clear();
+		log.what.clear();
 		hinten.exchangeTreasure(4);
 		try{
 		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),4);
+		assertFalse("New treasure should be created, therefore there is no need for a notify", log.what.contains("notify"));
+		assertTrue("Creation of treasure must be logged.", log.what.remove("create"));
+		assertTrue("Wrong entity was logged in create",log.entities.remove(Entity.TREASURE));
+		assertTrue("Not the right keys were logged", log.values.remove(toInteger(Key.VALUE)) && log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)));
+		assertTrue("Not the right values were logged", log.values.remove(toInteger(0)) && log.values.remove(toInteger(hinten.getX())) && log.values.remove(toInteger(hinten.getY())) && log.values.remove(toInteger(4)));
+		assertTrue("Too much logged", log.values.size() == 0 && log.entities.size()==0 && log.what.size() == 0);
 		hinten.exchangeTreasure(-1);
 		assertEquals("ExchangeTreasure broken. ", hinten.getTreasure().getValue(),3);
-		hinten.exchangeTreasure(-3);
+		assertTrue("change was not logged via notify", log.what.remove("notify"));
+		assertFalse("Treasure already exists, no need to log create.", log.what.contains("create"));
+		assertTrue("Wrong entity was logged in notify",log.entities.remove(Entity.TREASURE));
+		assertTrue("Logged the wrong key", log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Not the right values were logged", log.values.remove(toInteger(0)) && log.values.remove(toInteger(3)));
+		assertTrue("Too much logged", log.values.size() == 0 && log.entities.size()==0 && log.what.size() == 0);
+		hinten.exchangeTreasure(1);
+		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),4);
+		assertTrue("change was not logged via notify", log.what.remove("notify"));
+		assertFalse("Treasure already exists, no need to log create.", log.what.contains("create"));
+		assertTrue("Wrong entity was logged in create",log.entities.remove(Entity.TREASURE));
+		assertTrue("Logged the wrong key", log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Not the right values were logged", log.values.remove(toInteger(0)) && log.values.remove(toInteger(4)));
+		hinten.exchangeTreasure(-4);
 		assertNull("Treasure was not deleted!", hinten.getTreasure());
-		
+		assertFalse("Treasure already exists, no need to log create.", log.what.contains("create"));
+		assertFalse("No need to notify if deleting treasure", log.what.contains("notify"));
+		assertTrue("Must log destruction of Treasure", log.what.remove("destroy"));
+		assertTrue("Wrong entity was logged in notify",log.entities.remove(Entity.TREASURE));
+		assertTrue("Didn't log ID", log.values.remove(toInteger(0)));
+		assertTrue("Too much logged", log.values.size() == 0 && log.entities.size()==0 && log.what.size() == 0);
 		}
 		catch(NullPointerException e)
 		{
 			fail("This TreasureIsland does not seem to contain any treasure.");
 		}
 	}
+	
+	@Test 
+	public void testKrakenInit()
+	{
+		assertSame("The field of Kraken was not set correctly in the Constructor of Water",hinten, kraken.getField());
+	}
+	
 	@Test
 	public void testMoveKraken(){
 		hinten.moveKraken(water);
 		assertEquals("moveKraken hat nicht funktioniert", kraken.getField(), water);
-		assertEquals("",hinten.getKraken(), null);
-		assertEquals("",water.getKraken(),kraken);
+		assertEquals("Kraken was not removed from old field",hinten.getKraken(), null);
+		assertEquals("Kraken was not set on new field",water.getKraken(),kraken);
 	}
 	@Test
 	public void testBuoyfunctions(){
