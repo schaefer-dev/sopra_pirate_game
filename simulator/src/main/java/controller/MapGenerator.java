@@ -29,6 +29,7 @@ public class MapGenerator {
 
 	
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
+		/*
 		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
 		if(teams.size() < 2 || teams.size() > 26) throw new IllegalArgumentException();
 		
@@ -162,9 +163,11 @@ public class MapGenerator {
 				
 		map.setMapValues(fields, kraken);
 		return map;
+		*/
+		return null;
 	}
 	
-	
+	/*
 	private boolean isTeamLetter(char c, int max){
 		if(c >= 'a' && c < ('a' + max))
 			return true;
@@ -178,4 +181,5 @@ public class MapGenerator {
 		
 		return false;
 	}
+	*/
 }

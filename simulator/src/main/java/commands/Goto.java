@@ -13,9 +13,11 @@ public class Goto implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
+		/*
 		if(ship == null) throw new NullPointerException();
 		
 		ship.setPC(pc);
+		*/
 	}
 	@Override
 	public boolean equals (Object o){
