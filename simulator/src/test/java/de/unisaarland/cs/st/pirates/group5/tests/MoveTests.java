@@ -68,25 +68,30 @@ public class MoveTests {
 		teamfriend = new Team(a, null);
 		teamenemy = new Team(b, null);
 		
-		kraken = new Kraken(0, waterkraken);
 		
-		shipme = new Ship(teamfriend, waterme, 0, shipfriend);
-		shipenemy = new Ship(teamenemy, waterenemy, 1, null);
-		shipfriend = new Ship(teamfriend, waterfriend, 2, null);
+		
 		
 		island1 = new Island(map, 0, 0, null);
 		water1 = new Water(map, 1, 0, null);
 		provision1 = new ProvisionIsland(map, 2, 0);
 		baseenemy = new Base(map, 0, 1, teamenemy);
 		waterme = new Water(map, 1, 1, null);
-		waterme.setShip(shipme);
+
 		waterkraken = new Water(map, 2, 1, kraken);
-		waterkraken.setKraken(kraken);
+
 		basefriend = new Base(map, 0, 2, teamfriend);
 		waterenemy = new Water(map, 1, 2, null);
-		waterenemy.setShip(shipenemy);
 		waterfriend = new Water(map, 2, 2, null);
+		
+		kraken = new Kraken(0, waterkraken);
+		shipme = new Ship(teamfriend, waterme, 0, shipfriend);
+		shipenemy = new Ship(teamenemy, waterenemy, 1, null);
+		shipfriend = new Ship(teamfriend, waterfriend, 2, null);
+		
 		waterfriend.setShip(shipfriend);
+		waterenemy.setShip(shipenemy);
+		waterkraken.setKraken(kraken);
+		waterme.setShip(shipme);
 		
 		fields[0][0] = island1;
 		fields[1][0] = water1;
