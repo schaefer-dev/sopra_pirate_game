@@ -89,7 +89,7 @@ public class TestField {
 	//	fields[2][0] = elsewhere; //enemyship2
 	//	fields[1][1] = nextToElseWhere;//alliedship2
 		
-		map.setMapValues(fields, null/*firstShip*/, krakens);
+		map.setMapValues(fields, krakens);
 		
 		/*tactics.add(goAhead);
 		btactics.add(goAhead);

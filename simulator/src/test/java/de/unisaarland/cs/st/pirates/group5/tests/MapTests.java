@@ -20,10 +20,13 @@ import model.Water;
 import org.junit.Before;
 import org.junit.Test;
 
+import view.SimpleLogWriter;
+
 public class MapTests {
 
-	Random random;
-	Map map = new Map(random);
+	Random random=new Random();
+	SimpleLogWriter simpleLogWriter = new SimpleLogWriter();
+	Map map = new Map(random,simpleLogWriter);
 	Team a;
 	Field[][] fields = new Field[4][4];
 	Ship first = new Ship(a, null, 1, null);
@@ -52,7 +55,7 @@ public class MapTests {
 		fields[0][3] = linksObenVorne;
 		fields[3][3] = linksObenHinten;
 		
-		map.setMapValues(fields, 4, 2, first, krakens);
+		map.setMapValues(fields, krakens);
 	}
 	
 	@Test (expected=Exception.class)
@@ -80,11 +83,11 @@ public class MapTests {
 	}
 	@Test (expected=Exception.class)
 	public void testGetIDs(){
-		assertEquals("Not next free ActorID.",map.giveNewActorID(),4);
-			assertEquals("Not next free ActorID.",map.giveNewActorID(),5);
+		assertEquals("Not next free ActorID.",map.giveNewActorID(),0);
+			assertEquals("Not next free ActorID.",map.giveNewActorID(),1);
 
-		assertEquals("Not next free EntityID.",map.giveNewEntityID(),2);
-			assertEquals("Not next free EntityID.",map.giveNewEntityID(),3);
+		assertEquals("Not next free EntityID.",map.giveNewEntityID(),0);
+			assertEquals("Not next free EntityID.",map.giveNewEntityID(),1);
 	}
 	@Test (expected=Exception.class)
 	public void testGetTreasure(){		
