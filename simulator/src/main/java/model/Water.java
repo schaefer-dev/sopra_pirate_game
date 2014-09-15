@@ -30,7 +30,7 @@ public class Water extends Field {
 	@Override
 	public FieldType getFieldType() {
 		// TODO Auto-generated method stub
-		return null;
+		return FieldType.Water;
 	}
 
 }
