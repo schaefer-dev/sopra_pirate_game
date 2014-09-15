@@ -1,6 +1,10 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Register;
 import model.Ship;
 import model.Field;
@@ -9,6 +13,10 @@ import model.Water;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import commands.Drop;
+import commands.Goto;
+import controller.Command;
 
 
 public class ShipTests {
@@ -71,9 +79,36 @@ public class ShipTests {
 	}
 	
 	@Test
+	public void testAct(){
+		List<Command> commands = new ArrayList<Command>();
+		Drop drops = new Drop();
+		Goto go= new Goto(0);
+		commands.add(drops);
+		commands.add(go);
+		char a = 0;
+		Team team = new Team(a, commands);
+		ship = new Ship(team, null, 0, null);
+		
+		ship.act();
+		assertTrue (ship.getPC() == 1);
+		
+		ship.act();
+		assertTrue(ship.getPC() == 0);
+		
+	}
+	
+	@Test
 	public void testgetID(){
 		ship = new Ship(null, null, 666, null);
 		assertTrue(ship.getID() == 666);
+		
+	}
+	
+	@Test
+	public void testgetPC(){
+		ship = new Ship(null, null, 666, null);
+		ship.setPC(13);
+		assertTrue(ship.getPC() == 13);
 		
 	}
 	@Test
