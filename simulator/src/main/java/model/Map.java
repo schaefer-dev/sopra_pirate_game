@@ -57,7 +57,7 @@ public class Map {
 		return null;
 	}
 	
-	public void setMapValues(Field[][] field, Ship firstShip, List<Kraken> kraken){
+	public void setMapValues(Field[][] field, List<Kraken> kraken){
 		// TODO Auto-generated method stub
 	}
 }

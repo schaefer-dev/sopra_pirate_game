@@ -19,11 +19,11 @@ public class Team {
 		// TODO Auto-generated method stub
 	}
 	
-	public void addShip(){
+	public void addShip(Ship ship){
 		// TODO Auto-generated method stub
 	}
 	
-	public void deleteShip(){
+	public void deleteShip(Ship ship){
 		// TODO Auto-generated method stub
 	}
 	

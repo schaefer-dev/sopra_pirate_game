@@ -1,13 +1,22 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Register;
 import model.Ship;
 import model.Field;
+import model.Team;
 import model.Water;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import commands.Drop;
+import commands.Goto;
+import controller.Command;
 
 
 public class ShipTests {
@@ -41,8 +50,6 @@ public class ShipTests {
 	@Before
 	public void setUp(){
 	
-		
-		
 		shipdirection = Register.ship_direction;
 		shipload = Register.ship_load;
 		shipmoral = Register.ship_moral;
@@ -60,6 +67,86 @@ public class ShipTests {
 		sensedirection = Register.sense_shipdirection;
 		senseloaded = Register.sense_shiploaded;
 		sensesupply = Register.sense_supply;
+	}
+	
+	@Test
+	public void testgetPosition(){
+		Field water = new Water(null, 0, 0, null);
+		ship = new Ship(null, water, 0, null);
+		
+		assertTrue(ship.getPosition().equals(water));
+	
+	}
+	
+	@Test
+	public void testAct(){
+		List<Command> commands = new ArrayList<Command>();
+		Drop drops = new Drop();
+		Goto go= new Goto(0);
+		commands.add(drops);
+		commands.add(go);
+		char a = 0;
+		Team team = new Team(a, commands);
+		ship = new Ship(team, null, 0, null);
+		
+		ship.act();
+		assertTrue (ship.getPC() == 1);
+		
+		ship.act();
+		assertTrue(ship.getPC() == 0);
+		
+	}
+	
+	@Test
+	public void testgetID(){
+		ship = new Ship(null, null, 666, null);
+		assertTrue(ship.getID() == 666);
+		
+	}
+	
+	@Test
+	public void testgetPC(){
+		ship = new Ship(null, null, 666, null);
+		ship.setPC(13);
+		assertTrue(ship.getPC() == 13);
+		
+	}
+	@Test
+	public void testNextShip(){
+		shipv = new Ship(null, null, 0, null);
+		ship = new Ship(null, null, 0, null);
+		shipn = new Ship(null, null, 0, null);
+		
+		shipv.setNextShip(ship);
+		assertTrue (shipv.getNextShip().equals(ship));
+		
+		ship.setNextShip(shipn);
+		assertTrue (ship.getNextShip().equals(shipn));
+		
+		shipn.setNextShip(null);
+		assertNull (shipn.getNextShip());
+		
+	}
+	
+	@Test
+	public void testPC(){
+		
+		ship = new Ship(null, null, 0, null);
+		
+		ship.setPC(13);
+		assertTrue (ship.getPC() == 13);
+		//Loggen?!
+		
+	}
+	
+	@Test
+	public void testgetTeam(){
+		char a = 0;
+		Team t = new Team(a, null);
+		ship = new Ship(t, null, 0, null);
+		
+		assertTrue (ship.getTeam().equals(t));
+		
 	}
 	
 	@Test

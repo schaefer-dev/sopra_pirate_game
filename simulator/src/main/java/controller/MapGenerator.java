@@ -12,11 +12,13 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
+import model.Base;
 import model.Field;
 import model.Island;
 import model.Kraken;
 import model.Map;
 import model.ProvisionIsland;
+import model.Ship;
 import model.Team;
 import model.Treasure;
 import model.Water;
@@ -26,8 +28,17 @@ public class MapGenerator {
 	private Field[][] fields;
 
 	
-	@SuppressWarnings("resource")
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
+		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
+		if(teams.size() < 2 || teams.size() > 26) throw new IllegalArgumentException();
+		
+		List<Command> tactic1 = teams.get(0).getCommands();
+		List<Command> tactic2 = teams.get(1).getCommands();
+		boolean oneTactic = false;
+		//Either all teams have a different tactic or all teams have the same one
+		//If the 2 first teams have the same tactic => all teams have the same tactic
+		if(tactic1.equals(tactic2))
+			oneTactic = true;
 		
 		Map map = new Map(random, log);
 		List<Kraken> kraken = new ArrayList<Kraken>();
@@ -47,6 +58,7 @@ public class MapGenerator {
 		if(x < 2 || x > 200 || y < 2 || y > 200) 
 			throw new IllegalArgumentException("Coordinates are not in range (2,2)...(200,200)");
 
+		Ship previousShip = null;
 		int lineNumber = 0;
 		String line;
 		
@@ -54,7 +66,7 @@ public class MapGenerator {
 			
 			line = line.replaceAll(" ", "");
 			if(line.length() != x || lineNumber >= y) throw new IllegalArgumentException();
-			
+
 			for(int i = 0; i < line.length(); i++){
 				char c = line.charAt(i);
 				Field field;
@@ -81,15 +93,36 @@ public class MapGenerator {
 					field = new Water(map, i, lineNumber, k);
 					log.addCell(Cell.WATER, null, i, lineNumber);
 				}
-				else if(isLetter(c, teams.size())){
+				else if(isTeamLetter(c, teams.size())){
+					int teamNumber = c - 'a';
+					Team team;
 					
-
+					try{
+						team = teams.get(teamNumber);
+					}
+					catch(ArrayIndexOutOfBoundsException e){
+						throw new ArrayIndexOutOfBoundsException("Base on map has no related team");
+					}
+					
+					Ship ship = new Ship(team, null, map.giveNewActorID(), previousShip);
+					teams.get(teamNumber).addShip(ship);
+					Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
+					int[] values = {0, 3, teamNumber, 4, 0, 0, 0, i, lineNumber};
+					log.create(Entity.SHIP, ship.getID(), keys, values);
+					
+					if(previousShip == null)
+						map.setFirstShip(ship);
+					previousShip = ship;
+					
+					field = new Base(map, i, lineNumber, team);
+					log.addCell(Cell.WATER, teamNumber, i, lineNumber);
 				}
 				else if(isDigit(c)){
-					Treasure t = new Treasure(map.giveNewEntityID(), c - '0');
+					int id = map.giveNewEntityID();
+					Treasure t = new Treasure(id, c - '0');
 					Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
 					int[] values = {t.getValue(), i, lineNumber};
-					//TODO: log.create(Entity.TREASURE, , keys, values);
+					log.create(Entity.TREASURE, id, keys, values);
 					
 					field = new Island(map, i, lineNumber, t);
 					log.addCell(Cell.ISLAND, null, i, lineNumber);
@@ -97,19 +130,44 @@ public class MapGenerator {
 				else
 					throw new IllegalArgumentException("Invalid character in map file at position (" + i + "," + lineNumber + ")");
 				
-				//fields[i][lineNumber] = field;
+				fields[i][lineNumber] = field;
 			}
 			
 			lineNumber++;
+		}
+				
+		if(oneTactic){	
+			boolean lastShip = false;
+			for(int i = teams.size() - 1; i >= 0; i++){
+				Team team = teams.get(i);
+				
+				if(team.getShipCount() <= 0){
+					if(lastShip)
+						throw new IllegalArgumentException("Not every team has bases/ships on the map");
+					else
+						teams.remove(team);
+				}			
+				else
+					lastShip = true;
+			}
+		}
+		
+		for(Team team: teams){
+			log.fleetScore(team.getName() - 'a', 0);
+			
+			if(team.getShipCount() <= 0)
+				throw new IllegalArgumentException("Not every team has bases/ships on the map");
 		}
 		
 		if(lineNumber != y) throw new IllegalArgumentException();
 		reader.close();
 		
-		return null;
+		map.setMapValues(fields, kraken);
+		return map;
 	}
 	
-	private boolean isLetter(char c, int max){
+	
+	private boolean isTeamLetter(char c, int max){
 		if(c >= 'a' && c < ('a' + max))
 			return true;
 		

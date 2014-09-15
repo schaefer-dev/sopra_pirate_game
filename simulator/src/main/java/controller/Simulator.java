@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -24,18 +25,22 @@ public class Simulator {
 	
 	private Map map;
 	private Log logWriter;
+	private List<Team> teams;
 	private List<Kraken> kraken;
 	
 	
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException();
-		if(shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
+		if(shipFiles.length < 2 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
 		
 		Translator translator = new Translator();
+		teams = new ArrayList<Team>();
 		
-		List<Team> teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
 			List<Command> tactic = translator.run(new ByteArrayInputStream(shipFiles[0].getBytes()));
+			String[]tempFiles = new String[26];
+			Arrays.fill(tempFiles, shipFiles[0]);
+			shipFiles = tempFiles;
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
 		}
@@ -59,15 +64,15 @@ public class Simulator {
 		map = generator.createMap(new FileInputStream(mapFile), teams, logWriter, new Random(seed));
 		kraken = map.getKraken();
 		
+		logWriter.logStep();
+		
 		roundCounter = 1;
-		roundMax = turns;
+		roundMax = turns + 1;
 	}
 	
 	
 	public void step() throws IllegalStateException, IOException{
 		if(roundCounter > roundMax) throw new IllegalStateException();
-		
-		logWriter.logStep();
 		
 		if((roundCounter % 20) == 0){
 			for(Kraken k: kraken)
@@ -86,6 +91,7 @@ public class Simulator {
 			ship = ship.getNextShip();
 		}
 		
+		logWriter.logStep();
 		roundCounter++;
 	}
 	
