@@ -40,7 +40,7 @@ public class CommandMarkTests {
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		
 		testMark0.execute(shipA);
-		
+		assertEquals("A bouy should have been added to the List", 1, waterField.getBuoys().size());
 		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
@@ -67,9 +67,8 @@ public class CommandMarkTests {
 		Ship shipC = new Ship(teamC, waterField, 0, null);
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(0, teamB);
-		
+		testMark0.execute(shipA);
+		testMark0.execute(shipB);
 		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	
 		assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	// assuming that we insert in the same order we got the placeBuoys
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
@@ -96,8 +95,8 @@ public class CommandMarkTests {
 		Ship shipC = new Ship(teamC, waterField, 0, null);
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(0, teamA);
+		testMark0.execute(shipA);
+		testMark0.execute(shipA);
 		
 		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
@@ -126,10 +125,9 @@ public class CommandMarkTests {
 		Ship shipC = new Ship(teamC, waterField, 0, null);
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(3, teamB);
-		
+		testMark0.execute(shipA);
+		testMark0.execute(shipA);
+		testMark3.execute(shipB);
 		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
@@ -161,11 +159,11 @@ public class CommandMarkTests {
 		Ship shipC = new Ship(teamC, waterField, 0, null);
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(3, teamB);
-		waterField.placeBuoy(0, teamA);
-		waterField.placeBuoy(0, teamC);
+		testMark0.execute(shipA);
+		testMark0.execute(shipA);
+		testMark3.execute(shipB);
+		testMark0.execute(shipA);
+		testMark0.execute(shipC);
 		
 		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
 		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
@@ -179,7 +177,7 @@ public class CommandMarkTests {
 		assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamB));	
 		assertTrue(waterField.getBuoys().get(2).getTeam().equals(teamC));	
 		assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamD));	
-		assertTrue(waterField.getBuoys().size()==2);
+		assertTrue(waterField.getBuoys().size()==3);
 	}
 	
 }
