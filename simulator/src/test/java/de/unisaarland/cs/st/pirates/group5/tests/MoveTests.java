@@ -74,12 +74,12 @@ public class MoveTests {
 		island1 = new Island(map, 0, 0, null);
 		water1 = new Water(map, 1, 0, null);
 		provision1 = new ProvisionIsland(map, 2, 0);
-		baseenemy = new Base(map, 0, 1, teamenemy);
+		baseenemy = new Base(map, 0, 1, teamenemy, null);
 		waterme = new Water(map, 1, 1, null);
 
 		waterkraken = new Water(map, 2, 1, kraken);
 
-		basefriend = new Base(map, 0, 2, teamfriend);
+		basefriend = new Base(map, 0, 2, teamfriend, null);
 		waterenemy = new Water(map, 1, 2, null);
 		waterfriend = new Water(map, 2, 2, null);
 		
