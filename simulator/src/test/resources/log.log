@@ -1,38 +1,35 @@
 
-
 [#][HEADER] Map has size 4x3
 [#][HEADER] Teams: {A,B}
 
 Creation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[#][_Field] ISLAND         at             (1,1)       (0.0143s)
-[#][_Field] BASE(C)        at             (2,2)       (0.0184s)
-[#][Create] SHIP(#152)                                (0.0196s)
+[#][_Field] ISLAND         at             (5,1)       (0.002s)
+[#][_Field] BASE(C)        at             (2,2)       (0.0036s)
+[#][Create] SHIP(#152)                                (0.0046s)
 [#][Values]                CONDITION:     3         
 [#][Values]                MORAL:         4         
 [#][Values]                DIRECTION:     0         
-[#][Create] TREASURE(#34)                             (0.0204s)
+[#][Create] TREASURE(#34)                             (0.0053s)
 [#][Values]                X_COORD:       2         
 [#][Values]                Y_COORD:       1         
 [#][Values]                VALUE:         9         
 
 Round 1  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[1][Update] SHIP(#152)     MORAL:         ->3         (0.021s)
-[1][Create] BUOY(#1544)                               (0.0212s)
+[1][Update] SHIP(#152)     MORAL:         ->3         (0.006s)
+[1][Create] BUOY(#1544)                               (0.0061s)
 [1][Values]                X_COORD:       2         
 [1][Values]                Y_COORD:       1         
 [1][Values]                VALUE:         9         
 
 Round 2  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[2][Update] SHIP(#152)     destroyed                  (0.0217s)
-[2][Update] TEAM A         Score:         ->200       (0.0219s)
-[2][Update] BUOY(#32)                                 (0.042s)
+[2][Update] SHIP(#152)     destroyed                  (0.0067s)
+[2][Update] TEAM A         Score:         ->200       (0.0069s)
+[2][Update] BUOY(#32)                                 (0.019s)
 [2][Values]                FLEET:         ->1       
 [2][Values]                X_COORD:       ->1       
 [2][Values]                Y_COORD:       ->1       
 
 Finished ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [#][FOOTER] Winner:        Team A         200 points
-[#][FOOTER] Duration:      0.043s                   
-=======
-
+[#][FOOTER] Duration:      0.0198s                  
