@@ -18,6 +18,9 @@ public class Ship {
 	
 	public Ship(Team team, Field field, int id, Ship previous){
 		this.id = id;
+		this.field=field;
+		this.team=team;
+		this.previousShip=previous;
 		// TODO Auto-generated method stub
 	}
 	
@@ -38,20 +41,22 @@ public class Ship {
 	
 	public Team getTeam(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.team;
 	}
 	
 	public Field getPosition(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.field;
 	}
 	
 	public void setField(Field field){
 		// TODO Auto-generated method stub
+		this.field=field;
 	}
 	
 	public void setPC(int i){
 		// TODO Auto-generated method stub
+		this.pc=pc;
 	}
 	
 	public Command getCommand(){
@@ -61,7 +66,7 @@ public class Ship {
 	
 	public int getID(){
 		// TODO Auto-generated method stub
-		return 0;
+		return this.id;
 	}
 	
 	public int getShipDirection(){
@@ -98,11 +103,12 @@ public class Ship {
 	
 	private void setCondition(int i){
 		// TODO Auto-generated method stub
+		return;
 	}
 	
 	public int getPause(){
 		// TODO Auto-generated method stub
-		return 0;
+		return this.pause;
 	}
 	
 	public void changePause(int i){

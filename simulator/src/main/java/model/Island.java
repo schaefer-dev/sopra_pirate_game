@@ -13,6 +13,7 @@ public class Island extends Field {
 	@Override
 	public boolean setShip(Ship ship) {
 		// TODO Auto-generated method stub
+		this.ship=ship;
 		return false;
 	}
 	
@@ -43,7 +44,7 @@ public class Island extends Field {
 	@Override
 	public FieldType getFieldType() {
 		// TODO Auto-generated method stub
-		return null;
+		return FieldType.Island;
 	}
 
 }

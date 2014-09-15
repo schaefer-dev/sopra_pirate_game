@@ -29,6 +29,7 @@ public class MapGenerator {
 
 	
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
+		/*
 		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
 		if(teams.size() < 2 || teams.size() > 26) throw new IllegalArgumentException();
 		
@@ -109,6 +110,7 @@ public class MapGenerator {
 					previousShip = ship;
 					
 					field = new Base(map, i, lineNumber, team);
+					//TODO: add ship to field
 					log.addCell(Cell.WATER, teamNumber, i, lineNumber);
 				}
 				else if(isDigit(c)){
@@ -162,9 +164,11 @@ public class MapGenerator {
 				
 		map.setMapValues(fields, kraken);
 		return map;
+		*/
+		return new Map(random, log);
 	}
 	
-	
+	/*
 	private boolean isTeamLetter(char c, int max){
 		if(c >= 'a' && c < ('a' + max))
 			return true;
@@ -178,4 +182,5 @@ public class MapGenerator {
 		
 		return false;
 	}
+	*/
 }

@@ -10,6 +10,6 @@ public class ProvisionIsland extends Island {
 	@Override
 	public FieldType getFieldType() {
 		// TODO Auto-generated method stub
-		return null;
+		return FieldType.ProvisionIsland;
 	}
 }

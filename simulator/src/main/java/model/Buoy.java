@@ -7,17 +7,16 @@ public class Buoy extends Entity{
 	
 	public Buoy(int id, Team team, int type) {
 		super(id);
-		// TODO Auto-generated method stub
+		this.team=team;
+		this.type = type;
 	}
 
 	public int getType(){
-		// TODO Auto-generated method stub
-		return 0;
+		return this.type;
 	}
 	
 	public Team getTeam(){
-		// TODO Auto-generated method stub
-		return null;
+		return this.team;
 	}
 	
 	@Override

@@ -5,9 +5,10 @@ public class Base extends Water {
 	private Team team;
 	
 	public Base(Map map, int x, int y, Team team, Ship ship) {
+		// TODO Auto-generated constructor stub
 		super(map, x, y, null);
 		this.ship = ship;
-		// TODO Auto-generated constructor stub
+		this.team=team;
 	}
 
 	@Override
@@ -19,13 +20,13 @@ public class Base extends Water {
 	@Override
 	public boolean setShip(Ship ship) {
 		// TODO Auto-generated method stub
-		return false;
+		this.ship=ship;
+		return true;
 	}
 	
 	@Override
 	public FieldType getFieldType() {
-		// TODO Auto-generated method stub
-		return null;
+		return FieldType.Water;
 	}
 	
 	public Team getTeam(){

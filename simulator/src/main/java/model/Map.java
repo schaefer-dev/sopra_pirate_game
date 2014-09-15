@@ -22,7 +22,8 @@ public class Map {
 		this.random = random;
 		this.logWriter = logWriter;
 		
-		nextFreeActorID = nextFreeEntityID = 0;
+		nextFreeActorID = 0;
+		nextFreeEntityID = 0;
 	}
 	
 	public Field getNeighbour(Field field, int direction){

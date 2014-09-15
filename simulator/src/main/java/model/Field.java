@@ -15,6 +15,10 @@ public abstract class Field {
 	
 	protected Field(Map map, int x, int y, Ship ship){
 		// TODO Auto-generated method stub
+		this.map=map;
+		this.x=x;
+		this.y=y;
+		this.ship=ship;
 	}
 	
 	public boolean exchangeTreasure(int value){
@@ -41,34 +45,34 @@ public abstract class Field {
 	
 	public Field getNeigbour(int direction){
 		// TODO Auto-generated method stub
-		return null;
+		return map.getNeighbour(this, direction);
 	}
 	
 	public LogWriter provideLogger(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.map.getLogWriter();
 	}
 	
 	public Ship getShip(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.ship;
 	}
 	
 	public Map getMap(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.map;
 	}
 	
 	public abstract FieldType getFieldType();
 	
 	public Treasure getTreasure(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.treasure;
 	}
 	
 	public List<Buoy> getBuoys(){
 		// TODO Auto-generated method stub
-		return null;
+		return this.buoys;
 	}
 	public void deleteBuoy(Team team, int value){
 		// TODO Auto-generated method stub
