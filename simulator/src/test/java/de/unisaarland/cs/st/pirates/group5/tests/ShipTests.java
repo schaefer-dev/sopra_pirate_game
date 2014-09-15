@@ -168,8 +168,8 @@ public class ShipTests {
 	@Test
 	public void testNextShip(){
 		shipv = new Ship(null, null, 0, null);
-		ship = new Ship(null, null, 0, null);
-		shipn = new Ship(null, null, 0, null);
+		ship = new Ship(null, null, 0, shipv);
+		shipn = new Ship(null, null, 0, ship);
 		
 		shipv.setNextShip(ship);
 		assertTrue (shipv.getNextShip().equals(ship));
@@ -597,13 +597,12 @@ public class ShipTests {
 		assertTrue ("relativetoabsolutedir turned right 6 times rel = abs",ship.relativeToAbsoluteDirection(6) == 6);
 	}
 	
-	@Test (expected = Exception.class)
+	@Test (expected = AssertionError.class)
 	public void testRelativeToAbsolute2(){
 		
 		ship = new Ship(null, null, 0, shipv);
-		
-		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(-1) == -1);
 		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(7) == 7);
+		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(-1) == -1);
 		
 	}
 	@Test
