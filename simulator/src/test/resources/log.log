@@ -1,24 +1,35 @@
-[#][HEADER] Map has size 3x3
-[#][HEADER] Teams on map {a,b}
 
-[#][Create] Cell: ISLAND at (1,1)  (2s)
-[#][Create] Cell: BASE(c) at (2,2)  (2s)
-[#][Create] Obj : SHIP(152)  (3s)
-[#][Create] 	  ->CONDITION: 3
-[#][Create] 	  ->MORAL: 4
-[#][Create] 	  ->DIRECTION: 0
-[#][Create] Obj : TREASURE(34)  (3s)
-[#][Create] 	  ->X_COORD: 2
-[#][Create] 	  ->Y_COORD: 1
-[#][Create] 	  ->VALUE: 9
-[1][nRound] . . . . . . . . . . . . . . . . . . . .
-[1][Update] SHIP(152) MORAL changed to 3  (3s)
-[2][nRound] . . . . . . . . . . . . . . . . . . . .
-[2][Update] SHIP(152) destroyed  (3s)
-[2][Update] TEAM(a)   has score: 200  (3s)
-[2][Update] BUOY(32):
-                  ->FLEET changed to 1
-                  ->X_COORD changed to 1
-                  ->Y_COORD changed to   (4s)
+[#][HEADER] Map has size 4x3
+[#][HEADER] Teams: {A,B}
 
-terminated after 4 seconds
+Creation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[#][_Field] ISLAND         at             (1,1)       (0.0014s)
+[#][_Field] BASE(C)        at             (2,2)       (0.0205s)
+[#][Create] SHIP(#152)                                (0.0219s)
+[#][Values]                CONDITION:     3         
+[#][Values]                MORAL:         4         
+[#][Values]                DIRECTION:     0         
+[#][Create] TREASURE(#34)                             (0.0225s)
+[#][Values]                X_COORD:       2         
+[#][Values]                Y_COORD:       1         
+[#][Values]                VALUE:         9         
+
+Round 1  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[1][Update] SHIP(#152)     MORAL:         ->3         (0.0232s)
+[1][Create] BUOY(#1544)                               (0.0234s)
+[1][Values]                X_COORD:       2         
+[1][Values]                Y_COORD:       1         
+[1][Values]                VALUE:         9         
+
+Round 2  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[2][Update] SHIP(#152)     destroyed                  (0.024s)
+[2][Update] TEAM A         Score:         ->250       (0.0242s)
+[2][Update] BUOY(#32)                                 (0.0259s)
+[2][Values]                FLEET:         ->1       
+[2][Values]                X_COORD:       ->1       
+[2][Values]                Y_COORD:       ->1       
+
+Finished ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[#][FOOTER] Winner:        Team A         250 points
+[#][FOOTER] Duration:      0.0267s                  

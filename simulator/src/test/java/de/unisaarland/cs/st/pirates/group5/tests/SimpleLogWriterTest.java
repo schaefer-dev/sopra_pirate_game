@@ -3,7 +3,9 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import org.junit.Test;
+
 import view.SimpleLogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
@@ -20,7 +22,7 @@ public class SimpleLogWriterTest {
 		FileOutputStream stream = new FileOutputStream(file);
 		SimpleLogWriter log = new SimpleLogWriter();
 		
-		String map = "3 3 \n# # # \n. . . \n# # #";
+		String map = "4 3 \n# # # \n. . . \n# # #";
 		
 		String a = "sense 0";
 		String b = "sense 0";
@@ -38,9 +40,11 @@ public class SimpleLogWriterTest {
 		log.create(Entity.TREASURE, 34, keys2, values2);
 		log.logStep();
 		log.notify(Entity.SHIP, 152, Key.MORAL, 3);
+		log.create(Entity.BUOY, 1544, keys2, values2);
 		log.logStep();
 		log.destroy(Entity.SHIP, 152);
 		log.fleetScore(0, 200);
+
 		
 		Transaction t = log.beginTransaction(Entity.BUOY, 32);
 		t.set(Key.FLEET, 1);

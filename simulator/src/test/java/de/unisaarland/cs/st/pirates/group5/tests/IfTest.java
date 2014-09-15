@@ -39,6 +39,7 @@ public class IfTest {
 	public void SimpleIfTest(){
 		int i = ship.getPC();
 		ifCom = new If(intComp, 5);
+		ifCom.execute(ship);
 		int j = ship.getPC();
 		assertTrue(j == i + 1);
 	}
@@ -47,9 +48,9 @@ public class IfTest {
 	public void SimpleIfTest2(){
 		ifCom = new If(intComp, 5);
 		ship.changeMoral(-2);
+		ifCom.execute(ship);
 		int j = ship.getPC();
-		assertTrue(j == 5);
-		
+		assertTrue(j == 5);	
 	}
 	
 	@Test
@@ -61,6 +62,7 @@ public class IfTest {
 		comps.add(boComp);
 		int i = ship.getPause();
 		ifAll = new IfAll(comps, 10);
+		ifAll.execute(ship);
 		int j = ship.getPC();
 		assertTrue(j == i + 1);
 	}
@@ -73,6 +75,7 @@ public class IfTest {
 		comps.add(buComp);
 		comps.add(boComp);
 		ifAll = new IfAll(comps, 10);
+		ifAll.execute(ship);
 		int j = ship.getPC();
 		assertTrue(j == 10);
 	}
@@ -86,6 +89,7 @@ public class IfTest {
 		comps.add(boComp);
 		int i = ship.getPause();
 		ifAny = new IfAny(comps, 15);
+		ifAny.execute(ship);
 		int j = ship.getPC();
 		assertTrue(j == i + 1);
 	}
@@ -99,6 +103,7 @@ public class IfTest {
 		comps.add(buComp);
 		int i = ship.getPause();
 		ifAny = new IfAny(comps, 15);
+		ifAny.execute(ship);
 		int j = ship.getPC();
 		assertTrue(j == i + 1);
 	}
@@ -112,6 +117,7 @@ public class IfTest {
 		comps.add(buComp);
 		int i = ship.getPause();
 		ifAny = new IfAny(comps, 15);
+		ifAny.execute(ship);
 		int j = ship.getPC();
 		assertTrue(j == 15);
 	}

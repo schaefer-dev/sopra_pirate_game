@@ -2,6 +2,7 @@ package controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,8 +55,8 @@ public class Simulator {
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapFile, shipFiles);
 		
-		MapGenerator generator = new MapGenerator(new Random(seed));
-		map = generator.createMap(/*new ByteArrayInputStream(mapFile.getBytes())*/mapFile, teams, logWriter);
+		MapGenerator generator = new MapGenerator();
+		map = generator.createMap(new FileInputStream(mapFile), teams, logWriter, new Random(seed));
 		kraken = map.getKraken();
 		
 		roundCounter = 1;
