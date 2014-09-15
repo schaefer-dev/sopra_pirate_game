@@ -4,15 +4,17 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import model.Map;
 import model.Register;
 import model.Ship;
 import model.Field;
 import model.Team;
 import model.Water;
 
-import org.junit.Before;
 import org.junit.Test;
+
 
 import commands.Drop;
 import commands.Goto;
@@ -29,45 +31,27 @@ public class ShipTests {
 	private Field field;
 	private Ship sship;
 	
-	private Register shipdirection;
-	private Register shipload;
-	private Register shipmoral;
-	private Register shipcondition;
-	private Register sensecelltype;
-	private Register sensetreasure;
-	private Register sensemarker0;
-	private Register sensemarker1;
-	private Register sensemarker2;
-	private Register sensemarker3;
-	private Register sensemarker4;
-	private Register sensemarker5;
-	private Register senseenemymarker;
-	private Register senseshiptype;
-	private Register sensedirection;
-	private Register senseloaded;
-	private Register sensesupply;
-	
-	@Before
-	public void setUp(){
-	
-		shipdirection = Register.ship_direction;
-		shipload = Register.ship_load;
-		shipmoral = Register.ship_moral;
-		shipcondition = Register.ship_direction;
-		sensecelltype = Register.sense_celltype;
-		sensetreasure = Register.sense_treasure;
-		sensemarker0 = Register.sense_marker0;
-		sensemarker1 = Register.sense_marker1;
-		sensemarker2 = Register.sense_marker2;
-		sensemarker3 = Register.sense_marker3;
-		sensemarker4 = Register.sense_marker4;
-		sensemarker5 = Register.sense_marker5;
-		senseenemymarker = Register.sense_enemymarker;
-		senseshiptype = Register.sense_shiptype;
-		sensedirection = Register.sense_shipdirection;
-		senseloaded = Register.sense_shiploaded;
-		sensesupply = Register.sense_supply;
-	}
+	private Register shipdirection = Register.ship_direction;
+	private Register shipload = Register.ship_load;
+	private Register shipmoral= Register.ship_moral;
+	private Register shipcondition = Register.ship_condition;
+	private Register sensecelltype = Register.sense_celltype;
+	private Register sensetreasure = Register.sense_treasure;
+	private Register sensemarker0  = Register.sense_marker0;
+	private Register sensemarker1  = Register.sense_marker1;
+	private Register sensemarker2 = Register.sense_marker2;
+	private Register sensemarker3 = Register.sense_marker3;
+	private Register sensemarker4 = Register.sense_marker4;
+	private Register sensemarker5 = Register.sense_marker5;
+	private Register senseenemymarker = Register.sense_enemymarker;
+	private Register senseshiptype = Register.sense_shiptype;
+	private Register sensedirection = Register.sense_shipdirection;
+	private Register senseloaded= Register.sense_shiploaded;
+	private Register sensesupply = Register.sense_supply;
+	private Register sensecondition = Register.sense_shipcondition;
+	private Random random;
+	private DummyLogWriter testlog;
+	private Map map;
 	
 	@Test
 	public void testgetPosition(){
@@ -80,6 +64,10 @@ public class ShipTests {
 	
 	@Test
 	public void testAct(){
+		
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
 		List<Command> commands = new ArrayList<Command>();
 		Drop drops = new Drop();
 		Goto go= new Goto(0);
@@ -87,14 +75,50 @@ public class ShipTests {
 		commands.add(go);
 		char a = 0;
 		Team team = new Team(a, commands);
-		ship = new Ship(team, null, 0, null);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship.act();
 		assertTrue (ship.getPC() == 1);
+		assertTrue (testlog.what.remove("notify"));
+		
 		
 		ship.act();
 		assertTrue(ship.getPC() == 0);
+		assertTrue ( testlog.what.remove("notify"));
 		
+	}
+	
+	@Test
+	public void testSetLoad(){
+		
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
+		
+		ship.setLoad(4);
+		assertTrue(ship.getLoad() == 4);
+		assertTrue (testlog.what.remove("notify"));
+		
+		ship.setLoad(6);
+		assertTrue(ship.getLoad() == 4);
+		assertTrue (testlog.what.remove("notify"));
+		
+		ship.setLoad(-7);
+		assertTrue(ship.getLoad() == 0);
+		assertTrue (testlog.what.remove("notify"));
+		
+		ship.setLoad(0);
+		assertTrue(ship.getLoad() == 0);
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 	@Test
@@ -135,7 +159,6 @@ public class ShipTests {
 		
 		ship.setPC(13);
 		assertTrue (ship.getPC() == 13);
-		//Loggen?!
 		
 	}
 	
@@ -151,55 +174,147 @@ public class ShipTests {
 	
 	@Test
 	public void testChangeMoral1(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeMoral(-1);
 		assertTrue ("ChangeMoral",ship.getMoral() == 3) ;
+		assertTrue (testlog.what.remove("notify"));
 	}
 
 	@Test
 	public void testChangeMoral2(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changeMoral(3);
 		
 		assertTrue ("ChangeMoral bigger 4",ship.getMoral() == 4) ;
 		assertTrue ("NoPositivActionCounter not 0 after positiv action", ship.getNoPositivActionCounter() == 0);
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 	@Test
 	public void testChangeMoral3(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changeMoral(-7);
 		
 		assertTrue ("ChangeMoral must not < 0", ship.getMoral() == 0) ;
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 	@Test
+	public void testChangeMoral4(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
+		
+		ship = new Ship(null, null, 0, shipv);
+		ship.changeMoral(0);
+		
+		assertTrue ("ChangeMoral must not < 0", ship.getMoral() == 0) ;
+		assertFalse (testlog.what.remove("notify"));
+	}
+	
+	
+	@Test
 	public void testChangeCondition1(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		
 	ship.changeCondition(-1);
 	assertTrue ("ChangeCondition down",ship.getCondition() == 2);
+	assertTrue (testlog.what.remove("notify"));
 	
 	ship.changeCondition(1);
 	assertTrue ("ChangeCondition up",ship.getCondition() == 3);
+	assertTrue (testlog.what.remove("notify"));
+	
+	ship.changeCondition(0);
+	assertTrue ("ChangeCondition up",ship.getCondition() == 3);
+	assertFalse (testlog.what.remove("notify"));
 	}
 	
 	@Test
 	public void testChangeCondition2(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changeCondition(3);
 		
 		assertTrue ("ChangeCondition: Condition must not be bigger 3", ship.getCondition() == 3);
+		assertTrue (testlog.what.remove("notify"));
+
 	}
 	
 	@Test
 	public void testChangeCondition3(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changeCondition(-1);
@@ -207,95 +322,184 @@ public class ShipTests {
 		ship.changeCondition(-1);
 		
 		assertNull ("ChangeCondition == 0 : ship must be deleted", field.getShip());
+		assertTrue (testlog.what.remove("destroy"));
+
 	}
 	
 	@Test
 	public void testChangeCondition4(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changeCondition(0);
 		
 		assertTrue ("ChangeCondition: Condition must be 3 at the beginning", ship.getCondition() == 3);
+		assertFalse (testlog.what.remove("notify"));
 	}
 
 	@Test
 	public void testChangePause1(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changePause(0);
 		
 		assertTrue ("ChangePause: Pause must be 0 at the beginning", ship.getPause() == 0);
+		assertFalse (testlog.what.remove("notify"));
 	}
 	
 	@Test
 	public void testChangePause2(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changePause(1);
 		
 		assertTrue ("ChangePause up", ship.getPause() == 1);
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 	@Test
 	public void testChangePause3(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changePause(9);
 		
 		assertTrue ("ChangePause" ,ship.getPause() == 9);
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 
 	@Test
 	public void testChangePause4(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		ship.changePause(-9);
 		
 		assertTrue ("ChangePause: Pause must not be < 0", ship.getPause() == 0);
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 	@Test
 	public void testChangeDirectionleft(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeDirection(true);
 		assertTrue("changeDirection left first time ", ship.getShipDirection() == 5);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(true);
 		assertTrue  ("changeDirection left second time ", ship.getShipDirection() == 4);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(true);
 		assertTrue ("changeDirection left 3. time ", ship.getShipDirection() == 3);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(true);
 		assertTrue  ("changeDirection left 4. time ", ship.getShipDirection() == 2);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(true);
 		assertTrue ("changeDirection left 5. time ", ship.getShipDirection() == 1);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(true);
 		assertTrue  ("changeDirection left 6. time ", ship.getShipDirection() == 0);
+		assertTrue (testlog.what.remove("notify"));
 		
 	}
 	
 	@Test
 	public void testChangeDirectionright(){
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 1. time ", ship.getShipDirection() == 1);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 2. time ", ship.getShipDirection() == 2);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 3. time ", ship.getShipDirection() == 3);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 4. time ", ship.getShipDirection() == 4);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 5. time ", ship.getShipDirection() == 5);
+		assertTrue (testlog.what.remove("notify"));
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 6. time ", ship.getShipDirection() == 0);
+		assertTrue (testlog.what.remove("notify"));
 	}
 	
 	@Test
-	public void testRelativeToAbsolute(){
+	public void testRelativeToAbsolute1(){
 		
 		ship = new Ship(null, null, 0, shipv);
 		
@@ -361,6 +565,16 @@ public class ShipTests {
 		assertTrue ("relativetoabsolutedir turned right 6 times rel = abs",ship.relativeToAbsoluteDirection(5) == 5);
 		assertTrue ("relativetoabsolutedir turned right 6 times rel = abs",ship.relativeToAbsoluteDirection(6) == 6);
 	}
+	
+	@Test (expected = Exception.class)
+	public void testRelativeToAbsolute2(){
+		
+		ship = new Ship(null, null, 0, shipv);
+		
+		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(-1) == -1);
+		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(7) == 7);
+		
+	}
 	@Test
 	public void testDestroy(){
 		
@@ -373,6 +587,7 @@ public class ShipTests {
 		
 		assertNull ("Destroyed because condition 0, field.getShip() must be null", field.getShip());
 		assertTrue ("Destroyed because condition 0, ship must be deleted out of the previous/next ship ",shipv.getNextShip().getID() == shipn.getID());
+		assertTrue (testlog.what.remove("destroy"));
 		
 	}
 	
@@ -381,11 +596,11 @@ public class ShipTests {
 		
 		sship = new Ship(null, field, 0, shipn);
 		
-		sship.setSenseRegister(shipdirection, 5);
-		assertTrue (sship.getSenseRegister(shipdirection) == 5);
+		sship.setSenseRegister(sensedirection, 5);
+		assertTrue (sship.getSenseRegister(sensedirection) == 5);
 		
-		sship.setSenseRegister(shipdirection, 0);
-		assertTrue (sship.getSenseRegister(shipdirection) == 0);
+		sship.setSenseRegister(sensedirection, 0);
+		assertTrue (sship.getSenseRegister(sensedirection) == 0);
 	}
 	
 
@@ -394,22 +609,25 @@ public class ShipTests {
 		
 		sship = new Ship(null, field, 0, shipn);
 		
-		sship.setSenseRegister(shipdirection, -1);
-		assertTrue ("ShipDirection not <0 ",sship.getSenseRegister(shipdirection) == -1);
+		sship.setSenseRegister(sensedirection, -1);
+		assertTrue ("ShipDirection not <0 ",sship.getSenseRegister(sensedirection) == -1);
 		
-		sship.setSenseRegister(shipdirection, 6);
-		assertTrue ("ShipDirection not >5 ",sship.getSenseRegister(shipdirection) == 6);
+		sship.setSenseRegister(sensedirection, 6);
+		assertTrue ("ShipDirection not >5 ",sship.getSenseRegister(sensedirection) == 6);
 	}
+
+	
+	
 	
 	@Test
 	public void testSenseRegistershipload1(){
 		sship = new Ship(null, field, 0, shipn);
 		
-		sship.setSenseRegister(shipload, 0);
-		assertTrue (sship.getSenseRegister(shipload) == 0);
+		sship.setSenseRegister(senseloaded, 0);
+		assertTrue (sship.getSenseRegister(senseloaded) == 0);
 		
-		sship.setSenseRegister(shipload, 4);
-		assertTrue (sship.getSenseRegister(shipload) == 4);
+		sship.setSenseRegister(senseloaded, 4);
+		assertTrue (sship.getSenseRegister(senseloaded) == 4);
 	}
 	
 
@@ -417,45 +635,23 @@ public class ShipTests {
 	public void testSenseRegistershipload2(){
 		sship = new Ship(null, field, 0, shipn);
 		
-		sship.setSenseRegister(shipload, -1);
-		assertTrue ("Shipload not <0", sship.getSenseRegister(shipload) == -1);
+		sship.setSenseRegister(senseloaded, -1);
+		assertTrue ("Shipload not <0", sship.getSenseRegister(senseloaded) == -1);
 		
-		sship.setSenseRegister(shipload, 5);
-		assertTrue ("Shipload not > 4", sship.getSenseRegister(shipload) == 5);
+		sship.setSenseRegister(senseloaded, 5);
+		assertTrue ("Shipload not > 4", sship.getSenseRegister(senseloaded) == 5);
 	}
 	
-	@Test
-	public void testSenseRegistershipmoral(){
-		sship = new Ship(null, field, 0, shipn);
-		
-		sship.setSenseRegister(shipmoral, 0);
-		assertTrue (sship.getSenseRegister(shipmoral) == 0);
-		
-		sship.setSenseRegister(shipmoral, 4);
-		assertTrue (sship.getSenseRegister(shipmoral) == 4);
-	}
-	
-
-	@Test (expected = AssertionError.class)
-	public void testSenseRegistershipmoral2(){
-		sship = new Ship(null, field, 0, shipn);
-		
-		sship.setSenseRegister(shipmoral, -1);
-		assertTrue ("Shipmoral not <0", sship.getSenseRegister(shipmoral) == -1);
-		
-		sship.setSenseRegister(shipmoral, 5);
-		assertTrue ("Shipmoral not > 4", sship.getSenseRegister(shipmoral) == 5);
-	}
 		
 	@Test
 	public void testSenseRegistershipcondition1(){
 		sship = new Ship(null, field, 0, shipn);
 		
-		sship.setSenseRegister(shipcondition, 3);
-		assertTrue (sship.getSenseRegister(shipcondition) == 3);
+		sship.setSenseRegister(sensecondition, 3);
+		assertTrue (sship.getSenseRegister(sensecondition) == 3);
 		
-		sship.setSenseRegister(shipcondition, 0);
-		assertTrue (sship.getSenseRegister(shipcondition) == 0);
+		sship.setSenseRegister(sensecondition, 0);
+		assertTrue (sship.getSenseRegister(sensecondition) == 0);
 	}
 	
 
@@ -463,11 +659,11 @@ public class ShipTests {
 	public void testSenseRegistershipcondition2(){
 		sship = new Ship(null, field, 0, shipn);
 		
-		sship.setSenseRegister(shipcondition, -1);
-		assertTrue ("Shipcondition not <0", sship.getSenseRegister(shipcondition) == -1);
+		sship.setSenseRegister(sensecondition, -1);
+		assertTrue ("Shipcondition not <0", sship.getSenseRegister(sensecondition) == -1);
 		
-		sship.setSenseRegister(shipcondition, 4);
-		assertTrue ("Shipcondition not > 3", sship.getSenseRegister(shipcondition) == 4);
+		sship.setSenseRegister(sensecondition, 4);
+		assertTrue ("Shipcondition not > 3", sship.getSenseRegister(sensecondition) == 4);
 	}
 	
 	@Test
