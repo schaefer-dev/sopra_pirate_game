@@ -13,6 +13,7 @@ import model.Ship;
 import model.Team;
 import model.Water;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import controller.Command;
@@ -34,13 +35,20 @@ public class CommandRepairTest {
 		
 	}
 	}
-
+	
+	
+	Team teamA;
+	Ship ship;
+	DummyLogWriter log;
+	DummyMap map;
+	Field field;
+	Command repair;
 	public CommandRepairTest()
-	{
+	{	
 	}
-	@Test
-	public void testWorkingRepair()
-	{
+	
+	@Before
+	public void setUp(){
 		Team teamA = new Team('a', null);
 		Ship ship = new Ship(teamA, null, 0, null);
 		teamA.addShip(ship);
@@ -48,7 +56,12 @@ public class CommandRepairTest {
 		DummyMap map = new DummyMap(log);
 		Field field = new Base(map,0,0,teamA, ship);
 		ship.setField(field);
-		Command repair = new Repair(12);
+		repair = new Repair(12);
+	}
+	@Test
+	
+	public void testWorkingRepair()
+	{
 		teamA.addLoot(2);
 		ship.changeCondition(-2);
 		assertEquals("changeCondition did not work properly", 1, ship.getCondition());
@@ -69,14 +82,6 @@ public class CommandRepairTest {
 	@Test
 	public void testNonWorkingRepair()
 	{
-		Team teamA = new Team('a', null);
-		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip(ship);
-		DummyLogWriter log = new DummyLogWriter();
-		DummyMap map = new DummyMap(log);
-		Field field = new Base(map,0,0,teamA);
-		ship.setField(field);
-		Command repair = new Repair(12);
 		teamA.addLoot(1);
 		ship.changeCondition(-2);
 		assertEquals("changeCondition did not work properly", 1, ship.getCondition());
@@ -97,14 +102,6 @@ public class CommandRepairTest {
 	@Test
 	public void testWrongField()
 	{
-		Team teamA = new Team('a', null);
-		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip(ship);
-		DummyLogWriter log = new DummyLogWriter();
-		DummyMap map = new DummyMap(log);
-		Field field = new Water(map, 0, 0, null);
-		ship.setField(field);
-		Command repair = new Repair(12);
 		teamA.addLoot(4);
 		log.entities.clear();
 		log.values.clear();
@@ -124,14 +121,6 @@ public class CommandRepairTest {
 	@Test
 	public void testWorkingRepairOfUndamagedShip()
 	{
-		Team teamA = new Team('a', null);
-		Ship ship = new Ship(teamA, null, 0, null);
-		teamA.addShip(ship);
-		DummyLogWriter log = new DummyLogWriter();
-		DummyMap map = new DummyMap(log);
-		Field field = new Base(map,0,0,teamA);
-		ship.setField(field);
-		Command repair = new Repair(12);
 		teamA.addLoot(3);
 		assertEquals("At the begin ship should have condition 3", 3, ship.getCondition());
 		log.entities.clear();
