@@ -30,6 +30,7 @@ public class Map {
 		int x = field.getX();
 		int y = field.getY();
 		
+		
 		if((y % 2) == 1)
 			x++;
 		
@@ -50,7 +51,7 @@ public class Map {
 				return field;
 			default:
 				throw new IllegalArgumentException();
-		}
+		}  
 	}
 	
 	public int giveNewActorID(){

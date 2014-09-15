@@ -138,6 +138,8 @@ public class CommandMarkTests {
 		testMark0.execute(shipA);
 		testMark0.execute(shipA);
 		testMark3.execute(shipB);
+		testMark3.equals(testMark3);
+		testMark3.equals(null);
 		
 		try{
 			assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys

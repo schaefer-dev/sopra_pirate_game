@@ -129,6 +129,8 @@ public class CommandUnMarkTests {
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		Unmark testUnmark = new Unmark(0);
 		Unmark testUnmark2 = new Unmark(2);
+		testUnmark.equals(testUnmark);
+		testUnmark.equals(null);
 		testUnmark2.execute(shipB);
 		testUnmark2.execute(shipC);
 		testUnmark.execute(shipA);
