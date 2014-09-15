@@ -15,6 +15,8 @@ import model.Water;
 
 import org.junit.Test;
 
+import view.SimpleLogWriter;
+
 public class KrakenTests {
 
 	/*
@@ -26,7 +28,8 @@ public class KrakenTests {
 		
 		/* no kraken on field */
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -52,7 +55,8 @@ public class KrakenTests {
 		
 		/* with kraken on field */
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -80,7 +84,8 @@ public class KrakenTests {
 	@Test
 	public void moveKrakenBase01(){
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Team testTeam = new Team('a',null);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -106,7 +111,8 @@ public class KrakenTests {
 	@Test
 	public void moveKrakenIsland01(){
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -131,7 +137,8 @@ public class KrakenTests {
 	@Test
 	public void moveKrakenProvisionIsland01(){
 		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		

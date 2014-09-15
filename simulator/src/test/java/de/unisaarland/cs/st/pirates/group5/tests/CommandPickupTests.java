@@ -16,6 +16,7 @@ import model.Water;
 
 import org.junit.Test;
 
+import view.SimpleLogWriter;
 import commands.Pickup;
 
 public class CommandPickupTests {
@@ -49,7 +50,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -89,7 +91,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -129,7 +132,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,5);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -169,7 +173,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,5);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -209,7 +214,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -246,7 +252,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(6, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,5);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -292,7 +299,8 @@ public class CommandPickupTests {
 		Pickup testPickup = new Pickup(6, 10);
 		
 		Random testRandom = new Random(1);	
-		Map testMap = new Map(testRandom);
+		SimpleLogWriter testLog = new SimpleLogWriter();
+		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,5);
 		
 		Field[][] fieldArray=new Field[3][3];
