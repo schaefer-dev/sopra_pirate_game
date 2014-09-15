@@ -111,10 +111,14 @@ public class TeamTests {
 	@Test
 	public void TestShipAddDel01(){
 		Team teamA = new Team('a', null);
-		teamA.addShip();
-		teamA.addShip();
-		teamA.addShip();
-		teamA.addShip();
+		Ship shipA = new Ship(teamA,null,0,null);
+		Ship shipB = new Ship(teamA,null,1,null);
+		Ship shipC = new Ship(teamA,null,2,null);
+		Ship shipD = new Ship(teamA,null,3,null);
+		teamA.addShip(shipA);
+		teamA.addShip(shipB);
+		teamA.addShip(shipC);
+		teamA.addShip(shipD);
 		
 		assertTrue(teamA.getShipCount()==4);
 	}
@@ -122,10 +126,14 @@ public class TeamTests {
 	@Test
 	public void TestShipAddDel02(){
 		Team teamA = new Team('a', null);
-		teamA.addShip();
-		teamA.addShip();
-		teamA.addShip();
-		teamA.deleteShip();
+		Ship shipA = new Ship(teamA,null,0,null);
+		Ship shipB = new Ship(teamA,null,1,null);
+		Ship shipC = new Ship(teamA,null,2,null);
+		Ship shipD = new Ship(teamA,null,3,null);
+		teamA.addShip(shipA);
+		teamA.addShip(shipB);
+		teamA.addShip(shipC);
+		teamA.deleteShip(shipA);
 		
 		assertTrue(teamA.getShipCount()==3);
 	}
@@ -133,12 +141,18 @@ public class TeamTests {
 	@Test
 	public void TestShipAddDel03(){
 		Team teamA = new Team('a', null);
-		teamA.addShip();
-		teamA.addShip();
-		teamA.addShip();
-		teamA.deleteShip();
-		teamA.addShip();
-		teamA.addShip();
+		Ship shipA = new Ship(teamA,null,0,null);
+		Ship shipB = new Ship(teamA,null,1,null);
+		Ship shipC = new Ship(teamA,null,2,null);
+		Ship shipD = new Ship(teamA,null,3,null);
+		Ship shipE = new Ship(teamA,null,4,null);
+		Ship shipF = new Ship(teamA,null,5,null);
+		teamA.addShip(shipA);
+		teamA.addShip(shipB);
+		teamA.addShip(shipC);
+		teamA.deleteShip(shipD);
+		teamA.addShip(shipE);
+		teamA.addShip(shipF);
 		
 		assertTrue(teamA.getShipCount()==5);
 	}
@@ -146,16 +160,19 @@ public class TeamTests {
 	@Test (expected=Exception.class)
 	public void TestShipDelException01(){
 		Team teamA = new Team('a', null);
-		teamA.deleteShip();	
+		Ship shipA = new Ship(teamA,null,0,null);
+		teamA.deleteShip(shipA);	
 	}
 	
 	@Test (expected=Exception.class)
 	public void TestShipDelException02(){
 		Team teamA = new Team('a', null);
-		teamA.addShip();
-		teamA.deleteShip();
-		teamA.deleteShip();
-		teamA.addShip();	
+		Ship shipA = new Ship(teamA,null,0,null);
+		Ship shipB = new Ship(teamA,null,1,null);
+		teamA.addShip(shipA);
+		teamA.deleteShip(shipA);
+		teamA.deleteShip(shipB);
+		teamA.addShip(shipB);	
 	}
 	
 	@Test
