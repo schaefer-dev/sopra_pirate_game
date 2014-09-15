@@ -55,12 +55,14 @@ public class TestSense {
 	Water water = new Water(map, 0, 3,null);
 	ProvisionIsland provision = new ProvisionIsland(map,0,1);
 	Island island = new Island(map,1,0, treasure);
-	Base enemyBase = new Base(map,3,1,b);
-	Water alliedship = new Water(map,3,3,null);
 	Water enemyship = new Water(map,0,3,null);
-	Base homeBase = new Base(map,0,0,a);
 	Ship ship = new Ship(a,water,1, null);
 	Ship alienShip1 = new Ship(b,enemyship,2,ship);
+	Base enemyBase = new Base(map,3,1,b, alienShip1);
+	Water alliedship = new Water(map,3,3,null);
+	
+	Base homeBase = new Base(map,0,0,a, ship);	
+	
 	Ship alienShip2 = new Ship(a,alliedship,3,alienShip1);
 		
 		@Before
@@ -74,8 +76,6 @@ public class TestSense {
 			senses.add(sense7);
 			senses.add(move);
 			senses.add(goto7);
-
-			homeBase.setShip(ship);//0,0
 			alliedship.setShip(alienShip2);//3,3
 			alliedship.placeBuoy(3, a);
 			alliedship.placeBuoy(4, a);
