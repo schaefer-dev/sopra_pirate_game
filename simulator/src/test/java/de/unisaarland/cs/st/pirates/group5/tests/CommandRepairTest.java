@@ -148,5 +148,4 @@ public class CommandRepairTest {
 		Integer nul = new Integer (0);
 		assertTrue(vals.remove(nul) && vals.remove(nul) && vals.remove(new Integer(1)) && vals.remove(new Integer(Key.RESTING.ordinal())) && vals.remove(new Integer(4))); // tests if the ids of Team and the ship as well as the Key.ordinal for Resting and the new values of score and resting where logged
 	}
-	
 }
