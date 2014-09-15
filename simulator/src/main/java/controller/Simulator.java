@@ -30,6 +30,7 @@ public class Simulator {
 	
 	
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException {
+		/*
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException();
 		if(shipFiles.length < 2 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
 		
@@ -68,10 +69,12 @@ public class Simulator {
 		
 		roundCounter = 1;
 		roundMax = turns + 1;
+		*/
 	}
 	
 	
 	public void step() throws IllegalStateException, IOException{
+		/*
 		if(roundCounter > roundMax) throw new IllegalStateException();
 		
 		if((roundCounter % 20) == 0){
@@ -93,16 +96,19 @@ public class Simulator {
 		
 		logWriter.logStep();
 		roundCounter++;
+		*/
 	}
 	
 	public void step(int rounds) throws IllegalStateException, IOException{
+		/*
 		if((rounds + roundCounter) > roundMax) throw new IllegalStateException();
 		
 		for(int i = 0; i < rounds; i++)
 			step();
+			*/
 	}
 	
 	public void end() throws IllegalStateException, IOException{
-		logWriter.close();
+		//logWriter.close();
 	}
 }
