@@ -46,7 +46,7 @@ public class CommandRepairTest {
 		teamA.addShip(ship);
 		DummyLogWriter log = new DummyLogWriter();
 		DummyMap map = new DummyMap(log);
-		Field field = new Base(map,0,0,teamA);
+		Field field = new Base(map,0,0,teamA, ship);
 		ship.setField(field);
 		Command repair = new Repair(12);
 		teamA.addLoot(2);
