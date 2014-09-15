@@ -105,8 +105,4 @@ public class Simulator {
 	public void end() throws IllegalStateException, IOException{
 		logWriter.close();
 	}
-	
-	public void updateTeams(List<Team> teams){
-		this.teams = teams;
-	}
 }

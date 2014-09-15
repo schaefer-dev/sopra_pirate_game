@@ -28,21 +28,17 @@ public class MapGenerator {
 	private Field[][] fields;
 
 	
-	@SuppressWarnings("resource")
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
 		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
 		if(teams.size() < 2 || teams.size() > 26) throw new IllegalArgumentException();
 		
-
 		List<Command> tactic1 = teams.get(0).getCommands();
 		List<Command> tactic2 = teams.get(1).getCommands();
+		boolean oneTactic = false;
 		//Either all teams have a different tactic or all teams have the same one
 		//If the 2 first teams have the same tactic => all teams have the same tactic
-		if(tactic1.equals(tactic2)){
-			
-			
-		}
-		
+		if(tactic1.equals(tactic2))
+			oneTactic = true;
 		
 		Map map = new Map(random, log);
 		List<Kraken> kraken = new ArrayList<Kraken>();
@@ -70,9 +66,7 @@ public class MapGenerator {
 			
 			line = line.replaceAll(" ", "");
 			if(line.length() != x || lineNumber >= y) throw new IllegalArgumentException();
-			
-			
-			
+
 			for(int i = 0; i < line.length(); i++){
 				char c = line.charAt(i);
 				Field field;
@@ -99,7 +93,7 @@ public class MapGenerator {
 					field = new Water(map, i, lineNumber, k);
 					log.addCell(Cell.WATER, null, i, lineNumber);
 				}
-				else if(isLetter(c, teams.size())){
+				else if(isTeamLetter(c, teams.size())){
 					int teamNumber = c - 'a';
 					Team team;
 					
@@ -111,7 +105,7 @@ public class MapGenerator {
 					}
 					
 					Ship ship = new Ship(team, null, map.giveNewActorID(), previousShip);
-					//teams.get(teamNumber).a
+					teams.get(teamNumber).addShip(ship);
 					Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
 					int[] values = {0, 3, teamNumber, 4, 0, 0, 0, i, lineNumber};
 					log.create(Entity.SHIP, ship.getID(), keys, values);
@@ -119,7 +113,6 @@ public class MapGenerator {
 					if(previousShip == null)
 						map.setFirstShip(ship);
 					previousShip = ship;
-					
 					
 					field = new Base(map, i, lineNumber, team);
 					log.addCell(Cell.WATER, teamNumber, i, lineNumber);
@@ -142,14 +135,39 @@ public class MapGenerator {
 			
 			lineNumber++;
 		}
+				
+		if(oneTactic){	
+			boolean lastShip = false;
+			for(int i = teams.size() - 1; i >= 0; i++){
+				Team team = teams.get(i);
+				
+				if(team.getShipCount() <= 0){
+					if(lastShip)
+						throw new IllegalArgumentException("Not every team has bases/ships on the map");
+					else
+						teams.remove(team);
+				}			
+				else
+					lastShip = true;
+			}
+		}
+		
+		for(Team team: teams){
+			log.fleetScore(team.getName() - 'a', 0);
+			
+			if(team.getShipCount() <= 0)
+				throw new IllegalArgumentException("Not every team has bases/ships on the map");
+		}
 		
 		if(lineNumber != y) throw new IllegalArgumentException();
 		reader.close();
 		
-		return null;
+		map.setMapValues(fields, kraken);
+		return map;
 	}
 	
-	private boolean isLetter(char c, int max){
+	
+	private boolean isTeamLetter(char c, int max){
 		if(c >= 'a' && c < ('a' + max))
 			return true;
 		
