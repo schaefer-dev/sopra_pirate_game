@@ -95,7 +95,7 @@ public class CommandRefreshTests {
 		
 		assertTrue(testShip.getLoad()==0);
 		assertTrue(testShip.getMoral()==0);
-		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
+		assertTrue(testShip.getPC()==10);
 	}
 
 	@Test
@@ -134,7 +134,7 @@ public class CommandRefreshTests {
 		
 		assertTrue(testShip.getLoad()==0);
 		assertTrue(testShip.getMoral()==0);
-		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
+		assertTrue(testShip.getPC()==10);
 	}
 	
 	@Test
@@ -171,6 +171,6 @@ public class CommandRefreshTests {
 		
 		assertTrue(testShip.getLoad()==0);
 		assertTrue(testShip.getMoral()==0);
-		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
+		assertTrue(testShip.getPC()==10);
 	}
 }
