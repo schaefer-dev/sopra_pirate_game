@@ -37,14 +37,14 @@ public class TestField {
  * werden, testen.*/
 	
 	Random random;
-	Map map = new Map(random);
+	Map map = new Map(random, null);
 	List<Kraken> krakens = new ArrayList<Kraken>();
 	List<Command> tactics = new ArrayList<Command>();
 	Team a = new Team('a', tactics);
 	List<Command> btactics = new ArrayList<Command>();
 	Team b = new Team('b', btactics);	
 	Field[][] fields = new Field[4][4];
-	Kraken kraken = new Kraken(0, null);
+	Kraken kraken = new Kraken(map.giveNewEntityID(), null);
 	
 	Water water = new Water(map, 0, 0, kraken);
 	Water geradeaus = new Water(map, 1,0,null);
@@ -84,7 +84,7 @@ public class TestField {
 	//	fields[2][0] = elsewhere; //enemyship2
 	//	fields[1][1] = nextToElseWhere;//alliedship2
 		
-		map.setMapValues(fields, 1, 1, null/*firstShip*/, krakens);
+		map.setMapValues(fields, null/*firstShip*/, krakens);
 		
 		/*tactics.add(goAhead);
 		btactics.add(goAhead);
@@ -129,7 +129,7 @@ public class TestField {
 		nextToElseWhere.setShip(enemyShip2);		*/
 	}
 	
-	@Test (expected=Exception.class)
+	@Test
 	public void testGetNeighbour() {
 		assertEquals("getNeighbour fail!",water.getNeigbour(0),geradeaus);
 		assertEquals("getNeighbour fail!",water.getNeigbour(1),rechtsUntenVorne);
@@ -141,7 +141,7 @@ public class TestField {
 			assertEquals("getNeighbour fail!",linksObenHinten.getNeigbour(1),water);
 			assertEquals("getNeighbour fail!",linksObenHinten.getNeigbour(0),linksObenVorne);
 	}		
-	@Test (expected=Exception.class)
+	@Test
 	public void testGetFieldType(){
 		assertEquals("FieldType broken",geradeaus.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",water.getFieldType(), FieldType.Water);
@@ -154,20 +154,26 @@ public class TestField {
 	@Test 
 	public void testExchangeTreasure(){
 		hinten.exchangeTreasure(5);
+		try{
 		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),5);
+		}
+		catch(NullPointerException e)
+		{
+			fail("This TreasureIsland does not seem to contain any treasure.");
+		}
 	}
-	@Test (expected=Exception.class)
+	@Test
 	public void testMoveKraken(){
 		hinten.moveKraken(water);
 		assertEquals("moveKraken hat nicht funktioniert", kraken.getField(), water);
 		assertEquals("",hinten.getKraken(), null);
 		assertEquals("",water.getKraken(),kraken);
 	}
-	@Test (expected=Exception.class)
+	@Test
 	public void testBuoyfunctions(){
 		water.placeBuoy(1, a);
 		assertEquals("buoy not placed",water.getBuoys().size(),1);
-		assertFalse("Cant not be placed twice", water.placeBuoy(1,a));
+		assertFalse("Cannot be placed twice", water.placeBuoy(1,a));
 		
 		water.deleteBuoy(a, 1);
 		assertEquals("buoy not deleted",water.getBuoys().size(),0);
@@ -180,13 +186,13 @@ public class TestField {
 	}
 	@Test 
 	public void testSetShip(){
-		Ship firstShip = new Ship(a,null,0,null);
+		Ship firstShip = new Ship(a,water,map.giveNewActorID(),null);
 		water.setShip(firstShip);
-		assertNotNull("",water.getShip());
+		assertEquals("Ship insertion failed.",firstShip, water.getShip());
 	}
 	@Test
 	public void testCheckBase(){	
-		assertEquals("",rechtsUntenHinten.getTeam().getName(),a);
+		assertEquals("",rechtsUntenHinten.getTeam().getName(),'a');
 	}	
 		
 		/*	@Test (expected=Exception.class)

@@ -142,16 +142,13 @@ public class CommandRepairTest {
 	}
 	
 	private class DummyMap extends Map{
-		
-		LogWriter log;
 
 		public DummyMap(LogWriter log) {
-			super(new Random());
-			this.log = log;
+			super(new Random(), log);
 		}
 		
 		public LogWriter getLogWriter(){
-			return log;
+			return this.logWriter;
 		
 	}
 	}

@@ -12,7 +12,7 @@ public class Map {
 	private Field[][] fields;
 	private int nextFreeActorID;
 	private int nextFreeEntityID;
-	private LogWriter logWriter;
+	protected LogWriter logWriter;
 	private Ship firstShip;
 	private List<Kraken> kraken;
 	
@@ -57,8 +57,7 @@ public class Map {
 		return null;
 	}
 	
-	public void setMapValues(Field[][] fields, int nextFreeActorId, int nextFreeEntityId,
-												Ship firstShip, List<Kraken> kraken){
+	public void setMapValues(Field[][] field, Ship firstShip, List<Kraken> kraken){
 		// TODO Auto-generated method stub
 	}
 }
