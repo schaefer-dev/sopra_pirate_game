@@ -19,4 +19,14 @@ public class Buoy extends Entity{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean equals(final Object other) {
+		if (other instanceof Buoy) {
+			if ((this.team).equals(((Buoy)other).team))
+				if ((this.id)==(((Buoy)other).id))
+				return true;
+		}
+		return false;
+	}
 }
