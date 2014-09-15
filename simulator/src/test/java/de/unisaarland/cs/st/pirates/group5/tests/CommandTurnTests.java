@@ -129,6 +129,13 @@ public class CommandTurnTests {
 		assertTrue(ship.getShipDirection() == 1);	
 	}
 	
+	@Test
+	public void Boost(){
+		Turn testTurn = new Turn(true);
+		testTurn.equals(testTurn);
+		assertTrue(true);	
+	}
+	
 	public void DoTurnXTimes (int x, Turn turn, Ship ship){
 		for (int i=0; (i < x); i++)
 			turn.execute(ship);

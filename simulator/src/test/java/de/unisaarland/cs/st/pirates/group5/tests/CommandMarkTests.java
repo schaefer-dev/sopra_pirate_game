@@ -69,10 +69,16 @@ public class CommandMarkTests {
 		
 		testMark0.execute(shipA);
 		testMark0.execute(shipB);
-		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	
-		assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	// assuming that we insert in the same order we got the placeBuoys
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
+		
+		try{
+			assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	
+			assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	// assuming that we insert in the same order we got the placeBuoys
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
+		}
+		catch(IndexOutOfBoundsException error){
+			assertTrue("index out of bounds",false);
+		}
 	}
 	
 	@Test
@@ -97,12 +103,16 @@ public class CommandMarkTests {
 		
 		testMark0.execute(shipA);
 		testMark0.execute(shipA);
-		
-		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
-		assertTrue(waterField.getBuoys().size()==1);
+		try{
+			assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
+			assertTrue(waterField.getBuoys().size()==1);
+		}
+		catch(IndexOutOfBoundsException error){
+			assertTrue("index out of bounds",false);
+		}
 	}
 	
 	@Test
@@ -128,15 +138,21 @@ public class CommandMarkTests {
 		testMark0.execute(shipA);
 		testMark0.execute(shipA);
 		testMark3.execute(shipB);
-		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
-		assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
-		assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	
-		assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamD));	
-		assertTrue(waterField.getBuoys().size()==2);
+		
+		try{
+			assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
+			assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
+			assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	
+			assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamD));	
+			assertTrue(waterField.getBuoys().size()==2);
+		}
+		catch(IndexOutOfBoundsException error){
+			assertTrue("index out of bounds",false);
+		}
 	}
 	
 	@Test
@@ -165,19 +181,24 @@ public class CommandMarkTests {
 		testMark0.execute(shipA);
 		testMark0.execute(shipC);
 		
-		assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
-		assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
-		assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	
-		assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamD));	
-		assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
-		assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamB));	
-		assertTrue(waterField.getBuoys().get(2).getTeam().equals(teamC));	
-		assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamD));	
-		assertTrue(waterField.getBuoys().size()==3);
+		try{
+			assertTrue(waterField.getBuoys().get(0).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamB));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(0).getTeam().equals(teamD));	
+			assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
+			assertTrue(waterField.getBuoys().get(1).getTeam().equals(teamB));	
+			assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(1).getTeam().equals(teamD));	
+			assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamA));	// assuming that we insert in the same order we got the placeBuoys
+			assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamB));	
+			assertTrue(waterField.getBuoys().get(2).getTeam().equals(teamC));	
+			assertFalse(waterField.getBuoys().get(2).getTeam().equals(teamD));	
+			assertTrue(waterField.getBuoys().size()==3);
+		}
+		catch(IndexOutOfBoundsException error){
+			assertTrue("index out of bounds",false);
+		}
 	}
 	
 }
