@@ -23,6 +23,12 @@ public class Water extends Field {
 		return false;
 	}
 
+	@Override
+	public boolean setKraken(Kraken kraken) {
+		// TODO Auto-generated method stub
+		this.kraken=kraken;
+		return false;
+	}
 
 	@Override
 	public FieldType getFieldType() {
@@ -30,13 +36,5 @@ public class Water extends Field {
 		return FieldType.Water;
 	}
 	
-	@Override
-	public boolean setKraken(Kraken kraken)
-	{
-		
-		//TODO: Log, look if other Kraken there.
-		this.kraken = kraken;
-		return true;
-	}
 
 }
