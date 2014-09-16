@@ -56,5 +56,15 @@ public class EntityTest {
 		assertTrue(testBuoy.getTeam().equals(teamA));
 		assertTrue(testBuoy.getType()==-1);
 	}
-	
+	@Test
+	public void testEquals1()
+	{
+		Team teamA = new Team('a', null);
+		Buoy buoy1 = new Buoy(0, teamA, 2);
+		Buoy buoy2 = new Buoy(1, teamA, 0);
+		assertFalse(buoy1.equals(buoy2));
+		Buoy buoy3 = new Buoy(2,teamA, 2);
+		assertTrue(buoy3.equals(buoy1));
+		assertFalse(buoy1.equals(teamA));
+	}
 }
