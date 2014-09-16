@@ -27,7 +27,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 //import commands.Drop;
 //import commands.Move;
 
-public class TestField {
+public class FieldTest {
 /*enthaelt noch Tests, wenn nachher die Commands fertig sind, die exchangeTreasure(i), in verschiedenen Situationen, 
  * die von verschiedenen Commandos; gleichen Commandos mit unterschieldichen Ausgaengen; ausgeloest
  * werden, testen.*/
