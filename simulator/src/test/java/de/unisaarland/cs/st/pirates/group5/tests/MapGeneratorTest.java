@@ -78,11 +78,11 @@ public class MapGeneratorTest {
 		
 		assertTrue (map.getNeighbour(field, 0).getX() == (field2.getX()));
 		assertTrue (map.getNeighbour(field, 1).getX() == (field3.getX()));
-		assertTrue (map.getNeighbour(field, 0).getX() == (field4.getX()));
+		assertTrue (map.getNeighbour(field3, 0).getX() == (field4.getX()));
 		
 		assertTrue (map.getNeighbour(field, 0).getY() == (field2.getY()));
 		assertTrue (map.getNeighbour(field, 1).getY() == (field3.getY()));
-		assertTrue (map.getNeighbour(field, 0).getY() == (field4.getY()));
+		assertTrue (map.getNeighbour(field3, 0).getY() == (field4.getY()));
 	}
 	
 }
