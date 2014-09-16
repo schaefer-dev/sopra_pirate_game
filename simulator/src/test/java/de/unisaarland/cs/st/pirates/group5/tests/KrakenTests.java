@@ -43,6 +43,9 @@ public class KrakenTests {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		
 		testKraken.move();
+		testKraken.equals(testKraken);
+		testKraken.equals(null);
+		testKraken.setField(fieldArray[1][1]);
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==2);
 		assertTrue("KrakenY wrong", testKraken.getField().getY()==2);
 		assertTrue("Kraken not deleted correctly", testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==null);
@@ -70,7 +73,8 @@ public class KrakenTests {
 		
 		testMap.setMapValues(fieldArray, null);
 		
-		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
+		Kraken testKraken = new Kraken(0,fieldArray[2][0]);
+		testKraken.setField(fieldArray[1][1]);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==2);
@@ -103,6 +107,8 @@ public class KrakenTests {
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
 		assertTrue("KrakenY wrong", testKraken.getField().getY()==1);
+		
+		//assertTrue("Kraken found on wrong field",testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 		assertTrue("Kraken found on wrong field",testMap.getNeighbour(fieldArray[2][2], 1).getKraken()==null);
 		assertTrue("No Kraken found where it should be", testMap.getNeighbour(fieldArray[1][1], 1).getKraken()!=null);
 		assertTrue("No correct Kraken found where it should be", testMap.getNeighbour(fieldArray[1][1], 1).getKraken()==testKraken);

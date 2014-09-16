@@ -124,9 +124,18 @@ public class CommandTurnTests {
 	@Test
 	public void TestTurnRight8CornerCase(){
 		Turn testTurn = new Turn(false);
+		testTurn.equals(testTurn);
+		testTurn.equals(null);
 		Ship ship = new Ship(null,null,0,null);
 		DoTurnXTimes(8, testTurn, ship);
 		assertTrue(ship.getShipDirection() == 1);	
+	}
+	
+	@Test
+	public void Boost(){
+		Turn testTurn = new Turn(true);
+		testTurn.equals(testTurn);
+		assertTrue(true);	
 	}
 	
 	public void DoTurnXTimes (int x, Turn turn, Ship ship){

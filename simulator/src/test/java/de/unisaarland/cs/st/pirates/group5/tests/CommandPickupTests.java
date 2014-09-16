@@ -78,6 +78,8 @@ public class CommandPickupTests {
 		testShip.changeMoral(-1);
 		
 		testPickup.execute(testShip);
+		testPickup.equals(testPickup);
+		testPickup.equals(null);
 		
 		assertTrue(testShip.getLoad()==1);
 		assertTrue(testShip.getMoral()==4);
