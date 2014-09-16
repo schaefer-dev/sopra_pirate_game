@@ -260,13 +260,17 @@ public class TranslatorTest {
 		assertEquals("Translation of Refresh does not give correct result", sollErg, erg);
 		
 	}
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testNoNewLine()
 	{
 		String badTactic = lines.get(26)+ lines.get(13);
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
 		fail("Only one command in each line is allowed.");
+		}
+		catch(IllegalArgumentException e){}
+		
 		
 	}
 	
@@ -296,15 +300,18 @@ public class TranslatorTest {
 		InputStream in = stringToStream(tactic);
 		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
 	}
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testCommentLine()
 	{
 		String badTactic = "turn left\n"
 							+";\n"
 							+ lines.get(7);
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
 		fail("A line must not only contain a comment");
+		}
+		catch(IllegalArgumentException e){}
 	}
 	@Test
 	public void testCorrectLength()
@@ -321,7 +328,7 @@ public class TranslatorTest {
 		
 	}
 	
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testWrongLength()
 	{
 		String badTactic = "";
@@ -332,22 +339,28 @@ public class TranslatorTest {
 			badTactic += lines.get(0);
 		}
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
-		fail("A tactic must not have 2001 instructions");		
+		fail("A tactic must not have 2001 instructions");
+		}
+		catch(IllegalArgumentException e){}
 	}
 	
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testNoNegativNumber1()
 	{
 		String badTactic = "move else -10\n"
 							+"goto 0";
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
-		fail("A tactic must not go to negative instructions.");		
+		fail("A tactic must not go to negative instructions.");
+		}
+		catch(IllegalArgumentException e){}
 	}
 	
 	
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testNoNegativNumber2()
 	{
 		String badTactic = "move else 2\n"
@@ -355,29 +368,38 @@ public class TranslatorTest {
 							+ lines.get(13);
 							
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
-		fail("There cannot be any negative directions.");		
+		fail("There cannot be any negative directions.");
+		}
+		catch(IllegalArgumentException e){}
 	}
 	
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testNoOneInFlipzero()
 	{
 		String badTactic = "move else 2\n"
 							+"goto 0\n"
 							+"flipzero 1 else 0";
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
-		fail("Flipzero can only be called with values greater than one.");		
+		fail("Flipzero can only be called with values greater than one.");
+		}
+		catch(IllegalArgumentException e){}
 	}
-	@Test(expected= IllegalArgumentException.class)
+	@Test
 	public void testNoJumpFurther1999()
 	{
 		String badTactic  = "move else 2\n"
 				+"goto 0\n"
 				+"flipzero 1 else 2000";
 		InputStream in = stringToStream(badTactic);
+		try{
 		translator.run(in);
 		fail("Probably jumps to lines greater than 1999 are not allowed in tacticfiles.");
+		}
+		catch(IllegalArgumentException e){}
 	}
 	@Test
 	public void testCommandList()
