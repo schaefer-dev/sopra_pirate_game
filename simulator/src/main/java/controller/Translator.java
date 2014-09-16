@@ -11,6 +11,7 @@ import java.util.Map;
 
 import commands.Drop;
 import commands.Goto;
+import commands.If;
 import commands.Mark;
 import commands.Move;
 import commands.Pickup;
@@ -42,10 +43,10 @@ public class Translator {
 		this.labelized = false;
 	}
 	
-	/* @Specs: splits the given line in a and saves the first word in currentElements and the rest 
+	/** @Specs: splits the given line in a and saves the first word in currentElements and the rest 
 	 * in appendix.
 	 * 
-	 * @Params: the line, to work with */
+	 * @Params: the line, to work with **/
 	
 	public void makeSplits(String line){
 		int index = 1;
@@ -66,7 +67,7 @@ public class Translator {
 		}
 	}
 	
-	/* @Specs: the classes main method. A Hybrid of lexer and parser, which evaluates the semantics of
+	/** @Specs: the classes main method. A Hybrid of lexer and parser, which evaluates the semantics of
 	 *  single coherent strings and builds a valid command or prints an error. Due to the tactics grammar 
 	 *  minor complexity and explicit structure, an elaborated lexer and parser were not necessary.
 	 *  
@@ -74,9 +75,10 @@ public class Translator {
 	 * 
 	 * @Return: Command.
 	 * 
-	 * @Error: prints error*/
+	 * @Error: prints error**/
 	
 	private Command translate(String line){
+		List<String> conditions = new ArrayList<String>();
 		List<Comparison> bools = new ArrayList<Comparison>();
 		int currentColumn = 0;//the column, that marks the begin of a coherent string and that would be used 
 								//in a optional error statement.
@@ -114,7 +116,7 @@ public class Translator {
 						break;
 					}
 				errors.add("Not a valid direction @line " + row + " @position "
-																	+ 5);
+																	+ column);
 				break;
 					   
 			case GOTO:
@@ -126,7 +128,7 @@ public class Translator {
 						overloadError();
 						break;
 					}
-				errors.add("Invalid address or label @line " + row + " @position " + 5);
+				errors.add("Invalid address or label @line " + row + " @position " + column);
 				break;
 				
 			case MARK: 
@@ -141,11 +143,11 @@ public class Translator {
 							break;
 						}
 					}else{
-						errors.add("Invalid buoy type @line " + row + " @position " + 5);
+						errors.add("Invalid buoy type @line " + row + " @position " + column);
 						break;
 					}
 				}
-				errors.add("Missing buoy type @line " + row + " @position " + 5);
+				errors.add("Missing buoy type @line " + row + " @position " + column);
 				break;
 	
 			case UNMARK:
@@ -160,11 +162,11 @@ public class Translator {
 							break;
 						}
 					}else{
-						errors.add("Invalid buoy type @line " + row + " @position " + 8);
+						errors.add("Invalid buoy type @line " + row + " @position " + column);
 						break;
 					}
 				}
-				errors.add("Missing buoy type @line " + row + " @position " + 8);
+				errors.add("Missing buoy type @line " + row + " @position " + column);
 				break;
 				
 			case SENSE: 
@@ -179,11 +181,11 @@ public class Translator {
 							break;
 						}
 					}else{
-						errors.add("Invalid sense direction @line " + row + " @position " + 7);
+						errors.add("Invalid sense direction @line " + row + " @position " + column);
 						break;
 					}
 				}
-				errors.add("Missing sense direction @line " + row + " @position " + 7);
+				errors.add("Missing sense direction @line " + row + " @position " + column);
 				break;
 				
 			case MOVE:
@@ -272,7 +274,7 @@ public class Translator {
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									if(appendix == null || appendix.isEmpty())
-										return new Pickup(type,evaluateAddress(currentElement));
+										return new Refresh(type,evaluateAddress(currentElement));
 									else{
 										overloadError();
 										break;
@@ -331,14 +333,45 @@ public class Translator {
 				break;
 				
 			case IF:
-				break;
+				makeSplits(appendix);
+				Comparison comparison = toolBox.buildComparison(currentElement);
+				if(comparison != null && appendix != null){
+					makeSplits(appendix);
+					if(appendix != null && toolBox.isElse(currentElement)){
+						makeSplits(appendix);
+						if(evaluateAddress(currentElement) != -1 && appendix == null){
+							type = evaluateAddress(currentElement);
+							if(0 <= type && type <= 1999)
+								return new If(comparison, type);
+							else{
+								errors.add("No valid address @line " + row + " @position "+ toolBox.indexOfError(columns, appendix, currentElement));
+								break;
+							}
+						}else{
+							overloadError();
+							break;
+						}
+					}else{
+						errors.add("Missing else @line " + row + " @position "+ toolBox.indexOfError(columns, appendix, currentElement));
+						break;					
+					}
+				}else{
+					errors.add("Missing condition @line " + row + " @position " + column);
+					break;
+				}
 			
-			case IFALL: 
-				bools.add(toolBox.buildComparison());
+			case IFALL:
+				conditions.clear();
+				bools.clear();
+				
+				bools.add(toolBox.buildComparison(currentElement));
 				break;
 			
 			case IFANY:
-				bools.add(toolBox.buildComparison());
+				conditions.clear();
+				bools.clear();
+				
+				bools.add(toolBox.buildComparison(currentElement));
 				break;
 			
 			default:
@@ -349,19 +382,19 @@ public class Translator {
 		return null;
 	}
 	
-	/* @Specs: prints error, whether there are too many arguments in a single line*/
+	/** @Specs: prints error, whether there are too many arguments in a single line**/
 	
 	private void overloadError() {
 		errors.add("Too many arguments @line " + row);		
 	}
 
-	/* @Specs: takes a tactics file, invokes translate(String string) on every line and creates a team tactics
+	/** @Specs: takes a tactics file, invokes translate(String string) on every line and creates a team tactics
 	 * 
 	 * @Param: the inputstream of the tactics file
 	 * 
 	 * @Return: a list of commands
 	 * 
-	 * @Error: throws illegalArgumentException on empty broken inputstreams.*/
+	 * @Error: throws illegalArgumentException on empty broken inputstreams.**/
 	
 	public List<Command> run(InputStream tacticFile){
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
@@ -404,9 +437,9 @@ public class Translator {
 		return tactic;
 	}
 	
-	/* @Param: the current word in the line.
+	/** @Param: the current word in the line.
 	 * 
-	 * @Return: the specified jump address as int or -1 whether the word is out of bounds or not a label.*/
+	 * @Return: the specified jump address as int or -1 whether the word is out of bounds or not a label.**/
 	
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
