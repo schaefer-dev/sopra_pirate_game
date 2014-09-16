@@ -22,8 +22,11 @@ public class ComparisonBoostTest {
 		
 		
 		assertTrue(testBool.equals(testBool));
+		assertFalse(testBool.equals(testCell));
 		assertTrue(testCell.equals(testCell));
+		assertFalse(testCell.equals(testBool));
 		assertTrue(testShip.equals(testShip));
+		assertFalse(testShip.equals(testCell));
 		
 	}
 }
