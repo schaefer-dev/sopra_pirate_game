@@ -32,7 +32,6 @@ public class CommandRepairTest {
 		
 		public LogWriter getLogWriter(){
 			return this.logWriter;
-		
 	}
 	}
 	
@@ -49,19 +48,20 @@ public class CommandRepairTest {
 	
 	@Before
 	public void setUp(){
-		Team teamA = new Team('a', null);
-		Ship ship = new Ship(teamA, null, 0, null);
+		teamA = new Team('a', null);
+		ship = new Ship(teamA, null, 0, null);
 		teamA.addShip(ship);
-		DummyLogWriter log = new DummyLogWriter();
-		DummyMap map = new DummyMap(log);
-		Field field = new Base(map,0,0,teamA, ship);
+		log = new DummyLogWriter();
+		map = new DummyMap(log);
+		field = new Base(map,0,0,teamA, ship);
 		ship.setField(field);
 		repair = new Repair(12);
 	}
-	@Test
 	
+	@Test
 	public void testWorkingRepair()
 	{
+		assertNotNull("teamA is Null", teamA);
 		teamA.addLoot(2);
 		ship.changeCondition(-2);
 		assertEquals("changeCondition did not work properly", 1, ship.getCondition());
