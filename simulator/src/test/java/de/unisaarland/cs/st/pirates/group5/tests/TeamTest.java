@@ -135,7 +135,7 @@ public class TeamTest {
 		teamA.addShip(shipC);
 		teamA.deleteShip(shipA);
 		
-		assertTrue(teamA.getShipCount()==3);
+		assertTrue(teamA.getShipCount()==2);
 	}
 	
 	@Test

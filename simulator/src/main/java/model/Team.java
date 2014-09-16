@@ -28,20 +28,33 @@ public class Team {
 			//loggen
 		}
 		else {
-			score = 0;
-			//loggen
+			throw new IllegalArgumentException ("score must not be < 0");
 		}
 	}
 	
 	public void addShip(Ship ship){
-		ships.add(ship);
+		if (ship == null){
+			throw new NullPointerException ("tried to add null to shiplist");
+		}
+		else {
+		ships.add(ship); //loggen
 		shipCount += 1;
+		}
 	}
 	
 	public void deleteShip(Ship ship){
-		ships.remove(ship);
+		if (ships.isEmpty()){
+			throw new NullPointerException ("tried to delete from an empty shiplist");
+		}
+		if (ship == null){
+			throw new NullPointerException ("tried to delete null to shiplist");
+		}
+		else {
+		if (ships.remove(ship)){
 		//loggen
-		shipCount -= 1;
+		shipCount = shipCount -1;}
+		
+		}
 	}
 	
 	public List<Command> getCommands(){
