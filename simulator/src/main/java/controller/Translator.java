@@ -23,7 +23,7 @@ import commands.Unmark;
 
 public class Translator {
 	
-	Map<String, Integer> labels = new HashMap<String, Integer>();
+	/*Map<String, Integer> labels = new HashMap<String, Integer>();
 	List<Command> tactic;
 	List<String> errors;
 	boolean labelized;
@@ -32,14 +32,14 @@ public class Translator {
 	TranslatorTools toolBox;
 	int column = 0;//the column, that marks the index of the first whitespace right after 
     //the occurrence of a coherent string
-	int mussNochGeklaertWerden; //ist ein dummy.
+	int mussNochGeklaertWerden; //ist ein dummy.*/
 	
 	public Translator(){
-		this.tactic = new ArrayList<Command>();
+		/*this.tactic = new ArrayList<Command>();
 		this.errors = new ArrayList<String>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
-		this.labelized = false;
+		this.labelized = false;*/
 	}
 	
 	/* @Specs: the classes main method. A Hybrid of lexer and parser, which evaluates the semantics of
@@ -53,7 +53,7 @@ public class Translator {
 	 * @Error: prints error*/
 	
 	private Command translate(String line){
-		String currentElement = null;
+		/*String currentElement = null;
 		List<Comparison> bools = new ArrayList<Comparison>();
 		int currentColumn = 0;//the column, that marks the begin of a coherent string and that would be used 
 								//in a optional error statement.
@@ -311,7 +311,7 @@ public class Translator {
 																			" position" + currentColumn);
 			}
 			
-		return null;
+		return null;*/return new Drop();
 	}
 	
 	/* @Specs: takes a tactics file, invokes translate(String string) on every line and creates a team tactics
@@ -323,11 +323,11 @@ public class Translator {
 	 * @Error: throws illegalArgumentException on empty broken inputstreams.*/
 	
 	public List<Command> run(InputStream tacticFile){
-		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
+	/*	BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 					try {
 				if (labelized){
 					while(tacticdoc.readLine() != null){
-						String firstElement = nextElement(tacticdoc.readLine());
+						String firstElement = toolBox.nextElement(tacticdoc.readLine());
 						if(firstElement.startsWith("*"))
 							labels.put(firstElement.substring(1), row);
 						else continue;
@@ -342,29 +342,24 @@ public class Translator {
 					row++;
 				}
 				
-				/*if (errors.size() > 0){
+				if (errors.size() > 0){
 					int error = 0;
 					while(error < errors.size()){
 						System.out.println("Error:" + (error+1) + errors.get(error));
 						error++;
 					}
-				}*/
+				}
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
-			}		
-		return tactic;
-	}
-	
-	private String nextElement(String line){
-		return line.substring(toolBox.nextChar(line), toolBox.nextSpace(line.substring(toolBox.nextChar(line))));
-	}
+			}*/	
+		return new ArrayList<Command>();}/*tactics*/
 	
 	/* @Param: the current word in the line.
 	 * 
 	 * @Return: the specified jump address as int or -1 whether the word is out of bounds or not a label.*/
 	
 	private int evaluateAddress(String currentElement){
-		if(toolBox.isInteger(currentElement)){
+		/*if(toolBox.isInteger(currentElement)){
 			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
 			    		return toolBox.toInt(currentElement);
 		}if(labelized){
@@ -377,7 +372,7 @@ public class Translator {
 		}else{
 				   errors.add("Not a valid jump address @line" + row + " ,position" + column);
 				   return -1;
-			   }
+			   }*/return 1;
 	}
 	
 }

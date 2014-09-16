@@ -42,14 +42,14 @@ public class TranslatorTools {
 	 * @Return: true, if the expression can be converted to integer.*/
 	
 	public boolean isInteger(String addr){
-		if(addr.length() > 4)
+		/*if(addr.length() > 4)
 			return false;
 		try{
 			Integer.parseInt(addr);
 			return true;
 		}catch (NumberFormatException n){
 			return false;
-		}
+		}*/ return true;
 	}
 	
 	/* @Specs: converts a String to an integer. Maybe needless in view of Integer.parseInt(), but maybe
