@@ -23,7 +23,14 @@ public class Team {
 	}
 	
 	public void addLoot(int i){ 
-		score += i;
+		if ((score + i) >= 0){
+			score += i;
+			//loggen
+		}
+		else {
+			score = 0;
+			//loggen
+		}
 	}
 	
 	public void addShip(Ship ship){
@@ -33,6 +40,8 @@ public class Team {
 	
 	public void deleteShip(Ship ship){
 		ships.remove(ship);
+		//loggen
+		shipCount -= 1;
 	}
 	
 	public List<Command> getCommands(){
