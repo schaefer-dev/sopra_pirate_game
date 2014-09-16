@@ -25,7 +25,7 @@ public class Team {
 	public void addLoot(int i){ 
 		if ((score + i) >= 0){
 			score += i;
-			//loggen
+			
 		}
 		else {
 			throw new IllegalArgumentException ("score must not be < 0");
@@ -37,7 +37,7 @@ public class Team {
 			throw new NullPointerException ("tried to add null to shiplist");
 		}
 		else {
-		ships.add(ship); //loggen
+		ships.add(ship);
 		shipCount += 1;
 		}
 	}
@@ -51,7 +51,7 @@ public class Team {
 		}
 		else {
 		if (ships.remove(ship)){
-		//loggen
+		
 		shipCount = shipCount -1;}
 		
 		}

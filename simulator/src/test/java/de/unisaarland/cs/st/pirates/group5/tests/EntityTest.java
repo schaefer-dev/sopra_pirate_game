@@ -32,7 +32,7 @@ public class EntityTest {
 	public void testChangeTreasureValue02(){
 		Treasure testTreasure = new Treasure(1,5);
 		testTreasure.changeValue(-2);
-		assertTrue(testTreasure.getValue()==8);
+		assertTrue(testTreasure.getValue()==3);
 	}
 	
 	@Test
