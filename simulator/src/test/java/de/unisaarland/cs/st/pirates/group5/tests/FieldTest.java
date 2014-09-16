@@ -148,6 +148,12 @@ public class FieldTest {
 	{
 		return toInteger(k.ordinal());
 	}
+	
+	@Test
+	public void testLogger()
+	{
+		assertSame("Wrong logger was given", log,water.provideLogger());
+	}
 	@Test
 	public void testGetNeighbour() {
 		assertEquals("getNeighbour fail!",water.getNeigbour(0),geradeaus);
@@ -224,6 +230,13 @@ public class FieldTest {
 		assertTrue("change in FleetScore was not logged.", log.what.remove("changeScore"));
 		assertTrue("wrong values were logged", log.values.remove(toInteger(base.getTeam().getName()-'a')) && log.values.remove(toInteger(3)));
 		assertTrue("Logged wrong things as well.", log.cells.size() == 0 && log.entities.size() == 0 && log.values.size() == 0 && log.what.size() == 0);
+	}
+	
+	@Test
+	public void testSetShipBaseWrongTeam()
+	{
+		assertFalse("Wrong ship should not be moved on Base", rechtsUntenHinten.setShip(shipB));
+		assertTrue("Ship of own Team should be set on Base", rechtsUntenHinten.setShip(shipA));
 	}
 	@Test 
 	public void testKrakenInit()
