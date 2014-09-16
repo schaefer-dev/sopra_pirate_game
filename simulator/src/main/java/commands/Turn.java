@@ -13,7 +13,7 @@ public class Turn implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
+		ship.changeDirection(left);
 
 	}
 	@Override

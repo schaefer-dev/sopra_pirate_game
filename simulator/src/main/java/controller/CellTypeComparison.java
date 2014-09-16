@@ -11,13 +11,32 @@ public class CellTypeComparison implements Comparison {
 	private CellType type;
 	
 	public CellTypeComparison(Operator opr, Register register, CellType type) {
-		// TODO Auto-generated constructor stub
+		if(register != Register.sense_celltype)
+		{
+			throw new IllegalArgumentException("CellTypeComparisons can only be used with the Register sense_celltype.");
+		}
+		if(opr == null || register == null || type == null)
+			throw new NullPointerException("Null is not a valid argument.");
+		if(opr == Operator.Less || opr == Operator.Greater)
+		{
+			throw new IllegalArgumentException("You cannot compare two celltypes with less or greater");
+		}
+		if(type == CellType.Undefined)
+			throw new IllegalArgumentException("One cannot compare a celltype-register with undefined");
+		this.opr = opr;
+		this.register = register;
+		this.type = type;
 	}
 	
 	@Override
 	public boolean eval(Ship ship) {
-		// TODO Auto-generated method stub
-		return false;
+		int temp = ship.getSenseRegister(register);
+		if(temp == CellType.Undefined.ordinal())
+			return false;
+		if(opr == Operator.Equal)
+			return type.ordinal() == temp;
+		else
+			return type.ordinal() != temp; //Fall unequal
 	}
 	
 	@Override
