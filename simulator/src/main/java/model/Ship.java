@@ -45,8 +45,8 @@ public class Ship {
 			this.changeMoral(-1);
 			noPositivActionCounter=0;
 		}
-		
-		//TODO wenn PC danach != oldpc dann hier noch PC-Änderung loggen sonst nicht
+		if (pc!=oldpc)
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 		
 	}
 
@@ -118,11 +118,14 @@ public class Ship {
 	}
 	
 	public int relativeToAbsoluteDirection(int relDirection){
+		if (relDirection == 6)
+			return 6;
+		
 		if (relDirection < 0)
 			throw new IllegalArgumentException();
 		int dir = this.getShipDirection();
 		
-		return ((dir+relDirection)%7);
+		return ((dir+relDirection)%6);
 		
 	}
 	
@@ -173,7 +176,7 @@ public class Ship {
 		if ((condition+i)<=0){
 			registers[Register.ship_condition.ordinal()]=0;
 			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 0);
-			destroy();
+			this.destroy();
 			return;
 		}
 		if ((condition+i)>=3){
@@ -192,9 +195,14 @@ public class Ship {
 	public void changePause(int i){
 		if (pause>0)
 			throw new IllegalStateException("pause increase while pause has not even reached 0");
-		if (i<0)
+		if (i < 0)
 			throw new IllegalArgumentException("pause < 0 is not supported");
-		this.pause = i;
+		if (i == 0)
+			return;
+		
+		pause += i;
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.RESTING, pause);
+		
 	}
 	
 	public int getLoad(){
@@ -344,11 +352,13 @@ public class Ship {
 			nextShip.previousShip=null;
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
 		}
-		field.setShip(null);
-		team.deleteShip(this);
-		previousShip.nextShip.setNextShip(nextShip);
-		nextShip.previousShip=previousShip;
-		field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+		else{
+			field.setShip(null);
+			team.deleteShip(this);
+			previousShip.nextShip.setNextShip(nextShip);
+			nextShip.previousShip=previousShip;
+			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+		}
 			
 	}
 		

@@ -94,7 +94,7 @@ public class ShipTest {
 		
 		
 		ship.act();
-		assertTrue(ship.getPC() == 0);
+		assertTrue("command goto needs to be implemented for this to work",ship.getPC() == 0);
 		assertTrue ( testlog.what.remove("notify"));
 		
 	}
@@ -567,7 +567,16 @@ public class ShipTest {
 	@Test
 	public void testRelativeToAbsolute1(){
 		
-		ship = new Ship(null, null, 0, shipv);
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(0) == 0);
 		assertTrue ("relativetoabsolutedir 1 rel = abs",ship.relativeToAbsoluteDirection(1) == 1);
@@ -643,6 +652,7 @@ public class ShipTest {
 	@Test
 	public void testDestroy(){
 		
+		testlog = new DummyLogWriter();
 		Map testMap = new Map(random, testlog);
 		Team testTeam = new Team('a', null);
 		Field testField = new Water(testMap, 0, 0, null);
@@ -652,6 +662,7 @@ public class ShipTest {
 		shipn = new Ship(testTeam, null, 0, ship);
 		field = new Water(testMap, 0, 0, null);
 		testField.setShip(ship);
+		testTeam.addShip(ship);
 		ship.changeCondition(-3);
 		
 		assertNull ("Destroyed because condition 0, field.getShip() must be null", field.getShip());
