@@ -105,7 +105,7 @@ public class CommandSenseTest {
 
 
 
-		@Test (expected=Exception.class)
+		@Test
 		public void test() {
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Undefined);
 		
@@ -155,7 +155,7 @@ public class CommandSenseTest {
 			assertEquals("",ship.getSenseRegister(Register.sense_enemymarker),BoolWert.False);
 			assertEquals("",ship.getSenseRegister(Register.sense_treasure),BoolWert.False);	
 		}
-		@Test (expected=Exception.class)
+		@Test
 		public void testaftercombat(){
 			ship.act();//Kaempft gegen enemyship
 			ship.act();//springt auf sensecommand 7

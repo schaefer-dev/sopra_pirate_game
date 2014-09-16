@@ -33,8 +33,8 @@ public class KrakenTest {
 		
 		Field[][] fieldArray=new Field[3][3];
 		
-		for (int i=0; (i<2); i++){
-			for (int z=0; (z<2); z++){
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
 				fieldArray[z][i]=new Water(testMap,z,i,null);
 			}
 		}	
@@ -63,8 +63,8 @@ public class KrakenTest {
 		
 		Field[][] fieldArray=new Field[3][3];
 		
-		for (int i=0; (i<2); i++){
-			for (int z=0; (z<2); z++){
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
 				fieldArray[z][i]=new Water(testMap,z,i,null);
 			}
 		}	
@@ -94,8 +94,8 @@ public class KrakenTest {
 		
 		Field[][] fieldArray=new Field[3][3];
 		
-		for (int i=0; (i<2); i++){
-			for (int z=0; (z<2); z++){
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
 				fieldArray[z][i]=new Base(testMap,z,i,testTeam,null);
 			}
 		}	
@@ -122,8 +122,8 @@ public class KrakenTest {
 		
 		Field[][] fieldArray=new Field[3][3];
 		
-		for (int i=0; (i<2); i++){
-			for (int z=0; (z<2); z++){
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
@@ -149,8 +149,8 @@ public class KrakenTest {
 		
 		Field[][] fieldArray=new Field[3][3];
 		
-		for (int i=0; (i<2); i++){
-			for (int z=0; (z<2); z++){
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
 				fieldArray[z][i]=new ProvisionIsland(testMap,z,i);
 			}
 		}	
