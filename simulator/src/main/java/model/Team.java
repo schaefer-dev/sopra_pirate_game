@@ -22,20 +22,42 @@ public class Team {
 		ships = new LinkedList<Ship>();
 	}
 	
-	public void addLoot(int i){
-		// TODO Auto-generated method stub
+	public void addLoot(int i){ 
+		if ((score + i) >= 0){
+			score += i;
+			
+		}
+		else {
+			throw new IllegalArgumentException ("score must not be < 0");
+		}
 	}
 	
 	public void addShip(Ship ship){
-		// TODO Auto-generated method stub
+		if (ship == null){
+			throw new NullPointerException ("tried to add null to shiplist");
+		}
+		else {
+		ships.add(ship);
+		shipCount += 1;
+		}
 	}
 	
 	public void deleteShip(Ship ship){
-		// TODO Auto-generated method stub
+		if (ships.isEmpty()){
+			throw new NullPointerException ("tried to delete from an empty shiplist");
+		}
+		if (ship == null){
+			throw new NullPointerException ("tried to delete null to shiplist");
+		}
+		else {
+		if (ships.remove(ship)){
+		
+		shipCount = shipCount -1;}
+		
+		}
 	}
 	
 	public List<Command> getCommands(){
-		// TODO Auto-generated method stub
 		return commands;
 	}
 	

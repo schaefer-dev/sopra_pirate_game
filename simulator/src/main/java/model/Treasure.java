@@ -4,21 +4,27 @@ public class Treasure extends Entity {
 
 	private int value;
 	
-	public Treasure(int id, int value) {
+	public Treasure(int id, int val) {
 		super(id);
-		// TODO Auto-generated method stub
+		this.value = val;
 	}
 
 	public int getValue(){
-		// TODO Auto-generated method stub
-		return 0;
+		return this.value;
 	}
 	
 	private void setValue(int newValue){
-		// TODO Auto-generated method stub
+		this.value = newValue;
 	}
-	public void changeValue(int newValue){ 			//Aenderung relativ, ruft intern setter auf
-		// TODO Auto-generated method stub
+	public void changeValue(int newValue){ 
+		if ((value + newValue) > 0 ){
+			setValue(value + newValue);
+		}
+		else {
+		throw new IllegalArgumentException ("value of treasure <=0, must have been deleted already in field");
+		}
+		
+		
 	}
 	
 }

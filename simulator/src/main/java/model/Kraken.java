@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Kraken {
 
 	private Field field;
@@ -8,11 +10,21 @@ public class Kraken {
 	public Kraken(int id, Field field){
 		this.id = id;
 		this.field=field;
-		// TODO Auto-generated method stub
+		
 	}
 	
 	public void move(){
-		// TODO Auto-generated method stub
+		
+		Random random = field.getMap().getRandom();
+		int dir = random.nextInt(6);
+		if (dir < 0 || dir > 5){
+			throw new IllegalArgumentException ("seed is not allowed to be < 0 or > 5");
+		}
+		else{
+		Field destination = field.getNeigbour(dir);
+		field.moveKraken(destination);
+		}
+			
 	}
 	public Field getField() {
 		return field;
