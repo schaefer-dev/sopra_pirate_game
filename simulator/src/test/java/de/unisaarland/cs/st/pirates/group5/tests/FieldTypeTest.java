@@ -29,7 +29,7 @@ public class FieldTypeTest {
 		ProvisionIsland testProv = new ProvisionIsland(testMap,0,0);
 		testProv.getFieldType();
 		
-		assertTrue(false);
+		assertTrue("just for more coverage - no check included", false);
 		
 		
 	}
