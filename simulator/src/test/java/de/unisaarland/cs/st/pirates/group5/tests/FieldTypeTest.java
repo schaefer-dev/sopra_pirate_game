@@ -6,7 +6,7 @@ import model.Treasure;
 
 import org.junit.Test;
 
-public class FieldTypeTests {
+public class FieldTypeTest {
 	
 	@Test
 	public void boostCoverageTest(){
