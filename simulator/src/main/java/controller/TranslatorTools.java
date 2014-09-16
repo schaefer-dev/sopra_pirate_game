@@ -20,7 +20,7 @@ public class TranslatorTools {
 	 * 
 	 * @Return: returns true if irregular expressions are found, false if not.*/
 
-	/*public boolean lookForGarbage(String apendix){
+	public boolean lookForGarbage(String apendix){
 		char[] appendix = apendix.toCharArray();
 		int index = 0;
 		while(appendix[index] != -1){
@@ -32,13 +32,13 @@ public class TranslatorTools {
 		return false;
 	}
 	
-	/* @Specs: identifies the index of the first non- whitespace char in a hazy String
+	 /*@Specs: identifies the index of the first non- whitespace char in a hazy String
 	 * 
 	 * @Params: the string to check.
 	 * 
 	 * @Returns: the index of the next char\{' '}.*/
 
-	/*public int nextChar(String hazy){
+	public int nextChar(String hazy){
 		char[] toCheck = hazy.toCharArray();
 		int index = 0;
 		while(toCheck[index] != ' ')
@@ -53,7 +53,7 @@ public class TranslatorTools {
 	 * 
 	 * @Returns: the index of the next whitespace*/
 	
-	/*public int nextSpace(String subSequence){
+	public int nextSpace(String subSequence){
 		return subSequence.indexOf(' ');
 	}
 	
@@ -64,7 +64,7 @@ public class TranslatorTools {
 	 * 
 	 * @Return: true, if the expression can be converted to integer.*/
 	
-	/*public boolean isInteger(String addr){
+	public boolean isInteger(String addr){
 		if(addr.length() > 4)
 			return false;
 		try{
@@ -82,10 +82,10 @@ public class TranslatorTools {
 	 * 
 	 * @Return: the integer value of the String.*/
 	
-	/*public int toInt(String addr){
+	public int toInt(String addr){
 		return Integer.parseInt(addr);
 	}
-	*/
+	
 	public TranslatorTools(){
 	}
 
