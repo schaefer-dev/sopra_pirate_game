@@ -23,6 +23,8 @@ public class Ship {
 		this.field=field;						// field should always be null when called properly (outside tests)!
 		this.team=team;
 		this.previousShip=previous;
+		if (previous!=null)
+			previousShip.nextShip=this;
 		registers[Register.ship_moral.ordinal()]=4;
 		registers[Register.ship_condition.ordinal()]=3;
 		registers[Register.ship_direction.ordinal()]=0;
@@ -34,14 +36,17 @@ public class Ship {
 	}
 	
 	public void act(){
+		int oldpc=pc;
 		pc+=1;
 		noPositivActionCounter+=1;
 		
-		team.getCommands().get(pc-1).execute(this);
+		team.getCommands().get(oldpc).execute(this);
 		if (noPositivActionCounter==40){
 			this.changeMoral(-1);
 			noPositivActionCounter=0;
 		}
+		
+		//TODO wenn PC danach != oldpc dann hier noch PC-Änderung loggen sonst nicht
 		
 	}
 
@@ -150,7 +155,7 @@ public class Ship {
 		}
 		
 		registers[Register.ship_moral.ordinal()]=moral+i;
-		
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, moral+i);
 	}
 	
 	public int getCondition(){
@@ -168,12 +173,12 @@ public class Ship {
 		if ((condition+i)<=0){
 			registers[Register.ship_condition.ordinal()]=0;
 			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 0);
-			this.destroy();
+			destroy();
 			return;
 		}
 		if ((condition+i)>=3){
-			registers[Register.ship_condition.ordinal()]=4;
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 4);
+			registers[Register.ship_condition.ordinal()]=3;
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 3);
 			return;
 		}
 		registers[Register.ship_condition.ordinal()]=condition+i;
@@ -201,6 +206,7 @@ public class Ship {
 		if ((i>4)||(i<0))
 			throw new IllegalArgumentException("load can not be setted to value not between 0-4");
 		registers[Register.ship_load.ordinal()]=i;
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.VALUE, i);
 	}
 	
 	public int getSenseRegister(Register reg){
@@ -208,94 +214,114 @@ public class Ship {
 	}
 	
 	public void setSenseRegister(Register reg, int value){
+		
+		/* 6 is always a valid value because it represents undefined register */
 		switch (reg){
 			case ship_load:
-				if ((value<0)||(value>4))
-					throw new IllegalArgumentException("shipload only defined between 0 and 4");
+				if ((value<0)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipload only defined between 0 and 3");
 				break;
 				
 			case ship_direction:
-				if ((value<0)||(value>5))
-					throw new IllegalArgumentException("shipdirection only defined between 0 and 5");
+				if ((value<0)||(value>4))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipdirection only defined between 0 and 4");
 				break;
 				
 			case ship_moral:
-				if ((value<0)||(value>4))
-					throw new IllegalArgumentException("shipmoral only defined between 0 and 4");
+				if ((value<0)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipmoral only defined between 0 and 3");
 				break;
 				
 			case ship_condition:
-				if ((value<0)||(value>3))
-					throw new IllegalArgumentException("shipcondition only defined between 0 and 3");
+				if ((value<0)||(value>2))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipcondition only defined between 0 and 2");
 				break;
 				
 			case sense_celltype:
-				if ((value<0)||(value>4))
-					throw new IllegalArgumentException("senseCelltype only defined between 0 and 4 (empty,island,home,enemyhome,undefined)");
+				if ((value<0)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseCelltype only defined between 0 and 3 (empty,island,home,enemyhome,undefined)");
 				break;
 				
 			case sense_supply:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseSupply only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseSupply only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_treasure:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseTreasure only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseTreasure only defined between 0 and 1 (true, false, undefined)");
 				
 			case sense_marker0:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseMarker only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_marker1:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseMarker only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_marker2:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseMarker only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_marker3:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseMarker only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;				
 				
 			case sense_marker4:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseMarker only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_marker5:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseMarker only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_enemymarker:		//TODO Undefined values are not tested yet!!!
 				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseEnemyMarker only defined between 0 and 2 (true, false, undefined)");
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseEnemyMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_shiptype:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseShiptype only defined between 0 and 2 (friend, enemy, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShiptype only defined between 0 and 1 (friend, enemy, undefined)");
 				break;
 				
 			case sense_shipdirection:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>6))
-					throw new IllegalArgumentException("senseShipDirection only defined between 0 and 6 (directions+undefined)");
+				if ((value<0)||(value>5))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShipDirection only defined between 0 and 5 (directions+undefined)");
 				break;
 				
 			case sense_shiploaded:		//TODO Undefined values are not tested yet!!!
-				if ((value<0)||(value>2))
-					throw new IllegalArgumentException("senseShipLoaded only defined between 0 and 2 (true, false, undefined)");
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShipLoaded only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
 			case sense_shipcondition:		//TODO Undefined values are not tested yet!!!
-				if ((value<1)||(value>4))
-					throw new IllegalArgumentException("senseShipCondition only defined between 1 and 4 (1, 2, 3, undefined)");
+				if ((value<1)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShipCondition only defined between 1 and 3 (1, 2, 3, undefined)");
 				break;		
 				
 		}

@@ -138,15 +138,42 @@ public class ShipTest {
 		assertTrue(ship.getLoad() == 4);
 		assertTrue (testlog.what.remove("notify"));
 		
+		ship.setLoad(0);
+		assertTrue(ship.getLoad() == 0);
+		assertTrue (testlog.what.remove("notify"));
+	}
+	
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testInvalidSetLoad1(){	
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		ship.setLoad(6);
 		assertTrue(ship.getLoad() == 4);
 		assertTrue (testlog.what.remove("notify"));
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testInvalidSetLoad2(){	
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
 		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		ship.setLoad(-7);
-		assertTrue(ship.getLoad() == 0);
-		assertTrue (testlog.what.remove("notify"));
-		
-		ship.setLoad(0);
 		assertTrue(ship.getLoad() == 0);
 		assertTrue (testlog.what.remove("notify"));
 	}
@@ -239,7 +266,7 @@ public class ShipTest {
 		
 		assertTrue ("ChangeMoral bigger 4"+" was instead "+ship.getMoral(),ship.getMoral() == 4) ;
 		assertTrue ("NoPositivActionCounter not 0 after positiv action", ship.getNoPositivActionCounter() == 0);
-		assertTrue (testlog.what.remove("notify"));
+		assertFalse (testlog.what.remove("notify"));
 	}
 	
 	@Test
@@ -329,7 +356,7 @@ public class ShipTest {
 		ship.changeCondition(3);
 		
 		assertTrue ("ChangeCondition: Condition must not be bigger 3", ship.getCondition() == 3);
-		assertTrue (testlog.what.remove("notify"));
+		assertFalse (testlog.what.remove("notify"));
 
 	}
 	
