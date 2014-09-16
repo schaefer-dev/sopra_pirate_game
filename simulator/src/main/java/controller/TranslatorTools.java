@@ -13,48 +13,25 @@ public class TranslatorTools {
 		return comparison;
 	}
 	
-	/* @Specs: looks for any irregular expressions or strings in the current line.
-	 
-	 * @Params: the subString of the current line between the last valid statement 
-	 * and the end of the line, resp. a ';' expression. 
-	 * 
-	 * @Return: returns true if irregular expressions are found, false if not.*/
 
-	public boolean lookForGarbage(String apendix){
-		char[] appendix = apendix.toCharArray();
-		int index = 0;
-		while(appendix[index] != -1){
-			if(appendix[index] != ' '){
-				return true;
-			}
-			index++;
-		}
-		return false;
-	}
-	
-	 /*@Specs: identifies the index of the first non- whitespace char in a hazy String
+	 /*@Specs: isolates the next word
 	 * 
 	 * @Params: the string to check.
 	 * 
-	 * @Returns: the index of the next char\{' '}.*/
+	 * @Returns: the index of the next .*/
 
-	public int nextChar(String hazy){
-		char[] toCheck = hazy.toCharArray();
-		int index = 0;
-		while(toCheck[index] != ' ')
-			index++;
-		return index + 1;
+	public String nextElement(String line){
+		return line;
 	}
 	
-	/* @Specs: identifies the index of the next whitespace after a sequence of non- whitespace chars, 
-	 * to elaborate a coherent string 
+	/* @Specs: cuts off the string behind the last valid token.
 	 * 
-	 * @Params: a hazy Substring.
+	 * @Params: the string to cut.
 	 * 
-	 * @Returns: the index of the next whitespace*/
+	 * @Return: the string behind the last valid token.*/
 	
-	public int nextSpace(String subSequence){
-		return subSequence.indexOf(' ');
+	public String getAppendix(String line){
+		return line;
 	}
 	
 	/* @Specs: checks, whether the given expression can be converted to an integer, so the translator knows, 
@@ -84,6 +61,22 @@ public class TranslatorTools {
 	
 	public int toInt(String addr){
 		return Integer.parseInt(addr);
+	}
+	
+	
+	/* @Specs: checks if the input string equals "else" */
+	
+	public boolean isElse(String currentElement){
+		if(currentElement == "else")
+			return true;
+		return false;
+	}
+	
+	/* @Specs: returns the index of the invalid expressions first char within the initial line.*/
+	
+	public int indexOfError(int columns, String line, String currentElement){
+		return columns - getAppendix(line).length() - currentElement.length();
+
 	}
 	
 	public TranslatorTools(){
