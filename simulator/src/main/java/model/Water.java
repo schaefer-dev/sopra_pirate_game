@@ -23,6 +23,12 @@ public class Water extends Field {
 		return false;
 	}
 
+	@Override
+	public boolean setKraken(Kraken kraken) {
+		// TODO Auto-generated method stub
+		this.kraken=kraken;
+		return false;
+	}
 
 	@Override
 	public FieldType getFieldType() {
