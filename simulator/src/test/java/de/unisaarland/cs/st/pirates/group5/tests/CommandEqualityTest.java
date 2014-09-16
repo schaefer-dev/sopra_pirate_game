@@ -25,7 +25,6 @@ import commands.Turn;
 import commands.Unmark;
 import controller.BoolComparison;
 import controller.Comparison;
-import controller.IntComparison;
 
 public class CommandEqualityTest {
 
@@ -34,16 +33,23 @@ public class CommandEqualityTest {
 	
 	private Drop drop = new Drop();
 	private Flipzero flip = new Flipzero(5, 5);
+	private Flipzero flip2= new Flipzero(9, 5);
 	private Goto go = new Goto(5);
 	private If ifi = new If(comp, 8);
+	private If ifi2 = new If(comp, 2);
 	private IfAll ifall = new IfAll(comps, 6);
+	private IfAll ifal2l = new IfAll(comps, 1);
 	private IfAny ifany = new IfAny(comps, 4);
+	private IfAny ifany2 = new IfAny(comps, 2);
 	private Mark mark = new Mark(5);
 	private Move move = new Move(5);
+	private Move move2 = new Move(1);
 	private Pickup pick = new Pickup(4, 3);
 	private Refresh refresh = new Refresh(3, 2);
 	private Repair repair = new Repair(0);
+	private Repair rep2 = new Repair(1);
 	private Sense sense = new Sense(3);
+	private Sense sense2 = new Sense(1);
 	private Turn turn = new Turn(false);
 	private Unmark unm = new Unmark(3);
 	
@@ -69,6 +75,18 @@ public class CommandEqualityTest {
 		assertFalse(sense.equals(turn));
 		assertFalse(turn.equals(unm));
 		assertFalse(unm.equals(drop));
+	}
+	
+	@Test
+	public void equalitySameCommandTest(){
+		
+		assertFalse(flip.equals(flip2));
+		assertFalse(ifi.equals(ifi2));
+		assertFalse(ifall.equals(ifal2l));
+		assertFalse(ifany2.equals(ifany));
+		assertFalse(move.equals(move2));
+		assertFalse(repair.equals(rep2));
+	    assertFalse(sense.equals(sense2));
 	}
 	
 }
