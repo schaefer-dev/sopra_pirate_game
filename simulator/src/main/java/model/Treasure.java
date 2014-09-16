@@ -14,7 +14,11 @@ public class Treasure extends Entity {
 	}
 	
 	private void setValue(int newValue){
-		this.value = newValue;
+		if (newValue > 0){
+		this.value = newValue;}
+		else {
+			throw new IllegalArgumentException ("value of treasure <=0, must have been deleted already in field");
+		}
 	}
 	public void changeValue(int newValue){ 
 		if ((value + newValue) > 0 ){
