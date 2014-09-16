@@ -126,8 +126,7 @@ public class Translator {
 						overloadError();
 						break;
 					}
-				errors.add("Invalid address or label @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+				errors.add("Invalid address or label @line " + row + " @position " + 5);
 				break;
 				
 			case MARK: 
@@ -142,13 +141,11 @@ public class Translator {
 							break;
 						}
 					}else{
-						errors.add("Invalid buoy type @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+						errors.add("Invalid buoy type @line " + row + " @position " + 5);
 						break;
 					}
 				}
-				errors.add("Missing buoy type @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+				errors.add("Missing buoy type @line " + row + " @position " + 5);
 				break;
 	
 			case UNMARK:
@@ -163,13 +160,11 @@ public class Translator {
 							break;
 						}
 					}else{
-						errors.add("Invalid buoy type @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+						errors.add("Invalid buoy type @line " + row + " @position " + 8);
 						break;
 					}
 				}
-				errors.add("Missing buoy type @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+				errors.add("Missing buoy type @line " + row + " @position " + 8);
 				break;
 				
 			case SENSE: 
@@ -184,13 +179,11 @@ public class Translator {
 							break;
 						}
 					}else{
-						errors.add("Invalid sense direction @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+						errors.add("Invalid sense direction @line " + row + " @position " + 7);
 						break;
 					}
 				}
-				errors.add("Missing sense direction @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+				errors.add("Missing sense direction @line " + row + " @position " + 7);
 				break;
 				
 			case MOVE:
@@ -372,6 +365,7 @@ public class Translator {
 	
 	public List<Command> run(InputStream tacticFile){
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
+		row = 0;
 					try {
 				if (labelized){
 					while(tacticdoc.readLine() != null){
@@ -386,9 +380,15 @@ public class Translator {
 						
 				while(tacticdoc.readLine() != null){
 					String currentLine = tacticdoc.readLine();
-					if(currentLine == null) continue;
-					else tactic.add(translate(currentLine));
-					row++;		
+					if(row <= 1999){
+						if(currentLine == null) 
+							continue;
+						else 
+							tactic.add(translate(currentLine));
+					row++;
+					}else
+						break;
+					
 				}
 				
 				/*if (errors.size() > 0){
@@ -400,7 +400,7 @@ public class Translator {
 				}*/
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
-			}		
+			}
 		return tactic;
 	}
 	
