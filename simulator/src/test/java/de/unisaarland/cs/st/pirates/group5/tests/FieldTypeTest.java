@@ -3,6 +3,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.assertTrue;
 import model.Island;
 import model.Map;
+import model.ProvisionIsland;
 import model.Treasure;
 
 import org.junit.Test;
@@ -25,6 +26,8 @@ public class FieldTypeTest {
 		testIsland.getX();
 		testIsland.getY();
 		testIsland.getKraken();
+		ProvisionIsland testProv = new ProvisionIsland(testMap,0,0);
+		testProv.getFieldType();
 		
 		assertTrue(false);
 		
