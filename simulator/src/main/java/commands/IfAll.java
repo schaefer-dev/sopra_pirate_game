@@ -12,14 +12,24 @@ public class IfAll implements Command {
 	private int elsePC;
 	
 	public IfAll(List<Comparison> clauses, int pc){
+		if(pc<0 || pc> 1999)
+		{
+			throw new IllegalArgumentException("PC cannot be set to " + pc);
+		}
 		this.clauses = clauses;
 		this.elsePC = pc;
 	}
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
-
+		for(Comparison comp : clauses)
+		{
+			if(!comp.eval(ship))
+			{
+				ship.setPC(elsePC);
+				return;
+			}
+		}
 	}
 	
 	@Override
