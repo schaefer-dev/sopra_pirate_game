@@ -26,12 +26,14 @@ import model.Water;
 public class MapGenerator {
 
 	private Field[][] fields;
+	private int x;
+	private int y;
 
 	
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
-		/*
+		
 		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
-		if(teams.size() < 2 || teams.size() > 26) throw new IllegalArgumentException();
+		if(teams.size() < 1 || teams.size() > 26) throw new IllegalArgumentException();
 		
 
 		
@@ -39,54 +41,59 @@ public class MapGenerator {
 		List<Kraken> kraken = new ArrayList<Kraken>();
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		int x, y;
+		int width, height;
 		
 		try{
-			x = Integer.parseInt(reader.readLine());
-			y = Integer.parseInt(reader.readLine());
-			fields = new Field[x][y];
+			width = Integer.parseInt(reader.readLine());
+			height = Integer.parseInt(reader.readLine());
+			fields = new Field[width][height];
 		}
 		catch(NumberFormatException e){
 			throw new IllegalArgumentException("Submitted coordinates are not valid numbers");
 		}
 		
-		if(x < 2 || x > 200 || y < 2 || y > 200) 
+		if(width < 2 || width > 200 || height < 2 || height > 200) 
 			throw new IllegalArgumentException("Coordinates are not in range (2,2)...(200,200)");
+		if(height%2 != 0)
+			throw new IllegalArgumentException("Map must have an even number auf lines");
 
 		Ship previousShip = null;
-		int lineNumber = 0;
 		String line;
 		
 		while((line = reader.readLine()) != null){
 			
+			line.trim(); // replaces tabs with ""
 			line = line.replaceAll(" ", "");
-			if(line.length() != x || lineNumber >= y) throw new IllegalArgumentException();
 
 			for(int i = 0; i < line.length(); i++){
+				if(y>=height)
+					throw new IllegalArgumentException("Map is bigger than was specified in the first two lines.");
+			
 				char c = line.charAt(i);
 				Field field;
+		
 				
 				if(c == '.'){
-					field = new Water(map, i, lineNumber, null);
-					log.addCell(Cell.WATER, null, i, lineNumber);
+					field = new Water(map, x, y, null);
+					log.addCell(Cell.WATER, null, x, y);
 				}
 				else if(c == '#'){
-					field = new Island(map, i, lineNumber, null);
-					log.addCell(Cell.ISLAND, null, i, lineNumber);
+					field = new Island(map, x, y, null);
+					log.addCell(Cell.ISLAND, null, x, y);
 				}
 				else if(c == '$'){
-					field = new ProvisionIsland(map, i, lineNumber);
-					log.addCell(Cell.SUPPLY, null, i, lineNumber);
+					field = new ProvisionIsland(map, x, y);
+					log.addCell(Cell.SUPPLY, null, x, y);
 				}
 				else if(c == '&'){
 					Kraken k = new Kraken(map.giveNewEntityID(), null);
 					Key[] keys = {Key.X_COORD, Key.Y_COORD};
-					int[] values = {i, lineNumber};
+					int[] values = {x, y};
 					log.create(Entity.KRAKEN, k.getId(), keys, values);
 					kraken.add(k);
 					
-					field = new Water(map, i, lineNumber, k);
-					log.addCell(Cell.WATER, null, i, lineNumber);
+					field = new Water(map, x, y, k);
+					log.addCell(Cell.WATER, null, x, y); // null for the Team
 				}
 				else if(isTeamLetter(c, teams.size())){
 					int teamNumber = c - 'a';
@@ -102,72 +109,74 @@ public class MapGenerator {
 					Ship ship = new Ship(team, null, map.giveNewActorID(), previousShip);
 					teams.get(teamNumber).addShip(ship);
 					Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
-					int[] values = {0, 3, teamNumber, 4, 0, 0, 0, i, lineNumber};
+					int[] values = {0, 3, teamNumber, 4, 0, 0, 0, x, y};
 					log.create(Entity.SHIP, ship.getID(), keys, values);
 					
 					if(previousShip == null)
 						map.setFirstShip(ship);
 					previousShip = ship;
 					
-					field = new Base(map, i, lineNumber, team, ship);
-					log.addCell(Cell.WATER, teamNumber, i, lineNumber);
+					field = new Base(map, x, y, team, ship);
+					log.addCell(Cell.WATER, teamNumber, x, y);
 				}
 				else if(isDigit(c)){
 					int id = map.giveNewEntityID();
 					Treasure t = new Treasure(id, c - '0');
 					Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
-					int[] values = {t.getValue(), i, lineNumber};
+					int[] values = {t.getValue(), x, y};
 					log.create(Entity.TREASURE, id, keys, values);
 					
-					field = new Island(map, i, lineNumber, t);
-					log.addCell(Cell.ISLAND, null, i, lineNumber);
+					field = new Island(map, x, y, t);
+					log.addCell(Cell.ISLAND, null, x, y);
 				}
 				else
-					throw new IllegalArgumentException("Invalid character in map file at position (" + i + "," + lineNumber + ")");
+					throw new IllegalArgumentException("Invalid character in map file at position (" + x + "," + y + ")");
 				
-				fields[i][lineNumber] = field;
+				fields[x][y] = field;
+				incrementXY(width, height);
 			}
-			
-			lineNumber++;
 		}
 		
-		if(lineNumber != y) throw new IllegalArgumentException();
+		if(y != height) throw new IllegalArgumentException();
 		reader.close();
-			
-		List<Command> tactic1 = teams.get(0).getCommands();
-		List<Command> tactic2 = teams.get(1).getCommands();
-		//Either all teams have a different tactic or all teams have the same one
-		//If the first 2 teams have the same tactic => all teams have the same tactic
-		if(tactic1.equals(tactic2)){	
-			boolean lastShip = false;
-			for(int i = teams.size() - 1; i >= 0; i++){
-				Team team = teams.get(i);
+		if(teams.size()>1)	
+		{
+			List<Command> tactic1 = teams.get(0).getCommands();
+			List<Command> tactic2 = teams.get(1).getCommands();
+			//Either all teams have a different tactic or all teams have the same one
+			//If the first 2 teams have the same tactic => all teams have the same tactic
+			if(tactic1 == tactic2){	
+				boolean lastShip = false;
+				for(int i = teams.size() - 1; i >= 0; i--){
+					Team team = teams.get(i);
 				
-				if(team.getShipCount() <= 0){
-					if(lastShip)
-						throw new IllegalArgumentException("Not every team has bases/ships on the map");
-					else
-						teams.remove(team);
-				}			
-				else
-					lastShip = true;
+					if(team.getShipCount() <= 0){
+						if(lastShip)
+							throw new IllegalArgumentException("Not every team has bases/ships on the map");
+						else
+							teams.remove(team);
+					}			
+					else{
+						log.fleetScore(team.getName() - 'a', 0);
+						lastShip = true;
+					}
+				}
 			}
-		}
-		
-		for(Team team: teams){
-			log.fleetScore(team.getName() - 'a', 0);
-			
-			if(team.getShipCount() <= 0)
-				throw new IllegalArgumentException("Not every team has bases/ships on the map");
+			else{
+				for(Team team: teams){
+					log.fleetScore(team.getName() - 'a', 0);
+				
+					if(team.getShipCount() <= 0)
+						throw new IllegalArgumentException("Not every team has bases/ships on the map");
+				}
+			}
 		}
 				
 		map.setMapValues(fields, kraken);
 		return map;
-		*/
-		return new Map(random, log);
 	}
 	
-	/*
+	
 	private boolean isTeamLetter(char c, int max){
 		if(c >= 'a' && c < ('a' + max))
 			return true;
@@ -181,5 +190,12 @@ public class MapGenerator {
 		
 		return false;
 	}
-	*/
+	private void incrementXY(int width, int height)
+	{
+		x++;
+		if(x >= width)
+			y++;
+		x = x % width;
+	}
+	
 }

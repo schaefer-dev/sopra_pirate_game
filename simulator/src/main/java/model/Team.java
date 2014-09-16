@@ -25,23 +25,36 @@ public class Team {
 	public void addLoot(int i){ 
 		if ((score + i) >= 0){
 			score += i;
-			//loggen
+			
 		}
 		else {
-			score = 0;
-			//loggen
+			throw new IllegalArgumentException ("score must not be < 0");
 		}
 	}
 	
 	public void addShip(Ship ship){
+		if (ship == null){
+			throw new NullPointerException ("tried to add null to shiplist");
+		}
+		else {
 		ships.add(ship);
 		shipCount += 1;
+		}
 	}
 	
 	public void deleteShip(Ship ship){
-		ships.remove(ship);
-		//loggen
-		shipCount -= 1;
+		if (ships.isEmpty()){
+			throw new NullPointerException ("tried to delete from an empty shiplist");
+		}
+		if (ship == null){
+			throw new NullPointerException ("tried to delete null to shiplist");
+		}
+		else {
+		if (ships.remove(ship)){
+		
+		shipCount = shipCount -1;}
+		
+		}
 	}
 	
 	public List<Command> getCommands(){

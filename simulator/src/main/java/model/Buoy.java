@@ -8,7 +8,11 @@ public class Buoy extends Entity{
 	public Buoy(int id, Team team, int type) {
 		super(id);
 		this.team=team;
-		this.type = type;
+		if (type >= 0 && type <=5){
+		this.type = type;}
+		else {
+			throw new IllegalArgumentException("Buoytype must be between 0 and 5");
+		}
 	}
 
 	public int getType(){

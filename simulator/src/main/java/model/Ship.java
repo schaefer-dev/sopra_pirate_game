@@ -1,6 +1,8 @@
 package model;
 
 import controller.Command;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
 public class Ship {
 
@@ -18,14 +20,34 @@ public class Ship {
 	
 	public Ship(Team team, Field field, int id, Ship previous){
 		this.id = id;
-		this.field=field;
+		this.field=field;						// field should always be null when called properly (outside tests)!
 		this.team=team;
 		this.previousShip=previous;
-		// TODO Auto-generated method stub
+		if (previous!=null)
+			previousShip.nextShip=this;
+		registers[Register.ship_moral.ordinal()]=4;
+		registers[Register.ship_condition.ordinal()]=3;
+		registers[Register.ship_direction.ordinal()]=0;
+		registers[Register.ship_load.ordinal()]=0;
+		this.pc=0;
+		this.pause=0;
+		this.nextShip=null;
+		this.noPositivActionCounter=0;
 	}
 	
 	public void act(){
-		// TODO Auto-generated method stub
+		int oldpc=pc;
+		pc+=1;
+		noPositivActionCounter+=1;
+		
+		team.getCommands().get(oldpc).execute(this);
+		if (noPositivActionCounter==40){
+			this.changeMoral(-1);
+			noPositivActionCounter=0;
+		}
+		if (pc!=oldpc)
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
+		
 	}
 
 	
@@ -33,117 +55,311 @@ public class Ship {
 		return noPositivActionCounter;
 	}
 
-	
-
 	public int getPC(){
 		return this.pc;
 	}
 	
 	public Team getTeam(){
-		// TODO Auto-generated method stub
 		return this.team;
 	}
 	
 	public Field getPosition(){
-		// TODO Auto-generated method stub
 		return this.field;
 	}
 	
 	public void setField(Field field){
-		// TODO Auto-generated method stub
+		//no logging!
 		this.field=field;
 	}
 	
 	public void setPC(int i){
-		// TODO Auto-generated method stub
-		this.pc=pc;
+		// no logging!
+		this.pc=i;
 	}
 	
 	public Command getCommand(){
-		// TODO Auto-generated method stub
-		return null;
+		return team.getCommands().get(pc);
 	}
 	
 	public int getID(){
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 	
 	public int getShipDirection(){
-		// TODO Auto-generated method stub
-		return 0;
+		return registers[Register.ship_direction.ordinal()];
 	}
 	
 	public void changeDirection(boolean left){
-		// TODO Auto-generated method stub
+		int dir = registers[Register.ship_direction.ordinal()];
+		if (left){
+			if (dir==0){
+				registers[Register.ship_direction.ordinal()]=5;
+				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, 5);
+				return;
+			}
+			else{
+				registers[Register.ship_direction.ordinal()]=dir-1;
+				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, dir-1);
+				return;
+			}
+		}
+		else{
+			if (dir==5){
+				registers[Register.ship_direction.ordinal()]=0;
+				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, 0);
+				return;
+			}
+			else{
+				registers[Register.ship_direction.ordinal()]=dir+1;
+				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, dir+1);
+				return;
+			}
+		}
 	}
 	
 	public int relativeToAbsoluteDirection(int relDirection){
-		// TODO Auto-generated method stub
-		return 0;
+		if (relDirection == 6)
+			return 6;
+		
+		if (relDirection < 0)
+			throw new IllegalArgumentException();
+		int dir = this.getShipDirection();
+		
+		return ((dir+relDirection)%6);
+		
 	}
 	
 	public int getMoral(){
-		// TODO Auto-generated method stub
-		return 0;
+		return registers[Register.ship_moral.ordinal()];
 	}
 	
 	public void changeMoral(int i){
-		// TODO Auto-generated method stub
+		int moral = this.getMoral();
+		
+		if (i>0)
+			noPositivActionCounter=0;
+			
+		if ((moral>=4)&&(i>=0))
+			return;
+		
+		if ((moral<1)&&(i<=0))
+			return;
+		
+		if ((moral+i)<=0){
+			registers[Register.ship_moral.ordinal()]=0;
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, 0);
+			return;
+		}
+		
+		if ((moral+i)>=4){
+			registers[Register.ship_moral.ordinal()]=4;
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, 4);
+			return;
+		}
+		
+		registers[Register.ship_moral.ordinal()]=moral+i;
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, moral+i);
 	}
 	
 	public int getCondition(){
-		// TODO Auto-generated method stub
-		return 0;
+		return registers[Register.ship_condition.ordinal()];
 	}
 	
 	public void changeCondition(int i){
-		// TODO Auto-generated method stub
-	}
-	
-	private void setCondition(int i){
-		// TODO Auto-generated method stub
-		return;
+		int condition = this.getCondition();
+		if (condition<=0)
+			throw new IllegalStateException("ship was already destroyed, should not loose moral again!");
+		
+		if ((condition>=3)&&(i>=0))
+			return;
+			
+		if ((condition+i)<=0){
+			registers[Register.ship_condition.ordinal()]=0;
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 0);
+			this.destroy();
+			return;
+		}
+		if ((condition+i)>=3){
+			registers[Register.ship_condition.ordinal()]=3;
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 3);
+			return;
+		}
+		registers[Register.ship_condition.ordinal()]=condition+i;
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+1);
 	}
 	
 	public int getPause(){
-		// TODO Auto-generated method stub
 		return this.pause;
 	}
 	
 	public void changePause(int i){
-		// TODO Auto-generated method stub
+		if (pause>0)
+			throw new IllegalStateException("pause increase while pause has not even reached 0");
+		if (i < 0)
+			throw new IllegalArgumentException("pause < 0 is not supported");
+		if (i == 0)
+			return;
+		
+		pause += i;
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.RESTING, pause);
+		
 	}
 	
 	public int getLoad(){
-		// TODO Auto-generated method stub
-		return 0;
+		return registers[Register.ship_load.ordinal()];
 	}
 		
 	public void setLoad(int i){
-		// TODO Auto-generated method stub
+		//TODO need good tests because its setted immediately without checking again what was inside before, has to be called carefully!
+		if ((i>4)||(i<0))
+			throw new IllegalArgumentException("load can not be setted to value not between 0-4");
+		registers[Register.ship_load.ordinal()]=i;
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.VALUE, i);
 	}
 	
 	public int getSenseRegister(Register reg){
-		// TODO Auto-generated method stub
-		return 0;
+		return registers[reg.ordinal()];
 	}
 	
 	public void setSenseRegister(Register reg, int value){
-		// TODO Auto-generated method stub
+		
+		/* 6 is always a valid value because it represents undefined register */
+		switch (reg){
+			case ship_load:
+				if ((value<0)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipload only defined between 0 and 3");
+				break;
+				
+			case ship_direction:
+				if ((value<0)||(value>4))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipdirection only defined between 0 and 4");
+				break;
+				
+			case ship_moral:
+				if ((value<0)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipmoral only defined between 0 and 3");
+				break;
+				
+			case ship_condition:
+				if ((value<0)||(value>2))
+					if (value!=undefined)
+					throw new IllegalArgumentException("shipcondition only defined between 0 and 2");
+				break;
+				
+			case sense_celltype:
+				if ((value<0)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseCelltype only defined between 0 and 3 (empty,island,home,enemyhome,undefined)");
+				break;
+				
+			case sense_supply:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseSupply only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_treasure:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseTreasure only defined between 0 and 1 (true, false, undefined)");
+				
+			case sense_marker0:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_marker1:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_marker2:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_marker3:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				break;				
+				
+			case sense_marker4:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_marker5:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_enemymarker:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>2))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseEnemyMarker only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_shiptype:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShiptype only defined between 0 and 1 (friend, enemy, undefined)");
+				break;
+				
+			case sense_shipdirection:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>5))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShipDirection only defined between 0 and 5 (directions+undefined)");
+				break;
+				
+			case sense_shiploaded:		//TODO Undefined values are not tested yet!!!
+				if ((value<0)||(value>1))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShipLoaded only defined between 0 and 1 (true, false, undefined)");
+				break;
+				
+			case sense_shipcondition:		//TODO Undefined values are not tested yet!!!
+				if ((value<1)||(value>3))
+					if (value!=undefined)
+					throw new IllegalArgumentException("senseShipCondition only defined between 1 and 3 (1, 2, 3, undefined)");
+				break;		
+				
+		}
+		registers[reg.ordinal()]=value;
 	}
 	
 	public Ship getNextShip(){
-		// TODO Auto-generated method stub
-		return null;
+		return nextShip;
 	}
 	
 	public void setNextShip(Ship next){
-		// TODO Auto-generated method stub
+		this.nextShip=next;
 	}
 	
 	private void destroy(){
-		// TODO Auto-generated method stub
+		if (previousShip==null){
+			field.setShip(null);
+			team.deleteShip(this);
+			this.field.getMap().setFirstShip(nextShip);
+			nextShip.previousShip=null;
+			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+		}
+		else{
+			field.setShip(null);
+			team.deleteShip(this);
+			previousShip.nextShip.setNextShip(nextShip);
+			nextShip.previousShip=previousShip;
+			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+		}
+			
 	}
 		
 }

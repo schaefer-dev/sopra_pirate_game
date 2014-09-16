@@ -94,7 +94,7 @@ public class ShipTest {
 		
 		
 		ship.act();
-		assertTrue(ship.getPC() == 0);
+		assertTrue("command goto needs to be implemented for this to work",ship.getPC() == 0);
 		assertTrue ( testlog.what.remove("notify"));
 		
 	}
@@ -138,15 +138,42 @@ public class ShipTest {
 		assertTrue(ship.getLoad() == 4);
 		assertTrue (testlog.what.remove("notify"));
 		
+		ship.setLoad(0);
+		assertTrue(ship.getLoad() == 0);
+		assertTrue (testlog.what.remove("notify"));
+	}
+	
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testInvalidSetLoad1(){	
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		ship.setLoad(6);
 		assertTrue(ship.getLoad() == 4);
 		assertTrue (testlog.what.remove("notify"));
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testInvalidSetLoad2(){	
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
 		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		ship.setLoad(-7);
-		assertTrue(ship.getLoad() == 0);
-		assertTrue (testlog.what.remove("notify"));
-		
-		ship.setLoad(0);
 		assertTrue(ship.getLoad() == 0);
 		assertTrue (testlog.what.remove("notify"));
 	}
@@ -215,11 +242,10 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeMoral(-1);
 		assertTrue ("ChangeMoral",ship.getMoral() == 3) ;
-		assertTrue (testlog.what.remove("notify"));
+		assertTrue ("hilfe", testlog.what.remove("notify"));
 	}
 
 	@Test
@@ -235,12 +261,12 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		//ship = new Ship(null, null, 0, shipv);
 		ship.changeMoral(3);
 		
-		assertTrue ("ChangeMoral bigger 4",ship.getMoral() == 4) ;
+		assertTrue ("ChangeMoral bigger 4"+" was instead "+ship.getMoral(),ship.getMoral() == 4) ;
 		assertTrue ("NoPositivActionCounter not 0 after positiv action", ship.getNoPositivActionCounter() == 0);
-		assertTrue (testlog.what.remove("notify"));
+		assertFalse (testlog.what.remove("notify"));
 	}
 	
 	@Test
@@ -254,9 +280,10 @@ public class ShipTest {
 		Team team = new Team(a, commands);
 		Field field = new Water(map, 0, 0, null);
 		ship = new Ship(team, field, 0, null);
+		shipv = new Ship(null, null, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeMoral(-7);
 		
 		assertTrue ("ChangeMoral must not < 0", ship.getMoral() == 0) ;
@@ -276,10 +303,10 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeMoral(0);
 		
-		assertTrue ("ChangeMoral must not < 0", ship.getMoral() == 0) ;
+		assertTrue ("ChangeMoral should be 4", ship.getMoral() == 4) ;
 		assertFalse (testlog.what.remove("notify"));
 	}
 	
@@ -297,7 +324,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		
 	ship.changeCondition(-1);
 	assertTrue ("ChangeCondition down",ship.getCondition() == 2);
@@ -325,32 +352,40 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeCondition(3);
 		
 		assertTrue ("ChangeCondition: Condition must not be bigger 3", ship.getCondition() == 3);
-		assertTrue (testlog.what.remove("notify"));
+		assertFalse (testlog.what.remove("notify"));
 
 	}
 	
 	@Test
 	public void testChangeCondition3(){
+		
 		random = new Random(1);	
 		testlog = new DummyLogWriter();
 		map = new Map(random, testlog);
 		List<Command> commands = new ArrayList<Command>();
 		
-		char a = 0;
-		Team team = new Team(a, commands);
+		Team team = new Team('a', commands);
 		Field field = new Water(map, 0, 0, null);
-		ship = new Ship(team, field, 0, null);
+		Field field2 = new Water(map, 0, 0, null);
+		Field field3 = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, shipv);
+		shipv = new Ship(team, field2, 1, null);
+		shipn = new Ship(team, field3, 2, ship);
+		ship.setNextShip(shipn);
+		shipv.setNextShip(ship);
 		field.setShip(ship);
+		team.addShip(ship);
+		team.addShip(shipn);
+		team.addShip(shipv);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeCondition(-1);
 		ship.changeCondition(-1);
-		ship.changeCondition(-1);
+		ship.changeCondition(-1);					// Test not 100% working
 		
 		assertNull ("ChangeCondition == 0 : ship must be deleted", field.getShip());
 		assertTrue (testlog.what.remove("destroy"));
@@ -370,7 +405,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeCondition(0);
 		
 		assertTrue ("ChangeCondition: Condition must be 3 at the beginning", ship.getCondition() == 3);
@@ -390,7 +425,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(0);
 		
 		assertTrue ("ChangePause: Pause must be 0 at the beginning", ship.getPause() == 0);
@@ -410,7 +445,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(1);
 		
 		assertTrue ("ChangePause up", ship.getPause() == 1);
@@ -430,7 +465,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(9);
 		
 		assertTrue ("ChangePause" ,ship.getPause() == 9);
@@ -438,7 +473,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected= IllegalArgumentException.class)
 	public void testChangePause4(){
 		random = new Random(1);	
 		testlog = new DummyLogWriter();
@@ -451,7 +486,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(-9);
 		
 		assertTrue ("ChangePause: Pause must not be < 0", ship.getPause() == 0);
@@ -471,7 +506,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		
 		ship.changeDirection(true);
 		assertTrue("changeDirection left first time ", ship.getShipDirection() == 5);
@@ -507,7 +542,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 1. time ", ship.getShipDirection() == 1);
@@ -532,7 +567,16 @@ public class ShipTest {
 	@Test
 	public void testRelativeToAbsolute1(){
 		
-		ship = new Ship(null, null, 0, shipv);
+		random = new Random(1);	
+		testlog = new DummyLogWriter();
+		map = new Map(random, testlog);
+		List<Command> commands = new ArrayList<Command>();
+		
+		char a = 0;
+		Team team = new Team(a, commands);
+		Field field = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, null);
+		field.setShip(ship);
 		
 		assertTrue ("relativetoabsolutedir 0 rel = abs", ship.relativeToAbsoluteDirection(0) == 0);
 		assertTrue ("relativetoabsolutedir 1 rel = abs",ship.relativeToAbsoluteDirection(1) == 1);
@@ -608,11 +652,17 @@ public class ShipTest {
 	@Test
 	public void testDestroy(){
 		
-		shipv = new Ship(null, null, 0, null);
-		ship = new Ship(null, null, 0, shipv);
-		shipn = new Ship(null, null, 0, ship);
-		field = new Water(null, 0, 0, null);
-		field.setShip(ship);
+		testlog = new DummyLogWriter();
+		Map testMap = new Map(random, testlog);
+		Team testTeam = new Team('a', null);
+		Field testField = new Water(testMap, 0, 0, null);
+		
+		shipv = new Ship(testTeam, null, 0, null);
+		ship = new Ship(testTeam, testField, 0, shipv);
+		shipn = new Ship(testTeam, null, 0, ship);
+		field = new Water(testMap, 0, 0, null);
+		testField.setShip(ship);
+		testTeam.addShip(ship);
 		ship.changeCondition(-3);
 		
 		assertNull ("Destroyed because condition 0, field.getShip() must be null", field.getShip());
@@ -634,7 +684,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistershipdirection2(){
 		
 		sship = new Ship(null, field, 0, shipn);
@@ -656,12 +706,12 @@ public class ShipTest {
 		sship.setSenseRegister(senseloaded, 0);
 		assertTrue (sship.getSenseRegister(senseloaded) == 0);
 		
-		sship.setSenseRegister(senseloaded, 4);
-		assertTrue (sship.getSenseRegister(senseloaded) == 4);
+		sship.setSenseRegister(senseloaded, 1);
+		assertTrue (sship.getSenseRegister(senseloaded) == 1);
 	}
 	
 
-	@Test 
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistershipload2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -680,12 +730,12 @@ public class ShipTest {
 		sship.setSenseRegister(sensecondition, 3);
 		assertTrue (sship.getSenseRegister(sensecondition) == 3);
 		
-		sship.setSenseRegister(sensecondition, 0);
-		assertTrue (sship.getSenseRegister(sensecondition) == 0);
+		sship.setSenseRegister(sensecondition, 1);
+		assertTrue (sship.getSenseRegister(sensecondition) == 1);
 	}
 	
 
-	@Test 
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistershipcondition2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -714,7 +764,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testSenseRegistersensecelltype2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -738,7 +788,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersensetreasure2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -762,7 +812,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesupply2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -786,7 +836,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersenseenemymarker2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -810,7 +860,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersenseshiptype2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -835,7 +885,7 @@ public class ShipTest {
 	}
 	
 
-	@Test 
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersenseshiploaded2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -871,7 +921,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersenseshipcondition2(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -894,7 +944,7 @@ public class ShipTest {
 		assertTrue (sship.getSenseRegister(sensemarker0) == 1);
 			
 	}
-	@Test 
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesensemarker02(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -918,7 +968,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesensemarker12(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -942,7 +992,7 @@ public class ShipTest {
 	}
 	
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesensemarker22(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -964,7 +1014,7 @@ public class ShipTest {
 		assertTrue (sship.getSenseRegister(sensemarker3) == 1);
 			
 	}
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesensemarker32(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -987,7 +1037,7 @@ public class ShipTest {
 		assertTrue (sship.getSenseRegister(sensemarker4) == 1);
 	}
 	
-	@Test 
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesensemarker42(){
 		sship = new Ship(null, field, 0, shipn);
 		
@@ -1009,7 +1059,7 @@ public class ShipTest {
 		assertTrue (sship.getSenseRegister(sensemarker5) == 1);
 			
 	}
-	@Test 
+	@Test (expected=IllegalArgumentException.class)
 	public void testSenseRegistersensesensemarker52(){
 		sship = new Ship(null, field, 0, shipn);
 		
