@@ -74,13 +74,7 @@ public class MapGeneratorTest {
 		assertTrue (map.getNeighbour(field, 1).getBuoys().equals(field3.getBuoys()));
 		assertTrue (map.getNeighbour(field3, 0).getBuoys().equals(field4.getBuoys()));
 		
-		assertTrue (map.getNeighbour(field, 0).getKraken().equals(field2.getKraken()));
-		assertTrue (map.getNeighbour(field, 1).getKraken().equals(field3.getKraken()));
-		assertTrue (map.getNeighbour(field3, 0).getKraken().equals(field4.getKraken()));
 		
-		assertTrue (map.getNeighbour(field, 0).getShip().equals(field2.getShip()));
-		assertTrue (map.getNeighbour(field, 1).getShip().equals(field3.getShip()));
-		assertTrue (map.getNeighbour(field, 0).getShip().equals(field4.getShip()));
 		
 		assertTrue (map.getNeighbour(field, 0).getX() == (field2.getX()));
 		assertTrue (map.getNeighbour(field, 1).getX() == (field3.getX()));
