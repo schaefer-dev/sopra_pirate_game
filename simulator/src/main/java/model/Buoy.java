@@ -23,7 +23,7 @@ public class Buoy extends Entity{
 	public boolean equals(final Object other) {
 		if (other instanceof Buoy) {
 			if ((this.team).equals(((Buoy)other).team))
-				if ((this.id)==(((Buoy)other).id))
+				if ((this.type)==(((Buoy)other).type))
 				return true;
 		}
 		return false;

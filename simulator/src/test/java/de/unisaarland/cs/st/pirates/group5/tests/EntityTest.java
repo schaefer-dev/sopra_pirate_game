@@ -64,7 +64,8 @@ public class EntityTest {
 		Buoy buoy2 = new Buoy(1, teamA, 0);
 		assertFalse(buoy1.equals(buoy2));
 		Buoy buoy3 = new Buoy(2,teamA, 2);
-		assertTrue(buoy3.equals(buoy1));
+		assertEquals("getTeam() does not give correct Team.", buoy1.getTeam(), teamA);
+		assertTrue("Buoy 1 does not equal Buoy3", buoy3.equals(buoy1));
 		assertFalse(buoy1.equals(teamA));
 	}
 }
