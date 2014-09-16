@@ -14,7 +14,7 @@ import org.junit.Test;
 import commands.Goto;
 import controller.Command;
 
-public class TestGoto {
+public class CommandGotoTest {
 	int pc = 5;
 	Goto go;
 	List<Command> goList = new ArrayList<Command>();

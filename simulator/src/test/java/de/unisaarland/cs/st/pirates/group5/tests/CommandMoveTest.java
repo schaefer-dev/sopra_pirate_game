@@ -16,7 +16,7 @@ import commands.Move;
 import model.Field;
 
 
-public class MoveTest {
+public class CommandMoveTest {
 	
 
 	
