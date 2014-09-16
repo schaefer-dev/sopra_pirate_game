@@ -87,6 +87,20 @@ public class CommandEqualityTest {
 		assertFalse(move.equals(move2));
 		assertFalse(repair.equals(rep2));
 	    assertFalse(sense.equals(sense2));
+	    
+	    
+	}
+	
+	@Test
+	public void equalitySameCommandTest2(){
+		
+		flip.equals(flip);
+		ifi.equals(ifi);
+		ifall.equals(ifall);
+		ifany.equals(ifany);
+		move.equals(move);
+		repair.equals(repair);
+		sense.equals(sense);
 	}
 	
 }
