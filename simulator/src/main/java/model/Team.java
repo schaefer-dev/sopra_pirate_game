@@ -22,20 +22,20 @@ public class Team {
 		ships = new LinkedList<Ship>();
 	}
 	
-	public void addLoot(int i){
-		// TODO Auto-generated method stub
+	public void addLoot(int i){ 
+		score += i;
 	}
 	
 	public void addShip(Ship ship){
-		// TODO Auto-generated method stub
+		ships.add(ship);
+		shipCount += 1;
 	}
 	
 	public void deleteShip(Ship ship){
-		// TODO Auto-generated method stub
+		ships.remove(ship);
 	}
 	
 	public List<Command> getCommands(){
-		// TODO Auto-generated method stub
 		return commands;
 	}
 	

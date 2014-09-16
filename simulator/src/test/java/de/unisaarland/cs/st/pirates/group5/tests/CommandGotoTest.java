@@ -31,7 +31,18 @@ public class CommandGotoTest {
 
 	@Test
 	public void test() {
+		ship.act();
 		assertEquals("Falscher PC.",ship.getPC(),pc);
+	}
+	
+	@Test
+	public void negativTest() {
+		try{
+		new Goto(-4);
+		fail("Goto should not be creatable with negative PC");
+		}
+		catch(IllegalArgumentException e)
+		{}
 	}
 
 }
