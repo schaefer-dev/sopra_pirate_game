@@ -7,6 +7,7 @@ public class Kraken {
 	
 	public Kraken(int id, Field field){
 		this.id = id;
+		this.field=field;
 		// TODO Auto-generated method stub
 	}
 	

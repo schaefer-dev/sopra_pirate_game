@@ -200,6 +200,8 @@ public class CommandDropTests {
 		testShip.changeMoral(+4);
 		
 		testDrop.execute(testShip);
+		testDrop.equals(testDrop);
+		testDrop.equals(null);
 		
 		assertTrue(testShip.getLoad()==0);
 		assertTrue(testShip.getMoral()==4);

@@ -20,6 +20,7 @@ public class CommandUnMarkTests {
 		Team teamA = new Team('a', null);
 		Field waterField = new Water(null, 0,0, null);
 		waterField.placeBuoy(0, teamA);
+		assertTrue("placebuy error",waterField.getBuoys().size()==1);
 		
 		Ship shipA = new Ship(teamA, waterField, 0, null);
 		Unmark testUnmark = new Unmark(0);
@@ -37,6 +38,7 @@ public class CommandUnMarkTests {
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(0, teamC);
+		assertTrue("placebuy error",waterField.getBuoys().size()==3);
 		
 		Ship shipB = new Ship(teamB, waterField, 0, null);
 		Unmark testUnmark = new Unmark(2);
@@ -54,6 +56,7 @@ public class CommandUnMarkTests {
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(0, teamC);
+		assertTrue("placebuy error",waterField.getBuoys().size()==3);
 		Ship shipB = new Ship(teamB, waterField, 0, null);
 		Ship shipC = new Ship(teamC, waterField, 0, null);
 		Unmark testUnmark = new Unmark(1);
@@ -73,6 +76,7 @@ public class CommandUnMarkTests {
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(2, teamC);
 		waterField.placeBuoy(0, teamA);
+		assertTrue("placebuy error",waterField.getBuoys().size()==3);
 		Ship shipA = new Ship(teamA, waterField, 0, null);
 		Ship shipB = new Ship(teamB, waterField, 0, null);
 		Ship shipC = new Ship(teamC, waterField, 0, null);
@@ -96,6 +100,7 @@ public class CommandUnMarkTests {
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(2, teamC);
 		waterField.placeBuoy(0, teamA);
+		assertTrue("placebuy error",waterField.getBuoys().size()==3);	
 		Ship shipA = new Ship(teamA, waterField, 0, null);
 		Ship shipB = new Ship(teamB, waterField, 0, null);
 		Ship shipC = new Ship(teamC, waterField, 0, null);
@@ -117,12 +122,15 @@ public class CommandUnMarkTests {
 		Team teamD = new Team('d', null);
 		
 		Field waterField = new Water(null, 0,0, null);
+		assertTrue("Water constructor failed",waterField.getBuoys().size()==0);
 		Ship shipA = new Ship(teamA, waterField, 0, null);
 		Ship shipB = new Ship(teamB, waterField, 0, null);
 		Ship shipC = new Ship(teamC, waterField, 0, null);
 		Ship shipD = new Ship(teamD, waterField, 0, null);
 		Unmark testUnmark = new Unmark(0);
 		Unmark testUnmark2 = new Unmark(2);
+		testUnmark.equals(testUnmark);
+		testUnmark.equals(null);
 		testUnmark2.execute(shipB);
 		testUnmark2.execute(shipC);
 		testUnmark.execute(shipA);

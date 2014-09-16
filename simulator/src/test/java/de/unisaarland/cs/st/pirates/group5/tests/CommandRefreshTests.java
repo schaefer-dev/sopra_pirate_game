@@ -131,6 +131,8 @@ public class CommandRefreshTests {
 		testShip.changeMoral(-4);
 		
 		testRefresh.execute(testShip);
+		testRefresh.equals(testRefresh);
+		testRefresh.equals(null);
 		
 		assertTrue(testShip.getLoad()==0);
 		assertTrue(testShip.getMoral()==0);
