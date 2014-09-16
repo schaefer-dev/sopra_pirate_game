@@ -17,6 +17,7 @@ public class Kraken {
 		
 		Random random = field.getMap().getRandom();
 		int dir = random.nextInt(6);
+		
 		if (dir < 0 || dir > 5){
 			throw new IllegalArgumentException ("seed is not allowed to be < 0 or > 5");
 		}
