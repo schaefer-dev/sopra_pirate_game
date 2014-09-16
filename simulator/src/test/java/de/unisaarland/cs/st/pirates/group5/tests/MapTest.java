@@ -59,7 +59,7 @@ public class MapTest {
 		map.setMapValues(fields, krakens);
 	}
 	
-	@Test (expected=Exception.class)
+	@Test
 	public void testGetNeighbour(){
 		
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 0), geradeaus);
@@ -82,7 +82,7 @@ public class MapTest {
 		assertEquals("Map/Kraken relation broken!", map.getKraken().size(), 1);
 			assertTrue("Ultra sinnloser Test.",map.getKraken().contains(kraken));
 	}
-	@Test (expected=Exception.class)
+	@Test
 	public void testGetIDs(){
 		assertEquals("Not next free ActorID.",map.giveNewActorID(),0);
 			assertEquals("Not next free ActorID.",map.giveNewActorID(),1);
