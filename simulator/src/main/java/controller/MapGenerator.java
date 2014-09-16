@@ -133,41 +133,42 @@ public class MapGenerator {
 					throw new IllegalArgumentException("Invalid character in map file at position (" + x + "," + y + ")");
 				
 				fields[x][y] = field;
+				incrementXY(width, height);
 			}
-			
-			incrementXY(width, height);
 		}
 		
 		if(y != height) throw new IllegalArgumentException();
 		reader.close();
-			
-		List<Command> tactic1 = teams.get(0).getCommands();
-		List<Command> tactic2 = teams.get(1).getCommands();
-		//Either all teams have a different tactic or all teams have the same one
-		//If the first 2 teams have the same tactic => all teams have the same tactic
-		if(tactic1 == tactic2){	
-			boolean lastShip = false;
-			for(int i = teams.size() - 1; i >= 0; i--){
-				Team team = teams.get(i);
+		if(teams.size()>1)	
+		{
+			List<Command> tactic1 = teams.get(0).getCommands();
+			List<Command> tactic2 = teams.get(1).getCommands();
+			//Either all teams have a different tactic or all teams have the same one
+			//If the first 2 teams have the same tactic => all teams have the same tactic
+			if(tactic1 == tactic2){	
+				boolean lastShip = false;
+				for(int i = teams.size() - 1; i >= 0; i--){
+					Team team = teams.get(i);
 				
-				if(team.getShipCount() <= 0){
-					if(lastShip)
-						throw new IllegalArgumentException("Not every team has bases/ships on the map");
-					else
-						teams.remove(team);
-				}			
-				else{
-					log.fleetScore(team.getName() - 'a', 0);
-					lastShip = true;
+					if(team.getShipCount() <= 0){
+						if(lastShip)
+							throw new IllegalArgumentException("Not every team has bases/ships on the map");
+						else
+							teams.remove(team);
+					}			
+					else{
+						log.fleetScore(team.getName() - 'a', 0);
+						lastShip = true;
+					}
 				}
 			}
-		}
-		else{
-			for(Team team: teams){
-				log.fleetScore(team.getName() - 'a', 0);
+			else{
+				for(Team team: teams){
+					log.fleetScore(team.getName() - 'a', 0);
 				
-				if(team.getShipCount() <= 0)
-					throw new IllegalArgumentException("Not every team has bases/ships on the map");
+					if(team.getShipCount() <= 0)
+						throw new IllegalArgumentException("Not every team has bases/ships on the map");
+				}
 			}
 		}
 				
@@ -192,8 +193,9 @@ public class MapGenerator {
 	private void incrementXY(int width, int height)
 	{
 		x++;
+		if(x >= width)
+			y++;
 		x = x % width;
-		y = x / width;
 	}
 	
 }

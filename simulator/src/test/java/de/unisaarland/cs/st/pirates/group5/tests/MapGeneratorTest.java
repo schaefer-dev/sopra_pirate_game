@@ -62,7 +62,7 @@ public class MapGeneratorTest {
 		map = mapgen.createMap(stream, teamlist, log, random);
 		assertTrue (map.giveNewEntityID() == 0);
 		assertTrue (map.giveNewActorID() == 1);
-		assertNull (map.getKraken());
+		assertTrue (map.getKraken().size() == 0);
 		assertFalse (map.getFirstShip() == null);
 		assertEquals (map.getNeighbour(field, 0), field2);
 		assertTrue (map.getNeighbour(field, 0).equals(field2));

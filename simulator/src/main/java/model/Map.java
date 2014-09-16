@@ -26,10 +26,7 @@ public class Map {
 		nextFreeEntityID = 0;
 	}
 	
-	public Field getNeighbour(Field field, int direction){
-		return field;
-		
-		/*code not yet to implement
+	public Field getNeighbour(Field field, int direction){		
 		int x = field.getX();
 		int y = field.getY();
 		
@@ -54,29 +51,29 @@ public class Map {
 				return field;
 			default:
 				throw new IllegalArgumentException();
-		}  */
+		}
 	}
 	
 	public int giveNewActorID(){
 		try{
-			nextFreeActorID++;
+			return nextFreeActorID++;
 		}
 		catch(NumberFormatException e){
 			//TODO: notify GUI
+			return nextFreeActorID;
 		}	
-		
-		return nextFreeActorID;
 	}
 	
 	public int giveNewEntityID(){
 		try{
-			nextFreeEntityID++;
+			return nextFreeEntityID++;
 		}
 		catch(NumberFormatException e){
 			//TODO: notify GUI
+			return nextFreeEntityID;
 		}	
 		
-		return nextFreeEntityID;
+		
 	}
 	
 	public LogWriter getLogWriter(){
@@ -103,8 +100,8 @@ public class Map {
 	
 	public void setMapValues(Field[][] field, List<Kraken> kraken){
 
-		//if(field == null || kraken == null) throw new NullPointerException();
-		//if(field.length < 2 || field[0].length < 2 || field.length > 200 || field[0].length > 200) throw new IllegalArgumentException();
+		if(field == null || kraken == null) throw new NullPointerException();
+		if(field.length < 2 || field[0].length < 2 || field.length > 200 || field[0].length > 200) throw new IllegalArgumentException();
 		
 
 		this.fields = field;
