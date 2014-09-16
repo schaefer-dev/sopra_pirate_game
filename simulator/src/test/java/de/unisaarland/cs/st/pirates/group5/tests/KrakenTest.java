@@ -2,6 +2,8 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.Base;
@@ -32,13 +34,14 @@ public class KrakenTest {
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
 		
 		for (int i=0; (i<3); i++){
 			for (int z=0; (z<3); z++){
 				fieldArray[z][i]=new Water(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		
@@ -62,6 +65,7 @@ public class KrakenTest {
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
 		
 		for (int i=0; (i<3); i++){
 			for (int z=0; (z<3); z++){
@@ -71,7 +75,7 @@ public class KrakenTest {
 		Kraken errorKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[2][2] = new Water(testMap,2,2,errorKraken);
 		
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		Kraken testKraken = new Kraken(0,fieldArray[2][0]);
 		testKraken.setField(fieldArray[1][1]);
@@ -93,6 +97,7 @@ public class KrakenTest {
 		Team testTeam = new Team('a',null);
 		
 		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
 		
 		for (int i=0; (i<3); i++){
 			for (int z=0; (z<3); z++){
@@ -102,7 +107,7 @@ public class KrakenTest {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[1][1]=new Water(testMap,1,1,testKraken);
 		
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
@@ -121,6 +126,7 @@ public class KrakenTest {
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
 		
 		for (int i=0; (i<3); i++){
 			for (int z=0; (z<3); z++){
@@ -130,7 +136,7 @@ public class KrakenTest {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[1][1]=new Water(testMap,1,1,testKraken);
 		
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
@@ -148,6 +154,7 @@ public class KrakenTest {
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
 		
 		for (int i=0; (i<3); i++){
 			for (int z=0; (z<3); z++){
@@ -157,7 +164,7 @@ public class KrakenTest {
 		Kraken testKraken = new Kraken(0,fieldArray[1][1]);
 		fieldArray[1][1]=new Water(testMap,1,1,testKraken);
 		
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		testKraken.move();
 		assertTrue("KrakenX wrong", testKraken.getField().getX()==1);
