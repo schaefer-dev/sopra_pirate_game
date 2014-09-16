@@ -215,7 +215,6 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeMoral(-1);
 		assertTrue ("ChangeMoral",ship.getMoral() == 3) ;
@@ -254,9 +253,10 @@ public class ShipTest {
 		Team team = new Team(a, commands);
 		Field field = new Water(map, 0, 0, null);
 		ship = new Ship(team, field, 0, null);
+		shipv = new Ship(null, null, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeMoral(-7);
 		
 		assertTrue ("ChangeMoral must not < 0", ship.getMoral() == 0) ;
@@ -276,7 +276,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeMoral(0);
 		
 		assertTrue ("ChangeMoral should be 4", ship.getMoral() == 4) ;
@@ -297,7 +297,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		
 	ship.changeCondition(-1);
 	assertTrue ("ChangeCondition down",ship.getCondition() == 2);
@@ -325,7 +325,6 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
 		
 		ship.changeCondition(3);
 		
@@ -344,10 +343,19 @@ public class ShipTest {
 		
 		Team team = new Team('a', commands);
 		Field field = new Water(map, 0, 0, null);
-		ship = new Ship(team, field, 0, null);
+		Field field2 = new Water(map, 0, 0, null);
+		Field field3 = new Water(map, 0, 0, null);
+		ship = new Ship(team, field, 0, shipv);
+		shipv = new Ship(team, field2, 1, null);
+		shipn = new Ship(team, field3, 2, ship);
+		ship.setNextShip(shipn);
+		shipv.setNextShip(ship);
 		field.setShip(ship);
+		team.addShip(ship);
+		team.addShip(shipn);
+		team.addShip(shipv);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeCondition(-1);
 		ship.changeCondition(-1);
 		ship.changeCondition(-1);					// Test not 100% working
@@ -370,7 +378,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changeCondition(0);
 		
 		assertTrue ("ChangeCondition: Condition must be 3 at the beginning", ship.getCondition() == 3);
@@ -390,7 +398,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(0);
 		
 		assertTrue ("ChangePause: Pause must be 0 at the beginning", ship.getPause() == 0);
@@ -410,7 +418,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(1);
 		
 		assertTrue ("ChangePause up", ship.getPause() == 1);
@@ -430,7 +438,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(9);
 		
 		assertTrue ("ChangePause" ,ship.getPause() == 9);
@@ -451,7 +459,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		ship.changePause(-9);
 		
 		assertTrue ("ChangePause: Pause must not be < 0", ship.getPause() == 0);
@@ -471,7 +479,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		
 		ship.changeDirection(true);
 		assertTrue("changeDirection left first time ", ship.getShipDirection() == 5);
@@ -507,7 +515,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		
 		
 		ship.changeDirection(false);
 		assertTrue ("changeDirection right 1. time ", ship.getShipDirection() == 1);
@@ -615,8 +623,8 @@ public class ShipTest {
 		shipv = new Ship(testTeam, null, 0, null);
 		ship = new Ship(testTeam, testField, 0, shipv);
 		shipn = new Ship(testTeam, null, 0, ship);
-		field = new Water(null, 0, 0, null);
-		field.setShip(ship);
+		field = new Water(testMap, 0, 0, null);
+		testField.setShip(ship);
 		ship.changeCondition(-3);
 		
 		assertNull ("Destroyed because condition 0, field.getShip() must be null", field.getShip());
