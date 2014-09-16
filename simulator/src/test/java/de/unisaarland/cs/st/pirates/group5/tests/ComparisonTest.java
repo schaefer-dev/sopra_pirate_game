@@ -197,4 +197,10 @@ public class ComparisonTest {
 		}
 	}
 	
+	@Test
+	public void equalityTest(){
+		
+		
+	}
+	
 }

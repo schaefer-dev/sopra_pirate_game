@@ -30,4 +30,10 @@ public class Water extends Field {
 		return FieldType.Water;
 	}
 
+	@Override
+	public boolean setKraken(Kraken kraken) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
