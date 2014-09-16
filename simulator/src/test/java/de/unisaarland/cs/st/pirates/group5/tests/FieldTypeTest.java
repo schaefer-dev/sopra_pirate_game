@@ -17,6 +17,12 @@ public class FieldTypeTest {
 		testIsland.setKraken(null);
 		testIsland.moveKraken(testIsland);
 		testIsland.getFieldType();
+		testIsland.provideLogger();
+		testIsland.getMap();
+		testIsland.deleteBuoy(null, 0);
+		testIsland.getX();
+		testIsland.getY();
+		testIsland.getKraken();
 		
 		assertTrue(false);
 		
