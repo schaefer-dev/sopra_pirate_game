@@ -12,6 +12,8 @@ import java.util.Map;
 import commands.Drop;
 import commands.Goto;
 import commands.If;
+import commands.IfAll;
+import commands.IfAny;
 import commands.Mark;
 import commands.Move;
 import commands.Pickup;
@@ -80,9 +82,11 @@ public class Translator {
 	private Command translate(String line){
 		List<String> conditions = new ArrayList<String>();
 		List<Comparison> bools = new ArrayList<Comparison>();
+		Comparison comparison = null;
 		int currentColumn = 0;//the column, that marks the begin of a coherent string and that would be used 
 								//in a optional error statement.
 		int type = -1;
+		boolean checkBools = true;
 		if(line.contains(";"))  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
 	
@@ -334,7 +338,7 @@ public class Translator {
 				
 			case IF:
 				makeSplits(appendix);
-				Comparison comparison = toolBox.buildComparison(currentElement);
+				comparison = toolBox.buildComparison(currentElement);
 				if(comparison != null && appendix != null){
 					makeSplits(appendix);
 					if(appendix != null && toolBox.isElse(currentElement)){
@@ -363,16 +367,78 @@ public class Translator {
 			case IFALL:
 				conditions.clear();
 				bools.clear();
-				
-				bools.add(toolBox.buildComparison(currentElement));
-				break;
+				comparison = null;
+				makeSplits(appendix);
+				while(!toolBox.isElse(currentElement) && appendix != null){
+					conditions.add(currentElement);
+					makeSplits(appendix);
+				}
+				if(appendix == null){
+					errors.add("Missing else @line " + row);
+					break;
+				}
+				for(String condition: conditions){
+					comparison = toolBox.buildComparison(condition);
+					if(comparison == null){
+						errors.add("Invalid bool expression @line " + row);
+						checkBools = false;
+						break;
+					}
+					bools.add(comparison);
+				}
+				if(checkBools = false)
+					break;
+				makeSplits(appendix);
+				if(evaluateAddress(currentElement) != -1 && appendix == null){
+					type = evaluateAddress(currentElement);
+					if(0 <= type && type <= 1999)
+						return new IfAll(bools, type);
+					else{
+						errors.add("No valid address @line " + row);
+						break;
+					}
+				}else{
+					overloadError();
+					break;
+				}
 			
 			case IFANY:
 				conditions.clear();
 				bools.clear();
-				
-				bools.add(toolBox.buildComparison(currentElement));
-				break;
+				comparison = null;
+				makeSplits(appendix);
+				while(!toolBox.isElse(currentElement) && appendix != null){
+					conditions.add(currentElement);
+					makeSplits(appendix);
+				}
+				if(appendix == null){
+					errors.add("Missing else @line " + row);
+					break;
+				}
+				for(String condition: conditions){
+					comparison = toolBox.buildComparison(condition);
+					if(comparison == null){
+						errors.add("Invalid bool expression @line " + row);
+						checkBools = false;
+						break;
+					}
+					bools.add(comparison);
+				}
+				if(checkBools = false)
+					break;
+				makeSplits(appendix);
+				if(evaluateAddress(currentElement) != -1 && appendix == null){
+					type = evaluateAddress(currentElement);
+					if(0 <= type && type <= 1999)
+						return new IfAny(bools, type);
+					else{
+						errors.add("No valid address @line " + row);
+						break;
+					}
+				}else{
+					overloadError();
+					break;
+				}
 			
 			default:
 				throw new IllegalArgumentException("Not a valid command @line" + row + 

@@ -48,7 +48,7 @@ public class TranslatorTools {
 					operator = Operator.Less;
 				}	
 			}else if(condition.contains("==")){
-				String comp = condition.substring(0, condition.indexOf(">"));
+				String comp = condition.substring(0, condition.indexOf("="));
 				operator = Operator.Equal;
 				if(isInteger(comp) || comp.equalsIgnoreCase("undefined") || comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
 				|| comp.equalsIgnoreCase("home") || comp.equalsIgnoreCase("enemyhome") || comp.equalsIgnoreCase("island") || comp.equalsIgnoreCase("empty")){					
@@ -59,7 +59,7 @@ public class TranslatorTools {
 					condition  = condition.substring(0, condition.indexOf("="));
 				}
 			}else if(condition.contains("!=")){
-				String comp = condition.substring(0, condition.indexOf(">"));
+				String comp = condition.substring(0, condition.indexOf("!"));
 				operator = Operator.Unequal;
 				if(isInteger(comp) || comp.equalsIgnoreCase("undefined") || comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
 				|| comp.equalsIgnoreCase("home") || comp.equalsIgnoreCase("enemyhome") || comp.equalsIgnoreCase("island") || comp.equalsIgnoreCase("empty")){					
@@ -125,6 +125,8 @@ public class TranslatorTools {
 			return new BoolComparison(Register.sense_marker5,invert);
 		
 		case sense_shiptype: //String
+			if(operand2 == null)
+				return null;
 			if (operator == null)
 				return null;
 			if(operand2.equalsIgnoreCase("enemy"))
@@ -136,6 +138,8 @@ public class TranslatorTools {
 			return null;
 		
 		case sense_celltype: //string
+			if(operand2 == null)
+				return null;
 			if (operator == null)
 				return null;
 			if(operand2.equalsIgnoreCase("Empty"))
@@ -151,6 +155,10 @@ public class TranslatorTools {
 			return null;
 		
 		case sense_shipcondition: //int
+			if(operand2 == null)
+				return null;
+			if (operator == null)
+				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 5)
@@ -172,6 +180,10 @@ public class TranslatorTools {
 			return null;
 
 		case sense_shipdirection: //int
+			if(operand2 == null)
+				return null;
+			if (operator == null)
+				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 6)
@@ -193,6 +205,10 @@ public class TranslatorTools {
 			return null;
 			
 		case ship_condition: //int
+			if(operand2 == null)
+				return null;
+			if (operator == null)
+				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 5)
@@ -214,6 +230,10 @@ public class TranslatorTools {
 			return null;
 			
 		case ship_direction: //int
+			if(operand2 == null)
+				return null;
+			if (operator == null)
+				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 6)
@@ -235,6 +255,11 @@ public class TranslatorTools {
 			return null;
 			
 		case ship_load: //int
+			if(operand2 == null)
+				return null;
+			if (operator == null)
+				return null;
+			System.out.println(operand2);
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 5)
@@ -253,9 +278,13 @@ public class TranslatorTools {
 				return new IntComparison(operator,Register.ship_load, Register.ship_load);
 			if(operand2.equalsIgnoreCase("ship_moral"))
 				return new IntComparison(operator,Register.ship_load, Register.ship_moral);
-			return null;
+			else return null;
 			
 		case ship_moral: //int
+			if(operand2 == null)
+				return null;
+			if (operator == null)
+				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 5)
@@ -289,8 +318,6 @@ public class TranslatorTools {
 	 * @Return: true, if the expression can be converted to integer.**/
 	
 	public boolean isInteger(String addr){
-		if(addr.length() > 4)
-			return false;
 		try{
 			Integer.parseInt(addr);
 			return true;
