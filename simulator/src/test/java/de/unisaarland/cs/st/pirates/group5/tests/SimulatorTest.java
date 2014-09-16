@@ -10,13 +10,13 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorTest {
-	String[] ships;
+	String[] ships = new String[1];
 	String map;
 	String logfile;
 	
 	@Before
 	public void setUp(){
-		//ships[0] = "ship";
+		ships[0] = "ship";
 		map = "haha";
 		logfile = "/log.log";
 	}
@@ -28,11 +28,11 @@ public class SimulatorTest {
 		try {
 			sim = new Simulator(ships,map, 5,logfile, 2);
 			sim.step(2);
-			if(log.getWhat().size() < 5)
+			if(log.getWhat().size() < 6)
 				fail("Not enough logger calls");
-			if(log.getWhat().size() > 5)
+			if(log.getWhat().size() > 6)
 				fail("Too many logger calls");
-			if(log.getWhat().size() == 5 )
+			if(log.getWhat().size() == 6 )
 				assertEquals("Wrong output @ close", log.getWhat().get(3), "close");
 				assertEquals("Wrong output @ init", log.getWhat().get(0),"init");
 				assertEquals("Wrong output @ map init", log.getWhat().get(1),"haha");
