@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import view.SimpleLogWriter;
 
-public class KrakenTests {
+public class KrakenTest {
 
 	/*
 	 * move Test

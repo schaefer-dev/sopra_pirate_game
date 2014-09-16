@@ -29,7 +29,7 @@ import commands.Move;
 import commands.Sense;
 import controller.Command;
 
-public class TestSense {
+public class SenseTest {
 	
 	Sense sense1 = new Sense(0);
 	Sense sense2 = new Sense(1);

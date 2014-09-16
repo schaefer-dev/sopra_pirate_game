@@ -40,7 +40,7 @@ public class TranslatorTest {
 
 	public TranslatorTest()
 	{
-		TestObjectConstructor constr = new TestObjectConstructor();
+		ObjectConstructorTest constr = new ObjectConstructorTest();
 		lines = constr.getStringList();
 		commands = constr.getCommandList();
 	}

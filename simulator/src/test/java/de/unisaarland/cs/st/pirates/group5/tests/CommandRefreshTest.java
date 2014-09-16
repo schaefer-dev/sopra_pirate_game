@@ -22,7 +22,7 @@ import commands.Pickup;
 import commands.Refresh;
 
 
-public class CommandRefreshTests {
+public class CommandRefreshTest {
 	
 	@Test
 	public void refreshProvisionIsland01(){

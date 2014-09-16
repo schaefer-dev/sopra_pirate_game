@@ -16,7 +16,7 @@ import commands.Move;
 import commands.Unmark;
 import controller.Command;
 
-public class TeamTests {
+public class TeamTest {
 
 	/*
 	 * test addLoot for pointinc i

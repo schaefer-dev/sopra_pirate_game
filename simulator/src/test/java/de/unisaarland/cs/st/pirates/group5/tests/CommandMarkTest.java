@@ -15,7 +15,7 @@ import commands.Mark;
 import commands.Turn;
 import commands.Unmark;
 
-public class CommandMarkTests {
+public class CommandMarkTest {
 	
 	@Test
 	public void TestMarkBuoy(){

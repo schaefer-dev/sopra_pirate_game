@@ -24,7 +24,7 @@ import controller.IntComparison;
 import controller.Operator;
  
 
-public class TestObjectConstructor {
+public class ObjectConstructorTest {
 	
 	private List<String> tacticStringList;
 	private List<Command> tacticCommandList;
@@ -35,7 +35,7 @@ public class TestObjectConstructor {
 	private final static Operator UNEQUAL = Operator.Unequal;
 	
 	
-	public TestObjectConstructor() {
+	public ObjectConstructorTest() {
 		
 		this.tacticCommandList = new ArrayList<Command>();
 		this.tacticStringList = new ArrayList<String>();

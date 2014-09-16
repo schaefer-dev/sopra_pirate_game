@@ -21,7 +21,7 @@ import commands.Goto;
 import controller.Command;
 
 
-public class ShipTests {
+public class ShipTest {
 	
 	
 	private Ship ship;
