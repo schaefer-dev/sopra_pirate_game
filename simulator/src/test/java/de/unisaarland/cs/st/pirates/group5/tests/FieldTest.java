@@ -212,6 +212,19 @@ public class FieldTest {
 		}
 	}
 	
+	@Test
+	public void testExchangeTreasureBase()
+	{
+		log.emptyLists();
+		Base base = ((Base) rechtsUntenHinten);
+		int score = base.getTeam().getScore();
+		
+		rechtsUntenHinten.exchangeTreasure(3);
+		assertTrue("giving Treasure to the base did not work.", score+3 == base.getTeam().getScore());
+		assertTrue("change in FleetScore was not logged.", log.what.remove("changeScore"));
+		assertTrue("wrong values were logged", log.values.remove(toInteger(base.getTeam().getName()-'a')) && log.values.remove(toInteger(3)));
+		assertTrue("Logged wrong things as well.", log.cells.size() == 0 && log.entities.size() == 0 && log.values.size() == 0 && log.what.size() == 0);
+	}
 	@Test 
 	public void testKrakenInit()
 	{

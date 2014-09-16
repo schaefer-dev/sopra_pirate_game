@@ -1,5 +1,6 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import controller.Command;
@@ -10,9 +11,15 @@ public class Team {
 	private char name;
 	private List<Command> commands;
 	private int shipCount;
+	private List<Ship> ships;
+	
 	
 	public Team(char name, List<Command> commands){
-		// TODO Auto-generated method stub
+		this.name = name;
+		this.score = 0;
+		this.commands = commands;
+		this.shipCount = 0;
+		ships = new LinkedList<Ship>();
 	}
 	
 	public void addLoot(int i){
@@ -44,11 +51,16 @@ public class Team {
 		return shipCount;
 	}
 	
+	public List<Ship> getShips()
+	{
+		return this.ships;
+	}
+	
 	@Override
 	public boolean equals(final Object other) {
 		if (other instanceof Team) {
 			if ((this.name)==((Team)other).name)
-				return true;
+				{return true;}
 		}
 		return false;
 	}
