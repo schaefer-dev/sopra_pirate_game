@@ -26,11 +26,22 @@ public class Ship {
 		registers[Register.ship_moral.ordinal()]=4;
 		registers[Register.ship_condition.ordinal()]=3;
 		registers[Register.ship_direction.ordinal()]=0;
-		// TODO Auto-generated method stub
+		registers[Register.ship_load.ordinal()]=0;
+		this.pc=0;
+		this.pause=0;
+		this.nextShip=null;
+		this.noPositivActionCounter=0;
 	}
 	
 	public void act(){
-		// TODO Auto-generated method stub
+		pc+=1;
+		noPositivActionCounter+=1;
+		
+		team.getCommands().get(pc-1).execute(this);
+		if (noPositivActionCounter==40){
+			this.changeMoral(-1);
+			noPositivActionCounter=0;
+		}
 		
 	}
 
@@ -117,6 +128,9 @@ public class Ship {
 	public void changeMoral(int i){
 		int moral = this.getMoral();
 		
+		if (i>0)
+			noPositivActionCounter=0;
+			
 		if ((moral>=4)&&(i>=0))
 			return;
 		

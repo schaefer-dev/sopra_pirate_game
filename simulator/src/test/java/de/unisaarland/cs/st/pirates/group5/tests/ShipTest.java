@@ -219,7 +219,7 @@ public class ShipTest {
 		
 		ship.changeMoral(-1);
 		assertTrue ("ChangeMoral",ship.getMoral() == 3) ;
-		assertTrue (testlog.what.remove("notify"));
+		assertTrue ("hilfe", testlog.what.remove("notify"));
 	}
 
 	@Test
@@ -235,7 +235,7 @@ public class ShipTest {
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
 		
-		ship = new Ship(null, null, 0, shipv);
+		//ship = new Ship(null, null, 0, shipv);
 		ship.changeMoral(3);
 		
 		assertTrue ("ChangeMoral bigger 4"+" was instead "+ship.getMoral(),ship.getMoral() == 4) ;
