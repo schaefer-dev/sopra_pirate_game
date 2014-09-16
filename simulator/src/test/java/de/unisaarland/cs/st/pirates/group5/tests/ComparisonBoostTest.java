@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import controller.BoolComparison;
 import controller.CellTypeComparison;
+import controller.IntComparison;
 import controller.ShipTypeComparison;
 
 public class ComparisonBoostTest {
@@ -16,11 +17,14 @@ public class ComparisonBoostTest {
 		BoolComparison testBool = new BoolComparison(null,true);
 		CellTypeComparison testCell = new CellTypeComparison(null, null, null);
 		ShipTypeComparison testShip = new ShipTypeComparison(null,null,null);
+		IntComparison testInt = new IntComparison(null,null,null);
 		
 		
 		
 		
-		
+		assertTrue(testInt.equals(testInt));
+		assertFalse(testInt.equals(null));
+		assertFalse(testInt.equals(testBool));
 		assertTrue(testBool.equals(testBool));
 		assertFalse(testBool.equals(testCell));
 		assertTrue(testCell.equals(testCell));
