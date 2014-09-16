@@ -19,22 +19,6 @@
 </roles>
 <timezone>2</timezone>
 </developer><developer>
-<id>herrmann</id>
-<name>Janna Herrmann</name>
-<email>s9jnherr@stud.uni-saarland.de</email>
-<roles>
-<role>Developer</role>
-</roles>
-<timezone>2</timezone>
-</developer><developer>
-<id>theis</id>
-<name>Rafael Theis</name>
-<email>s9rathei@stud.uni-saarland.de</email>
-<roles>
-<role>Developer</role>
-</roles>
-<timezone>2</timezone>
-</developer><developer>
 <id>schaefer</id>
 <name>Daniel Schaefer</name>
 <email>schaefer.dev@gmail.com</email>
@@ -46,6 +30,22 @@
 <id>menz</id>
 <name>Jan Christian Menz</name>
 <email>s9jamenz@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
+<id>herrmann</id>
+<name>Janna Herrmann</name>
+<email>s9jnherr@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
+<id>theis</id>
+<name>Rafael Theis</name>
+<email>s9rathei@stud.uni-saarland.de</email>
 <roles>
 <role>Developer</role>
 </roles>
@@ -89,6 +89,16 @@
 						</manifest>
 					</archive>
 					<outputDirectory>${basedir}/target/assembly/</outputDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<includes>
+						<include>**/*.class</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>

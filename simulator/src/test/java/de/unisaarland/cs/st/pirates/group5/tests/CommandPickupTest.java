@@ -19,7 +19,7 @@ import org.junit.Test;
 import view.SimpleLogWriter;
 import commands.Pickup;
 
-public class CommandPickupTests {
+public class CommandPickupTest {
 	/*
 	 * pickup mit schiffladung =0 und Insel = 1
 	 * 

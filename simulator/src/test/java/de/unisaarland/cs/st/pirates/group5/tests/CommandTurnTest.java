@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import commands.Turn;
 
-public class CommandTurnTests {
+public class CommandTurnTest {
 	
 	@Before
 	public void setUp(){

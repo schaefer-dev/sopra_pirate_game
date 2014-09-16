@@ -15,7 +15,7 @@ import commands.Flipzero;
 import commands.Goto;
 import controller.Command;
 
-public class TestFlipzero {
+public class FlipzeroTest {
 	
 	Flipzero flip  = new Flipzero(3,2);
 	Goto 	 goto0 = new Goto(0);

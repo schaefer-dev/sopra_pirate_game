@@ -10,7 +10,7 @@ import org.junit.Test;
 import controller.IntComparison;
 import controller.Operator;
 
-public class IntComparisonTests {
+public class IntComparisonTest {
 
 	private IntComparison compare;
 	private Ship ship;

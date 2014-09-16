@@ -109,8 +109,7 @@ public class MapGenerator {
 						map.setFirstShip(ship);
 					previousShip = ship;
 					
-					field = new Base(map, i, lineNumber, team);
-					//TODO: add ship to field
+					field = new Base(map, i, lineNumber, team, ship);
 					log.addCell(Cell.WATER, teamNumber, i, lineNumber);
 				}
 				else if(isDigit(c)){

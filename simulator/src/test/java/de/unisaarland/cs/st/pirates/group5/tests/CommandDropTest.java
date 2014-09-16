@@ -20,7 +20,7 @@ import view.SimpleLogWriter;
 import commands.Drop;
 import commands.Pickup;
 
-public class CommandDropTests {
+public class CommandDropTest {
 	/*
 	 * drop auf Basis = kein minus 2 Moral
 	 * 

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import view.SimpleLogWriter;
 
-public class MapTests {
+public class MapTest {
 
 
 	Random random;

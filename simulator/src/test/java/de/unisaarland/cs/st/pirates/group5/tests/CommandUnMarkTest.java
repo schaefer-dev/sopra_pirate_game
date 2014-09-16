@@ -13,7 +13,7 @@ import commands.Mark;
 import commands.Turn;
 import commands.Unmark;
 
-public class CommandUnMarkTests {
+public class CommandUnMarkTest {
 	
 	@Test
 	public void TestUnMarkBuoy(){

@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import view.GUIController;
 import view.Log;
 import view.SimpleLogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
@@ -23,6 +24,7 @@ public class SimpleLogWriterTest {
 		FileOutputStream stream = new FileOutputStream(file);
 		Log log = new Log();
 		log.addLogger(new SimpleLogWriter());
+		log.addLogger(new GUIController());
 		
 		String map = "4 3 \n# # # \n. . . \n# # #";
 		

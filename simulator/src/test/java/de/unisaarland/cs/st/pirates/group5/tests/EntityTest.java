@@ -7,7 +7,7 @@ import model.Buoy;
 
 import org.junit.*;
 
-public class EntityTests {
+public class EntityTest {
 	
 	/*
 	 * simple Tests for Entity types
