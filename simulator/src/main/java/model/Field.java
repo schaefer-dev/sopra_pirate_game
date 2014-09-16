@@ -37,7 +37,10 @@ public abstract class Field {
 		return false;
 	}
 	
-	public abstract boolean setKraken(Kraken kraken);
+	public boolean setKraken(Kraken kraken)
+	{
+		throw new IllegalStateException();
+	}
 	
 	public boolean moveKraken(Field destination){
 		// TODO Auto-generated method stub
