@@ -36,7 +36,7 @@ public class SimulatorTest {
 				assertEquals("Wrong output @ close", log.getWhat().get(3), "close");
 				assertEquals("Wrong output @ init", log.getWhat().get(0),"init");
 				assertEquals("Wrong output @ map init", log.getWhat().get(1),"haha");
-			//	assertEquals("Wrong output @ ships init", log.getWhat().get(2),"ship");
+				assertEquals("Wrong output @ ships init", log.getWhat().get(2),"ship");
 				assertEquals("Wrong output @ step1",log.getWhat().get(3),"logStep" );
 				assertEquals("Wrong output @ step2",log.getWhat().get(4),"logStep" );
 
