@@ -10,13 +10,18 @@ public class If implements Command {
 	private int elsePC;
 	
 	public If (Comparison comparison, int pc){
+		if(pc<0 || pc> 1999)
+		{
+			throw new IllegalArgumentException("PC cannot be set to " + pc);
+		}
 		this.comparison = comparison;
 		this.elsePC = pc;
 	}
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
+		if(!comparison.eval(ship))
+			ship.setPC(elsePC);
 	}
 	
 	@Override

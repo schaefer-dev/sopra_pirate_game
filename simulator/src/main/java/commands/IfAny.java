@@ -12,13 +12,29 @@ public class IfAny implements Command {
 	private int elsePC;
 	
 	public IfAny(List<Comparison> clauses,int pc){
+		if(pc<0 || pc> 1999)
+		{
+			throw new IllegalArgumentException("PC cannot be set to " + pc);
+		}
 		this.clauses = clauses;
 		this.elsePC = pc;
 	}
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
+		boolean b = false;
+		for(Comparison comp : clauses)
+		{
+			if(comp.eval(ship))
+			{
+				b = true;
+				break;
+			}
+		}
+		if(!b)
+		{
+			ship.setPC(elsePC);
+		}
 
 	}
 	@Override
