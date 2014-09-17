@@ -180,13 +180,14 @@ public class FieldTest {
 	public void testExchangeTreasure(){
 		log.emptyLists();
 		hinten.exchangeTreasure(4);
+		//int id = hinten.getMap().giveNewEntityID();
 		try{
 		assertEquals("ExchangeTreasure broken.", hinten.getTreasure().getValue(),4);
 		assertFalse("New treasure should be created, therefore there is no need for a notify", log.what.contains("notify"));
 		assertTrue("Creation of treasure must be logged.", log.what.remove("create"));
 		assertTrue("Wrong entity was logged in create",log.entities.remove(Entity.TREASURE));
 		assertTrue("Not the right keys were logged", log.values.remove(toInteger(Key.VALUE)) && log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)));
-		assertTrue("Not the right values were logged", log.values.remove(toInteger(0)) && log.values.remove(toInteger(hinten.getX())) && log.values.remove(toInteger(hinten.getY())) && log.values.remove(toInteger(4)));
+		assertTrue("Not the right values were logged", log.values.remove(toInteger(1)) && log.values.remove(toInteger(hinten.getX())) && log.values.remove(toInteger(hinten.getY())) && log.values.remove(toInteger(4)));
 		assertTrue("Too much logged", log.values.size() == 0 && log.entities.size()==0 && log.what.size() == 0);
 		hinten.exchangeTreasure(-1);
 		assertEquals("ExchangeTreasure broken. ", hinten.getTreasure().getValue(),3);
@@ -236,6 +237,7 @@ public class FieldTest {
 	public void testSetShipBaseWrongTeam()
 	{
 		assertFalse("Wrong ship should not be moved on Base", rechtsUntenHinten.setShip(shipB));
+		rechtsUntenHinten.setShip(null);
 		assertTrue("Ship of own Team should be set on Base", rechtsUntenHinten.setShip(shipA));
 	}
 	@Test 

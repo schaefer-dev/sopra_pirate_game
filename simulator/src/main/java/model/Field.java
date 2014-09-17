@@ -78,7 +78,9 @@ public abstract class Field {
 			this.ship.setField(this);
 			return true;
 		}
-		
+		else if(this.ship != null && ship == null)
+			this.ship = null;
+			
 		return false;	
 	}
 	
