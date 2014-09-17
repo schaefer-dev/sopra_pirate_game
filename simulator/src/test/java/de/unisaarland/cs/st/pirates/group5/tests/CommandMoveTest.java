@@ -133,14 +133,43 @@ public class CommandMoveTest {
 	}
 
 	@Test
-	 public void testMoveWater(){
+	 public void testMoveWater1(){
 		shipme.changeDirection(true);
 		shipme.changeDirection(true);
+		
 		
 		moveit.execute(shipme);
 		
 		assertTrue ("move to water1", shipme.getPosition().equals(water1));
-		assertNull("Ship must be deleted from old field",waterme.getShip());		 
+		assertNull("Ship must be deleted from old field",waterme.getShip());
+		assertTrue("pause must be 4", shipme.getPause() == 4);
+	 }
+	
+	@Test
+	 public void testMoveWater2(){
+		shipme.changeDirection(true);
+		shipme.changeDirection(true);
+		shipme.setLoad(1);
+		
+		moveit.execute(shipme);
+		
+		assertTrue ("move to water1", shipme.getPosition().equals(water1));
+		assertNull("Ship must be deleted from old field",waterme.getShip());
+		assertTrue("pause must be 6", shipme.getPause() == 6);
+	 }
+	
+	@Test
+	 public void testMoveWater3(){
+		shipme.changeDirection(true);
+		shipme.changeDirection(true);
+		shipme.setLoad(1);
+		shipme.changeMoral(-4);
+		
+		moveit.execute(shipme);
+		
+		assertTrue ("move to water1", shipme.getPosition().equals(water1));
+		assertNull("Ship must be deleted from old field",waterme.getShip());
+		assertTrue("pause must be 8", shipme.getPause() == 8);
 	 }
 	
 	@Test
@@ -151,6 +180,7 @@ public class CommandMoveTest {
 		assertTrue ("move must not be succesfull", shipme.getPosition().equals(waterme));
 		assertTrue("ship must not move, still old field",waterme.getShip().equals(shipme));
 		assertTrue("pc must be changed to else case",shipme.getPC() == 13);
+		assertTrue ("pause must be 0", shipme.getPause() == 0);
 	}
 	
 	@Test
@@ -170,6 +200,7 @@ public class CommandMoveTest {
 		assertTrue ("winner ship must not changed condition is "+shipme.getCondition()+" instead of "+mecondition,shipme.getCondition() == mecondition);
 		assertTrue ("loser ship must loose condition",shipenemy.getCondition() == (enemycondition - 1));
 		assertTrue("pc must changed to else case",shipme.getPC() == 13);
+		assertTrue ("pause must be 0", shipme.getPause() == 0);
 		
 	}
 	
@@ -190,6 +221,7 @@ public class CommandMoveTest {
 		assertTrue("move must be succesfull, ship must changed fieds",waterenemy.getShip().equals(shipme));
 		assertTrue ("winner ship must not changed condition",shipme.getCondition() == mecondition);
 		assertTrue("pc not in else case",shipme.getPC() != 13);
+		assertTrue ("pause must be 4", shipme.getPause() == 4);
 		
 	}
 	
@@ -209,6 +241,7 @@ public class CommandMoveTest {
 		assertTrue ("winner ship must not changed condition",shipenemy.getCondition() == enemycondition);
 		assertTrue ("loser ship must loose condition",shipme.getCondition() == (mecondition - 1));
 		assertTrue("pc must changed to else case",shipme.getPC() == 13);
+		assertTrue ("pause must be 0", shipme.getPause() == 0);
 	}
 	@Test
 	public void testMoveShipEnemyLooseNotSurvive(){
@@ -236,6 +269,7 @@ public class CommandMoveTest {
 		assertTrue ("move was succesfull",waterkraken.getShip().equals(shipme));
 		assertTrue ("condition must changed", shipme.getCondition() == (mecondition-1));
 		assertTrue("move was succesfull",shipme.getPC() != 13);
+		assertTrue ("pause must be 4", shipme.getPause() == 4);
 		
 		
 	}
@@ -251,6 +285,7 @@ public class CommandMoveTest {
 		assertTrue("move not succesfull",shipme.getPosition().equals(waterme));
 		assertTrue ("must not loose condition", shipme.getCondition() == mecondition);
 		assertTrue("move not succesfull, else case", shipme.getPC() == 13);
+		assertTrue ("pause must be 0", shipme.getPause() == 0);
 	}
 	
 	@Test
@@ -264,12 +299,15 @@ public class CommandMoveTest {
 		assertTrue("move succesfull", baseenemy.getShip().equals(shipenemy));
 		assertTrue (" must not loose condition",shipenemy.getCondition() == enemycondition);
 		assertTrue("move was succesfull, not else case", shipme.getPC() != 13);
+		assertTrue ("pause must be 4", shipenemy.getPause() == 4);
 		
 		
 	}
 	
 	@Test
 	public void testMoveIsland(){
+		
+		shipme.changePause(-4);
 		
 		shipme.changeDirection(true);
 		shipme.changeDirection(true);
@@ -284,6 +322,7 @@ public class CommandMoveTest {
 		assertTrue("must loose condition",shipme.getCondition() == (mecondition-1));
 		assertTrue ("must loose treasure", shipme.getLoad() <= meload);
 		assertTrue("move not succesfull, else case",shipme.getPC() == 13);
+		assertTrue ("pause must be 0", shipme.getPause() == 0);
 		
 	}
 	
@@ -297,6 +336,7 @@ public class CommandMoveTest {
 		assertTrue("must loose condition",shipme.getCondition() == (mecondition-1));
 		assertTrue (shipme.getLoad() <= meload); //???
 		assertTrue("move not succesfull, else case",shipme.getPC() == 13);
+		assertTrue ("pause must be 0", shipme.getPause() == 0);
 		
 	}
 }

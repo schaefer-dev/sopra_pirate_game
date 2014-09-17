@@ -76,6 +76,20 @@ public class TranslatorTest {
 		
 		
 	}
+	
+	@Test
+	public void testCapitalLetters()
+	{
+		String badTactic = lines.get(0)+lines.get(3)+lines.get(5)
+		+ "Refresh 2 else 2\n";
+		badTactic += lines.get(13) + "move else 0\n" + lines.get(18);
+		InputStream in = stringToStream(badTactic);
+		try{
+			translator.run(in);
+			fail("Translator should not allow commands with capital letters.");
+			}
+			catch(IllegalArgumentException e){}
+	}
 	@Test
 	public void testRepair()
 	{
