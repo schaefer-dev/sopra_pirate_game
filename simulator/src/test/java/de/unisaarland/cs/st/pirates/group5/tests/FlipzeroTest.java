@@ -31,7 +31,7 @@ public class FlipzeroTest {
 		
 	}
 	
-	@Test (expected=Exception.class)
+	@Test
 	public void Test(){
 		int check = flip.getRandom();
 		if (check <= 2 || check > 0)
