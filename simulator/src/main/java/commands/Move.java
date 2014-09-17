@@ -228,6 +228,64 @@ public class Move implements Command {
 			break;		
 		}
 	}
+	
+	private void executeShipWins(Ship ship, Ship targetShip){
+		int targetCondition = targetShip.getCondition();
+		int shipLoad = ship.getLoad();
+		int targetLoad = targetShip.getLoad();
+		
+		if (targetCondition == 1){
+			int spareRoom = 4-shipLoad;
+			int loadLater = shipLoad;
+			while ((spareRoom > 0)&&(targetLoad > 0)){
+				targetLoad -= 1;
+				spareRoom -= 1;
+				loadLater += 1;
+			}
+			if (loadLater > 4)	//Debugging
+				throw new IllegalStateException("you should not be here... go away!");
+			ship.setLoad(loadLater);
+			if ((targetLoad - loadLater) > 0)
+				targetShip.getPosition().exchangeTreasure(targetLoad - loadLater); // drop additional value to ground
+			Field savedShipPosition = ship.getPosition();
+			ship.changeMoral(-1);
+			ship.changeCondition(-1);
+			targetShip.getPosition().moveShip(savedShipPosition); 	//no move because moved on ship won
+		}
+		else{
+			ship.changeMoral(-1);
+			ship.changeCondition(-1);
+		}
+		
+	}
+	private void executeTargetShipWins(Ship ship, Ship targetShip){
+		int shipCondition = ship.getCondition();
+		int shipLoad = ship.getLoad();
+		int targetLoad = targetShip.getLoad();
+		
+		if (shipCondition == 1){
+			int spareRoom = 4-targetLoad;
+			int loadLater = targetLoad;
+			while ((spareRoom > 0)&&(shipLoad > 0)){
+				shipLoad -= 1;
+				spareRoom -= 1;
+				loadLater += 1;
+			}
+			if (loadLater > 4)	//Debugging
+				throw new IllegalStateException("you should not be here... go away!");
+			targetShip.setLoad(loadLater);
+			if ((shipLoad - loadLater) > 0)
+				ship.getPosition().exchangeTreasure(shipLoad - loadLater); // drop additional value to ground
+			ship.changeMoral(-1);
+			ship.changeCondition(-1);
+		}
+		else{
+			ship.changeMoral(-1);
+			ship.changeCondition(-1);
+		}
+		
+	}
+	
 	@Override
 	public boolean equals (Object o)
 	{
