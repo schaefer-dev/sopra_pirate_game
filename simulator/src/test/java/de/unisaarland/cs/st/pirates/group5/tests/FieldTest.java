@@ -342,7 +342,7 @@ public class FieldTest {
 	{
 		log.emptyLists();
 		rechtsUntenHinten.moveShip(hinten);
-		assertEquals("moveShip hat nicht funktioniert", shipA.getPosition(), hinten);
+		assertEquals("moveShip hat nicht funktioniert", hinten, shipA.getPosition());
 		assertEquals("Ship was not removed from old field",rechtsUntenHinten.getShip(), null);
 		assertEquals("Ship was not set on new field", hinten.getShip(),shipA);
 		assertTrue("move of Kraken wasn't logged.",log.what.remove("notify") && log.entities.remove(Entity.SHIP) && log.values.remove(toInteger(shipA.getID())) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(hinten.getY())));
