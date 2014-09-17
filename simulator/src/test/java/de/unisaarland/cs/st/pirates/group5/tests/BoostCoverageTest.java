@@ -6,6 +6,9 @@ import java.awt.List;
 import java.util.Random;
 
 import model.Map;
+import model.CellType;
+import model.Register;
+import model.ShipType;
 import model.Treasure;
 import model.Kraken;
 
@@ -14,6 +17,7 @@ import org.junit.Test;
 import controller.BoolComparison;
 import controller.CellTypeComparison;
 import controller.IntComparison;
+import controller.Operator;
 import controller.ShipTypeComparison;
 
 public class BoostCoverageTest {
@@ -21,13 +25,10 @@ public class BoostCoverageTest {
 	@Test
 	public void BoostComparisonTest(){
 		
-		BoolComparison testBool = new BoolComparison(null,true);
-		CellTypeComparison testCell = new CellTypeComparison(null, null, null);
-		ShipTypeComparison testShip = new ShipTypeComparison(null,null,null);
-		IntComparison testInt = new IntComparison(null,null,null);
-		
-		
-		
+		BoolComparison testBool = new BoolComparison(Register.sense_marker4,true);
+		CellTypeComparison testCell = new CellTypeComparison(Operator.Unequal,Register.sense_celltype, CellType.EnemyHome);
+		ShipTypeComparison testShip = new ShipTypeComparison(Operator.Unequal,Register.sense_shiptype,ShipType.Friend);
+		IntComparison testInt = new IntComparison(Operator.Greater,Register.ship_moral,Register.sense_shipcondition);
 		
 		assertTrue(testInt.equals(testInt));
 		assertFalse(testInt.equals(null));
