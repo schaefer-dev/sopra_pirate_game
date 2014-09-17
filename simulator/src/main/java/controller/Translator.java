@@ -196,7 +196,7 @@ public class Translator {
 				
 			case MOVE:
 				makeSplits(appendix);
-				if(toolBox.isElse(currentElement) && appendix != null){
+				if(currentElement.equalsIgnoreCase("else") && appendix != null){
 					makeSplits(appendix);
 					if(evaluateAddress(currentElement) != -1){
 						if(appendix == null || appendix.isEmpty())
@@ -216,7 +216,7 @@ public class Translator {
 			
 			case REPAIR: 
 				makeSplits(appendix);
-				if(toolBox.isElse(currentElement) && appendix != null){
+				if(currentElement.equalsIgnoreCase("else") && appendix != null){
 					makeSplits(appendix);
 					if(evaluateAddress(currentElement) != -1){
 						if(appendix == null || appendix.isEmpty())
@@ -241,7 +241,7 @@ public class Translator {
 					type = toolBox.toInt(currentElement);
 						if(0 <= type && type <= 6){
 							makeSplits(appendix);
-							if(toolBox.isElse(currentElement)|| appendix != null){
+							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									if(appendix == null || appendix.isEmpty())
@@ -276,7 +276,7 @@ public class Translator {
 					type = toolBox.toInt(currentElement);
 						if(0 <= type && type <= 5){
 							makeSplits(appendix);
-							if(toolBox.isElse(currentElement)|| appendix != null){
+							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									if(appendix == null || appendix.isEmpty())
@@ -310,7 +310,7 @@ public class Translator {
 					type = toolBox.toInt(currentElement);
 						if(type > 1){
 							makeSplits(appendix);
-							if(toolBox.isElse(currentElement)|| appendix != null){
+							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									if(appendix == null || appendix.isEmpty())
@@ -343,7 +343,7 @@ public class Translator {
 				comparison = toolBox.buildComparison(currentElement);
 				if(comparison != null && appendix != null){
 					makeSplits(appendix);
-					if(appendix != null && toolBox.isElse(currentElement)){
+					if(appendix != null && currentElement.equalsIgnoreCase("else")){
 						makeSplits(appendix);
 						if(evaluateAddress(currentElement) != -1 && appendix == null){
 							type = evaluateAddress(currentElement);
@@ -371,7 +371,7 @@ public class Translator {
 				bools.clear();
 				comparison = null;
 				makeSplits(appendix);
-				while(!toolBox.isElse(currentElement) && appendix != null){
+				while(!currentElement.equalsIgnoreCase("else") && appendix != null){
 					conditions.add(currentElement);
 					makeSplits(appendix);
 				}
@@ -409,7 +409,7 @@ public class Translator {
 				bools.clear();
 				comparison = null;
 				makeSplits(appendix);
-				while(!toolBox.isElse(currentElement) && appendix != null){
+				while(!currentElement.equalsIgnoreCase("else") && appendix != null){
 					conditions.add(currentElement);
 					makeSplits(appendix);
 				}
@@ -466,6 +466,7 @@ public class Translator {
 	
 	public List<Command> run(InputStream tacticFile){
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
+		boolean tooLong = false;
 		row = 0;
 		errors.clear();
 					try {
@@ -482,9 +483,12 @@ public class Translator {
 						
 				while(true){
 					String currentLine = tacticdoc.readLine();
-					if(currentLine == null || row > 1999)
+					if(row >= 2001){
+						tooLong = true;
 						break;
-				//	System.out.println(row+": " + currentLine);
+					}
+					if(currentLine == null)
+						break;		
 					tactic.add(translate(currentLine));	
 					row++;
 				}
@@ -499,7 +503,8 @@ public class Translator {
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}
-		System.out.println(errors.size());
+		if(tooLong)
+			throw new IllegalArgumentException("Tactics file too long.");
 		if (errors.size() > 0)
 			throw new IllegalArgumentException(errors.get(0));
 		return tactic;
