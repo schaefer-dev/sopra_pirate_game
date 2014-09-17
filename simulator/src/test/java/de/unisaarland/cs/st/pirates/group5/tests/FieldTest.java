@@ -173,8 +173,8 @@ public class FieldTest {
 		assertEquals("FieldType broken",hinten.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",rechtsUntenVorne.getFieldType(), FieldType.Base);
 		assertEquals("FieldType broken",rechtsUntenHinten.getFieldType(), FieldType.Base);
-		assertEquals("FieldType broken",linksObenHinten.getFieldType(), FieldType.Island);
-		assertEquals("FieldType broken",linksObenVorne.getFieldType(), FieldType.ProvisionIsland);
+		assertEquals("FieldType broken",linksObenHinten.getFieldType(), FieldType.ProvisionIsland);
+		assertEquals("FieldType broken",linksObenVorne.getFieldType(), FieldType.Island);
 	}	
 	@Test 
 	public void testExchangeTreasure(){
@@ -241,7 +241,7 @@ public class FieldTest {
 	@Test 
 	public void testKrakenInit()
 	{
-		assertSame("The field of Kraken was not set correctly in the Constructor of Water",hinten, kraken.getField());
+		assertSame("The field of Kraken was not set correctly in the Constructor of Water,", hinten, kraken.getField());
 	}
 	
 	@Test
@@ -342,7 +342,7 @@ public class FieldTest {
 	{
 		log.emptyLists();
 		rechtsUntenHinten.moveShip(hinten);
-		assertEquals("moveShip hat nicht funktioniert", shipA.getPosition(), hinten);
+		assertEquals("moveShip hat nicht funktioniert", hinten, shipA.getPosition());
 		assertEquals("Ship was not removed from old field",rechtsUntenHinten.getShip(), null);
 		assertEquals("Ship was not set on new field", hinten.getShip(),shipA);
 		assertTrue("move of Kraken wasn't logged.",log.what.remove("notify") && log.entities.remove(Entity.SHIP) && log.values.remove(toInteger(shipA.getID())) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(hinten.getY())));
