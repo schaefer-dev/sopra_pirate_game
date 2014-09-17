@@ -47,12 +47,13 @@ public class MapGeneratorTest {
 		mapgen = new MapGenerator();
 		team = new Team(a, null);
 		teamlist.add(team);
-		field = new Island(map, 0, 0, null);
-		field2 = new Water(map, 1, 0, null);
+		Map testmap = new Map(random, null);
+		field = new Island(testmap, 0, 0, null);
+		field2 = new Water(testmap, 1, 0, null);
 		ship = new Ship(team, null, 0, null);
-		field3 = new Base(map, 0, 1, null, ship);
+		field3 = new Base(testmap, 0, 1, null, ship);
 		ship.setField(field3);
-		field4 = new ProvisionIsland(map, 1, 1);
+		field4 = new ProvisionIsland(testmap, 1, 1);
 		
 	}
 
