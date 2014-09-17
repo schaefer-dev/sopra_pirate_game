@@ -145,7 +145,7 @@ public class CommandUnMarkTest {
 		testUnmark.execute(shipA);
 		testUnmark.execute(shipD);
 		assertTrue(waterField.getBuoys().size()==0);	
-		assertTrue(waterField.getBuoys()==null);		//depending on implementation, might not be null if implemented in array?
+		//assertTrue(waterField.getBuoys()==null);		//depending on implementation, might not be null if implemented in array?
 	}
 	
 }
