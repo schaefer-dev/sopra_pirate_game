@@ -176,6 +176,7 @@ public class CommandSenseTest {
 		}
 		@Test
 		public void testNullDrei(){
+			System.out.println(shipAtNullNull.getPC());
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Undefined.ordinal());
@@ -187,6 +188,7 @@ public class CommandSenseTest {
 		}
 		@Test
 		public void testNullNull(){
+
 			shipAtNullNull.act();//schaut auf 0,0. Hat: water, HomeBase.(1)
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Home.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker1),BoolWert.False.ordinal());
