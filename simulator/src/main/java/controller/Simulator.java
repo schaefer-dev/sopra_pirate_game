@@ -1,14 +1,18 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import de.unisaarland.cs.st.pirates.group5.main.Main;
 import view.GUIController;
@@ -36,9 +40,8 @@ public class Simulator {
 		
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
-		
 		if(shipFiles.length == 1){
-			List<Command> tactic = translator.run(new ByteArrayInputStream(shipFiles[0].getBytes()));
+			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
 			String[]tempFiles = new String[26];
 			Arrays.fill(tempFiles, shipFiles[0]);
 			shipFiles = tempFiles;
@@ -47,7 +50,7 @@ public class Simulator {
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
-				List<Command> tactic = translator.run(new ByteArrayInputStream(shipFiles[i].getBytes()));
+				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
 			}
@@ -55,15 +58,22 @@ public class Simulator {
 		
 		File file = new File(logFile);
 		FileOutputStream stream = new FileOutputStream(file);
-		
+		InputStream in = getClass().getResourceAsStream(mapFile);
+		Scanner scanner = new Scanner(in);
+		String mapString = "";
+		while(scanner.hasNextLine())
+		{
+			mapString += scanner.nextLine() + "\n";
+		}
+		scanner.close();
 		logWriter = new Log();
-		logWriter.addLogger(new SimpleLogWriter());
+	    logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(new GUIController());
-		logWriter.init(stream, mapFile, shipFiles);
+		logWriter.init(stream, mapString, shipFiles);
 		
 		MapGenerator generator = new MapGenerator();
-		map = generator.createMap(new FileInputStream(mapFile), teams, logWriter, new Random(seed));
-		kraken = map.getKraken();
+		this.map = generator.createMap(in, teams, logWriter, new Random(seed));
+		kraken = this.map.getKraken();
 		
 		logWriter.logStep();
 		

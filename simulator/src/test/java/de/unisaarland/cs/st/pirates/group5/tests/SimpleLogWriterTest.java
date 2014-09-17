@@ -26,7 +26,7 @@ public class SimpleLogWriterTest {
 		log.addLogger(new SimpleLogWriter());
 		//log.addLogger(new GUIController());
 		
-		String map = "4 3 \n# # # \n. . . \n# # #";
+		String map = "4\n3\n# # # \n. . . \n# # #";
 		
 		String a = "sense 0";
 		String b = "sense 0";

@@ -1,8 +1,5 @@
 package commands;
 
-import java.util.List;
-
-import model.Buoy;
 import model.Ship;
 import controller.Command;
 
