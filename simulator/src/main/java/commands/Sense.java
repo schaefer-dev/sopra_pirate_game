@@ -60,10 +60,10 @@ public class Sense implements Command {
 			else
 				ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
 			
-			int direction = otherShip.getSenseRegister(Register.sense_shipdirection);
+			int direction = otherShip.getSenseRegister(Register.ship_direction);
 			ship.setSenseRegister(Register.sense_shipdirection, direction);
 			
-			int condition = otherShip.getSenseRegister(Register.sense_shipcondition);
+			int condition = otherShip.getSenseRegister(Register.ship_condition);
 			ship.setSenseRegister(Register.sense_shipcondition, condition);
 		}
 		else{
