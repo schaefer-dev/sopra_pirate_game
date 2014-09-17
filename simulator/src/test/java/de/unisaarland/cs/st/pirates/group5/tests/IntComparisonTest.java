@@ -34,7 +34,7 @@ public class IntComparisonTest {
 		List<Command> commands = new ArrayList<Command>();
 		team = new Team('a', commands);
 		map = new Map(new Random(), new DummyLogWriter());
-		ship = new Ship(team, null, 0, null);	
+		ship = new Ship(team, null, 0, null);
 		field = new Base(map, 0, 0, team, ship);
 		ship.setField(field);
 	}

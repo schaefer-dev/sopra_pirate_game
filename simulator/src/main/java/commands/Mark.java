@@ -20,10 +20,8 @@ public class Mark implements Command {
 		boolean contains = false;
 		
 		List<Buoy> buoys = ship.getPosition().getBuoys();
-	
-		//Buoy testbuoy = new Buoy(0, ship.getTeam(), type);
 		
-		if (buoys.size() == 0){ contains = true;}
+		if (buoys.size() == 0){ contains = false;}
 		
 		else {
 			
@@ -32,14 +30,16 @@ public class Mark implements Command {
 				contains = true;
 			}
 		}
+		}
+		
+		
 		
 		if (contains){
-			ship.getPosition().placeBuoy(type, ship.getTeam());
+			ship.getPosition().placeBuoy(0, null);
 		}
 		else {
-		ship.getPosition().placeBuoy(0, null);}
-		}
-		System.out.println(contains);
+			ship.getPosition().placeBuoy(type, ship.getTeam());}
+		
 	}
 	@Override
 	public boolean equals (Object o)
