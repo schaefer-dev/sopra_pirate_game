@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Random;
-
 public class Kraken {
 
 	private Field field;
@@ -15,15 +13,29 @@ public class Kraken {
 	
 	public void move(){
 		
-		Random random = field.getMap().getRandom();
-		int dir = random.nextInt(6);
+		int dir = field.getMap().getRandom().nextInt(6);
 		
 		if (dir < 0 || dir > 5){
 			throw new IllegalArgumentException ("seed is not allowed to be < 0 or > 5");
 		}
 		else{
 		Field destination = field.getNeigbour(dir);
-		field.moveKraken(destination);
+		
+		switch (destination.getFieldType()){
+		
+		case Water:
+			if (destination.getKraken() == null){ //no kraken on that field so kraken can move
+				field.moveKraken(destination);
+			}
+			
+		case Base:
+		
+		case Island: 
+			
+		case ProvisionIsland:
+			
+		}
+			
 		}
 			
 	}

@@ -11,13 +11,15 @@ public class MainTest {
 	
 	@Test
 	public void runTest(){
+		/*
 		try{
 			Main m = new Main();
 			Main.main(null);
 		}
 		catch(Exception e){
 			fail();
-		}
+		}*/
+		assertTrue("mainTest not implemented yet", false);
 		
 	}
 	

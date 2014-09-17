@@ -70,15 +70,19 @@ public class Translator {
 		}
 	}
 	
-	/** @Specs: the classes main method. A Hybrid of lexer and parser, which evaluates the semantics of
+	/** @See: the classes main method. A Hybrid of lexer and parser, which evaluates the semantics of
 	 *  single coherent strings and builds a valid command or prints an error. Due to the tactics grammar 
 	 *  minor complexity and explicit structure, an elaborated lexer and parser were not necessary.
 	 *  
-	 * @Param: the inputstreams current line.
+	 *  @See: class TranslatorTools.
+	 *  
+	 *  @See: makeSplits(), overloadTest(), evaluateAddress()
+	 *  
+	 *  @Param: the inputstreams current line.
 	 * 
-	 * @Return: Command.
+	 *  @Return: Command.
 	 * 
-	 * @Error: prints error**/
+	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/
 	
 	private Command translate(String line){
 
@@ -410,6 +414,8 @@ public class Translator {
 	}
 
 	/** @See: hatches the given tactics file to method translate line by line. 
+	 * 
+	 *  @See: translate()
 	 * 
 	 *  @Param: a tactics file as input stream. 
 	 * 
