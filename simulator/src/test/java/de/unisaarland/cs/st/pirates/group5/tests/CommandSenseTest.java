@@ -88,8 +88,9 @@ public class CommandSenseTest {
 			water.placeBuoy(4, a);
 			water.placeBuoy(2, a);
 			
-			ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip.setShip(alienShip1);
+		    ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip.placeBuoy(5, ship.getTeam());
 			
+			ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip.setShip(alienShip1);
 			alienShip1.setField(ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip);
 			
 			a.addShip(ship);
@@ -107,8 +108,8 @@ public class CommandSenseTest {
 			fields[3][1] = island;
 			fields[3][0] = enemyBase;
 			fields[3][3] = ifYouLookOnThisFieldYouMayWitnessAFriendsShip;
-			fields[1][0] = ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip;
-			fields[0][3] = water;
+			fields[1][0] = water;
+			fields[0][3] = ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip;
 	
 			map.setMapValues(fields, new ArrayList<Kraken>());
 		}
@@ -119,6 +120,8 @@ public class CommandSenseTest {
 		public void test() {
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Undefined.ordinal());
 		
+			System.out.println(ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip + " hey");
+			
 			ship.act();//schaut nach 1,0. Hat: water, enemyship, eigene boje 5, (3)
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
 			assertEquals("",ship.getSenseRegister(Register.sense_marker5),BoolWert.True.ordinal());
