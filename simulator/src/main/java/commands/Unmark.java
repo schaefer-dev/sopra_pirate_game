@@ -17,28 +17,8 @@ public class Unmark implements Command {
 	@Override
 	public void execute(Ship ship) {
 
-		boolean contains = false;
+	ship.getPosition().deleteBuoy(ship.getTeam(), type);
 		
-		List<Buoy> buoys = ship.getPosition().getBuoys();
-		
-		if (buoys.size() == 0){ contains = false;}
-		
-		else {
-			
-		for (Buoy curr : buoys){
-			if ((curr.getType() == type) && (curr.getTeam().equals(ship.getTeam()))){
-				contains = true;
-			}
-		}
-		}
-		
-		
-		
-		if (contains){
-			ship.getPosition().deleteBuoy(ship.getTeam(), type);
-		}
-		//else {
-		//	ship.getPosition().deleteBuoy(null, 0);}
 
 	}
 	@Override
