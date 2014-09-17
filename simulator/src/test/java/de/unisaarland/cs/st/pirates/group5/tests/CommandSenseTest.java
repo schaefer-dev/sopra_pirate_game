@@ -11,6 +11,7 @@ import model.BoolWert;
 import model.CellType;
 import model.Field;
 import model.Island;
+import model.Kraken;
 import model.Map;
 import model.ProvisionIsland;
 import model.Ship;
@@ -45,7 +46,9 @@ public class CommandSenseTest {
 
 	List<Command> senses = new ArrayList<Command>();
 	Team a = new Team('a',senses);
-	Team b;
+	Team b = new Team('b', senses);
+	
+
 	
 	Field[][] fields = new Field[4][4];
 	Random random;
@@ -85,6 +88,13 @@ public class CommandSenseTest {
 			water.placeBuoy(1, b);
 			water.placeBuoy(4, a);
 			water.placeBuoy(2, a);
+			homeBase.setShip(ship);
+			
+			ship.setField(homeBase);
+			
+			a.addShip(ship);
+			a.addShip(alienShip2);
+			b.addShip(alienShip1);
 			
 			homeBase.setShip(ship);
 			
@@ -102,24 +112,24 @@ public class CommandSenseTest {
 			fields[1][0] = ifYouLookOnThisFieldYouMayWitnessAFriendsShip;
 			fields[0][3] = water;
 	
-			map.setMapValues(fields, null);
+			map.setMapValues(fields, new ArrayList<Kraken>());
 		}
 
 
 
 		@Test
 		public void test() {
-			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Undefined);
+			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Undefined.ordinal());
 		
 			ship.act();//schaut nach 1,0. Hat: water, enemyship, eigene boje 5, (3)
-			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Empty);
-			assertEquals("",ship.getSenseRegister(Register.sense_marker5),BoolWert.True);
-			assertEquals("",ship.getSenseRegister(Register.sense_shiptype),ShipType.Enemy);
-			assertEquals("",ship.getSenseRegister(Register.sense_marker1),BoolWert.Undefined);
-			assertEquals("",ship.getSenseRegister(Register.sense_marker2),BoolWert.Undefined);
-			assertEquals("",ship.getSenseRegister(Register.sense_marker3),BoolWert.Undefined);
-			assertEquals("",ship.getSenseRegister(Register.sense_marker4),BoolWert.Undefined);
-			assertEquals("",ship.getSenseRegister(Register.sense_enemymarker),BoolWert.Undefined);
+			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_marker5),BoolWert.True.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_shiptype),ShipType.Enemy.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_marker1),BoolWert.Undefined.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_marker2),BoolWert.Undefined.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_marker3),BoolWert.Undefined.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_marker4),BoolWert.Undefined.ordinal());
+			assertEquals("",ship.getSenseRegister(Register.sense_enemymarker),BoolWert.Undefined.ordinal());
 		
 			ship.act();//schaut nach 0,1. Hat: island, supply. (2)
 			assertEquals("",ship.getSenseRegister(Register.sense_celltype),CellType.Island);
