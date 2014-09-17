@@ -133,15 +133,43 @@ public class CommandMoveTest {
 	}
 
 	@Test
-	 public void testMoveWater(){
+	 public void testMoveWater1(){
 		shipme.changeDirection(true);
 		shipme.changeDirection(true);
+		
 		
 		moveit.execute(shipme);
 		
 		assertTrue ("move to water1", shipme.getPosition().equals(water1));
 		assertNull("Ship must be deleted from old field",waterme.getShip());
 		assertTrue("pause must be 4", shipme.getPause() == 4);
+	 }
+	
+	@Test
+	 public void testMoveWater2(){
+		shipme.changeDirection(true);
+		shipme.changeDirection(true);
+		shipme.setLoad(1);
+		
+		moveit.execute(shipme);
+		
+		assertTrue ("move to water1", shipme.getPosition().equals(water1));
+		assertNull("Ship must be deleted from old field",waterme.getShip());
+		assertTrue("pause must be 6", shipme.getPause() == 6);
+	 }
+	
+	@Test
+	 public void testMoveWater3(){
+		shipme.changeDirection(true);
+		shipme.changeDirection(true);
+		shipme.setLoad(1);
+		shipme.changeMoral(-4);
+		
+		moveit.execute(shipme);
+		
+		assertTrue ("move to water1", shipme.getPosition().equals(water1));
+		assertNull("Ship must be deleted from old field",waterme.getShip());
+		assertTrue("pause must be 8", shipme.getPause() == 8);
 	 }
 	
 	@Test
