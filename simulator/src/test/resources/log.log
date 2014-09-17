@@ -4,32 +4,32 @@
 
 Creation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[#][_Field] ISLAND         at             (5,1)       (0.0017s)
-[#][_Field] BASE(C)        at             (2,2)       (0.0032s)
-[#][Create] SHIP(#152)                                (0.004s)
+[#][_Field] ISLAND         at             (5,1)       (0.0021s)
+[#][_Field] BASE(C)        at             (2,2)       (0.0038s)
+[#][Create] SHIP(#152)                                (0.0055s)
 [#][Values]                CONDITION:     3         
 [#][Values]                MORAL:         4         
 [#][Values]                DIRECTION:     0         
-[#][Create] TREASURE(#34)                             (0.0046s)
+[#][Create] TREASURE(#34)                             (0.0075s)
 [#][Values]                X_COORD:       2         
 [#][Values]                Y_COORD:       1         
 [#][Values]                VALUE:         9         
 
 Round 1  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[1][Update] SHIP(#152)     MORAL:         ->3         (0.0051s)
-[1][Create] BUOY(#1544)                               (0.0053s)
+[1][Update] SHIP(#152)     MORAL:         ->3         (0.0087s)
+[1][Create] BUOY(#1544)                               (0.0089s)
 [1][Values]                X_COORD:       2         
 [1][Values]                Y_COORD:       1         
 [1][Values]                VALUE:         9         
 
 Round 2  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[2][Update] SHIP(#152)     destroyed                  (0.0058s)
-[2][Update] TEAM A         Score:         ->200       (0.006s)
-[2][Update] BUOY(#32)                                 (0.0076s)
+[2][Update] SHIP(#152)     destroyed                  (0.0098s)
+[2][Update] TEAM A         Score:         ->200       (0.0101s)
+[2][Update] BUOY(#32)                                 (0.0124s)
 [2][Values]                FLEET:         ->1       
 [2][Values]                X_COORD:       ->1       
 [2][Values]                Y_COORD:       ->1       
 
 Finished ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [#][FOOTER] Winner:        Team A         200 points
-[#][FOOTER] Duration:      0.009s                   
+[#][FOOTER] Duration:      0.0136s                  
