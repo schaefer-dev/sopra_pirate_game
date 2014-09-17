@@ -213,8 +213,6 @@ public class Ship {
 	public void changePause(int i){
 		if (pause>0)
 			throw new IllegalStateException("pause increase while pause has not even reached 0");
-		if (i < 0)
-			throw new IllegalArgumentException("pause < 0 is not supported");
 		if (i == 0)
 			return;
 		

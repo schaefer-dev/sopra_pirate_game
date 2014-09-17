@@ -271,13 +271,15 @@ public class CommandMoveTest {
 		assertTrue("move succesfull", baseenemy.getShip().equals(shipenemy));
 		assertTrue (" must not loose condition",shipenemy.getCondition() == enemycondition);
 		assertTrue("move was succesfull, not else case", shipme.getPC() != 13);
-		assertTrue ("pause must be 4", shipme.getPause() == 4);
+		assertTrue ("pause must be 4", shipenemy.getPause() == 4);
 		
 		
 	}
 	
 	@Test
 	public void testMoveIsland(){
+		
+		shipme.changePause(-4);
 		
 		shipme.changeDirection(true);
 		shipme.changeDirection(true);
