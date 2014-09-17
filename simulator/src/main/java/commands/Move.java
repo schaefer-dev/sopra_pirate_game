@@ -29,10 +29,9 @@ public class Move implements Command {
 			Water targetWater=(Water)targetField;
 			if (targetWater.getShip()==null){
 				/* no ship found so ship can move + check for Kraken */
+				shipField.moveShip(targetWater);
 				if (targetWater.getKraken()!=null)
-					ship.changeCondition(-1);
-				if (ship.getPosition() != null)
-					shipField.moveShip(targetWater);		//TODO careful! moveShip in Field has to check if the ship is still there (could have died from Kraken)	
+					ship.changeCondition(-1);	
 			}
 			else{
 				// Kampf findet statt

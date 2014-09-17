@@ -129,9 +129,7 @@ public class CommandMoveTest {
 		moveit.execute(shipme);
 		
 		assertTrue ("move to water1", shipme.getPosition().equals(water1));
-		assertNull("Ship must be deleted from old field",waterme.getShip());
-		 
-		 
+		assertNull("Ship must be deleted from old field",waterme.getShip());		 
 	 }
 	
 	@Test
