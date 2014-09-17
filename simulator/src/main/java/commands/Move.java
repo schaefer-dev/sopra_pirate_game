@@ -30,6 +30,7 @@ public class Move implements Command {
 			if (targetWater.getShip()==null){
 				/* no ship found so ship can move + check for Kraken */
 				shipField.moveShip(targetWater);
+				calcAndSetShipPause(ship);
 				if (targetWater.getKraken()!=null)
 					ship.changeCondition(-1);	
 			}
@@ -85,6 +86,7 @@ public class Move implements Command {
 			Base targetBase=(Base)targetField;
 			if (targetBase.getTeam().equals(ship.getTeam())){
 				shipField.moveShip(targetBase);
+				calcAndSetShipPause(ship);
 				ship.changeMoral(4);
 			}
 			else{
