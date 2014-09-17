@@ -433,7 +433,7 @@ public class Translator {
 					while(tacticdoc.readLine() != null){
 						makeSplits(tacticdoc.readLine());
 						if(currentElement.startsWith("*"))
-							labels.put(currentElement.substring(1), row);
+							labels.put(currentElement.substring(1).toLowerCase(), row);
 						else continue;
 					row++;
 					}
@@ -478,8 +478,8 @@ public class Translator {
 			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
 			    		return toolBox.toInt(currentElement);
 		}if(labelized){
-				if(labels.containsKey(currentElement))
-				    	return (int) labels.get(currentElement);
+				if(labels.containsKey(currentElement.toLowerCase()))
+				    	return (int) labels.get(currentElement.toLowerCase());
 				else{
 					   errors.add("Not a valid label @line" + row + " ,position" + column);
 					   return -1;
