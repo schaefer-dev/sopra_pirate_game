@@ -115,6 +115,16 @@ public class Move implements Command {
 			break;		
 		}
 	}
+
+	private void calcAndSetShipPause(Ship ship){
+		int pause = 4;
+		if (ship.getMoral()==0)
+			pause += 2;
+		if (ship.getLoad() >= 1)
+			pause += 2;
+		ship.changePause(pause);
+	}
+	
 	
 	private void executeShipWins(Ship ship, Ship targetShip){
 		int targetCondition = targetShip.getCondition();
@@ -138,6 +148,7 @@ public class Move implements Command {
 			targetShip.changeMoral(-1);
 			targetShip.changeCondition(-1);
 			ship.getPosition().moveShip(savedShipPosition);
+			calcAndSetShipPause(ship);
 		}
 		else{
 			targetShip.changeMoral(-1);
