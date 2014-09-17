@@ -60,7 +60,7 @@ public class IfTest {
 		comps.add(boComp);
 		comps.add(boComp);
 		comps.add(boComp);
-		int i = ship.getPause();
+		int i = ship.getPC();
 		ifAll = new IfAll(comps, 10);
 		ifAll.execute(ship);
 		int j = ship.getPC();
@@ -87,7 +87,7 @@ public class IfTest {
 		comps.add(boComp);
 		comps.add(boComp);
 		comps.add(boComp);
-		int i = ship.getPause();
+		int i = ship.getPC();
 		ifAny = new IfAny(comps, 15);
 		ifAny.execute(ship);
 		int j = ship.getPC();
@@ -101,7 +101,7 @@ public class IfTest {
 		comps.add(buComp);
 		comps.add(buComp);
 		comps.add(buComp);
-		int i = ship.getPause();
+		int i = ship.getPC();
 		ifAny = new IfAny(comps, 15);
 		ifAny.execute(ship);
 		int j = ship.getPC();
@@ -115,7 +115,6 @@ public class IfTest {
 		comps.add(buComp);
 		comps.add(buComp);
 		comps.add(buComp);
-		int i = ship.getPause();
 		ifAny = new IfAny(comps, 15);
 		ifAny.execute(ship);
 		int j = ship.getPC();

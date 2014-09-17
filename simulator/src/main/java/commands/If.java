@@ -14,6 +14,10 @@ public class If implements Command {
 		{
 			throw new IllegalArgumentException("PC cannot be set to " + pc);
 		}
+		if(comparison == null)
+		{
+			throw new NullPointerException("If needs a comparison to work.");
+		}
 		this.comparison = comparison;
 		this.elsePC = pc;
 	}
