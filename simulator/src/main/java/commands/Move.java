@@ -94,8 +94,9 @@ public class Move implements Command {
 			
 		case Island: 
 			Island targetIsland=(Island)targetField;
-			ship.changeCondition(-1);
 			ship.changeMoral(-1);
+			ship.changeCondition(-1);
+			ship.setPC(elsePC);
 			if (load >= 1){
 				ship.setLoad(load-1);
 				shipField.exchangeTreasure(+1);
@@ -104,8 +105,9 @@ public class Move implements Command {
 			
 		case ProvisionIsland:
 			ProvisionIsland targetProvIsland=(ProvisionIsland)targetField;
-			ship.changeCondition(-1);
 			ship.changeMoral(-1);
+			ship.changeCondition(-1);
+			ship.setPC(elsePC);
 			if (load >= 1){
 				ship.setLoad(load-1);
 				shipField.exchangeTreasure(+1);
@@ -120,8 +122,6 @@ public class Move implements Command {
 		int targetLoad = targetShip.getLoad();
 		
 		if (targetCondition == 1){
-			System.out.print("delete targetShip and move tree\n");
-			System.out.print("old ship coordinate: "+ship.getPosition().getX()+":"+ship.getPosition().getY()+ "\n");
 			int spareRoom = 4-shipLoad;
 			int loadLater = shipLoad;
 			while ((spareRoom > 0)&&(targetLoad > 0)){
@@ -135,11 +135,9 @@ public class Move implements Command {
 			if ((targetLoad - loadLater) > 0)
 				targetShip.getPosition().exchangeTreasure(targetLoad - loadLater); // drop additional value to ground
 			Field savedShipPosition = targetShip.getPosition();
-			System.out.print("saved coordinate: "+savedShipPosition.getX()+":"+savedShipPosition.getY()+ "\n");
 			targetShip.changeMoral(-1);
 			targetShip.changeCondition(-1);
 			ship.getPosition().moveShip(savedShipPosition);
-			System.out.print("new ship coordinate: "+ship.getPosition().getX()+":"+ship.getPosition().getY()+ "\n");
 		}
 		else{
 			targetShip.changeMoral(-1);
