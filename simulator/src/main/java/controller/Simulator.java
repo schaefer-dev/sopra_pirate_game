@@ -59,26 +59,27 @@ public class Simulator {
 		File file = new File(logFile);
 		FileOutputStream stream = new FileOutputStream(file);
 		InputStream in = getClass().getResourceAsStream(mapFile);
+		
 		Scanner scanner = new Scanner(in);
 		String mapString = "";
 		while(scanner.hasNextLine())
-		{
 			mapString += scanner.nextLine() + "\n";
-		}
 		scanner.close();
+		
 		logWriter = new Log();
 	    logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapString, shipFiles);
 		
 		MapGenerator generator = new MapGenerator();
-		this.map = generator.createMap(in, teams, logWriter, new Random(seed));
-		kraken = this.map.getKraken();
+		map = generator.createMap(getClass().getResourceAsStream(mapFile), teams, logWriter, new Random(seed));
+		kraken = map.getKraken();
 		
 		logWriter.logStep();
 		
 		roundCounter = 1;
 		roundMax = turns + 1;
+		
 	}
 	
 	
