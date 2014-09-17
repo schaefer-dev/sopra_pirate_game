@@ -269,4 +269,30 @@ public class BoostCoverageTest {
 		fieldArray[1][1].setKraken(null);
 		assertEquals(null,fieldArray[1][1].getKraken());
 	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void BoostFieldClass8(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		Ship testShip = new Ship(null, null, 0, null);
+		Ship testShip2 = new Ship(null, null, 2, null);
+		Kraken testKraken1= new Kraken(0, fieldArray[1][1]);
+		Kraken testKraken2 = new Kraken(0, fieldArray[2][2]);
+		
+		fieldArray[2][2].setKraken(testKraken2);
+		fieldArray[1][1].setKraken(testKraken1);
+		fieldArray[1][1].setKraken(null);
+		fieldArray[1][1].moveKraken(fieldArray[2][2]);
+	}
 }
