@@ -57,7 +57,7 @@ public class IfTest {
 		ifCom = new If(intComp, 5);
 		ifCom.execute(ship);
 		int j = ship.getPC();
-		assertTrue(j == i + 1);
+		assertTrue(j == i);
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class IfTest {
 		ifAll = new IfAll(comps, 10);
 		ifAll.execute(ship);
 		int j = ship.getPC();
-		assertTrue(j == i + 1);
+		assertTrue(j == i);
 	}
 	
 	@Test
@@ -107,7 +107,7 @@ public class IfTest {
 		ifAny = new IfAny(comps, 15);
 		ifAny.execute(ship);
 		int j = ship.getPC();
-		assertTrue(j == i + 1);
+		assertTrue(j == i);
 	}
 	
 	@Test
@@ -121,7 +121,7 @@ public class IfTest {
 		ifAny = new IfAny(comps, 15);
 		ifAny.execute(ship);
 		int j = ship.getPC();
-		assertTrue(j == i + 1);
+		assertTrue(j == i);
 	}
 	
 	@Test
