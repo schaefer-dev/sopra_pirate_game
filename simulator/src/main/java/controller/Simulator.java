@@ -69,7 +69,6 @@ public class Simulator {
 		
 		roundCounter = 1;
 		roundMax = turns + 1;
-		
 	}
 	
 	
@@ -95,19 +94,21 @@ public class Simulator {
 		
 		logWriter.logStep();
 		roundCounter++;
-		
 	}
 	
 	public void step(int rounds) throws IllegalStateException, IOException{
 		if((rounds + roundCounter) > roundMax) throw new IllegalStateException();
 		
 		for(int i = 0; i < rounds; i++)
-			step();
-			
+			step();	
 	}
 	
 	public void end() throws IllegalStateException, IOException{
 		logWriter.close();
 		Main.endGame();
+	}
+	
+	public boolean canStep(){
+		return roundCounter <= roundMax;
 	}
 }
