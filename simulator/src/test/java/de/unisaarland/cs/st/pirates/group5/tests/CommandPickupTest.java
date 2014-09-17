@@ -6,20 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Base;
 import model.Field;
 import model.Island;
 import model.Map;
-import model.ProvisionIsland;
 import model.Ship;
-import model.Team;
 import model.Treasure;
 import model.Water;
 import model.Kraken;
 
 import org.junit.Test;
 
-import view.SimpleLogWriter;
 import commands.Pickup;
 
 public class CommandPickupTest {
@@ -89,7 +85,7 @@ public class CommandPickupTest {
 		assertEquals(1, testShip.getLoad());
 		assertEquals(4, testShip.getMoral());
 		assertEquals(5, testShip.getPC());				// PC already increased in act-method of ship
-		assertEquals(null, fieldArray[1][0].getTreasure());	
+		assertEquals(null,fieldArray[1][0].getTreasure());	
 	}
 	
 	@Test
@@ -219,7 +215,6 @@ public class CommandPickupTest {
 	public void pickup0Treasure1Moral(){
 		
 		Pickup testPickup = new Pickup(4, 10);
-		//Treasure treasure = new Treasure(5,5);
 		Random testRandom = new Random(1);	
 		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
@@ -232,7 +227,6 @@ public class CommandPickupTest {
 			}
 		}	
 		testMap.setMapValues(fieldArray, krakens);
-		//fieldArray[1][0] = new Island(testMap,1,0,treasure);
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
 		Ship testShip = new Ship(null, fieldArray[1][1], 0, null);
@@ -256,12 +250,11 @@ public class CommandPickupTest {
 	@Test
 	public void pickup5Treasure1MoralInWater(){
 		
-		Pickup testPickup = new Pickup(6, 10);
+		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
 		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
-		Treasure testTreasure = new Treasure(0,5);
 		
 		Field[][] fieldArray=new Field[3][3];
 		
@@ -297,18 +290,17 @@ public class CommandPickupTest {
 		assertEquals(4, testShip.getLoad());
 		assertEquals(3, testShip.getMoral());
 		assertEquals(5, testShip.getPC());				// else Part
-		assertEquals(2, fieldArray[1][1].getTreasure().getValue());
+		assertEquals(1, fieldArray[1][0].getTreasure().getValue());
 	}
 	
 	@Test
 	public void pickup1Treasure1MoralInWater(){
 		
-		Pickup testPickup = new Pickup(6, 10);
+		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
 		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
-		Treasure testTreasure = new Treasure(0,5);
 		
 		Field[][] fieldArray=new Field[3][3];
 		

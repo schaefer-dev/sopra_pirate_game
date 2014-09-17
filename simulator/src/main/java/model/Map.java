@@ -53,24 +53,12 @@ public class Map {
 		}
 	}
 	
-	public int giveNewActorID(){
-		try{
-			return nextFreeActorID++;
-		}
-		catch(NumberFormatException e){
-			//TODO: notify GUI
-			return nextFreeActorID;
-		}	
+	public int giveNewActorID(){	
+			return nextFreeActorID++;	
 	}
 	
 	public int giveNewEntityID(){
-		try{
-			return nextFreeEntityID++;
-		}
-		catch(NumberFormatException e){
-			//TODO: notify GUI
-			return nextFreeEntityID;
-		}		
+			return nextFreeEntityID++;	
 	}
 	
 	public LogWriter getLogWriter(){
