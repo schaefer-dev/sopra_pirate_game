@@ -337,15 +337,6 @@ public class TranslatorTools {
 		return Integer.parseInt(addr);
 	}
 	
-	
-	/** @Specs: checks if the input string equals "else" **/
-	
-	public boolean isElse(String currentElement){
-		if(currentElement.equalsIgnoreCase("else"))
-			return true;
-		return false;
-	}
-	
 	/** @Specs: returns the index of the invalid expressions first char within the initial line.**/
 	
 	public int indexOfError(int columns, String currentLine, String currentElement){
