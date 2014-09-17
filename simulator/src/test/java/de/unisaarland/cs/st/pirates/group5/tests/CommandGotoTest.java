@@ -5,8 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Field;
+import model.Map;
 import model.Ship;
 import model.Team;
+import model.Water;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +23,8 @@ public class CommandGotoTest {
 	List<Command> goList = new ArrayList<Command>();
 	Team test;
 	Ship ship;
+	Field field;
+	Map map;
 	
 	@Before
 	public void setUp(){
@@ -27,12 +32,16 @@ public class CommandGotoTest {
 		goList.add(go);
 		test = new Team('a', goList);
 		ship = new Ship(test,null,1,null);
+		map = new Map(null, new DummyLogWriter());
+		field = new Water(map, 0, 0, null);
+		field.setShip(ship);
+		ship.setField(field);
 	}
 
 	@Test
 	public void test() {
 		ship.act();
-		assertEquals("Falscher PC.",ship.getPC(),pc);
+		assertEquals("Falscher PC.",pc, ship.getPC());
 	}
 	
 	@Test
