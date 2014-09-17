@@ -77,7 +77,9 @@ public abstract class Field {
 			this.ship.setField(this);
 			return true;
 		}
-		
+		else if(this.ship != null && ship == null)
+			this.ship = null;
+			
 		return false;	
 	}
 	
@@ -108,6 +110,8 @@ public abstract class Field {
 			this.kraken.setField(this);
 			return true;
 		}
+		else if(this.kraken != null && kraken == null)
+			this.kraken = null;
 		
 		return false;
 	}

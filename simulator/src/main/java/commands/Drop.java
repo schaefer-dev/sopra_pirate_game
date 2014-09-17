@@ -20,7 +20,7 @@ public class Drop implements Command {
 		int value = ship.getLoad();
 		ship.setLoad(0);
 		field.exchangeTreasure(value);
-		if(field.getFieldType() != FieldType.Base)
+		if(field.getFieldType() != FieldType.Base && value != 0)
 		{
 			ship.changeMoral(-2);
 		}

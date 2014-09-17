@@ -176,7 +176,6 @@ public class CommandMoveTest {
 	@Test
 	public void testMoveShipEnemyWinNotsurvive(){
 		
-		System.out.print("started \n");
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(4);
@@ -184,15 +183,13 @@ public class CommandMoveTest {
 		shipenemy.changeCondition(-2);
 		
 		moveit.execute(shipme);
-		/*
+		
 		assertTrue("wrong x or y coordinate",((shipme.getPosition().getX()==waterenemy.getX())&&(shipme.getPosition().getY()==waterenemy.getY())));
 		assertTrue ("move must be succesfull, ship must changed fieds",shipme.getPosition().equals(waterenemy));
 		assertNull("move must be succesfull, ship must changed fieds",waterme.getShip());
 		assertTrue("move must be succesfull, ship must changed fieds",waterenemy.getShip().equals(shipme));
 		assertTrue ("winner ship must not changed condition",shipme.getCondition() == mecondition);
 		assertTrue("pc not in else case",shipme.getPC() != 13);
-		*/
-		System.out.print("finished \n");
 		
 	}
 	
@@ -218,6 +215,7 @@ public class CommandMoveTest {
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(-4);
+		shipme.changeCondition(-2);
 		shipenemy.changeMoral(4);
 		
 		moveit.execute(shipme);

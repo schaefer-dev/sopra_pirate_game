@@ -11,6 +11,7 @@ public class Base extends Water {
 		this.team = team;
 	}
 
+	
 	@Override
 	public boolean exchangeTreasure(int value){
 		
@@ -38,10 +39,10 @@ public class Base extends Water {
 	}
 	
 	@Override
-	public boolean setShip(Ship ship) {
-		if(ship.getTeam().equals(team))
+	public boolean setShip(Ship ship){
+		if(ship == null || ship.getTeam().equals(team))
 			return super.setShip(ship);
-
+		
 		return false;
 	}
 	
@@ -58,5 +59,4 @@ public class Base extends Water {
 	public Team getTeam(){
 		return team;
 	}
-	
 }

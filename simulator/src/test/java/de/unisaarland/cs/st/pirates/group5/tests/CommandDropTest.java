@@ -44,7 +44,7 @@ public class CommandDropTest {
 		
 		Drop testDrop = new Drop();
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -83,7 +83,7 @@ public class CommandDropTest {
 		Drop testDrop = new Drop();
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -123,7 +123,7 @@ public class CommandDropTest {
 		Drop testDrop = new Drop();
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -169,7 +169,7 @@ public class CommandDropTest {
 		Drop testDrop = new Drop();
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
