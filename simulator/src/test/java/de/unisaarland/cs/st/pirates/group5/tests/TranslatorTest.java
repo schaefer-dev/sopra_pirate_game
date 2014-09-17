@@ -1,16 +1,10 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import commands.Drop;
-import commands.Flipzero;
 import commands.Goto;
 import commands.If;
 import commands.IfAll;
@@ -21,7 +15,6 @@ import commands.Pickup;
 import commands.Refresh;
 import commands.Repair;
 import commands.Sense;
-import commands.Turn;
 import commands.Unmark;
 
 import org.junit.Test;
@@ -36,7 +29,6 @@ public class TranslatorTest {
 	
 	private Translator translator = new Translator();
 	private final static Operator LESS = Operator.Less;
-	private final static Operator GREATER = Operator.Greater;
 	private final static Operator EQUAL = Operator.Equal;
 	private final static Operator UNEQUAL = Operator.Unequal;
 	private List<String> lines;
