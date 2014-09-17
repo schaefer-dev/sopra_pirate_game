@@ -161,7 +161,7 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 5)
+				if(0 <= constant && constant <= 4)
 					return new IntComparison(operator,Register.sense_shipcondition, constant);
 				else return null;
 			}
