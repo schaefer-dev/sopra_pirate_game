@@ -30,7 +30,7 @@ public class CommandMarkTest {
 		Mark testMark1 = new Mark(1);
 		Mark testMark3 = new Mark(3);
 		
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(null, testLog);
 		Field waterField = new Water(testMap, 0,0, null);
 		
@@ -58,7 +58,7 @@ public class CommandMarkTest {
 		Mark testMark1 = new Mark(1);
 		Mark testMark3 = new Mark(3);
 		
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(null, testLog);
 		Field waterField = new Water(testMap, 0,0, null);
 		
@@ -92,7 +92,7 @@ public class CommandMarkTest {
 		Mark testMark1 = new Mark(1);
 		Mark testMark3 = new Mark(3);
 		
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(null, testLog);
 		Field waterField = new Water(testMap, 0,0, null);
 		
@@ -126,7 +126,7 @@ public class CommandMarkTest {
 		Mark testMark1 = new Mark(1);
 		Mark testMark3 = new Mark(3);
 		
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(null, testLog);
 		Field waterField = new Water(testMap, 0,0, null);
 		
@@ -168,7 +168,7 @@ public class CommandMarkTest {
 		Mark testMark1 = new Mark(1);
 		Mark testMark3 = new Mark(3);
 		
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(null, testLog);
 		Field waterField = new Water(testMap, 0,0, null);
 		
