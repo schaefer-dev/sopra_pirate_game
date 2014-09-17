@@ -70,8 +70,8 @@ public class Translator {
 		}
 	}
 	
-	/** @See: the classes main method. A Hybrid of lexer and parser, which evaluates the semantics of
-	 *  single coherent strings and builds a valid command or prints an error. Due to the tactics grammar 
+	/** @See: the class'es main method. A Hybrid of lexer and parser, which evaluates the semantics of
+	 *  single strings and builds a valid command or prints an error. Due to the tactics grammar 
 	 *  minor complexity and explicit structure, an elaborated lexer and parser were not necessary.
 	 *  
 	 *  @See: class TranslatorTools.
