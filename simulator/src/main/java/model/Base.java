@@ -52,6 +52,11 @@ public class Base extends Water {
 	}
 	
 	@Override
+	public void deleteBuoy(Team team, int value){
+		return;
+	}
+	
+	@Override
 	public FieldType getFieldType() {
 		return FieldType.Base;
 	}
