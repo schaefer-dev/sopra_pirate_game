@@ -121,6 +121,7 @@ public class Move implements Command {
 		
 		if (targetCondition == 1){
 			System.out.print("delete targetShip and move tree\n");
+			System.out.print("old ship coordinate: "+ship.getPosition().getX()+":"+ship.getPosition().getY()+ "\n");
 			int spareRoom = 4-shipLoad;
 			int loadLater = shipLoad;
 			while ((spareRoom > 0)&&(targetLoad > 0)){
@@ -138,6 +139,7 @@ public class Move implements Command {
 			targetShip.changeMoral(-1);
 			targetShip.changeCondition(-1);
 			ship.getPosition().moveShip(savedShipPosition);
+			System.out.print("new ship coordinate: "+ship.getPosition().getX()+":"+ship.getPosition().getY()+ "\n");
 		}
 		else{
 			targetShip.changeMoral(-1);
