@@ -349,15 +349,17 @@ public class Ship {
 			field.setShip(null);
 			team.deleteShip(this);
 			this.field.getMap().setFirstShip(nextShip);
-			nextShip.previousShip=null;
+			nextShip.previousShip=null;		
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+			field = null;			// important for checks in Move if ship is still alive
 		}
 		else{
 			field.setShip(null);
 			team.deleteShip(this);
 			previousShip.nextShip.setNextShip(nextShip);
-			nextShip.previousShip=previousShip;
+			nextShip.previousShip=previousShip;	
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+			field = null;
 		}
 			
 	}
