@@ -20,7 +20,6 @@ public class Sense implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		/*
 		if(ship == null) throw new NullPointerException();
 		
 		Field field = ship.getPosition().getNeigbour(direction);
@@ -73,7 +72,7 @@ public class Sense implements Command {
 			ship.setSenseRegister(Register.sense_shipcondition, Ship.undefined);
 			ship.setSenseRegister(Register.sense_shiploaded, BoolWert.False.ordinal());
 		}
-			
+
 		
 		ship.setSenseRegister(Register.sense_marker0, BoolWert.False.ordinal());
 		ship.setSenseRegister(Register.sense_marker1, BoolWert.False.ordinal());
@@ -89,7 +88,6 @@ public class Sense implements Command {
 			else
 				ship.setSenseRegister(Register.sense_enemymarker, BoolWert.True.ordinal());
 		}
-		*/
 	}
 	
 	@Override

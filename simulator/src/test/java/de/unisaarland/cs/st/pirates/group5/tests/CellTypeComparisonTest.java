@@ -58,8 +58,8 @@ public class CellTypeComparisonTest {
 		compare = new CellTypeComparison(Operator.Unequal, Register.sense_celltype, CellType.Home);
 		ship.setSenseRegister(Register.sense_celltype, CellType.Home.ordinal());
 		assertFalse(compare.eval(ship));
-		
-		compare = new CellTypeComparison(Operator.Unequal, Register.sense_celltype, CellType.Undefined);
+
+		compare = new CellTypeComparison(Operator.Unequal, Register.sense_celltype, CellType.Empty);
 		ship.setSenseRegister(Register.sense_celltype, CellType.Undefined.ordinal());
 		assertFalse(compare.eval(ship));
 		
@@ -71,10 +71,13 @@ public class CellTypeComparisonTest {
 		ship.setSenseRegister(Register.sense_celltype, CellType.Empty.ordinal());
 		assertTrue(compare.eval(ship));
 		
-		compare = new CellTypeComparison(Operator.Equal, Register.sense_celltype, CellType.Undefined);
-		ship.setSenseRegister(Register.sense_celltype, CellType.EnemyHome.ordinal());
-		assertFalse(compare.eval(ship));
-		
+		try{
+			compare = new CellTypeComparison(Operator.Equal, Register.sense_celltype, CellType.Undefined);
+			ship.setSenseRegister(Register.sense_celltype, CellType.EnemyHome.ordinal());
+			fail("You failed big time");
+		}
+		catch(IllegalArgumentException e){}
+
 		compare = new CellTypeComparison(Operator.Equal, Register.sense_celltype, CellType.Empty);
 		ship.setSenseRegister(Register.sense_celltype, CellType.Undefined.ordinal());
 		assertFalse(compare.eval(ship));

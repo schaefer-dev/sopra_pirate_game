@@ -2,6 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,7 +32,7 @@ public class ShipTypeComparisonTest {
 	private Team team;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws ArrayIndexOutOfBoundsException, NullPointerException, IOException{
 		List<Command> commands = new ArrayList<Command>();
 		team = new Team('a', commands);
 		map = new Map(new Random(), new DummyLogWriter());
@@ -47,17 +48,21 @@ public class ShipTypeComparisonTest {
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
 		assertFalse(compare.eval(ship));
 		
-		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
-		ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
-		assertFalse(compare.eval(ship));
+		try{
+			compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
+			ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
+			fail("Dude...");
+		}
+		catch(IllegalArgumentException e) {}
+
 		
-		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
-		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
-		assertFalse(compare.eval(ship));
-		
-		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
+		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Friend);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Undefined.ordinal());
-		assertTrue(compare.eval(ship));
+		assertFalse(compare.eval(ship));
+		
+		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Friend);
+		ship.setSenseRegister(Register.sense_shiptype, ShipType.Undefined.ordinal());
+		assertFalse(compare.eval(ship));
 		
 		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Friend);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
@@ -71,7 +76,7 @@ public class ShipTypeComparisonTest {
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
 		assertFalse(compare.eval(ship));
 		
-		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Undefined);
+		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Friend);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
 		assertTrue(compare.eval(ship));
 	}
