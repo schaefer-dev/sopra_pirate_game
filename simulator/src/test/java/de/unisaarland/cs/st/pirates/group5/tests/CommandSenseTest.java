@@ -58,7 +58,7 @@ public class CommandSenseTest {
 	ProvisionIsland provision = new ProvisionIsland(map,0,1);
 	Island island = new Island(map,1,0, treasure);
 	Water ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip = new Water(map,0,3,null);
-	Ship ship = new Ship(a,water,1, null);
+	Ship ship = new Ship(a,null,1, null);
 	Ship alienShip1 = new Ship(b,ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip,2,ship);
 	Base enemyBase = new Base(map,3,1,b, alienShip1);
 	Water ifYouLookOnThisFieldYouMayWitnessAFriendsShip = new Water(map,3,3,null);
@@ -96,8 +96,7 @@ public class CommandSenseTest {
 			a.addShip(alienShip2);
 			b.addShip(alienShip1);
 			
-			water.setShip(ship);
-			
+			ship.setField(homeBase);
 			ship.setLoad(3);
 	
 			alienShip1.setLoad(3);
