@@ -31,11 +31,8 @@ public class MapGenerator {
 
 	
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
-		
 		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
 		if(teams.size() < 1 || teams.size() > 26) throw new IllegalArgumentException();
-		
-
 		
 		Map map = new Map(random, log);
 		List<Kraken> kraken = new ArrayList<Kraken>();
@@ -66,12 +63,10 @@ public class MapGenerator {
 			line = line.replaceAll(" ", "");
 
 			for(int i = 0; i < line.length(); i++){
-				if(y>=height)
-					throw new IllegalArgumentException("Map is bigger than was specified in the first two lines.");
+				if(y >= height) throw new IllegalArgumentException("Map is bigger than was specified in the first two lines.");
 			
 				char c = line.charAt(i);
 				Field field;
-		
 				
 				if(c == '.'){
 					field = new Water(map, x, y, null);
@@ -93,7 +88,7 @@ public class MapGenerator {
 					kraken.add(k);
 					
 					field = new Water(map, x, y, k);
-					log.addCell(Cell.WATER, null, x, y); // null for the Team
+					log.addCell(Cell.WATER, null, x, y); // null for the team
 				}
 				else if(isTeamLetter(c, teams.size())){
 					int teamNumber = c - 'a';
@@ -139,8 +134,14 @@ public class MapGenerator {
 		
 		if(y != height) throw new IllegalArgumentException();
 		reader.close();
-		if(teams.size()>1)	
-		{
+		
+		if(teams.size() == 1) {
+			if(teams.get(0).getShipCount() <= 0)
+				throw new IllegalArgumentException("Not every team has bases/ships on the map");
+			
+			log.fleetScore(teams.get(0).getName(), 0);
+		}
+		else{
 			List<Command> tactic1 = teams.get(0).getCommands();
 			List<Command> tactic2 = teams.get(1).getCommands();
 			//Either all teams have a different tactic or all teams have the same one
@@ -190,8 +191,8 @@ public class MapGenerator {
 		
 		return false;
 	}
-	private void incrementXY(int width, int height)
-	{
+	
+	private void incrementXY(int width, int height) {
 		x++;
 		if(x >= width)
 			y++;

@@ -16,6 +16,8 @@ public class IfAll implements Command {
 		{
 			throw new IllegalArgumentException("PC cannot be set to " + pc);
 		}
+		if(clauses == null || clauses.size() == 0)
+			throw new IllegalArgumentException("IfAll needs at least one comparison to work.");
 		this.clauses = clauses;
 		this.elsePC = pc;
 	}

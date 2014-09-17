@@ -55,7 +55,7 @@ public class MapTest {
 		fields[3][0] = hinten;
 		fields[0][3] = linksObenVorne;
 		fields[3][3] = linksObenHinten;
-		
+		map.setFirstShip(first);
 		map.setMapValues(fields, krakens);
 	}
 	
@@ -66,8 +66,8 @@ public class MapTest {
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 1), rechtsUntenVorne);
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 2), rechtsUntenHinten);
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 3), hinten);
-		assertEquals("getNeighbour fail!",map.getNeighbour(water, 4), linksObenVorne);
-		assertEquals("getNeighbour fail!",map.getNeighbour(water, 5), linksObenHinten);
+		assertEquals("getNeighbour fail!",map.getNeighbour(water, 4), linksObenHinten);
+		assertEquals("getNeighbour fail!",map.getNeighbour(water, 5), linksObenVorne);
 		assertEquals("getNeighbour fail!",map.getNeighbour(geradeaus, 3), water);
 	}
 	@Test 
@@ -91,7 +91,7 @@ public class MapTest {
 			assertEquals("Not next free EntityID.",map.giveNewEntityID(),1);
 	}
 	
-	@Test (expected=Exception.class)
+	@Test
 	public void testGetTreasure(){		
 		if(linksObenHinten.getTreasure() == null)
 			fail("da muss ein Schatz liegen");

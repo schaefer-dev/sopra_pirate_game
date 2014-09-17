@@ -137,10 +137,10 @@ public class TranslatorTest {
 						+ "goto 5";
 		List<Command> sollErg = new LinkedList<Command>();
 		sollErg.add(new Sense(6));
-		Comparison comp = new IntComparison(UNEQUAL, Register.sense_treasure, 0);
+		Comparison comp = new IntComparison(UNEQUAL, Register.sense_shipdirection, 0);
 		sollErg.add(new If(comp, 7));
 		sollErg.add(new Pickup(6, 7));
-		comp = new IntComparison(UNEQUAL, 0, Register.sense_treasure);
+		comp = new IntComparison(UNEQUAL, 0, Register.sense_shipdirection);
 		sollErg.add(new If(comp, 7));
 		sollErg.add(new Mark(5));
 		sollErg.add(commands.get(6));
