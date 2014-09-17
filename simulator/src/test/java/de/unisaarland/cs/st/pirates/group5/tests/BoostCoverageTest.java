@@ -217,4 +217,56 @@ public class BoostCoverageTest {
 		
 		assertFalse("no error for wrong moveShip call", fieldArray[1][1].moveShip(fieldArray[2][2]));
 	}
+	
+	@Test
+	public void BoostFieldClass6(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		Ship testShip = new Ship(null, null, 0, null);
+		Ship testShip2 = new Ship(null, null, 2, null);
+		Kraken testKraken1= new Kraken(0, fieldArray[1][1]);
+		Kraken testKraken2 = new Kraken(0, fieldArray[2][2]);
+		
+		fieldArray[2][2].setKraken(testKraken2);
+		fieldArray[1][1].setKraken(testKraken1);
+		fieldArray[1][1].setKraken(testKraken2);
+		assertEquals(testKraken1,fieldArray[1][1].getKraken());
+	}
+	
+	@Test
+	public void BoostFieldClass7(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		Ship testShip = new Ship(null, null, 0, null);
+		Ship testShip2 = new Ship(null, null, 2, null);
+		Kraken testKraken1= new Kraken(0, fieldArray[1][1]);
+		Kraken testKraken2 = new Kraken(0, fieldArray[2][2]);
+		
+		fieldArray[2][2].setKraken(testKraken2);
+		fieldArray[1][1].setKraken(testKraken1);
+		fieldArray[1][1].setKraken(null);
+		assertEquals(null,fieldArray[1][1].getKraken());
+	}
 }
