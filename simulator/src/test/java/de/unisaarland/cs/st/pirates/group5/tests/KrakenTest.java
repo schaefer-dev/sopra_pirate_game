@@ -29,7 +29,8 @@ public class KrakenTest {
 	public void moveKrakenWaterWithoutKraken01(){
 		
 		/* no kraken on field */
-		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1!
+		Random testRandom = new Random(12);	// ergebnis des ersten Randoms ist 1! //TODO random werte nicht konstant -> test nutzlos
+		
 		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		
