@@ -58,15 +58,15 @@ public class CommandSenseTest {
 	Water water = new Water(map, 0, 3,null);
 	ProvisionIsland provision = new ProvisionIsland(map,0,1);
 	Island island = new Island(map,1,0, treasure);
-	Water enemyship = new Water(map,0,3,null);
+	Water ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip = new Water(map,0,3,null);
 	Ship ship = new Ship(a,water,1, null);
-	Ship alienShip1 = new Ship(b,enemyship,2,ship);
+	Ship alienShip1 = new Ship(b,ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip,2,ship);
 	Base enemyBase = new Base(map,3,1,b, alienShip1);
-	Water alliedship = new Water(map,3,3,null);
+	Water ifYouLookOnThisFieldYouMayWitnessAFriendsShip = new Water(map,3,3,null);
 	
 	Base homeBase = new Base(map,0,0,a, ship);	
 	
-	Ship alienShip2 = new Ship(a,alliedship,3,alienShip1);
+	Ship alienShip2 = new Ship(a,ifYouLookOnThisFieldYouMayWitnessAFriendsShip,3,alienShip1);
 		
 		@Before
 		public void setUp(){
@@ -79,11 +79,11 @@ public class CommandSenseTest {
 			senses.add(sense7);
 			senses.add(move);
 			senses.add(goto7);
-			alliedship.setShip(alienShip2);//3,3
-			alliedship.placeBuoy(3, a);
-			alliedship.placeBuoy(4, a);
-			enemyship.setShip(alienShip1);//1,0
-			enemyship.placeBuoy(5, a);
+			ifYouLookOnThisFieldYouMayWitnessAFriendsShip.setShip(alienShip2);//3,3
+			ifYouLookOnThisFieldYouMayWitnessAFriendsShip.placeBuoy(3, a);
+			ifYouLookOnThisFieldYouMayWitnessAFriendsShip.placeBuoy(4, a);
+			ifYouLookOnThisFieldYouMayWitnessAFriendsShip.setShip(alienShip1);//1,0
+			ifYouLookOnThisFieldYouMayWitnessAFriendsShip.placeBuoy(5, a);
 			water.placeBuoy(1, a);//0,3
 			water.placeBuoy(1, b);
 			water.placeBuoy(4, a);
@@ -96,6 +96,8 @@ public class CommandSenseTest {
 			a.addShip(alienShip2);
 			b.addShip(alienShip1);
 			
+			homeBase.setShip(ship);
+			
 			ship.setLoad(3);
 	
 			alienShip1.setLoad(3);
@@ -106,8 +108,8 @@ public class CommandSenseTest {
 			fields[0][1] = provision;
 			fields[3][1] = island;
 			fields[3][0] = enemyBase;
-			fields[3][3] = alliedship;
-			fields[1][0] = enemyship;
+			fields[3][3] = ifYouLookOnThisFieldYouMayWitnessAFriendsShip;
+			fields[1][0] = ifYouLookOnThisFieldYouMayWitnessAFriendsShip;
 			fields[0][3] = water;
 	
 			map.setMapValues(fields, new ArrayList<Kraken>());
