@@ -307,14 +307,16 @@ public class CommandMoveTest {
 	@Test
 	public void testMoveIsland(){
 		
-		shipme.changePause(-4);
 		
+		shipme.changePause(-20);//simuliert warten zwischen den zügen
 		shipme.changeDirection(true);
 		shipme.changeDirection(true);
 		
 		moveit.execute(shipme);
+		shipme.changePause(-4);//simuliert warten zwischen den zügen
 		
 		shipme.changeDirection(true);
+		
 		
 		moveit.execute(shipme);
 		
@@ -322,7 +324,7 @@ public class CommandMoveTest {
 		assertTrue("must loose condition",shipme.getCondition() == (mecondition-1));
 		assertTrue ("must loose treasure", shipme.getLoad() <= meload);
 		assertTrue("move not succesfull, else case",shipme.getPC() == 13);
-		assertTrue ("pause must be 0", shipme.getPause() == 0);
+		assertEquals (0, shipme.getPause());
 		
 	}
 	
