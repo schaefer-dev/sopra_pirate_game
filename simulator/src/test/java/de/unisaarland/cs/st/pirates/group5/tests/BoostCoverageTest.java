@@ -10,6 +10,7 @@ import model.Field;
 import model.Map;
 import model.CellType;
 import model.Register;
+import model.Ship;
 import model.ShipType;
 import model.Treasure;
 import model.Kraken;
@@ -104,6 +105,7 @@ public class BoostCoverageTest {
 		testMap.getFirstShip();
 		testMap.setFirstShip(null);
 	}
+	
 	@Test(expected = NullPointerException.class)
 	public void BoostMapClass4(){
 		Random testRandom = new Random();
@@ -119,5 +121,100 @@ public class BoostCoverageTest {
 			}
 		}	
 		testMap.setMapValues(null, kraken);
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void BoostFieldClass1(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		Water testWater = new Water(null, 0, 0, null);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void BoostFieldClass2(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		Water testWater = new Water(testMap, -5, 300, null);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void BoostFieldClass3(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		fieldArray[1][1].exchangeTreasure(-10);
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void BoostFieldClass4(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		fieldArray[1][1].moveShip(fieldArray[2][2]);
+	}
+	
+	@Test
+	public void BoostFieldClass5(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		Ship testShip = new Ship(null, null, 0, null);
+		Ship testShip2 = new Ship(null, null, 2, null);
+		fieldArray[1][1].setShip(testShip);
+		fieldArray[2][2].setShip(testShip2);
+		
+		assertFalse("no error for wrong moveShip call", fieldArray[1][1].moveShip(fieldArray[2][2]));
 	}
 }
