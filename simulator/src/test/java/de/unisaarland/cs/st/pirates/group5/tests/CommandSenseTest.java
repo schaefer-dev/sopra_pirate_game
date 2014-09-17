@@ -24,7 +24,6 @@ import model.Register;
 import org.junit.Before;
 import org.junit.Test;
 
-import view.SimpleLogWriter;
 import commands.Goto;
 import commands.Move;
 import commands.Sense;
@@ -88,15 +87,16 @@ public class CommandSenseTest {
 			water.placeBuoy(1, b);
 			water.placeBuoy(4, a);
 			water.placeBuoy(2, a);
-			homeBase.setShip(ship);
 			
-			ship.setField(homeBase);
+			ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip.setShip(alienShip1);
+			
+			alienShip1.setField(ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip);
 			
 			a.addShip(ship);
 			a.addShip(alienShip2);
 			b.addShip(alienShip1);
 			
-			homeBase.setShip(ship);
+			water.setShip(ship);
 			
 			ship.setLoad(3);
 	
