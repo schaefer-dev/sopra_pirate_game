@@ -26,7 +26,7 @@ public class Base extends Water {
 	
 	@Override
 	public FieldType getFieldType() {
-		return FieldType.Water;
+		return FieldType.Base;
 	}
 	
 	public Team getTeam(){

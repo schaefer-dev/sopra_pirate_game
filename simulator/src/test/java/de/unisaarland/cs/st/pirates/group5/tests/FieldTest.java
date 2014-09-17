@@ -241,7 +241,7 @@ public class FieldTest {
 	@Test 
 	public void testKrakenInit()
 	{
-		assertSame("The field of Kraken was not set correctly in the Constructor of Water",hinten, kraken.getField());
+		assertSame("The field of Kraken was not set correctly in the Constructor of Water,", hinten, kraken.getField());
 	}
 	
 	@Test
