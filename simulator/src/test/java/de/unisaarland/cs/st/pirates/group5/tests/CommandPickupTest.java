@@ -2,6 +2,8 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.Base;
@@ -13,6 +15,7 @@ import model.Ship;
 import model.Team;
 import model.Treasure;
 import model.Water;
+import model.Kraken;
 
 import org.junit.Test;
 
@@ -20,7 +23,7 @@ import view.SimpleLogWriter;
 import commands.Pickup;
 
 public class CommandPickupTest {
-	/*
+	/**
 	 * pickup mit schiffladung =0 und Insel = 1
 	 * 
 	 * pickup auf falsches Feld (keine Island)
@@ -42,7 +45,9 @@ public class CommandPickupTest {
 	 * lastPositiveActionCounter not important here, already tested in changemoral!
 	 * 
 	 * moraländerungen testen (+ keine wenn fehlschlägt)
-	 */
+	 **/
+	
+	List<Kraken> krakens = new ArrayList<Kraken>();
 
 	@Test
 	public void pickup1Treasure3Moral(){
@@ -61,7 +66,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -104,7 +109,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -145,7 +150,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -186,7 +191,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -226,7 +231,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -265,7 +270,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
@@ -273,7 +278,7 @@ public class CommandPickupTest {
 		
 		assertTrue(fieldArray[0][0].getTreasure()==null);
 		
-		fieldArray[1][0].exchangeTreasure(5);
+		fieldArray[1][0].exchangeTreasure(4);
 		
 		assertTrue(fieldArray[1][0].getTreasure()!=null);
 		
@@ -312,7 +317,7 @@ public class CommandPickupTest {
 				fieldArray[z][i]=new Island(testMap,z,i,null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, krakens);
 		
 		fieldArray[1][1]=new Water(testMap, 1, 1, null);
 		
