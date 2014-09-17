@@ -52,7 +52,7 @@ public class SimpleLogWriter implements LogWriter {
 		startTime = System.nanoTime();
 		
 		//Read map size
-		int i = arg1.indexOf(' ');		
+		int i = arg1.indexOf(' ');
 		String first = arg1.substring(0, i);
 		String rest = arg1.substring(i);
 		rest = rest.substring(1);
