@@ -211,13 +211,17 @@ public class Ship {
 	}
 	
 	public void changePause(int i){
+		int pauseBefore = getPause();
 		if (pause>0)
 			throw new IllegalStateException("pause increase while pause has not even reached 0");
 		if (i == 0)
 			return;
 		
 		pause += i;
-		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.RESTING, pause);
+		if (pause<0)
+			pause = 0;
+		if (pauseBefore != pause)
+			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.RESTING, pause);
 		
 	}
 	
