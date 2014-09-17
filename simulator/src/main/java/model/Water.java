@@ -19,8 +19,15 @@ public class Water extends Field {
 
 	@Override
 	public boolean placeBuoy(int type, Team team) {
-		// TODO Auto-generated method stub
-		return false;
+		if (team == null){
+			return false;
+			}
+		else {
+			Buoy newbuoy = new Buoy(this.getMap().giveNewEntityID(), team, type);
+			this.buoys.add(newbuoy);
+			return true;
+		}
+		
 	}
 
 	@Override
