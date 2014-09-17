@@ -55,7 +55,6 @@ public class Sense implements Command {
 		
 		Ship otherShip;
 		if((otherShip = field.getShip()) != null){
-			System.out.println("hey");
 			if(otherShip.getTeam().equals(ship.getTeam()))
 				ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());	
 			else

@@ -86,10 +86,10 @@ public class CommandPickupTest {
 		testPickup.equals(testPickup);
 		testPickup.equals(null);
 		
-		assertTrue(testShip.getLoad()==1);
-		assertTrue(testShip.getMoral()==4);
-		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
-		assertTrue(fieldArray[1][0].getTreasure()==null);	
+		assertEquals(1, testShip.getLoad());
+		assertEquals(4, testShip.getMoral());
+		assertEquals(5, testShip.getPC());				// PC already increased in act-method of ship
+		assertEquals(null, fieldArray[1][0].getTreasure());	
 	}
 	
 	@Test
@@ -127,10 +127,10 @@ public class CommandPickupTest {
 		
 		testPickup.execute(testShip);
 		
-		assertTrue(testShip.getLoad()==1);
-		assertTrue(testShip.getMoral()==3);
-		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
-		assertTrue(fieldArray[1][0].getTreasure()==null);
+		assertEquals(1, testShip.getLoad());
+		assertEquals(3, testShip.getMoral());
+		assertEquals(5, testShip.getPC());				// PC already increased in act-method of ship
+		assertEquals(null, fieldArray[1][0].getTreasure());
 	}
 	
 	@Test
@@ -168,10 +168,10 @@ public class CommandPickupTest {
 		
 		testPickup.execute(testShip);
 		
-		assertTrue(testShip.getLoad()==4);
-		assertTrue(testShip.getMoral()==3);
-		assertTrue(testShip.getPC()==5);				// PC already increased in act-method of ship
-		assertTrue(fieldArray[1][0].getTreasure().getValue()==1);
+		assertEquals(4, testShip.getLoad());
+		assertEquals(3, testShip.getMoral());
+		assertEquals(5, testShip.getPC());				// PC already increased in act-method of ship
+		assertEquals(1, fieldArray[1][0].getTreasure().getValue());
 	}
 	
 	@Test
@@ -209,10 +209,10 @@ public class CommandPickupTest {
 		
 		testPickup.execute(testShip);
 		
-		assertTrue(testShip.getLoad()==4);
-		assertTrue(testShip.getMoral()==1);
-		assertTrue(testShip.getPC()==10);				// else Part
-		assertTrue(fieldArray[1][0].getTreasure().getValue()==5);
+		assertEquals(4, testShip.getLoad());
+		assertEquals(1, testShip.getMoral());
+		assertEquals(10, testShip.getPC());				// else Part
+		assertEquals(5, fieldArray[1][0].getTreasure().getValue());
 	}
 	
 	@Test
@@ -247,9 +247,9 @@ public class CommandPickupTest {
 		
 		testPickup.execute(testShip);
 		
-		assertTrue(testShip.getLoad()==1);
-		assertTrue(testShip.getMoral()==1);
-		assertTrue(testShip.getPC()==10);				// else Part
+		assertEquals(1, testShip.getLoad());
+		assertEquals(1, testShip.getMoral());
+		assertEquals(10, testShip.getPC());				// else Part
 		//assertTrue(fieldArray[1][0].getTreasure().getValue()==5);
 	}
 	
@@ -294,10 +294,10 @@ public class CommandPickupTest {
 		
 		testPickup.execute(testShip);
 		
-		assertTrue(testShip.getLoad()==4);
-		assertTrue(testShip.getMoral()==3);
-		assertTrue(testShip.getPC()==5);				// else Part
-		assertTrue(fieldArray[1][1].getTreasure().getValue()==2);
+		assertEquals(4, testShip.getLoad());
+		assertEquals(3, testShip.getMoral());
+		assertEquals(5, testShip.getPC());				// else Part
+		assertEquals(2, fieldArray[1][1].getTreasure().getValue());
 	}
 	
 	@Test
@@ -341,10 +341,10 @@ public class CommandPickupTest {
 		
 		testPickup.execute(testShip);
 		
-		assertTrue(testShip.getLoad()==2);
-		assertTrue(testShip.getMoral()==3);
-		assertTrue(testShip.getPC()==5);				// else Part
-		assertTrue(fieldArray[1][1].getTreasure()==null);
+		assertEquals(2, testShip.getLoad());
+		assertEquals(3, testShip.getMoral());
+		assertEquals(5, testShip.getPC());				// else Part
+		assertEquals(null, fieldArray[1][1].getTreasure());
 	}
 	
 	

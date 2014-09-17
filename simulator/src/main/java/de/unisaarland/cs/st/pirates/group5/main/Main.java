@@ -8,6 +8,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		
+		
 		int turns = 10000;
 		int counter = 0;
 		

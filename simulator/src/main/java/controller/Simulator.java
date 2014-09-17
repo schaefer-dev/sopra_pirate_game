@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import de.unisaarland.cs.st.pirates.group5.main.Main;
 import view.GUIController;
 import view.Log;
 import view.SimpleLogWriter;
@@ -107,5 +108,6 @@ public class Simulator {
 	
 	public void end() throws IllegalStateException, IOException{
 		logWriter.close();
+		Main.endGame();
 	}
 }

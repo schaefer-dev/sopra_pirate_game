@@ -50,18 +50,22 @@ public class Ship {
 	}
 	
 	public void act(){
-		int oldpc=pc;
-		pc+=1;
-		noPositivActionCounter+=1;
 		
-		team.getCommands().get(oldpc).execute(this);
-		if (noPositivActionCounter==40){
-			this.changeMoral(-1);
-			noPositivActionCounter=0;
+		if (pause == 0){
+			int oldpc=pc;
+			pc+=1;
+			noPositivActionCounter+=1;
+			
+			team.getCommands().get(oldpc).execute(this);
+			if (noPositivActionCounter==40){
+				this.changeMoral(-1);
+				noPositivActionCounter=0;
+			}
+			if (pc!=oldpc)
+				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 		}
-		if (pc!=oldpc)
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
-		
+		else
+			changePause(-1);
 	}
 
 	
