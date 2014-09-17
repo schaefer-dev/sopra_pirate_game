@@ -89,7 +89,7 @@ public class CommandPickupTest {
 		assertEquals(1, testShip.getLoad());
 		assertEquals(4, testShip.getMoral());
 		assertEquals(5, testShip.getPC());				// PC already increased in act-method of ship
-		assertEquals(null, fieldArray[1][0].getTreasure());	
+		assertEquals(null,fieldArray[1][0].getTreasure());	
 	}
 	
 	@Test
@@ -256,7 +256,7 @@ public class CommandPickupTest {
 	@Test
 	public void pickup5Treasure1MoralInWater(){
 		
-		Pickup testPickup = new Pickup(6, 10);
+		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
 		DummyLogWriter testLog = new DummyLogWriter();
@@ -297,13 +297,13 @@ public class CommandPickupTest {
 		assertEquals(4, testShip.getLoad());
 		assertEquals(3, testShip.getMoral());
 		assertEquals(5, testShip.getPC());				// else Part
-		assertEquals(2, fieldArray[1][1].getTreasure().getValue());
+		assertEquals(1, fieldArray[1][0].getTreasure().getValue());
 	}
 	
 	@Test
 	public void pickup1Treasure1MoralInWater(){
 		
-		Pickup testPickup = new Pickup(6, 10);
+		Pickup testPickup = new Pickup(4, 10);
 		
 		Random testRandom = new Random(1);	
 		DummyLogWriter testLog = new DummyLogWriter();
