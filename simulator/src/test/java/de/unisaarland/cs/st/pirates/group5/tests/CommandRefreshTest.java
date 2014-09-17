@@ -24,7 +24,6 @@ import commands.Drop;
 import commands.Pickup;
 import commands.Refresh;
 
-
 public class CommandRefreshTest {
 	private List<Kraken> kraken = new LinkedList<Kraken>();
 	
@@ -32,7 +31,6 @@ public class CommandRefreshTest {
 	public void refreshProvisionIsland01(){
 		
 		Refresh testRefresh = new Refresh(4, 10);
-		
 		Random testRandom = new Random(1);	
 		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
