@@ -52,9 +52,9 @@ public class Sense implements Command {
 		else
 			ship.setSenseRegister(Register.sense_treasure, BoolWert.False.ordinal());
 		
-		
 		Ship otherShip;
 		if((otherShip = field.getShip()) != null){
+		
 			if(otherShip.getTeam().equals(ship.getTeam()))
 				ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());	
 			else

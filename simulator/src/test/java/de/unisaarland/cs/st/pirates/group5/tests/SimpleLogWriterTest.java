@@ -24,7 +24,7 @@ public class SimpleLogWriterTest {
 		FileOutputStream stream = new FileOutputStream(file);
 		Log log = new Log();
 		log.addLogger(new SimpleLogWriter());
-		log.addLogger(new GUIController());
+		//log.addLogger(new GUIController());
 		
 		String map = "4 3 \n# # # \n. . . \n# # #";
 		
