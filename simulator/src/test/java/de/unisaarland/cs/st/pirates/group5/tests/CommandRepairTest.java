@@ -93,15 +93,15 @@ public class CommandRepairTest {
 		assertEquals("Condition of ship should not have changed.", 1, ship.getCondition());
 		assertEquals("Ship should not have to pause because repair failed.",0,ship.getPause());
 		assertEquals("Programm counter should have been changed to 12", 12, ship.getPC());
-		assertTrue("not the right logger Methods where called",log.what.size()==1 &&  log.what.remove("notify"));
-		assertTrue("during logging the wrong entity was passed on.", log.entities.size()==1 && log.entities.remove(Entity.SHIP));
-		List<Integer> vals = log.getValues();
-		Integer nul = new Integer (0);
-		assertTrue(vals.remove(nul) && vals.remove(new Integer(12)) && vals.remove(new Integer(Key.PC.ordinal())));
+		
+		
 	}
 	@Test
 	public void testWrongField()
 	{
+		field = new Water(map, 0,0, null);
+		field.setShip(ship);
+		ship.setField(field);
 		teamA.addLoot(4);
 		log.entities.clear();
 		log.values.clear();
@@ -111,11 +111,7 @@ public class CommandRepairTest {
 		assertEquals("Condition of ship should not have changed.", 3, ship.getCondition());
 		assertEquals("Ship should not have to pause because repair failed.",0,ship.getPause());
 		assertEquals("Programm counter should have been changed to 12", 12, ship.getPC());
-		assertTrue("not the right logger Methods where called",log.what.size()==1 &&  log.what.remove("notify"));
-		assertTrue("during logging the wrong entity was passed on.", log.entities.size()==1 && log.entities.remove(Entity.SHIP));
-		List<Integer> vals = log.getValues();
-		Integer nul = new Integer (0);
-		assertTrue(vals.remove(nul) && vals.remove(new Integer(12)) && vals.remove(new Integer(Key.PC.ordinal())));
+		
 	}
 	
 	@Test
