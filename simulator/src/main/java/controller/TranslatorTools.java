@@ -36,7 +36,7 @@ public class TranslatorTools {
 					operator = Operator.Greater;
 				}	
 			}else if(condition.contains("<")){
-				String comp = condition.substring(0, condition.indexOf(">"));
+				String comp = condition.substring(0, condition.indexOf("<"));
 				if(isInteger(comp) || comp.equalsIgnoreCase("undefined") || comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
 				|| comp.equalsIgnoreCase("home") || comp.equalsIgnoreCase("enemyhome") || comp.equalsIgnoreCase("island") || comp.equalsIgnoreCase("empty")){					
 					operand2  = condition.substring(0, condition.indexOf("<"));
@@ -71,7 +71,7 @@ public class TranslatorTools {
 				}
 			}	
 		}
-		
+
 		switch (Register.valueOf(condition)){
 		
 		case sense_shiploaded: //bool
@@ -341,7 +341,7 @@ public class TranslatorTools {
 	/** @Specs: checks if the input string equals "else" **/
 	
 	public boolean isElse(String currentElement){
-		if(currentElement == "else")
+		if(currentElement.equalsIgnoreCase("else"))
 			return true;
 		return false;
 	}

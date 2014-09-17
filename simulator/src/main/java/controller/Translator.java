@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import commands.Drop;
+import commands.Flipzero;
 import commands.Goto;
 import commands.If;
 import commands.IfAll;
@@ -80,7 +81,6 @@ public class Translator {
 	 * @Error: prints error**/
 	
 	private Command translate(String line){
-		System.out.println(line);
 
 		List<String> conditions = new ArrayList<String>();
 		List<Comparison> bools = new ArrayList<Comparison>();
@@ -106,7 +106,7 @@ public class Translator {
 			
 			case TURN:
 				makeSplits(appendix);
-				if(currentElement == "left")
+				if(currentElement.equalsIgnoreCase("left"))
 					if(appendix == null || appendix.isEmpty())
 						return new Turn(true);
 					else{
@@ -114,14 +114,14 @@ public class Translator {
 						break;
 					}						
 					
-				if(currentElement == "right")
+				if(currentElement.equalsIgnoreCase("right"))
 					if(appendix == null)
 						return new Turn(false);
 					else{
 						overloadError();
 						break;
 					}
-				errors.add("Not a valid direction @line " + row + " @position "
+				errors.add(currentElement + "is not a valid direction @line " + row + " @position "
 																	+ column);
 				break;
 					   
@@ -179,7 +179,7 @@ public class Translator {
 				makeSplits(appendix);
 				if(toolBox.isInteger(currentElement)){
 					type = toolBox.toInt(currentElement);
-					if(0 <= type && type <= 5){
+					if(0 <= type && type <= 6){
 						if(appendix == null || appendix.isEmpty())
 							return new Sense(type);
 						else{
@@ -205,8 +205,8 @@ public class Translator {
 							overloadError();
 							break;
 						}					}else{
-						errors.add("not a valid address or label @line " + row + " @position "
-																	+ toolBox.indexOfError(columns, appendix, currentElement));
+						errors.add("not a valid address or label @line " + row + " @position " +
+																	(columns - currentElement.length()));
 						break;
 					}
 				}
@@ -314,7 +314,7 @@ public class Translator {
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									if(appendix == null || appendix.isEmpty())
-										return new Pickup(type,evaluateAddress(currentElement));
+										return new Flipzero(type,evaluateAddress(currentElement));
 									else{
 										overloadError();
 										break;
@@ -467,6 +467,7 @@ public class Translator {
 	public List<Command> run(InputStream tacticFile){
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 		row = 0;
+		errors.clear();
 					try {
 				if (labelized){
 					while(tacticdoc.readLine() != null){
@@ -479,17 +480,13 @@ public class Translator {
 				row = 0;
 				}
 						
-				while(tacticdoc.readLine() != null){
+				while(true){
 					String currentLine = tacticdoc.readLine();
-					if(row <= 1999){
-						if(currentLine == null) 
-							continue;
-						else 
-							tactic.add(translate(currentLine));
-					row++;
-					}else
+					if(currentLine == null || row > 1999)
 						break;
-					
+				//	System.out.println(row+": " + currentLine);
+					tactic.add(translate(currentLine));	
+					row++;
 				}
 				
 				/*if (errors.size() > 0){
@@ -502,6 +499,9 @@ public class Translator {
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}
+		System.out.println(errors.size());
+		if (errors.size() > 0)
+			throw new IllegalArgumentException(errors.get(0));
 		return tactic;
 	}
 	
