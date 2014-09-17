@@ -47,17 +47,21 @@ public class ShipTypeComparisonTest {
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
 		assertFalse(compare.eval(ship));
 		
-		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
-		ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
-		assertFalse(compare.eval(ship));
+		try{
+			compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
+			ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
+			fail("Dude...");
+		}
+		catch(IllegalArgumentException e) {}
+
 		
-		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
-		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
-		assertFalse(compare.eval(ship));
-		
-		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Undefined);
+		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Friend);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Undefined.ordinal());
 		assertTrue(compare.eval(ship));
+		
+		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Friend);
+		ship.setSenseRegister(Register.sense_shiptype, ShipType.Undefined.ordinal());
+		assertFalse(compare.eval(ship));
 		
 		compare = new ShipTypeComparison(Operator.Equal, Register.sense_shiptype, ShipType.Friend);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());
@@ -71,7 +75,7 @@ public class ShipTypeComparisonTest {
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
 		assertFalse(compare.eval(ship));
 		
-		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Undefined);
+		compare = new ShipTypeComparison(Operator.Unequal, Register.sense_shiptype, ShipType.Friend);
 		ship.setSenseRegister(Register.sense_shiptype, ShipType.Enemy.ordinal());
 		assertTrue(compare.eval(ship));
 	}

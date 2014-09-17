@@ -146,25 +146,19 @@ public class IfTest {
 			ifCom = new If(null, 5);
 			fail(message);
 		}
-		catch(Exception e){
-			assertTrue(true);
-		}
+		catch(Exception e) {}
 		
 		try{
 			ifAll = new IfAll(null, 5);
 			fail(message);
 		}
-		catch(Exception e){
-			assertTrue(true);
-		}
+		catch(Exception e) {}
 		
 		try{
 			ifAny = new IfAny(null, 5);
 			fail(message);
 		}
-		catch(Exception e){
-			assertTrue(true);
-		}	
+		catch(Exception e) {}	
 	}
 	
 	@Test
@@ -176,24 +170,18 @@ public class IfTest {
 			ifCom = new If(null, -1);
 			fail(message);
 		}
-		catch(Exception e){
-			assertTrue(true);
-		}
+		catch(Exception e) {}
 		
 		try{
 			ifAll = new IfAll(null, -1);
 			fail(message);
 		}
-		catch(Exception e){
-			assertTrue(true);
-		}
+		catch(Exception e) {}
 		
 		try{
 			ifAny = new IfAny(null, -1);
 			fail(message);
 		}
-		catch(Exception e){
-			assertTrue(true);
-		}	
+		catch(Exception e) {}	
 	}
 }
