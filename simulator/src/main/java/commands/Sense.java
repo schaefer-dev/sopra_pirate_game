@@ -22,7 +22,7 @@ public class Sense implements Command {
 	public void execute(Ship ship) {
 		if(ship == null) throw new NullPointerException();
 		
-		Field field = ship.getPosition().getNeigbour(direction);
+		Field field = ship.getPosition().getNeigbour(ship.relativeToAbsoluteDirection(direction));
 		CellType cell = null;
 		
 		ship.setSenseRegister(Register.sense_supply, BoolWert.False.ordinal());
@@ -55,6 +55,7 @@ public class Sense implements Command {
 		
 		Ship otherShip;
 		if((otherShip = field.getShip()) != null){
+			System.out.println("hey");
 			if(otherShip.getTeam().equals(ship.getTeam()))
 				ship.setSenseRegister(Register.sense_shiptype, ShipType.Friend.ordinal());	
 			else
