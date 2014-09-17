@@ -402,20 +402,20 @@ public class Translator {
 		return null;
 	}
 	
-	/** @Specs: prints error, whether there are too many arguments in a single line**/
+	/** @see: prints errors, whether there are too many arguments in a single line**/
 	
 	private void overloadTest() {
 		if(appendix != null)
 			errors.add("Too many arguments @line " + row);
 	}
 
-	/** @Specs: takes a tactics file, invokes translate(String string) on every line and creates a team tactics
+	/** @See: hatches the given tactics file to method translate line by line. 
 	 * 
-	 * @Param: the inputstream of the tactics file
+	 *  @Param: a tactics file as input stream. 
 	 * 
-	 * @Return: a list of commands
+	 *  @Return: a list of commands
 	 * 
-	 * @Error: throws illegalArgumentException on empty broken inputstreams.**/
+	 *  @Exception: throws illegalArgumentException, if the input stream is broken or errors.size() is greater than zero.**/
 	
 	public List<Command> run(InputStream tacticFile){
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
@@ -465,7 +465,7 @@ public class Translator {
 	
 	/** @Param: the current word in the line.
 	 * 
-	 * @Return: the specified jump address as int or -1 whether the word is out of bounds or not a label.**/
+	 *  @Return: the specified jump address as int or -1 whether the word is out of bounds or not a label.**/
 	
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
