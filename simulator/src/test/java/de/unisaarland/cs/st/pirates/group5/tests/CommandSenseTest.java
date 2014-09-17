@@ -208,7 +208,6 @@ public class CommandSenseTest {
 			shipAtNullNull.act();
 			shipAtNullNull.act();
 			shipAtNullNull.act();
-			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Home.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker1),BoolWert.False.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker2),BoolWert.False.ordinal());
