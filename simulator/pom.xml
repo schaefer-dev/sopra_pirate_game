@@ -11,6 +11,14 @@
 	<inceptionYear>2014</inceptionYear>
 	<developers>
 <developer>
+<id>theis</id>
+<name>Rafael Theis</name>
+<email>s9rathei@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
 <id>meyer</id>
 <name>Andreas Meyer</name>
 <email>s9anmey2@stud.uni-saarland.de</email>
@@ -42,24 +50,27 @@
 <role>Developer</role>
 </roles>
 <timezone>2</timezone>
-</developer><developer>
-<id>theis</id>
-<name>Rafael Theis</name>
-<email>s9rathei@stud.uni-saarland.de</email>
-<roles>
-<role>Developer</role>
-</roles>
-<timezone>2</timezone>
 </developer>
 	</developers>
-	<profiles>
+        <profiles>
                 <profile>
+                        <id>antilint</id>
                         <activation>
                                 <jdk>1.8</jdk>
                         </activation>
                         <properties>
                                 <disablelint>-Xdoclint:none</disablelint>
                         </properties>
+                </profile>
+                <profile>
+                        <id>integration</id>
+                        <dependencies>
+                                <dependency>
+                                        <groupId>de.unisaarland.cs.st.pirates</groupId>
+                                        <artifactId>logger-binary</artifactId>
+                                        <version>0.1-SNAPSHOT</version>
+                                </dependency>
+                        </dependencies>
                 </profile>
         </profiles>
 	<properties>
