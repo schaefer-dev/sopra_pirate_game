@@ -80,6 +80,8 @@ public class Translator {
 	 * @Error: prints error**/
 	
 	private Command translate(String line){
+		System.out.println(line);
+
 		List<String> conditions = new ArrayList<String>();
 		List<Comparison> bools = new ArrayList<Comparison>();
 		Comparison comparison = null;
@@ -87,9 +89,9 @@ public class Translator {
 								//in a optional error statement.
 		int type = -1;
 		boolean checkBools = true;
-		if(line.contains(";"))  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
+		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
-	
+		}
 		makeSplits(line);
 
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
