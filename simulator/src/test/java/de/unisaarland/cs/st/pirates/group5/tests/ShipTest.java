@@ -476,7 +476,7 @@ public class ShipTest {
 	}
 	
 
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= IllegalStateException.class)
 	public void testChangePause4(){
 		random = new Random(1);	
 		testlog = new DummyLogWriter();
@@ -488,9 +488,9 @@ public class ShipTest {
 		Field field = new Water(map, 0, 0, null);
 		ship = new Ship(team, field, 0, null);
 		field.setShip(ship);
+		ship.changePause(4);
 		
-		
-		ship.changePause(-9);
+		ship.changePause(4);
 		
 		assertTrue ("ChangePause: Pause must not be < 0", ship.getPause() == 0);
 		assertTrue (testlog.what.remove("notify"));
