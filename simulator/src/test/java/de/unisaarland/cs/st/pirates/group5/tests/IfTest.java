@@ -2,11 +2,18 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
+import model.Base;
+import model.Field;
+import model.Map;
 import model.Register;
 import model.Ship;
+import model.Team;
+import model.Water;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +22,7 @@ import commands.If;
 import commands.IfAll;
 import commands.IfAny;
 import controller.BoolComparison;
+import controller.Command;
 import controller.Comparison;
 import controller.IntComparison;
 import controller.Operator;
@@ -30,9 +38,17 @@ public class IfTest {
 	private BoolComparison boComp = new BoolComparison(Register.sense_enemymarker, true);
 	private BoolComparison buComp = new BoolComparison(Register.sense_enemymarker, false);
 	
+	private Map map;
+	private Field field;
+	private Team team;
 	@Before
 	public void setUp(){
-		ship = new Ship(null, null, 0, null);	
+		List<Command> commands = new ArrayList<Command>();
+		team = new Team('a', commands);
+		map = new Map(new Random(), new DummyLogWriter());
+		ship = new Ship(team, null, 0, null);	
+		field = new Base(map, 0, 0, team, ship);
+		ship.setField(field);
 	}
 	
 	@Test

@@ -71,9 +71,7 @@ public class Map {
 		catch(NumberFormatException e){
 			//TODO: notify GUI
 			return nextFreeEntityID;
-		}	
-		
-		
+		}		
 	}
 	
 	public LogWriter getLogWriter(){
@@ -99,7 +97,6 @@ public class Map {
 	}
 	
 	public void setMapValues(Field[][] field, List<Kraken> kraken){
-
 		if(field == null || kraken == null) throw new NullPointerException();
 		if(field.length < 2 || field[0].length < 2 || field.length > 200 || field[0].length > 200) throw new IllegalArgumentException();
 		
