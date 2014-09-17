@@ -1,5 +1,8 @@
 package commands;
 
+import java.util.List;
+
+import model.Buoy;
 import model.Ship;
 import controller.Command;
 
@@ -13,7 +16,29 @@ public class Unmark implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
+
+		boolean contains = false;
+		
+		List<Buoy> buoys = ship.getPosition().getBuoys();
+		
+		if (buoys.size() == 0){ contains = false;}
+		
+		else {
+			
+		for (Buoy curr : buoys){
+			if ((curr.getType() == type) && (curr.getTeam().equals(ship.getTeam()))){
+				contains = true;
+			}
+		}
+		}
+		
+		
+		
+		if (contains){
+			ship.getPosition().deleteBuoy(ship.getTeam(), type);
+		}
+		//else {
+		//	ship.getPosition().deleteBuoy(null, 0);}
 
 	}
 	@Override
