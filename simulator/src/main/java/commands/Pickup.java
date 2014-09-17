@@ -18,9 +18,13 @@ public class Pickup implements Command {
 	public void execute(Ship ship) {
 		Field field= ship.getPosition().getNeigbour(ship.relativeToAbsoluteDirection(direction));
 		if (field.getTreasure() != null){
-				int value = 4 - ship.getLoad();
-				System.out.println(value);
+				int loaded = ship.getLoad();
+				int value = 4 - loaded;
 				field.exchangeTreasure(value);
+				if(field.getTreasure().getValue() >= value)
+					ship.setLoad(value + loaded);
+				else
+					ship.setLoad(loaded + field.getTreasure().getValue());
 		}else ship.setPC(elsePC);
 	}
 	@Override
