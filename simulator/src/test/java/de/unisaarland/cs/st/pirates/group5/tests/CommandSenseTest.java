@@ -49,8 +49,8 @@ public class CommandSenseTest {
 	
 	Field[][] fields = new Field[4][4];
 	Random random;
-	SimpleLogWriter simpleLog = new SimpleLogWriter();
-	Map map = new Map(random,simpleLog);
+	DummyLogWriter dummyLog = new DummyLogWriter();
+	Map map = new Map(random,dummyLog);
 	
 	Water water = new Water(map, 0, 3,null);
 	ProvisionIsland provision = new ProvisionIsland(map,0,1);

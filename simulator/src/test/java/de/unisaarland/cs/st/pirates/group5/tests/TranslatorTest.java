@@ -470,7 +470,36 @@ public class TranslatorTest {
 		InputStream in = stringToStream(badTactic);
 		try{
 		translator.run(in);
-		fail("Probably jumps to lines greater than 1999 are not allowed in tacticfiles.");
+		fail("The argument links is not allowed for turn.");
+		}
+		catch(IllegalArgumentException e){}
+	}
+	
+	@Test
+	public void testWrongDrop()
+	{
+		String badTactic = lines.get(0)
+				+"drop links; this\n"
+				+ lines.get(7);
+
+		InputStream in = stringToStream(badTactic);
+		try{
+			translator.run(in);
+			fail("nothing is allowed after drop.");
+		}
+		catch(IllegalArgumentException e){}
+	}
+	
+	@Test public void testTwoCommandsinOneLine()
+	{
+		String badTactic = lines.get(0)
+				+"turn left drop; this\n"
+				+ lines.get(7);
+
+		InputStream in = stringToStream(badTactic);
+		try{
+			translator.run(in);
+			fail("Only two commands each line are allowed");
 		}
 		catch(IllegalArgumentException e){}
 	}
