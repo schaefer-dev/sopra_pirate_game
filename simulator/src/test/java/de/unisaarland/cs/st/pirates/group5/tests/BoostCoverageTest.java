@@ -10,7 +10,7 @@ import controller.CellTypeComparison;
 import controller.IntComparison;
 import controller.ShipTypeComparison;
 
-public class ComparisonBoostTest {
+public class BoostCoverageTest {
 
 	@Test
 	public void BoostComparisonTest(){
@@ -38,5 +38,10 @@ public class ComparisonBoostTest {
 	public void BoostTreasureClass(){
 		Treasure testTreasure = new Treasure(0, 2);
 		testTreasure.changeValue(-10);
+	}
+	
+	@Test
+	public void BoostMapClass(){
+		
 	}
 }
