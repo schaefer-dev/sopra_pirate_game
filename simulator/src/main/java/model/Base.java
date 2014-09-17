@@ -7,7 +7,11 @@ public class Base extends Water {
 	public Base(Map map, int x, int y, Team team, Ship ship) {
 		super(map, x, y, null);
 		
-		this.ship = ship;
+		if(ship != null){
+			this.ship = ship;
+			this.ship.setField(this);
+		}
+		
 		this.team = team;
 	}
 
