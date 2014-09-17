@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 
 public abstract class Field {
 
@@ -16,11 +17,13 @@ public abstract class Field {
 	protected int y;
 	
 	protected Field(Map map, int x, int y, Ship ship){
-		// TODO Auto-generated method stub
-		this.map=map;
-		this.x=x;
-		this.y=y;
-		this.ship=ship;
+		if(map == null) throw new NullPointerException();
+		if(x < 2 || x > 200 || y < 2 || y > 200) throw new IllegalArgumentException();
+		
+		this.x = x;
+		this.y = y;
+		this.map = map;
+		this.ship = ship;
 	}
 	
 	public boolean exchangeTreasure(int value){
@@ -55,40 +58,42 @@ public abstract class Field {
 	}
 	
 	public LogWriter provideLogger(){
-		// TODO Auto-generated method stub
-		return this.map.getLogWriter();
+		return map.getLogWriter();
 	}
 	
 	public Ship getShip(){
-		// TODO Auto-generated method stub
-		return this.ship;
+		return ship;
 	}
 	
 	public Map getMap(){
-		// TODO Auto-generated method stub
-		return this.map;
+		return map;
 	}
 	
 	public abstract FieldType getFieldType();
 	
 	public Treasure getTreasure(){
-		// TODO Auto-generated method stub
-		return this.treasure;
+		return treasure;
 	}
 	
 	public List<Buoy> getBuoys(){
-		// TODO Auto-generated method stub
-		return this.buoys;
+		return buoys;
 	}
+	
 	public void deleteBuoy(Team team, int value){
-		// TODO Auto-generated method stub
-		return;
+		if(team == null) throw new NullPointerException();
+		if(value < 0 || value > 6) throw new IllegalArgumentException();
+		
+		for(Buoy buoy: buoys){
+			if(buoy.getTeam().equals(team) && buoy.id == value){
+				buoys.remove(buoy);
+				map.getLogWriter().destroy(Entity.BUOY, buoy.id);
+			}
+		}
 	}
 
 	public int getX() {
 		return x;
 	}
-
 
 	public int getY() {
 		return y;
