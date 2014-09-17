@@ -67,6 +67,7 @@ public abstract class Field {
 	public boolean setShip(Ship ship){
 		if(this.ship == null){
 			this.ship = ship;
+			this.ship.setField(this);
 			return true;
 		}
 		
@@ -89,6 +90,7 @@ public abstract class Field {
 	public boolean setKraken(Kraken kraken){
 		if(this.kraken == null){
 			this.kraken = kraken;
+			this.kraken.setField(this);
 			return true;
 		}
 		
