@@ -80,15 +80,18 @@ public class TranslatorTest {
 	@Test
 	public void testCapitalLetters()
 	{
-		String badTactic = lines.get(0)+lines.get(3)+lines.get(5)
-		+ "Refresh 2 else 2\n";
-		badTactic += lines.get(13) + "move else 0\n" + lines.get(18);
-		InputStream in = stringToStream(badTactic);
-		try{
-			translator.run(in);
-			fail("Translator should not allow commands with capital letters.");
-			}
-			catch(IllegalArgumentException e){}
+		String tactic = lines.get(0)+lines.get(3)+lines.get(5)
+		+ "RefrEsH 2 eLse 2\n";
+		tactic += lines.get(13) + lines.get(18);
+		InputStream in = stringToStream(tactic);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		sollErg.add(commands.get(3));
+		sollErg.add(commands.get(5));
+		sollErg.add(new Refresh(2, 2));
+		sollErg.add(commands.get(13));
+		sollErg.add(commands.get(18));
+		assertEquals("Wrong commandlist", sollErg, translator.run(in));
 	}
 	@Test
 	public void testRepair()
