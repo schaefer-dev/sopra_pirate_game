@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import model.Base;
+import model.BoolWert;
 import model.Field;
 import model.Map;
 import model.Register;
@@ -49,6 +50,7 @@ public class IfTest {
 		ship = new Ship(team, null, 0, null);	
 		field = new Base(map, 0, 0, team, ship);
 		ship.setField(field);
+		ship.setSenseRegister(Register.sense_enemymarker, BoolWert.False.ordinal());
 	}
 	
 	@Test

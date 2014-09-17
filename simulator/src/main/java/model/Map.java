@@ -100,7 +100,6 @@ public class Map {
 		if(field == null || kraken == null) throw new NullPointerException();
 		if(field.length < 2 || field[0].length < 2 || field.length > 200 || field[0].length > 200) throw new IllegalArgumentException();
 		
-
 		this.fields = field;
 		this.kraken = kraken;
 		
