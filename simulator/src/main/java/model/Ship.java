@@ -357,7 +357,8 @@ public class Ship {
 			field.setShip(null);
 			team.deleteShip(this);
 			previousShip.nextShip.setNextShip(nextShip);
-			nextShip.previousShip=previousShip;	
+			if (nextShip != null)
+				nextShip.previousShip=previousShip;	
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
 			field = null;
 		}

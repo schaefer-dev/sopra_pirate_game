@@ -34,42 +34,47 @@ public class Move implements Command {
 					ship.changeCondition(-1);	
 			}
 			else{
-				// Kampf findet statt
-				Ship targetShip = targetField.getShip();
-				int shipMoral = ship.getMoral();
-				int targetMoral = targetShip.getMoral();
-				int shipCondition = ship.getCondition();
-				int targetCondition = targetShip.getCondition();
-				int shipLoad = ship.getLoad();
-				int targetLoad = targetShip.getLoad();
+				if (targetField.getShip().getTeam().equals(ship.getTeam()))
+					ship.setPC(elsePC);
+				else{
 				
-				if (targetMoral > shipMoral){
-					executeTargetShipWins(ship,targetShip);
-				}
-				
-				if (shipMoral > targetMoral){
-					executeShipWins(ship,targetShip);
-				}
-				
-				if (shipMoral == targetMoral){
+					// Kampf findet statt
+					Ship targetShip = targetField.getShip();
+					int shipMoral = ship.getMoral();
+					int targetMoral = targetShip.getMoral();
+					int shipCondition = ship.getCondition();
+					int targetCondition = targetShip.getCondition();
+					int shipLoad = ship.getLoad();
+					int targetLoad = targetShip.getLoad();
 					
-					if (targetCondition > shipCondition){
+					if (targetMoral > shipMoral){
 						executeTargetShipWins(ship,targetShip);
 					}
 					
-					if (shipCondition > targetCondition){
+					if (shipMoral > targetMoral){
 						executeShipWins(ship,targetShip);
 					}
 					
-					if (shipCondition == targetCondition){
-						int z = ship.getPosition().getMap().getRandom().nextInt(2);
+					if (shipMoral == targetMoral){
 						
-						if (z == 0){// TargetShip wins
+						if (targetCondition > shipCondition){
 							executeTargetShipWins(ship,targetShip);
 						}
 						
-						if (z == 1){	// Ship wins
+						if (shipCondition > targetCondition){
 							executeShipWins(ship,targetShip);
+						}
+						
+						if (shipCondition == targetCondition){
+							int z = ship.getPosition().getMap().getRandom().nextInt(2);
+							
+							if (z == 0){// TargetShip wins
+								executeTargetShipWins(ship,targetShip);
+							}
+							
+							if (z == 1){	// Ship wins
+								executeShipWins(ship,targetShip);
+							}
 						}
 					}
 				}
@@ -115,6 +120,7 @@ public class Move implements Command {
 		int targetLoad = targetShip.getLoad();
 		
 		if (targetCondition == 1){
+			System.out.print("delete targetShip and move tree\n");
 			int spareRoom = 4-shipLoad;
 			int loadLater = shipLoad;
 			while ((spareRoom > 0)&&(targetLoad > 0)){
@@ -127,14 +133,16 @@ public class Move implements Command {
 			ship.setLoad(loadLater);
 			if ((targetLoad - loadLater) > 0)
 				targetShip.getPosition().exchangeTreasure(targetLoad - loadLater); // drop additional value to ground
-			Field savedShipPosition = ship.getPosition();
-			ship.changeMoral(-1);
-			ship.changeCondition(-1);
-			targetShip.getPosition().moveShip(savedShipPosition); 	//no move because moved on ship won
+			Field savedShipPosition = targetShip.getPosition();
+			System.out.print("saved coordinate: "+savedShipPosition.getX()+":"+savedShipPosition.getY()+ "\n");
+			targetShip.changeMoral(-1);
+			targetShip.changeCondition(-1);
+			ship.getPosition().moveShip(savedShipPosition);
 		}
 		else{
-			ship.changeMoral(-1);
-			ship.changeCondition(-1);
+			targetShip.changeMoral(-1);
+			targetShip.changeCondition(-1);
+			ship.setPC(elsePC);
 		}
 		
 	}
@@ -162,6 +170,7 @@ public class Move implements Command {
 		else{
 			ship.changeMoral(-1);
 			ship.changeCondition(-1);
+			ship.setPC(elsePC);
 		}
 		
 	}
