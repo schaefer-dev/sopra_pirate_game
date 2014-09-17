@@ -63,7 +63,7 @@ public class CommandSenseTest {
 	Base enemyBase = new Base(map,3,1,b, alienShip1);
 	Water ifYouLookOnThisFieldYouMayWitnessAFriendsShip = new Water(map,3,3,null);
 	
-	Base homeBase = new Base(map,0,0,a, ship);	
+	Base homeBase = new Base(map,0,0,a, ship);
 	
 	Ship alienShip2 = new Ship(a,ifYouLookOnThisFieldYouMayWitnessAFriendsShip,3,alienShip1);
 		
