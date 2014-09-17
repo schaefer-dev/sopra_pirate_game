@@ -1,5 +1,6 @@
 package commands;
 
+import model.FieldType;
 import model.Ship;
 import controller.Command;
 
@@ -13,8 +14,13 @@ public class Repair implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
-
+		if(ship.getPosition().getFieldType() == (FieldType.Base)){
+			if(ship.getTeam().getScore() >= 2){
+				ship.changeCondition(3);
+				ship.getPosition().exchangeTreasure(-2);
+			}else ship.setPC(elsePC);
+		}else
+			ship.setPC(elsePC);
 	}
 	
 	@Override

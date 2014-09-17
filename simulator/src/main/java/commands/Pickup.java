@@ -1,5 +1,6 @@
 package commands;
 
+import model.Field;
 import model.Ship;
 import controller.Command;
 
@@ -15,8 +16,11 @@ public class Pickup implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
-
+		Field field= ship.getPosition().getNeigbour(ship.relativeToAbsoluteDirection(direction));
+		if (field.getTreasure() != null){
+				int value = 4 - ship.getLoad();
+				field.exchangeTreasure(value);
+		}else ship.setPC(elsePC);
 	}
 	@Override
 	public boolean equals (Object o)

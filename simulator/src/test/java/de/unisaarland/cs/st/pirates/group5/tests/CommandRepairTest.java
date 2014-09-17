@@ -108,7 +108,7 @@ public class CommandRepairTest {
 		log.what.clear();
 		repair.execute(ship);
 		assertEquals("Team payed for repair which should not have happend.", 4, teamA.getScore());
-		assertEquals("Condition of ship should not have changed.", 1, ship.getCondition());
+		assertEquals("Condition of ship should not have changed.", 3, ship.getCondition());
 		assertEquals("Ship should not have to pause because repair failed.",0,ship.getPause());
 		assertEquals("Programm counter should have been changed to 12", 12, ship.getPC());
 		assertTrue("not the right logger Methods where called",log.what.size()==1 &&  log.what.remove("notify"));
