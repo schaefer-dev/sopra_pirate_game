@@ -65,7 +65,7 @@ public class Ship {
 				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 		}
 		else
-			pause = pause-1;
+			changePause(-1);
 	}
 
 	
