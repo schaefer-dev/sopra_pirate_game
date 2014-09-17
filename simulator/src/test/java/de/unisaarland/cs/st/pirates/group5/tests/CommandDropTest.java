@@ -2,6 +2,8 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import model.Base;
@@ -13,6 +15,7 @@ import model.Ship;
 import model.Team;
 import model.Treasure;
 import model.Water;
+import model.Kraken;
 
 import org.junit.Test;
 
@@ -34,14 +37,14 @@ public class CommandDropTest {
 	 * 
 	 * drop mit schiffladung = 0 und insel = 0
 	 */
+	List<Kraken> kraken = new LinkedList<Kraken>();
 
 	@Test
 	public void drop0Treasure3Moral(){
 		
 		Drop testDrop = new Drop();
-		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -52,7 +55,7 @@ public class CommandDropTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		fieldArray[1][1]=new Water(testMap, 0, 0, null);
 		
@@ -80,7 +83,7 @@ public class CommandDropTest {
 		Drop testDrop = new Drop();
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -91,7 +94,7 @@ public class CommandDropTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		fieldArray[1][1]=new Water(testMap, 0, 0, null);
 		
@@ -120,7 +123,7 @@ public class CommandDropTest {
 		Drop testDrop = new Drop();
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -131,7 +134,7 @@ public class CommandDropTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		fieldArray[1][1]=new Water(testMap, 0, 0, null);
 		
@@ -166,7 +169,7 @@ public class CommandDropTest {
 		Drop testDrop = new Drop();
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		Treasure testTreasure = new Treasure(0,1);
 		
@@ -177,7 +180,7 @@ public class CommandDropTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		Team testTeam = new Team('a', null);
 		

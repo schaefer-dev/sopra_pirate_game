@@ -5,23 +5,50 @@ public class Base extends Water {
 	private Team team;
 	
 	public Base(Map map, int x, int y, Team team, Ship ship) {
-		// TODO Auto-generated constructor stub
 		super(map, x, y, null);
+		
 		this.ship = ship;
-		this.team=team;
+		this.team = team;
 	}
 
+	
 	@Override
 	public boolean exchangeTreasure(int value){
-		// TODO Auto-generated method stub
+		
+		if(value == 0)
+			return true;
+		else if(value == -2){
+			if((team.getScore() + value) < 0) throw new IllegalArgumentException();
+			
+			team.addLoot(value);
+			map.getLogWriter().fleetScore(team.getName() - 'a', team.getScore());
+		}
+		else if(value >= 1 && value <= 4){
+			team.addLoot(value);
+			map.getLogWriter().fleetScore(team.getName() - 'a', team.getScore());
+		}
+		else
+			throw new IllegalArgumentException();
+		
+		return true;
+	}
+	
+	@Override
+	public boolean setKraken(Kraken kraken){
 		return false;
 	}
 	
 	@Override
-	public boolean setShip(Ship ship) {
-		// TODO Auto-generated method stub
-		this.ship=ship;
-		return true;
+	public boolean setShip(Ship ship){
+		if(ship == null || ship.getTeam().equals(team))
+			return super.setShip(ship);
+		
+		return false;
+	}
+	
+	@Override
+	public boolean placeBuoy(int type, Team team){
+		return false;
 	}
 	
 	@Override
@@ -32,5 +59,4 @@ public class Base extends Water {
 	public Team getTeam(){
 		return team;
 	}
-	
 }

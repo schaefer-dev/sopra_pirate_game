@@ -27,15 +27,17 @@ public abstract class Field {
 		this.ship = ship;
 	}
 	
+	
 	public Treasure getTreasure(){
 		return treasure;
 	}
-	
+
 	public boolean exchangeTreasure(int value){
-		if(value == 0) throw new IllegalArgumentException();
 		if(value < -4 || value > 4) throw new IllegalArgumentException("You can only change the treasure value by |4|");
 		
-		if(value > 0){
+		if(value == 0)
+			return true;
+		else if(value > 0){
 			if(treasure == null){
 				treasure = new Treasure(map.giveNewEntityID(), value);
 				Key[] keys = {Key.X_COORD, Key.Y_COORD, Key.VALUE};
@@ -49,7 +51,7 @@ public abstract class Field {
 		}
 		else{
 			if(treasure == null) throw new IllegalArgumentException("You can't take loot from a nonexisting treasure");
-			if((treasure.getValue() + value) < 0) throw new IllegalArgumentException("You are to greedy");
+			if((treasure.getValue() + value) < 0) throw new IllegalArgumentException("You are too greedy");
 			
 			if((treasure.getValue() + value) == 0){
 				map.getLogWriter().destroy(Entity.TREASURE, treasure.id);
@@ -64,13 +66,20 @@ public abstract class Field {
 		return true;
 	}
 	
+	
+	public Ship getShip(){
+		return ship;
+	}
+	
 	public boolean setShip(Ship ship){
 		if(this.ship == null){
 			this.ship = ship;
 			this.ship.setField(this);
 			return true;
 		}
-		
+		else if(this.ship != null && ship == null)
+			this.ship = null;
+			
 		return false;	
 	}
 	
@@ -78,13 +87,21 @@ public abstract class Field {
 		if(ship == null) throw new IllegalStateException();
 		
 		if(destination.setShip(ship)){
-			map.getLogWriter().notify(Entity.SHIP, ship.getID(), Key.X_COORD, destination.getX());
-			map.getLogWriter().notify(Entity.SHIP, ship.getID(), Key.Y_COORD, destination.getY());
+			if(x != destination.getX())
+				map.getLogWriter().notify(Entity.SHIP, ship.getID(), Key.X_COORD, destination.getX());
+			if(y != destination.getY())
+				map.getLogWriter().notify(Entity.SHIP, ship.getID(), Key.Y_COORD, destination.getY());
+			
 			ship = null;
 			return true;
 		}
 
 		return false;
+	}
+	
+	
+	public Kraken getKraken() {
+		return kraken;
 	}
 	
 	public boolean setKraken(Kraken kraken){
@@ -101,8 +118,12 @@ public abstract class Field {
 		if(kraken == null) throw new IllegalStateException();
 		
 		if(destination.setKraken(kraken)){
-			map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.X_COORD, destination.getX());
-			map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.Y_COORD, destination.getY());
+			
+			if(x != destination.getX())
+				map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.X_COORD, destination.getX());
+			if(y != destination.getY())
+				map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.Y_COORD, destination.getY());
+			
 			kraken = null;
 			return true;
 		}
@@ -111,24 +132,6 @@ public abstract class Field {
 	}
 	
 	
-	public Field getNeigbour(int direction){
-		return map.getNeighbour(this, direction);
-	}
-	
-	public LogWriter provideLogger(){
-		return map.getLogWriter();
-	}
-	
-	public Ship getShip(){
-		return ship;
-	}
-	
-	public Map getMap(){
-		return map;
-	}
-	
-	public abstract FieldType getFieldType();
-		
 	public List<Buoy> getBuoys(){
 		return buoys;
 	}
@@ -148,6 +151,17 @@ public abstract class Field {
 		}
 	}
 
+	
+	public abstract FieldType getFieldType();
+	
+	public Field getNeigbour(int direction){
+		return map.getNeighbour(this, direction);
+	}
+	
+	public LogWriter provideLogger(){
+		return map.getLogWriter();
+	}
+	
 	public int getX() {
 		return x;
 	}
@@ -156,7 +170,7 @@ public abstract class Field {
 		return y;
 	}
 
-	public Kraken getKraken() {
-		return kraken;
+	public Map getMap(){
+		return map;
 	}
 }
