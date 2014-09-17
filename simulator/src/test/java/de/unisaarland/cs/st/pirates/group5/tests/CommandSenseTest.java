@@ -109,7 +109,7 @@ public class CommandSenseTest {
 			fields[3][1] = island;
 			fields[3][0] = enemyBase;
 			fields[3][3] = ifYouLookOnThisFieldYouMayWitnessAFriendsShip;
-			fields[1][0] = ifYouLookOnThisFieldYouMayWitnessAFriendsShip;
+			fields[1][0] = ifYouLookOnThisFieldYouMayWitnessAnEnemiesShip;
 			fields[0][3] = water;
 	
 			map.setMapValues(fields, new ArrayList<Kraken>());
