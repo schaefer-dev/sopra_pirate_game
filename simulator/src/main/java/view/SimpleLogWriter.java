@@ -218,7 +218,7 @@ public class SimpleLogWriter implements LogWriter {
 	public LogWriter notify(Entity arg0, int arg1, Key arg2, int arg3) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		if(arg0 == null | arg2 == null) throw new NullPointerException();
 		if(arg1 < 0) throw new IllegalArgumentException();
-		if(round == 0) throw new IllegalStateException();
+		//if(round == 0) throw new IllegalStateException();
 		if(!validKey(arg0,  arg2)) throw new IllegalArgumentException();
 		
 		Integer value = arg3;
