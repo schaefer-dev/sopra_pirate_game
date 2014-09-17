@@ -1,7 +1,10 @@
 package view;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
@@ -52,11 +55,11 @@ public class SimpleLogWriter implements LogWriter {
 		startTime = System.nanoTime();
 		
 		//Read map size
-		int i = arg1.indexOf(' ');
+		int i = arg1.indexOf('\n');
 		String first = arg1.substring(0, i);
 		String rest = arg1.substring(i);
 		rest = rest.substring(1);
-		i = rest.indexOf(' ');
+		i = rest.indexOf('\n');
 		String second = rest.substring(0, i);
 		
 		//Read teams

@@ -249,36 +249,42 @@ public class Ship {
 				if ((value<0)||(value>3))
 					if (value!=undefinedInt)
 					throw new IllegalArgumentException("shipload only defined between 0 and 3");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case ship_direction:
 				if ((value<0)||(value>4))
 					if (value!=undefinedInt)
 					throw new IllegalArgumentException("shipdirection only defined between 0 and 4");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case ship_moral:
 				if ((value<0)||(value>3))
 					if (value!=undefinedInt)
 					throw new IllegalArgumentException("shipmoral only defined between 0 and 3");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case ship_condition:
 				if ((value<0)||(value>2))
 					if (value!=undefinedInt)
 					throw new IllegalArgumentException("shipcondition only defined between 0 and 2");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_celltype:
 				if ((value<0)||(value>3))
 					if (value!=CellType.Undefined.ordinal())
 					throw new IllegalArgumentException("senseCelltype only defined between 0 and 3 (empty,island,home,enemyhome,undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_supply:		
 				if ((value<0)||(value>1))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseSupply only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_treasure:		
@@ -290,6 +296,7 @@ public class Ship {
 				if ((value<0)||(value>1))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_marker1:		
@@ -302,12 +309,14 @@ public class Ship {
 				if ((value<0)||(value>1))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_marker3:		
 				if ((value<0)||(value>1))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;				
 				
 			case sense_marker4:		
@@ -320,36 +329,42 @@ public class Ship {
 				if ((value<0)||(value>1))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_enemymarker:		
 				if ((value<0)||(value>2))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseEnemyMarker only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_shiptype:		
 				if ((value<0)||(value>1))
 					if (value!=ShipType.Undefined.ordinal())
 					throw new IllegalArgumentException("senseShiptype only defined between 0 and 1 (friend, enemy, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_shipdirection:		
 				if ((value<0)||(value>5))
 					if (value!=undefinedInt)
 					throw new IllegalArgumentException("senseShipDirection only defined between 0 and 5 (directions+undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_shiploaded:		
 				if ((value<0)||(value>1))
 					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseShipLoaded only defined between 0 and 1 (true, false, undefined)");
+				registers[reg.ordinal()]=value;
 				break;
 				
 			case sense_shipcondition:		
 				if ((value<1)||(value>3))
 					if (value!=undefinedInt)
 					throw new IllegalArgumentException("senseShipCondition only defined between 1 and 3 (1, 2, 3, undefined)");
+				registers[reg.ordinal()]=value;
 				break;		
 				
 		}
