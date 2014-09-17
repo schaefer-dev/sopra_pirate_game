@@ -58,7 +58,7 @@ public class IntComparison implements Comparison {
 		else
 		{
 			leftInt =  ship.getSenseRegister(left);
-			if(leftInt == Ship.undefined)
+			if(leftInt == Ship.undefinedInt)
 				return false;
 		}
 		if(right == null)
@@ -68,7 +68,7 @@ public class IntComparison implements Comparison {
 		else
 		{
 			rightInt = ship.getSenseRegister(right);
-			if(rightInt == Ship.undefined)
+			if(rightInt == Ship.undefinedInt)
 				return false;
 		}
 		
