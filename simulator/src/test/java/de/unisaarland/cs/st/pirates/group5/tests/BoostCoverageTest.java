@@ -2,6 +2,9 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,11 +23,28 @@ import org.junit.Test;
 
 import controller.BoolComparison;
 import controller.CellTypeComparison;
+import controller.Command;
 import controller.IntComparison;
 import controller.Operator;
 import controller.ShipTypeComparison;
+import controller.Translator;
 
 public class BoostCoverageTest {
+	
+	
+	private Translator translator = new Translator();
+	private final static Operator LESS = Operator.Less;
+	private final static Operator EQUAL = Operator.Equal;
+	private final static Operator UNEQUAL = Operator.Unequal;
+	private List<String> lines;
+	private List<Command> commands;
+
+	public BoostCoverageTest()
+	{
+		ObjectConstructorTest constr = new ObjectConstructorTest();
+		lines = constr.getStringList();
+		commands = constr.getCommandList();
+	}
 
 	@Test
 	public void BoostComparisonTest(){
@@ -294,5 +314,83 @@ public class BoostCoverageTest {
 		fieldArray[1][1].setKraken(testKraken1);
 		fieldArray[1][1].setKraken(null);
 		fieldArray[1][1].moveKraken(fieldArray[2][2]);
+	}
+	
+	@Test
+	public void BoostTranslatorTools1(){
+		String badTactic = "move else 2\n"
+							+"goto 0\n"
+							+"flipzero 1 else 0\n"
+							+ "flipzero 10 else 12\n"
+							+ "goto 13\n"
+							+ "goto -12\n"
+							+ "sense 12\n"
+							+ "sense auto\n"
+							+ "sense -14\n"
+							+ "sense enemy\n"
+							+ "pickup auto else enemy\n"
+							+ "pickup ship\n"
+							+ "pickup -12 else 13\n"
+							+ "pickup 2 else 3\n"
+							+ "pickup else 3\n"
+							+ "else 15\n"
+							+ "else -13\n "
+							+ "if else else 5\n"
+							+ "goto ship\n"
+							+ "goto else\n"
+							+ "goto pickup\n"
+							+ "else 4\n"
+							+ "else flipzero 5\n"
+							+ "turn left\n"
+							+ "turn right\n"
+							+ "turn 4\n"
+							+ "turn turn\n"
+							+ "turn else\n"
+							+ "turn pickup 3 else 5\n"
+							+ "goto 12\n"
+							+ "goto 3\n"
+							+ "drop 3\n"
+							+ "drop else 5\n"
+							+ "drop left\n"
+							+ "sense 1\n"
+							+ "sense 3\n"
+							+ "sense 15\n"
+							+ "sense 0\n"
+							+ "sense -5\n"
+							+ "pickup sensedir else 5\n"
+							+ "mark 1\n"
+							+ "mark -1\n"
+							+ "mark 13\n"
+							+ "mark else 3\n"
+							+ "mark else\n"
+							+ "mark turn 3\n"
+							+ "mark turn\n"
+							+ "repair turn\n"
+							+ "repair sense 0\n"
+							+ "repair else -1\n"
+							+ "repair else 15\n"
+							+ "ifall repair else 15\n"
+							+ "ifall 1=1 else 15\n"
+							+ "ifany 2=2 else 19\n"
+							+ "ifany auto=auto else 19\n"
+							+ "ifany 1=a else 1\n"
+							+ "ifany 1=1 else -5\n"
+							+ "ifall auto=auto 1=1 else -20\n";
+						
+								
+		InputStream in = stringToStream(badTactic);
+		try{
+		translator.run(in);
+		}
+		catch(IllegalArgumentException e){}
+	}
+
+
+	private InputStream stringToStream(String tactic){
+
+		byte[] temp = tactic.getBytes();
+		InputStream in = new ByteArrayInputStream(temp);
+		in = new BufferedInputStream(in);
+		return in;
 	}
 }

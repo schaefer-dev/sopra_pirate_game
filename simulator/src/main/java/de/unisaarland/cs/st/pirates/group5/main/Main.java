@@ -16,10 +16,13 @@ public class Main {
 		for(int i = 1; i < tactics.length; i++)
 			tactics[i-1] = args[i];		
 		
-		//TODO: get them properly
+		//String logFile = System.getProperty("log");
+		//int turns = Integer.parseInt(System.getProperty("turns"));
+		//int seed  = Integer.parseInt(System.getProperty("seed"));
+		
+		String logFile = "src/test/resources/log.log";
 		int turns = 100;
 		int seed = 1;
-		String logFile = "src/test/resources/log.log";
 	
 		Simulator sim = new Simulator(tactics, mapFile, seed, logFile, turns);
 		
