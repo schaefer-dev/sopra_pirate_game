@@ -75,6 +75,7 @@ public class DummyLogWriter implements LogWriter {
 	public LogWriter create(Entity arg0, int arg1, Key[] arg2, int[] arg3)
 			throws NullPointerException, IllegalArgumentException,
 			ArrayIndexOutOfBoundsException, IllegalStateException {
+		System.out.println(arg1);
 		this.what.add("create");
 		this.entities.add(arg0);
 		this.values.add(arg1);
@@ -82,9 +83,11 @@ public class DummyLogWriter implements LogWriter {
 		{
 			values.add(k.ordinal());
 		}
+		System.out.println(arg3.toString());
 		for(Integer i: arg3)
 		{
 			values.add(i);
+			System.out.println(i);
 		}
 		return this;
 	}
