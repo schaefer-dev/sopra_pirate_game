@@ -2,15 +2,18 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
-import java.awt.List;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import model.Field;
 import model.Map;
 import model.CellType;
 import model.Register;
 import model.ShipType;
 import model.Treasure;
 import model.Kraken;
+import model.Water;
 
 import org.junit.Test;
 
@@ -47,13 +50,74 @@ public class BoostCoverageTest {
 		testTreasure.changeValue(-10);
 	}
 	
-	@Test
-	public void BoostMapClass(){
+	@Test(expected = IllegalArgumentException.class)
+	public void BoostMapClass1(){
 		Random testRandom = new Random();
 		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom,testLog);
 		
-		List krakenList = new List();
-		testMap.setMapValues(field, krakenList);
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		testMap.getNeighbour(fieldArray[1][1], 7);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void BoostMapClass2(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		testMap.getNeighbour(fieldArray[1][1], 7);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void BoostMapClass3(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(fieldArray, kraken);
+		testMap.getFirstShip();
+		testMap.setFirstShip(null);
+	}
+	@Test(expected = NullPointerException.class)
+	public void BoostMapClass4(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(null, kraken);
 	}
 }
