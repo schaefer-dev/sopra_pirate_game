@@ -36,9 +36,8 @@ public class Simulator {
 		
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
-		
 		if(shipFiles.length == 1){
-			List<Command> tactic = translator.run(new ByteArrayInputStream(shipFiles[0].getBytes()));
+			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
 			String[]tempFiles = new String[26];
 			Arrays.fill(tempFiles, shipFiles[0]);
 			shipFiles = tempFiles;
@@ -47,7 +46,7 @@ public class Simulator {
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
-				List<Command> tactic = translator.run(new ByteArrayInputStream(shipFiles[i].getBytes()));
+				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
 			}
@@ -57,12 +56,12 @@ public class Simulator {
 		FileOutputStream stream = new FileOutputStream(file);
 		
 		logWriter = new Log();
-		logWriter.addLogger(new SimpleLogWriter());
+	//  logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapFile, shipFiles);
 		
 		MapGenerator generator = new MapGenerator();
-		map = generator.createMap(new FileInputStream(mapFile), teams, logWriter, new Random(seed));
+		map = generator.createMap(getClass().getResourceAsStream(mapFile), teams, logWriter, new Random(seed));
 		kraken = map.getKraken();
 		
 		logWriter.logStep();
