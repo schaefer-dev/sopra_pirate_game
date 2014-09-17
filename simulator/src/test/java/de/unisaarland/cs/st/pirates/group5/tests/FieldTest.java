@@ -268,7 +268,7 @@ public class FieldTest {
 		assertTrue("No new bouy was created.", log.what.remove("create"));
 		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
 		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
-		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(Key.FLEET)) && log.values.remove(toInteger(Key.VALUE)));
 		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(1)) && log.values.remove(toInteger('a'-'a')));
 		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 		assertFalse("Bouy cannot be placed twice", water.placeBuoy(1,a) || log.what.contains("create") || log.what.contains("notify"));
@@ -283,7 +283,7 @@ public class FieldTest {
 		assertTrue("No new bouy was created.", log.what.remove("create"));
 		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
 		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
-		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(Key.FLEET)) && log.values.remove(toInteger(Key.VALUE)));
 		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(1)) && log.values.remove(toInteger('a'-'a')));
 		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 		
@@ -293,7 +293,7 @@ public class FieldTest {
 		assertTrue("No new bouy was created.", log.what.remove("create"));
 		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
 		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
-		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(Key.FLEET)) && log.values.remove(toInteger(Key.VALUE)));
 		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(2)) && log.values.remove(toInteger('a'-'a')));
 		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 		
@@ -303,7 +303,7 @@ public class FieldTest {
 		assertTrue("No new bouy was created.", log.what.remove("create"));
 		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
 		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
-		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(Key.FLEET)) && log.values.remove(toInteger(Key.VALUE)));
 		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(3)) && log.values.remove(toInteger('a'-'a')));
 		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 		
@@ -313,7 +313,7 @@ public class FieldTest {
 		assertTrue("No new bouy was created.", log.what.remove("create"));
 		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
 		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
-		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(Key.FLEET)) && log.values.remove(toInteger(Key.VALUE)));
 		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(4)) && log.values.remove(toInteger('a'-'a')));
 		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 		
@@ -323,7 +323,7 @@ public class FieldTest {
 		assertTrue("No new bouy was created.", log.what.remove("create"));
 		assertTrue("The wrong entity was passed on to the logger.", log.entities.remove(Entity.BUOY));
 		assertTrue("Id was not logged.", log.values.remove(toInteger(idBefore + 1)));
-		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(Key.FLEET) && log.values.remove(toInteger(Key.VALUE)));
+		assertTrue("Keys were not logged correctly.", log.values.remove(toInteger(Key.X_COORD)) && log.values.remove(toInteger(Key.Y_COORD)) && log.values.remove(toInteger(Key.FLEET)) && log.values.remove(toInteger(Key.VALUE)));
 		assertTrue("Wrong values were logged", log.values.remove(toInteger(water.getX())) && log.values.remove(toInteger(water.getY())) && log.values.remove(toInteger(5)) && log.values.remove(toInteger('a'-'a')));
 		assertTrue("Logged something false.", log.entities.size() == 0 && log.values.size() == 0 && log.what.size() ==0);
 		

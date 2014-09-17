@@ -2,11 +2,14 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import model.Base;
 import model.Field;
 import model.Island;
+import model.Kraken;
 import model.Map;
 import model.ProvisionIsland;
 import model.Ship;
@@ -23,6 +26,7 @@ import commands.Refresh;
 
 
 public class CommandRefreshTest {
+	private List<Kraken> kraken = new LinkedList<Kraken>();
 	
 	@Test
 	public void refreshProvisionIsland01(){
@@ -30,7 +34,7 @@ public class CommandRefreshTest {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -40,7 +44,7 @@ public class CommandRefreshTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		fieldArray[1][0]=new ProvisionIsland(testMap, 1, 0);
 		
@@ -67,7 +71,7 @@ public class CommandRefreshTest {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -77,7 +81,7 @@ public class CommandRefreshTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		//fieldArray[1][0]=new ProvisionIsland(testMap, 1, 0);
 		
@@ -104,7 +108,7 @@ public class CommandRefreshTest {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -114,7 +118,7 @@ public class CommandRefreshTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		Ship testShip1 = new Ship(null, fieldArray[1][0], 0, null);
 		
@@ -145,7 +149,7 @@ public class CommandRefreshTest {
 		Refresh testRefresh = new Refresh(4, 10);
 		
 		Random testRandom = new Random(1);	
-		SimpleLogWriter testLog = new SimpleLogWriter();
+		DummyLogWriter testLog = new DummyLogWriter();
 		Map testMap = new Map(testRandom, testLog);
 		
 		Field[][] fieldArray=new Field[3][3];
@@ -155,7 +159,7 @@ public class CommandRefreshTest {
 				fieldArray[z][i]=new Water(testMap, z, i, null);
 			}
 		}	
-		testMap.setMapValues(fieldArray, null);
+		testMap.setMapValues(fieldArray, kraken);
 		
 		fieldArray[1][0]=new Island(testMap, 1, 0, null);
 		

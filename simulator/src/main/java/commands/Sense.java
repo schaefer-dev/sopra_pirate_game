@@ -68,8 +68,8 @@ public class Sense implements Command {
 		}
 		else{
 			ship.setSenseRegister(Register.sense_shiptype, ShipType.Undefined.ordinal());
-			ship.setSenseRegister(Register.sense_shipdirection, Ship.undefined);
-			ship.setSenseRegister(Register.sense_shipcondition, Ship.undefined);
+			ship.setSenseRegister(Register.sense_shipdirection, Ship.undefinedInt);
+			ship.setSenseRegister(Register.sense_shipcondition, Ship.undefinedInt);
 			ship.setSenseRegister(Register.sense_shiploaded, BoolWert.False.ordinal());
 		}
 
