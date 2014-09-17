@@ -1,5 +1,7 @@
 package commands;
 
+import model.Field;
+import model.FieldType;
 import model.Ship;
 import controller.Command;
 
@@ -9,13 +11,24 @@ public class Refresh implements Command {
 	private int elsePC;
 	
 	public Refresh(int dir, int pc){
+		if(pc<0 || pc >= 2000 || dir> 5 || dir<0)
+			throw new IllegalArgumentException("PC or direction are out of range.");
 		this.direction = dir;
 		this.elsePC = pc;
 	}
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
+		int dir = ship.relativeToAbsoluteDirection(direction);
+		Field neighbour = ship.getPosition().getNeigbour(dir);
+		if(neighbour.getFieldType() == FieldType.ProvisionIsland)
+		{
+			ship.changeMoral(4);
+		}
+		else
+		{
+			ship.setPC(elsePC);
+		}
 
 	}
 	@Override
