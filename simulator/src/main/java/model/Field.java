@@ -18,7 +18,7 @@ public abstract class Field {
 	
 	protected Field(Map map, int x, int y, Ship ship){
 		if(map == null) throw new NullPointerException();
-		if(x < 2 || x > 200 || y < 2 || y > 200) throw new IllegalArgumentException();
+		if(x < 0 || x > 200 || y < 0 || y > 200) throw new IllegalArgumentException();
 		
 		this.x = x;
 		this.y = y;
@@ -40,9 +40,12 @@ public abstract class Field {
 		return false;
 	}
 	
-	public boolean setKraken(Kraken kraken)
-	{
-		// TODO Auto-generated method stub
+	public boolean setKraken(Kraken kraken){
+		if(kraken != null){
+			this.kraken = kraken;
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -53,7 +56,6 @@ public abstract class Field {
 	
 	
 	public Field getNeigbour(int direction){
-		// TODO Auto-generated method stub
 		return map.getNeighbour(this, direction);
 	}
 	
@@ -87,6 +89,7 @@ public abstract class Field {
 			if(buoy.getTeam().equals(team) && buoy.id == value){
 				buoys.remove(buoy);
 				map.getLogWriter().destroy(Entity.BUOY, buoy.id);
+				break;
 			}
 		}
 	}
