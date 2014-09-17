@@ -1,7 +1,13 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
+
+import java.awt.List;
+import java.util.Random;
+
+import model.Map;
 import model.Treasure;
+import model.Kraken;
 
 import org.junit.Test;
 
@@ -42,6 +48,11 @@ public class BoostCoverageTest {
 	
 	@Test
 	public void BoostMapClass(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
 		
+		List krakenList = new List();
+		testMap.setMapValues(field, krakenList);
 	}
 }
