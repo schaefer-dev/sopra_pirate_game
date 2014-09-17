@@ -132,8 +132,8 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_supply), BoolWert.Undefined.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure), BoolWert.Undefined.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_supply), BoolWert.Undefined.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), 0);
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), 0);
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), Ship.undefinedInt);
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), Ship.undefinedInt);
 		}
 		@Test
 		public void testEinsNull(){
@@ -187,7 +187,7 @@ public class CommandSenseTest {
 		}
 		@Test
 		public void testNullNull(){
-			shipAtNullNull.act();//schaut auf 0,0. Hat: water, HomeBase.(1)
+			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Home.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker1),BoolWert.False.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker2),BoolWert.False.ordinal());
