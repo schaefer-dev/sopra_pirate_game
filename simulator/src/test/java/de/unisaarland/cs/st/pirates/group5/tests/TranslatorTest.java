@@ -48,7 +48,7 @@ public class TranslatorTest {
 		commands = constr.getCommandList();
 	}
 	
-/*	@Test
+	@Test
 	public void testExampleTactic(){
 		System.out.println("TEST EXAMPLE TACTIC");
 
@@ -56,9 +56,9 @@ public class TranslatorTest {
 		InputStream in = stringToStream(tactic);
 		List<Command> erg = translator.run(in);
 		assertEquals("translation of the example tactic did not result in the correct list of commands",commands,erg);
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void testNoSpacesInComparisons(){
 		System.out.println("TEST testNoSpacesInComparisons".toUpperCase());
 
@@ -70,9 +70,9 @@ public class TranslatorTest {
 		fail("Translator should not allow spaces within comparisons");		
 		}
 		catch(IllegalArgumentException e){}
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void testToBigDirection()
 	{
 		System.out.println("TEST testToBigDirection".toUpperCase());
@@ -88,8 +88,8 @@ public class TranslatorTest {
 			catch(IllegalArgumentException e){}
 		
 		
-	}*/
-/*	@Test
+	}
+	@Test
 	public void testRepair()
 	{
 		System.out.println("TEST testRepair".toUpperCase());
@@ -113,8 +113,8 @@ public class TranslatorTest {
 		sollErg.add(commands.get(18));
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of the tactic repairing a ship in it's home did not give the correct result", sollErg, erg);
-	}*/
-/*	@Test
+	}
+	@Test
 	public void testIfAny()
 	{
 		System.out.println("TEST testIfAny".toUpperCase());
@@ -135,7 +135,7 @@ public class TranslatorTest {
 		sollErg.add(commands.get(7));
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of the tactic with an ifany command does not give the correct result", sollErg, erg);
-	}*/
+	}
 	@Test
 	public void testBouys()
 	{
@@ -166,7 +166,7 @@ public class TranslatorTest {
 		assertEquals("Translation of the tactic setting bouys does not give the correct result", sollErg, erg);
 		
 	}
-/*	@Test
+	@Test
 	public void testMarkWrongBouy()
 	{
 		System.out.println("TEST testMarkWrongBouy".toUpperCase());
@@ -191,8 +191,8 @@ public class TranslatorTest {
 			fail("Translator should not allow bouys of type 6");
 			}
 			catch(IllegalArgumentException e){}
-	}*/
-/*	@Test
+	}
+	@Test
 	public void testNonsense()
 	{
 		System.out.println("TEST testNonsense".toUpperCase());
@@ -204,8 +204,8 @@ public class TranslatorTest {
 			fail("Translator should not allow gibberish");
 			}
 			catch(IllegalArgumentException e){}
-	}*/
-/**	@Test
+	}
+	@Test
 	public void testNoBoolComparison1()
 	{
 		System.out.println("TEST testNoBoolComparison1".toUpperCase());
@@ -249,8 +249,8 @@ public class TranslatorTest {
 			fail("Comparisons with true and false are not allowed");
 			}
 			catch(IllegalArgumentException e){}
-	}**/
-/*	@Test
+	}
+	@Test
 	public void testNoUndefined()
 	{
 		System.out.println("TEST testNoUndefined".toUpperCase());
@@ -264,8 +264,8 @@ public class TranslatorTest {
 			fail("Comparisons with undefined are not allowed");
 			}
 			catch(IllegalArgumentException e){}
-	}*/
-/*	@Test
+	}
+	@Test
 	public void testRefresh()
 	{
 		System.out.println("TEST testRefresh".toUpperCase());
@@ -289,8 +289,8 @@ public class TranslatorTest {
 		List<Command> erg = translator.run(stringToStream(tactic));
 		assertEquals("Translation of Refresh does not give correct result", sollErg, erg);
 		
-	}*/
-/**	@Test
+	}
+	@Test
 	public void testNoNewLine()
 	{
 		System.out.println("TEST testNoNewLine".toUpperCase());
@@ -304,9 +304,9 @@ public class TranslatorTest {
 		catch(IllegalArgumentException e){}
 		
 		
-	}**/
+	}
 	
-/*	@Test
+	@Test
 	public void testIgnoreComments1()
 	{
 		System.out.println("TEST testIgnoreComments1".toUpperCase());
@@ -320,8 +320,8 @@ public class TranslatorTest {
 		sollErg.add(commands.get(7));
 		InputStream in = stringToStream(tactic);
 		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
-	}*/
-/*	@Test
+	}
+	@Test
 	public void testIgnoreComments2()
 	{
 		System.out.println("TEST testIgnoreComments2".toUpperCase());
@@ -335,8 +335,8 @@ public class TranslatorTest {
 		sollErg.add(commands.get(7));
 		InputStream in = stringToStream(tactic);
 		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
-	}*/
-/*	@Test
+	}
+	@Test
 	public void testCommentLine()
 	{
 		System.out.println("TEST testCommentLine".toUpperCase());
@@ -366,9 +366,9 @@ public class TranslatorTest {
 		InputStream in = stringToStream(tactic);		
 		assertEquals("Tactic length is 2000 i.e. OK.", sollErg, translator.run(in));
 		
-	}*/
+	}
 	
-/**	@Test
+	@Test
 	public void testWrongLength()
 	{
 		System.out.println("TEST testCorrectLength".toUpperCase());
@@ -450,15 +450,30 @@ public class TranslatorTest {
 		fail("Probably jumps to lines greater than 1999 are not allowed in tacticfiles.");
 		}
 		catch(IllegalArgumentException e){}
-	}**/
-/*	@Test
+	}
+	@Test
 	public void testCommandList()
 	{
 		System.out.println("TEST testCommandList".toUpperCase());
 
 		assertEquals("List of commands is wrong",new Goto(14),commands.get(26));
 		assertEquals("List of commands is wrong",new Sense(0),commands.get(14));
-	}*/
+	}
+	
+	@Test
+	public void testWrongTurn()
+	{
+		String badTactic = lines.get(0)
+							+"turn links; this\n"
+							+ lines.get(7);
+		
+		InputStream in = stringToStream(badTactic);
+		try{
+		translator.run(in);
+		fail("Probably jumps to lines greater than 1999 are not allowed in tacticfiles.");
+		}
+		catch(IllegalArgumentException e){}
+	}
 	private InputStream stringToStream(String tactic)
 	{
 
