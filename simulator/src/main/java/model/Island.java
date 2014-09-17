@@ -23,6 +23,11 @@ public class Island extends Field {
 	public boolean placeBuoy(int type, Team team) {
 		return false;
 	}
+	
+	@Override
+	public void deleteBuoy(Team team, int value){
+		return;
+	}
 
 	@Override
 	public boolean setKraken(Kraken kraken) {

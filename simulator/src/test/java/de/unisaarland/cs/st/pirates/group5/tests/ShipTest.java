@@ -15,7 +15,7 @@ import model.Water;
 
 import org.junit.Test;
 
-
+import view.SimpleLogWriter;
 import commands.Drop;
 import commands.Goto;
 import controller.Command;
@@ -55,7 +55,10 @@ public class ShipTest {
 	
 	@Test
 	public void testgetPosition(){
-		Field water = new Water(null, 0, 0, null);
+		Random testRandom = new Random(13);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom, testLog);
+		Field water = new Water(testMap, 0, 0, null);
 		ship = new Ship(null, water, 0, null);
 		
 		assertTrue(ship.getPosition().equals(water));

@@ -215,6 +215,7 @@ public class CommandMoveTest {
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(-4);
+		shipme.changeCondition(-2);
 		shipenemy.changeMoral(4);
 		
 		moveit.execute(shipme);

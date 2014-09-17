@@ -144,7 +144,8 @@ public class CommandDropTest {
 		
 		assertTrue(fieldArray[1][1].getTreasure()==null);
 		
-		fieldArray[1][1].exchangeTreasure(5);
+		fieldArray[1][1].exchangeTreasure(4);
+		fieldArray[1][1].exchangeTreasure(1);
 		
 		assertTrue(fieldArray[1][1].getTreasure()!=null);
 		
@@ -184,17 +185,13 @@ public class CommandDropTest {
 		
 		Team testTeam = new Team('a', null);
 		
-		fieldArray[1][1]=new Water(testMap, 0, 0, null);
-		
 		Ship testShip = new Ship(testTeam, fieldArray[1][1], 0, null);
-		
-		fieldArray[1][1].setShip(testShip);
-		
-		assertTrue(fieldArray[0][0].getTreasure()==null); // TODO: Strange order of asserts
-		
 		fieldArray[1][1]=new Base(testMap, 1, 1, testTeam, testShip);
 		
-		assertTrue(fieldArray[0][0].getTreasure()!=null); // TODO: stange order of asserts
+		assertTrue(fieldArray[1][1].getTreasure()==null);
+		
+
+		
 		
 		testShip.setLoad(3);
 		

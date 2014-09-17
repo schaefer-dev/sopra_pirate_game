@@ -140,18 +140,7 @@ public abstract class Field {
 	
 	public abstract boolean placeBuoy(int type, Team team);
 
-	public void deleteBuoy(Team team, int value){
-		if(team == null) throw new NullPointerException();
-		if(value < 0 || value > 6) throw new IllegalArgumentException();
-		
-		for(Buoy buoy: buoys){
-			if(buoy.getTeam().equals(team) && buoy.getType() == value){
-				buoys.remove(buoy);
-				map.getLogWriter().destroy(Entity.BUOY, buoy.id);
-				break;
-			}
-		}
-	}
+	public abstract void deleteBuoy(Team team, int value);
 
 	
 	public abstract FieldType getFieldType();
