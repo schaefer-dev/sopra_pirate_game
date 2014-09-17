@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
 public abstract class Field {
 
@@ -26,22 +27,67 @@ public abstract class Field {
 		this.ship = ship;
 	}
 	
-	public boolean exchangeTreasure(int value){
-		// TODO Auto-generated method stub
-		return false;
+	public Treasure getTreasure(){
+		return treasure;
 	}
 	
-	public abstract boolean setShip(Ship ship);
+	public boolean exchangeTreasure(int value){
+		if(value == 0) throw new IllegalArgumentException();
+		if(value < -4 || value > 4) throw new IllegalArgumentException("You can only change the treasure value by |4|");
+		
+		if(value > 0){
+			if(treasure == null){
+				treasure = new Treasure(map.giveNewEntityID(), value);
+				Key[] keys = {Key.X_COORD, Key.Y_COORD, Key.VALUE};
+				int[] values = {x, y, value};
+				map.getLogWriter().create(Entity.TREASURE, treasure.id, keys, values);
+			}
+			else{
+				treasure.changeValue(value);
+				map.getLogWriter().notify(Entity.TREASURE, treasure.id, Key.VALUE, treasure.getValue());
+			}	
+		}
+		else{
+			if(treasure == null) throw new IllegalArgumentException("You can't take loot from a nonexisting treasure");
+			if((treasure.getValue() + value) < 0) throw new IllegalArgumentException("You are to greedy");
+			
+			if((treasure.getValue() + value) == 0){
+				map.getLogWriter().destroy(Entity.TREASURE, treasure.id);
+				treasure = null;
+			}
+			else{
+				treasure.changeValue(value);
+				map.getLogWriter().notify(Entity.TREASURE, treasure.id, Key.VALUE, treasure.getValue());
+			}		
+		}
+
+		return true;
+	}
 	
-	public abstract boolean placeBuoy(int type, Team team);
+	public boolean setShip(Ship ship){
+		if(this.ship == null){
+			this.ship = ship;
+			return true;
+		}
+		
+		return false;	
+	}
 	
 	public boolean moveShip(Field destination){
-		// TODO Auto-generated method stub
+		if(ship == null) throw new IllegalStateException();
+		
+		if(destination.setShip(ship)){
+			map.getLogWriter().notify(Entity.SHIP, ship.getID(), Key.X_COORD, destination.getX());
+			map.getLogWriter().notify(Entity.SHIP, ship.getID(), Key.Y_COORD, destination.getY());
+			ship = null;
+			return true;
+		}
+
 		return false;
 	}
 	
 	public boolean setKraken(Kraken kraken){
-		if(kraken != null){
+		if(this.kraken == null){
 			this.kraken = kraken;
 			return true;
 		}
@@ -50,7 +96,15 @@ public abstract class Field {
 	}
 	
 	public boolean moveKraken(Field destination){
-		// TODO Auto-generated method stub
+		if(kraken == null) throw new IllegalStateException();
+		
+		if(destination.setKraken(kraken)){
+			map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.X_COORD, destination.getX());
+			map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.Y_COORD, destination.getY());
+			kraken = null;
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -72,21 +126,19 @@ public abstract class Field {
 	}
 	
 	public abstract FieldType getFieldType();
-	
-	public Treasure getTreasure(){
-		return treasure;
-	}
-	
+		
 	public List<Buoy> getBuoys(){
 		return buoys;
 	}
 	
+	public abstract boolean placeBuoy(int type, Team team);
+
 	public void deleteBuoy(Team team, int value){
 		if(team == null) throw new NullPointerException();
 		if(value < 0 || value > 6) throw new IllegalArgumentException();
 		
 		for(Buoy buoy: buoys){
-			if(buoy.getTeam().equals(team) && buoy.id == value){
+			if(buoy.getTeam().equals(team) && buoy.getType() == value){
 				buoys.remove(buoy);
 				map.getLogWriter().destroy(Entity.BUOY, buoy.id);
 				break;
@@ -105,7 +157,4 @@ public abstract class Field {
 	public Kraken getKraken() {
 		return kraken;
 	}
-	
-	
-	
 }
