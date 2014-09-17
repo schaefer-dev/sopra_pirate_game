@@ -132,8 +132,8 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_supply), BoolWert.Undefined.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure), BoolWert.Undefined.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_supply), BoolWert.Undefined.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), 0);
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), 0);
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), Ship.undefinedInt);
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), Ship.undefinedInt);
 		}
 		@Test
 		public void testEinsNull(){
@@ -147,20 +147,26 @@ public class CommandSenseTest {
 		@Test
 		public void testNullEins(){
 			shipAtNullNull.act();
+			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Island.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure), BoolWert.True.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker5),BoolWert.False.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Undefined.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), 0);
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), 0);
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), Ship.undefinedInt);
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), Ship.undefinedInt);
 		}
 		@Test
 		public void testDreiEins(){
+			shipAtNullNull.act();
+			shipAtNullNull.act();
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.EnemyHome.ordinal());
 		}
 		@Test
 		public void testDreiNull(){
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Island.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_supply), BoolWert.True.ordinal());
@@ -169,13 +175,22 @@ public class CommandSenseTest {
 		@Test
 		public void testDreiDrei(){
 			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Friend.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker3),BoolWert.Undefined.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker4),BoolWert.Undefined.ordinal());
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker3),BoolWert.True.ordinal());
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker4),BoolWert.True.ordinal());
 		}
 		@Test
 		public void testNullDrei(){
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Undefined.ordinal());
@@ -188,6 +203,12 @@ public class CommandSenseTest {
 		@Test
 		public void testNullNull(){
 			shipAtNullNull.act();//schaut auf 0,0. Hat: water, HomeBase.(1)
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Home.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker1),BoolWert.False.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker2),BoolWert.False.ordinal());
@@ -200,7 +221,14 @@ public class CommandSenseTest {
 			shipAtNullNull.act();//Kaempft gegen enemyship
 			shipAtNullNull.act();//springt auf sensecommand 7
 			shipAtNullNull.act();//schaut auf 1,0
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure),BoolWert.True.ordinal());
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+			shipAtNullNull.act();
+		    assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure),BoolWert.True.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker5),BoolWert.True.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Undefined.ordinal());
