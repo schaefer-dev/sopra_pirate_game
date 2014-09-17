@@ -2,7 +2,6 @@ package model;
 
 import java.util.List;
 
-import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
@@ -10,15 +9,11 @@ public class Water extends Field {
 
 	public Water(Map map, int x, int y, Kraken kraken) {
 		super(map, x, y, null);
-		this.setKraken(kraken);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public boolean setShip(Ship ship) {
-		// TODO Auto-generated method stub
-		this.ship=ship;
-		return false;
+		
+		if(kraken != null){
+			this.kraken = kraken;
+			kraken.setField(this);
+		}
 	}
 
 	@Override
@@ -57,20 +52,12 @@ public class Water extends Field {
 			typearray[3] = newbuoy.getType();
 			
 			map.getLogWriter().create(Entity.BUOY, newbuoy.id, keyarray, typearray);
-			return true;}
-		
-	}
-
-	@Override
-	public boolean setKraken(Kraken kraken) {
-		// TODO Auto-generated method stub
-		this.kraken=kraken;
-		return false;
+			return true;
+		}
 	}
 
 	@Override
 	public FieldType getFieldType() {
-		// TODO Auto-generated method stub
 		return FieldType.Water;
 	}
 }

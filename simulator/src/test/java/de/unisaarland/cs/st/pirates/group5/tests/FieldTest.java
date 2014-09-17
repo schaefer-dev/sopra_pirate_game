@@ -173,8 +173,8 @@ public class FieldTest {
 		assertEquals("FieldType broken",hinten.getFieldType(), FieldType.Water);
 		assertEquals("FieldType broken",rechtsUntenVorne.getFieldType(), FieldType.Base);
 		assertEquals("FieldType broken",rechtsUntenHinten.getFieldType(), FieldType.Base);
-		assertEquals("FieldType broken",linksObenHinten.getFieldType(), FieldType.Island);
-		assertEquals("FieldType broken",linksObenVorne.getFieldType(), FieldType.ProvisionIsland);
+		assertEquals("FieldType broken",linksObenHinten.getFieldType(), FieldType.ProvisionIsland);
+		assertEquals("FieldType broken",linksObenVorne.getFieldType(), FieldType.Island);
 	}	
 	@Test 
 	public void testExchangeTreasure(){
@@ -241,7 +241,7 @@ public class FieldTest {
 	@Test 
 	public void testKrakenInit()
 	{
-		assertSame("The field of Kraken was not set correctly in the Constructor of Water",hinten, kraken.getField());
+		assertSame("The field of Kraken was not set correctly in the Constructor of Water,", hinten, kraken.getField());
 	}
 	
 	@Test
