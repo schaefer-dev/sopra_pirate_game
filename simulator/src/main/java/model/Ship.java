@@ -362,6 +362,7 @@ public class Ship {
 		this.nextShip=next;
 	}
 	
+	
 	private void destroy(){
 		if (previousShip==null){
 			field.setShip(null);
