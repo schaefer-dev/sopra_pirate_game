@@ -73,6 +73,7 @@ public abstract class Field {
 	
 	public boolean setShip(Ship ship){
 		if(this.ship == null){
+			System.out.print("setship reached\n");
 			this.ship = ship;
 			this.ship.setField(this);
 			return true;
