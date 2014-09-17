@@ -1,25 +1,43 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import model.Base;
 import model.BoolWert;
+import model.Field;
+import model.Map;
 import model.Register;
 import model.Ship;
+import model.Team;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import controller.BoolComparison;
+import controller.Command;
 
 public class BoolComparisonTest {
 
 	private BoolComparison compare;
 	private Ship ship;
 	
+	private Map map;
+	private Field field;
+	private Team team;
+	
 	@Before
 	public void setUp(){
-		ship = new Ship(null, null, 0, null);
+		List<Command> commands = new ArrayList<Command>();
+		team = new Team('a', commands);
+		map = new Map(new Random(), new DummyLogWriter());
+		ship = new Ship(team, null, 0, null);	
+		field = new Base(map, 0, 0, team, ship);
+		ship.setField(field);
 	}
-	
 	@Test
 	public void BoolComparisonTest(){
 		

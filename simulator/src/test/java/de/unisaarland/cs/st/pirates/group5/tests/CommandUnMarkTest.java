@@ -2,6 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
 import model.Field;
+import model.Map;
 import model.Ship;
 import model.Team;
 import model.Water;
@@ -9,6 +10,7 @@ import model.Water;
 import org.junit.Before;
 import org.junit.Test;
 
+import view.SimpleLogWriter;
 import commands.Mark;
 import commands.Turn;
 import commands.Unmark;
@@ -18,7 +20,9 @@ public class CommandUnMarkTest {
 	@Test
 	public void TestUnMarkBuoy(){
 		Team teamA = new Team('a', null);
-		Field waterField = new Water(null, 0,0, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
 		waterField.placeBuoy(0, teamA);
 		assertTrue("placebuy error",waterField.getBuoys().size()==1);
 		
@@ -33,8 +37,9 @@ public class CommandUnMarkTest {
 		Team teamA = new Team('a', null);
 		Team teamB = new Team('b', null);
 		Team teamC = new Team('c', null);
-		
-		Field waterField = new Water(null, 0,0, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(0, teamC);
@@ -51,8 +56,9 @@ public class CommandUnMarkTest {
 		Team teamA = new Team('a', null);
 		Team teamB = new Team('b', null);
 		Team teamC = new Team('c', null);
-		
-		Field waterField = new Water(null, 0,0, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(0, teamC);
@@ -70,8 +76,9 @@ public class CommandUnMarkTest {
 		Team teamA = new Team('a', null);
 		Team teamB = new Team('b', null);
 		Team teamC = new Team('c', null);
-		
-		Field waterField = new Water(null, 0,0, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(2, teamC);
@@ -94,8 +101,9 @@ public class CommandUnMarkTest {
 		Team teamB = new Team('b', null);
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
-		
-		Field waterField = new Water(null, 0,0, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
 		waterField.placeBuoy(0, teamA);
 		waterField.placeBuoy(2, teamB);
 		waterField.placeBuoy(2, teamC);
@@ -120,8 +128,9 @@ public class CommandUnMarkTest {
 		Team teamB = new Team('b', null);
 		Team teamC = new Team('c', null);
 		Team teamD = new Team('d', null);
-		
-		Field waterField = new Water(null, 0,0, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(null, testLog);
+		Field waterField = new Water(testMap, 0,0, null);
 		assertTrue("Water constructor failed",waterField.getBuoys().size()==0);
 		Ship shipA = new Ship(teamA, waterField, 0, null);
 		Ship shipB = new Ship(teamB, waterField, 0, null);

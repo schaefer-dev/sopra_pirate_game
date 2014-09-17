@@ -1,5 +1,8 @@
 package commands;
 
+import java.util.List;
+
+import model.Buoy;
 import model.Ship;
 import controller.Command;
 
@@ -13,8 +16,8 @@ public class Mark implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
-
+		ship.getPosition().placeBuoy(type, ship.getTeam());
+		
 	}
 	@Override
 	public boolean equals (Object o)

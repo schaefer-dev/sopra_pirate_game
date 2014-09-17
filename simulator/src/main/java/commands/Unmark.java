@@ -1,5 +1,8 @@
 package commands;
 
+import java.util.List;
+
+import model.Buoy;
 import model.Ship;
 import controller.Command;
 
@@ -13,7 +16,9 @@ public class Unmark implements Command {
 	
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
+
+	ship.getPosition().deleteBuoy(ship.getTeam(), type);
+		
 
 	}
 	@Override

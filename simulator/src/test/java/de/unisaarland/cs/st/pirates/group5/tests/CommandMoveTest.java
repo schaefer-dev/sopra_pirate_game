@@ -2,6 +2,8 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import model.Base;
 import model.Island;
 import model.Kraken;
@@ -10,8 +12,10 @@ import model.ProvisionIsland;
 import model.Ship;
 import model.Team;
 import model.Water;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import commands.Move;
 import model.Field;
 
@@ -60,7 +64,9 @@ public class CommandMoveTest {
 		fields = new Field[3][3];
 		
 		moveit = new Move(13);
-		map = new Map(null, null);
+		DummyLogWriter testLog = new DummyLogWriter();
+		Random testRandom = new Random();
+		map = new Map(testRandom, testLog);
 		
 		
 		a = 0;
@@ -123,9 +129,7 @@ public class CommandMoveTest {
 		moveit.execute(shipme);
 		
 		assertTrue ("move to water1", shipme.getPosition().equals(water1));
-		assertNull("Ship must be deleted from old field",waterme.getShip());
-		 
-		 
+		assertNull("Ship must be deleted from old field",waterme.getShip());		 
 	 }
 	
 	@Test

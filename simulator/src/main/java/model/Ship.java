@@ -251,82 +251,82 @@ public class Ship {
 				
 			case sense_celltype:
 				if ((value<0)||(value>3))
-					if (value!=undefined)
+					if (value!=CellType.Undefined.ordinal())
 					throw new IllegalArgumentException("senseCelltype only defined between 0 and 3 (empty,island,home,enemyhome,undefined)");
 				break;
 				
-			case sense_supply:		//TODO Undefined values are not tested yet!!!
+			case sense_supply:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseSupply only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_treasure:		//TODO Undefined values are not tested yet!!!
+			case sense_treasure:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseTreasure only defined between 0 and 1 (true, false, undefined)");
 				
-			case sense_marker0:		//TODO Undefined values are not tested yet!!!
+			case sense_marker0:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_marker1:		//TODO Undefined values are not tested yet!!!
+			case sense_marker1:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_marker2:		//TODO Undefined values are not tested yet!!!
+			case sense_marker2:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_marker3:		//TODO Undefined values are not tested yet!!!
+			case sense_marker3:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;				
 				
-			case sense_marker4:		//TODO Undefined values are not tested yet!!!
+			case sense_marker4:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_marker5:		//TODO Undefined values are not tested yet!!!
+			case sense_marker5:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_enemymarker:		//TODO Undefined values are not tested yet!!!
+			case sense_enemymarker:		
 				if ((value<0)||(value>2))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseEnemyMarker only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_shiptype:		//TODO Undefined values are not tested yet!!!
+			case sense_shiptype:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=ShipType.Undefined.ordinal())
 					throw new IllegalArgumentException("senseShiptype only defined between 0 and 1 (friend, enemy, undefined)");
 				break;
 				
-			case sense_shipdirection:		//TODO Undefined values are not tested yet!!!
+			case sense_shipdirection:		
 				if ((value<0)||(value>5))
 					if (value!=undefined)
 					throw new IllegalArgumentException("senseShipDirection only defined between 0 and 5 (directions+undefined)");
 				break;
 				
-			case sense_shiploaded:		//TODO Undefined values are not tested yet!!!
+			case sense_shiploaded:		
 				if ((value<0)||(value>1))
-					if (value!=undefined)
+					if (value!=BoolWert.Undefined.ordinal())
 					throw new IllegalArgumentException("senseShipLoaded only defined between 0 and 1 (true, false, undefined)");
 				break;
 				
-			case sense_shipcondition:		//TODO Undefined values are not tested yet!!!
+			case sense_shipcondition:		
 				if ((value<1)||(value>3))
 					if (value!=undefined)
 					throw new IllegalArgumentException("senseShipCondition only defined between 1 and 3 (1, 2, 3, undefined)");
@@ -349,15 +349,17 @@ public class Ship {
 			field.setShip(null);
 			team.deleteShip(this);
 			this.field.getMap().setFirstShip(nextShip);
-			nextShip.previousShip=null;
+			nextShip.previousShip=null;		
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+			field = null;			// important for checks in Move if ship is still alive
 		}
 		else{
 			field.setShip(null);
 			team.deleteShip(this);
 			previousShip.nextShip.setNextShip(nextShip);
-			nextShip.previousShip=previousShip;
+			nextShip.previousShip=previousShip;	
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+			field = null;
 		}
 			
 	}
