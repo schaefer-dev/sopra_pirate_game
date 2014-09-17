@@ -211,7 +211,7 @@ public class IntComparisonTest {
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Equal, Register.ship_load, 4);
-		ship.setLoad(40);
+		ship.setLoad(4);
 		assertTrue(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Equal, 4, Register.ship_load);
@@ -432,7 +432,7 @@ public class IntComparisonTest {
 		compare = new IntComparison(Operator.Equal, Register.ship_condition, 0);
 		ship = new Ship(team, field, 0, null);
 		ship.changeCondition(-1);
-		assertTrue(compare.eval(ship));
+		assertFalse(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Equal, 1, Register.ship_condition);
 		ship = new Ship(team, field, 0, null);
@@ -441,7 +441,7 @@ public class IntComparisonTest {
 		
 		compare = new IntComparison(Operator.Equal, 0, Register.ship_condition);
 		ship = new Ship(team, field, 0, null);
-		ship.changeCondition(-10);
+		ship.changeCondition(-1);
 		assertFalse(compare.eval(ship));
 		
 		compare = new IntComparison(Operator.Unequal, Register.ship_condition, 2);
