@@ -98,56 +98,41 @@ public class Translator {
 			
 			case DROP:
 				line = appendix;
-				if(appendix != null && !appendix.isEmpty()){
-						overloadError();
-						break;
-				}
+				overloadTest();
 				return new Drop();
 			
 			case TURN:
 				makeSplits(appendix);
-				if(currentElement.equalsIgnoreCase("left"))
-					if(appendix == null || appendix.isEmpty())
-						return new Turn(true);
-					else{
-						overloadError();
-						break;
-					}						
+				if(currentElement.equalsIgnoreCase("left")){
+					overloadTest();
+					return new Turn(true);					
 					
-				if(currentElement.equalsIgnoreCase("right"))
-					if(appendix == null)
-						return new Turn(false);
-					else{
-						overloadError();
-						break;
-					}
-				errors.add(currentElement + "is not a valid direction @line " + row + " @position "
-																	+ column);
+				}else if(currentElement.equalsIgnoreCase("right")){
+					overloadTest();
+					return new Turn(false);
+				
+				}else errors.add(currentElement + "is not a valid direction @line " + row + " @position "
+																											+ column);
 				break;
 					   
 			case GOTO:
 				makeSplits(appendix);
-				if(evaluateAddress(currentElement) != -1)
-					if(appendix == null || appendix.isEmpty())
-						return new Goto(evaluateAddress(currentElement));	
-					else{
-						overloadError();
-						break;
-					}
+				if(evaluateAddress(currentElement) != -1){
+					overloadTest();
+					return new Goto(evaluateAddress(currentElement));	
+				}else{
+						
 				errors.add("Invalid address or label @line " + row + " @position " + column);
 				break;
+				}
 				
 			case MARK: 
 				makeSplits(appendix);
 				if(toolBox.isInteger(currentElement)){
 					type = toolBox.toInt(currentElement);
 					if(0 <= type && type <= 5){
-						if(appendix == null || appendix.isEmpty())
-							return new Mark(type);
-						else{
-							overloadError();
-							break;
-						}
+						overloadTest();
+						return new Mark(type);
 					}else{
 						errors.add("Invalid buoy type @line " + row + " @position " + column);
 						break;
@@ -161,12 +146,8 @@ public class Translator {
 				if(toolBox.isInteger(currentElement)){
 					type = toolBox.toInt(currentElement);
 					if(0 <= type && type <= 5){
-						if(appendix == null || appendix.isEmpty())
-							return new Unmark(type);
-						else{
-							overloadError();
-							break;
-						}
+						overloadTest();
+						return new Unmark(type);
 					}else{
 						errors.add("Invalid buoy type @line " + row + " @position " + column);
 						break;
@@ -180,12 +161,8 @@ public class Translator {
 				if(toolBox.isInteger(currentElement)){
 					type = toolBox.toInt(currentElement);
 					if(0 <= type && type <= 6){
-						if(appendix == null || appendix.isEmpty())
-							return new Sense(type);
-						else{
-							overloadError();
-							break;
-						}
+						overloadTest();
+						return new Sense(type);
 					}else{
 						errors.add("Invalid sense direction @line " + row + " @position " + column);
 						break;
@@ -199,12 +176,9 @@ public class Translator {
 				if(currentElement.equalsIgnoreCase("else") && appendix != null){
 					makeSplits(appendix);
 					if(evaluateAddress(currentElement) != -1){
-						if(appendix == null || appendix.isEmpty())
-						   return new Move(evaluateAddress(currentElement));	
-						else{
-							overloadError();
-							break;
-						}					}else{
+						overloadTest();
+						return new Move(evaluateAddress(currentElement));	
+					}else{
 						errors.add("not a valid address or label @line " + row + " @position " +
 																	(columns - currentElement.length()));
 						break;
@@ -219,12 +193,8 @@ public class Translator {
 				if(currentElement.equalsIgnoreCase("else") && appendix != null){
 					makeSplits(appendix);
 					if(evaluateAddress(currentElement) != -1){
-						if(appendix == null || appendix.isEmpty())
-						   return new Repair(evaluateAddress(currentElement));	
-						else{
-							overloadError();
-							break;
-						}					
+						overloadTest();
+						return new Repair(evaluateAddress(currentElement));					
 					}else{
 						errors.add("not a valid address or label @line " + row + " @position "
 																	+ toolBox.indexOfError(columns, appendix, currentElement));
@@ -244,12 +214,8 @@ public class Translator {
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
-									if(appendix == null || appendix.isEmpty())
-										return new Pickup(type,evaluateAddress(currentElement));
-									else{
-										overloadError();
-										break;
-									}	
+									overloadTest();
+									return new Pickup(type,evaluateAddress(currentElement));	
 								}else{
 									errors.add("not a valid address or label @line " + row + " @Position " 
 													    + toolBox.indexOfError(columns, appendix, currentElement));
@@ -279,12 +245,8 @@ public class Translator {
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
-									if(appendix == null || appendix.isEmpty())
-										return new Refresh(type,evaluateAddress(currentElement));
-									else{
-										overloadError();
-										break;
-									}
+									overloadTest();
+									return new Refresh(type,evaluateAddress(currentElement));
 								}else{
 									errors.add("not a valid address or label @line " + row + " @Position " 
 														+ toolBox.indexOfError(columns, appendix, currentElement));
@@ -313,12 +275,8 @@ public class Translator {
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
-									if(appendix == null || appendix.isEmpty())
-										return new Flipzero(type,evaluateAddress(currentElement));
-									else{
-										overloadError();
-										break;
-									}
+									overloadTest();
+									return new Flipzero(type,evaluateAddress(currentElement));
 								}else{
 									errors.add("not a valid address or label @line " + row + " @Position " 
 														+ toolBox.indexOfError(columns, appendix, currentElement));
@@ -345,7 +303,8 @@ public class Translator {
 					makeSplits(appendix);
 					if(appendix != null && currentElement.equalsIgnoreCase("else")){
 						makeSplits(appendix);
-						if(evaluateAddress(currentElement) != -1 && appendix == null){
+						if(evaluateAddress(currentElement) != -1){
+							overloadTest();
 							type = evaluateAddress(currentElement);
 							if(0 <= type && type <= 1999)
 								return new If(comparison, type);
@@ -353,9 +312,6 @@ public class Translator {
 								errors.add("No valid address @line " + row + " @position "+ toolBox.indexOfError(columns, appendix, currentElement));
 								break;
 							}
-						}else{
-							overloadError();
-							break;
 						}
 					}else{
 						errors.add("Missing else @line " + row + " @position "+ toolBox.indexOfError(columns, appendix, currentElement));
@@ -391,7 +347,8 @@ public class Translator {
 				if(checkBools = false)
 					break;
 				makeSplits(appendix);
-				if(evaluateAddress(currentElement) != -1 && appendix == null){
+				if(evaluateAddress(currentElement) != -1){
+					overloadTest();
 					type = evaluateAddress(currentElement);
 					if(0 <= type && type <= 1999)
 						return new IfAll(bools, type);
@@ -399,9 +356,6 @@ public class Translator {
 						errors.add("No valid address @line " + row);
 						break;
 					}
-				}else{
-					overloadError();
-					break;
 				}
 			
 			case IFANY:
@@ -429,7 +383,8 @@ public class Translator {
 				if(checkBools = false)
 					break;
 				makeSplits(appendix);
-				if(evaluateAddress(currentElement) != -1 && appendix == null){
+				if(evaluateAddress(currentElement) != -1){
+					overloadTest();
 					type = evaluateAddress(currentElement);
 					if(0 <= type && type <= 1999)
 						return new IfAny(bools, type);
@@ -437,14 +392,11 @@ public class Translator {
 						errors.add("No valid address @line " + row);
 						break;
 					}
-				}else{
-					overloadError();
-					break;
 				}
 			
 			default:
-				throw new IllegalArgumentException("Not a valid command @line" + row + 
-																			" position" + currentColumn);
+				errors.add("Not a valid command @line" + row + " position" + currentColumn);
+				break;															
 			}
 			
 		return null;
@@ -452,8 +404,9 @@ public class Translator {
 	
 	/** @Specs: prints error, whether there are too many arguments in a single line**/
 	
-	private void overloadError() {
-		errors.add("Too many arguments @line " + row);		
+	private void overloadTest() {
+		if(appendix != null)
+			errors.add("Too many arguments @line " + row);
 	}
 
 	/** @Specs: takes a tactics file, invokes translate(String string) on every line and creates a team tactics
