@@ -86,7 +86,7 @@ public class BoostCoverageTest {
 		testMap.getNeighbour(fieldArray[1][1], 7);
 	}
 	
-	@Test(expected = NumberFormatException.class)
+	@Test(expected = NullPointerException.class)
 	public void BoostMapClass3(){
 		Random testRandom = new Random();
 		DummyLogWriter testLog = new DummyLogWriter();
@@ -101,8 +101,23 @@ public class BoostCoverageTest {
 			}
 		}	
 		testMap.setMapValues(fieldArray, kraken);
-		while(true){
-			testMap.giveNewActorID();
-		}
+		testMap.getFirstShip();
+		testMap.setFirstShip(null);
+	}
+	@Test(expected = NullPointerException.class)
+	public void BoostMapClass4(){
+		Random testRandom = new Random();
+		DummyLogWriter testLog = new DummyLogWriter();
+		Map testMap = new Map(testRandom,testLog);
+		
+		Field[][] fieldArray=new Field[3][3];
+		List<Kraken> kraken = new ArrayList<Kraken>();
+		
+		for (int i=0; (i<3); i++){
+			for (int z=0; (z<3); z++){
+				fieldArray[z][i]=new Water(testMap,z,i,null);
+			}
+		}	
+		testMap.setMapValues(null, kraken);
 	}
 }
