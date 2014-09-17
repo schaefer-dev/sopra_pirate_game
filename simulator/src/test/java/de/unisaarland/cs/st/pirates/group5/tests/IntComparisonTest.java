@@ -200,7 +200,7 @@ public class IntComparisonTest {
 		ship.changeDirection(true);
 		ship.changeDirection(true);
 		ship.changeDirection(true);
-		assertTrue(compare.eval(ship));
+		assertFalse(compare.eval(ship));
 	}
 	
 	@Test
