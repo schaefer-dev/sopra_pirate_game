@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,10 +32,10 @@ public class Simulator {
 	private List<Kraken> kraken;
 	
 	
-	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException {
+	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException();
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
-		
+
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
@@ -52,7 +54,9 @@ public class Simulator {
 			}
 		}
 		
-		File file = new File(logFile);
+		
+		URL path = getClass().getResource(logFile);
+		File file = new File(path.toURI());
 		FileOutputStream stream = new FileOutputStream(file);
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
@@ -75,7 +79,6 @@ public class Simulator {
 		
 		roundCounter = 1;
 		roundMax = turns + 1;
-		
 	}
 	
 	

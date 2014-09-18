@@ -3,6 +3,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,10 @@ public class SimulatorTest {
 	}
 
 	@Test
-	public void test() throws ArrayIndexOutOfBoundsException, NullPointerException, IOException {
+
+	public void test() throws URISyntaxException, ArrayIndexOutOfBoundsException, NullPointerException, IOException {
+	//	DummyLogWriter log = new DummyLogWriter();
+
 		Simulator sim;
 			sim = new Simulator(ships,map, 5,logfile, 2);
 			sim.step(2);
