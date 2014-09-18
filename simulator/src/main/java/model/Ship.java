@@ -391,10 +391,27 @@ public class Ship {
 		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.VALUE, i);
 	}
 	
+	
+	/**
+	 * simple getter for getting the value inside the register reg. Calls reg.ordinal() for correct index
+	 * 
+	 * @param reg	the register which value should be returned
+	 * @return		the value of register reg (int)
+	 */
 	public int getSenseRegister(Register reg){
 		return registers[reg.ordinal()];
 	}
 	
+	
+	/**
+	 * simple setter for setting the value inside the register (should only be used for sense registers)
+	 * checks the register enum, cases and checks if value is valid for this field before setting it.
+	 * If its not valid, throw IllegalArgumentException
+	 * 
+	 * @param reg		the register which value should be setted to a new value
+	 * @param value		the new value for the register reg (int which mostly represents the various enums)
+	 * @throws IllegalArgumentException	when value is not matching the register
+	 */
 	public void setSenseRegister(Register reg, int value){
 		
 		/* 6 is always a valid value because it represents undefined register */
@@ -510,15 +527,33 @@ public class Ship {
 		registers[reg.ordinal()]=value;
 	}
 	
+	
+	/**
+	 * simple getter for nextShip
+	 * 
+	 * @return	nextShip
+	 */
 	public Ship getNextShip(){
 		return nextShip;
 	}
 	
+	/**
+	 * simple setter for nextShip
+	 * 
+	 * @param next	nextShip
+	 */
 	public void setNextShip(Ship next){
 		this.nextShip=next;
 	}
 	
 	
+	/**
+	 * private helpmethod which manages all stuff related to destroying a ship. Setting the ship value on the field
+	 * null, deleting the ship in the team, changing the nextShip previousShip values and maybe even the
+	 * firstShip in Map.class. Logs the destruction afterwards and finally sets field=null (last step to
+	 * avoid nullPointerExceptions)
+	 * 
+	 */
 	private void destroy(){
 		if (previousShip==null){
 			field.setShip(null);
