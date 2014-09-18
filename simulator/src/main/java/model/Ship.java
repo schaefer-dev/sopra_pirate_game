@@ -6,16 +6,13 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
 
 /**
- * 
- * @author danielschaefer
- *
  * The Ship class
  * 
  * An instance of this class will perform a single act(). 
  * 
- * Every Ship basically owns its own program-counter, which describes in which line of the
- * CommandList which represents the teams tactics the ship currently is. Ships are called
- * from the simulator class to perform an act if they are allowed to do so (break = 0).
+ * Every Ship basically owns its own programcounter, which describes in which line of the
+ * CommandList (which represents the teams tactics) the ship currently is. Ships are called
+ * from the simulator.class to perform an act if they are allowed to do so (break = 0).
  * 
  * Additionally the ship holds the described Registers which describe its condition, 
  * position and so on.
@@ -24,12 +21,19 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
  * firstShip in Map basically is an initial node of a whole linked List of ships, due to
  * the improved ability to delete single ships efficiently and easy.
  * 
- * Basically the ship controls everything which is happening because of it or with itself,
- * actively and passively (moving on enemy ships but also getting destroyed if an enemy
- * ship destroys it)
+ * The Ship starts the execution of its next command and is saving its condition after
+ * executing this exact command. The execution itself takes place in the Command.execute
+ * methods of the various command classes. The ship is not only able to act actively but
+ * also passively (for example destroying itself with deleting itself from the team, map,
+ * field and so on if an enemy ship destroys it by winning a fight).
  * 
+ * Ship also has the ability to convert relative directions used in tactics and the ship 
+ * to absolute directions on the map to avoid confusion by only working with absolute 
+ * directions outside the ship.class
+ * 
+ * 
+ * @author danielschaefer
  */
-
 public class Ship {
 
 	public static final int undefinedInt = 6;
@@ -44,6 +48,17 @@ public class Ship {
 	private Ship previousShip;
 	private Ship nextShip;
 	
+	
+	
+	/**
+	 * Constructor for Ship.class
+	 * 
+	 * @param team	
+	 * @param field
+	 * @param id
+	 * @param previous
+	 * 
+	 */
 	public Ship(Team team, Field field, int id, Ship previous){
 		this.id = id;
 		this.field=field;						// field should always be null when called properly (outside tests)!
@@ -75,54 +90,104 @@ public class Ship {
 		this.noPositivActionCounter=0;
 	}
 	
+	/**
+	 * Executes the next command in the commandList at index pc
+	 * 
+	 */
 	public void act(){
+		if (pc+1 > this.getTeam().getCommands().size())
+			this.destroy();
+		else{
 		
-		if (pause == 0){
-			int oldpc=pc;
-			pc+=1;
-			noPositivActionCounter+=1;
-			
-			team.getCommands().get(oldpc).execute(this);
-			if (this.field!=null){
-				if (noPositivActionCounter==40){
-					this.changeMoral(-1);
-					noPositivActionCounter=0;
+			if (pause == 0){
+				int oldpc=pc;
+				pc+=1;
+				noPositivActionCounter+=1;
+				
+				team.getCommands().get(oldpc).execute(this);
+				if (this.field!=null){
+					if (noPositivActionCounter==40){
+						this.changeMoral(-1);
+						noPositivActionCounter=0;
+					}
+					if (pc!=oldpc)
+						field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 				}
-				if (pc!=oldpc)
-					field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 			}
+			else
+				changePause(-1);
 		}
-		else
-			changePause(-1);
 	}
 
 	
+	/**
+	 * Getter for noPositiveActionCounter
+	 * 
+	 * @return 	noPositiveActionCounter which describes the amout of turn the ship
+	 * has not done a "positive" action (see project description).
+	 */
 	public int getNoPositivActionCounter() {
 		return noPositivActionCounter;
 	}
 
+	
+	/**
+	 * simple getter for pc
+	 * 
+	 * @return 	programcounter
+	 */
 	public int getPC(){
 		return this.pc;
 	}
 	
+	
+	/**
+	 * simple getter for Team of a ship
+	 * 
+	 * @return 	the team of the ship instance
+	 */
 	public Team getTeam(){
 		return this.team;
 	}
 	
+	
+	/**
+	 * simple getter for the Field of a ship
+	 * 
+	 * @return	the Field the ship instance is currently standing on
+	 */
 	public Field getPosition(){
 		return this.field;
 	}
 	
+	
+	/**
+	 * simple setter for the Field of a ship
+	 * 
+	 * @param field		the Field the ship instance is currently standing on
+	 */
 	public void setField(Field field){
 		//no logging!
 		this.field=field;
 	}
 	
+	
+	/**
+	 * simple setter for the pc of a ship
+	 * 
+	 * @param i			the pc at which the ship currently is
+	 */
 	public void setPC(int i){
 		// no logging!
 		this.pc=i;
 	}
 	
+	
+	/**
+	 * simple fetter for the next Command
+	 * 
+	 * @return	the next Command, so just the command at index pc of the commandList
+	 */
 	public Command getCommand(){
 		return team.getCommands().get(pc);
 	}
@@ -163,6 +228,14 @@ public class Ship {
 		}
 	}
 	
+	
+	/**
+	 * calculates the relative sight direction into the ships absolute direction to return the
+	 * absolute watchdirection of the ship
+	 * 
+	 * @param relDirection	relative sight direction
+	 * @return				absolute watch direction of the ship
+	 */
 	public int relativeToAbsoluteDirection(int relDirection){
 		if (relDirection == 6)
 			return 6;
@@ -175,10 +248,24 @@ public class Ship {
 		
 	}
 	
+	
+	/**
+	 * simple getter for shipmoral
+	 * 
+	 * @return	shipmoral
+	 */
 	public int getMoral(){
 		return registers[Register.ship_moral.ordinal()];
 	}
 	
+	
+	/**
+	 * calculates i to the ships Moral. Also checks that the moral wont go higher than 4 or less than 0
+	 * increasing the ships moral also resets the noPositiveActionCounter to zero. If the moral changes
+	 * these changes are logged here as well
+	 * 
+	 * @param i	change moral value, can be >0 and <0
+	 */
 	public void changeMoral(int i){
 		int moral = this.getMoral();
 		
@@ -207,10 +294,24 @@ public class Ship {
 		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, moral+i);
 	}
 	
+	
+	/**
+	 * simple getter for shipcondition
+	 * 
+	 * @return shipcondition
+	 */
 	public int getCondition(){
 		return registers[Register.ship_condition.ordinal()];
 	}
 	
+	
+	/**
+	 * calculates i to the ships Condition. Also checks that the condition wont go higher than 3 or less
+	 * than 0. If the condition changes these changes are logged here as well. Also checks that condition
+	 * can't ever be <=0 when calling this method.
+	 * 
+	 * @param i	change ship condition value
+	 */
 	public void changeCondition(int i){
 		int condition = this.getCondition();
 		if (condition<=0)
@@ -234,10 +335,23 @@ public class Ship {
 		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
 	}
 	
+	
+	/**
+	 * simple getter for pause
+	 * 
+	 * @return	current pause of the ship
+	 */
 	public int getPause(){
 		return this.pause;
 	}
 	
+	
+	/**
+	 * changes the pause of the ship with value i. If Pause is already >0 and i>0 throw IllegalStateException
+	 * also logs changes if the pause really changes. Pause can never go below 0
+	 * 
+	 * @param i	pause change value
+	 */
 	public void changePause(int i){
 		int pauseBefore = getPause();
 		if ((pauseBefore > 0) && (i > 0))
@@ -253,10 +367,22 @@ public class Ship {
 		
 	}
 	
+	
+	/**
+	 * simple getter for shipload
+	 * 
+	 * @return	currecnt shipload
+	 */
 	public int getLoad(){
 		return registers[Register.ship_load.ordinal()];
 	}
-		
+	
+	
+	/**
+	 * simple setter for shipload. Will throw exception for everything but 0<=i<=4. Logs changes
+	 * 
+	 * @param i	new load value
+	 */
 	public void setLoad(int i){
 		//TODO need good tests because its setted immediately without checking again what was inside before, has to be called carefully!
 		if ((i>4)||(i<0))
@@ -265,10 +391,27 @@ public class Ship {
 		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.VALUE, i);
 	}
 	
+	
+	/**
+	 * simple getter for getting the value inside the register reg. Calls reg.ordinal() for correct index
+	 * 
+	 * @param reg	the register which value should be returned
+	 * @return		the value of register reg (int)
+	 */
 	public int getSenseRegister(Register reg){
 		return registers[reg.ordinal()];
 	}
 	
+	
+	/**
+	 * simple setter for setting the value inside the register (should only be used for sense registers)
+	 * checks the register enum, cases and checks if value is valid for this field before setting it.
+	 * If its not valid, throw IllegalArgumentException
+	 * 
+	 * @param reg		the register which value should be setted to a new value
+	 * @param value		the new value for the register reg (int which mostly represents the various enums)
+	 * @throws IllegalArgumentException	when value is not matching the register
+	 */
 	public void setSenseRegister(Register reg, int value){
 		
 		/* 6 is always a valid value because it represents undefined register */
@@ -384,15 +527,33 @@ public class Ship {
 		registers[reg.ordinal()]=value;
 	}
 	
+	
+	/**
+	 * simple getter for nextShip
+	 * 
+	 * @return	nextShip
+	 */
 	public Ship getNextShip(){
 		return nextShip;
 	}
 	
+	/**
+	 * simple setter for nextShip
+	 * 
+	 * @param next	nextShip
+	 */
 	public void setNextShip(Ship next){
 		this.nextShip=next;
 	}
 	
 	
+	/**
+	 * private helpmethod which manages all stuff related to destroying a ship. Setting the ship value on the field
+	 * null, deleting the ship in the team, changing the nextShip previousShip values and maybe even the
+	 * firstShip in Map.class. Logs the destruction afterwards and finally sets field=null (last step to
+	 * avoid nullPointerExceptions)
+	 * 
+	 */
 	private void destroy(){
 		if (previousShip==null){
 			field.setShip(null);
