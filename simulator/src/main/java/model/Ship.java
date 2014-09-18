@@ -13,9 +13,9 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
  * 
  * An instance of this class will perform a single act(). 
  * 
- * Every Ship basically owns its own program-counter, which describes in which line of the
- * CommandList which represents the teams tactics the ship currently is. Ships are called
- * from the simulator class to perform an act if they are allowed to do so (break = 0).
+ * Every Ship basically owns its own programcounter, which describes in which line of the
+ * CommandList (which represents the teams tactics) the ship currently is. Ships are called
+ * from the simulator.class to perform an act if they are allowed to do so (break = 0).
  * 
  * Additionally the ship holds the described Registers which describe its condition, 
  * position and so on.
@@ -24,12 +24,17 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
  * firstShip in Map basically is an initial node of a whole linked List of ships, due to
  * the improved ability to delete single ships efficiently and easy.
  * 
- * Basically the ship controls everything which is happening because of it or with itself,
- * actively and passively (moving on enemy ships but also getting destroyed if an enemy
- * ship destroys it)
+ * The Ship starts the execution of its next command and is saving its condition after
+ * executing this exact command. The execution itself takes place in the Command.execute
+ * methods of the various command classes. The ship is not only able to act actively but
+ * also passively (for example destroying itself with deleting itself from the team, map,
+ * field and so on if an enemy ship destroys it by winning a fight).
+ * 
+ * Ship also has the ability to convert relative directions used in tactics and the ship 
+ * to absolute directions on the map to avoid confusion by only working with absolute 
+ * directions outside the ship.class
  * 
  */
-
 public class Ship {
 
 	public static final int undefinedInt = 6;
@@ -44,6 +49,17 @@ public class Ship {
 	private Ship previousShip;
 	private Ship nextShip;
 	
+	
+	
+	/**
+	 * Constructor for Ship.class
+	 * 
+	 * @param team	
+	 * @param field
+	 * @param id
+	 * @param previous
+	 * 
+	 */
 	public Ship(Team team, Field field, int id, Ship previous){
 		this.id = id;
 		this.field=field;						// field should always be null when called properly (outside tests)!
@@ -75,54 +91,104 @@ public class Ship {
 		this.noPositivActionCounter=0;
 	}
 	
+	/**
+	 * Executes the next command in the commandList at index pc
+	 * 
+	 */
 	public void act(){
+		if (pc+1 > this.getTeam().getCommands().size())
+			this.destroy();
+		else{
 		
-		if (pause == 0){
-			int oldpc=pc;
-			pc+=1;
-			noPositivActionCounter+=1;
-			
-			team.getCommands().get(oldpc).execute(this);
-			if (this.field!=null){
-				if (noPositivActionCounter==40){
-					this.changeMoral(-1);
-					noPositivActionCounter=0;
+			if (pause == 0){
+				int oldpc=pc;
+				pc+=1;
+				noPositivActionCounter+=1;
+				
+				team.getCommands().get(oldpc).execute(this);
+				if (this.field!=null){
+					if (noPositivActionCounter==40){
+						this.changeMoral(-1);
+						noPositivActionCounter=0;
+					}
+					if (pc!=oldpc)
+						field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 				}
-				if (pc!=oldpc)
-					field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 			}
+			else
+				changePause(-1);
 		}
-		else
-			changePause(-1);
 	}
 
 	
+	/**
+	 * Getter for noPositiveActionCounter
+	 * 
+	 * @return 	noPositiveActionCounter which describes the amout of turn the ship
+	 * has not done a "positive" action (see project description).	 * 
+	 */
 	public int getNoPositivActionCounter() {
 		return noPositivActionCounter;
 	}
 
+	
+	/**
+	 * simple getter for pc
+	 * 
+	 * @return 	programcounter
+	 */
 	public int getPC(){
 		return this.pc;
 	}
 	
+	
+	/**
+	 * simple getter for Team of a ship
+	 * 
+	 * @return 	the team of the ship instance
+	 */
 	public Team getTeam(){
 		return this.team;
 	}
 	
+	
+	/**
+	 * simple getter for the Field of a ship
+	 * 
+	 * @return	the Field the ship instance is currently standing on
+	 */
 	public Field getPosition(){
 		return this.field;
 	}
 	
+	
+	/**
+	 * simple setter for the Field of a ship
+	 * 
+	 * @param field		the Field the ship instance is currently standing on
+	 */
 	public void setField(Field field){
 		//no logging!
 		this.field=field;
 	}
 	
+	
+	/**
+	 * simple setter for the pc of a ship
+	 * 
+	 * @param i			the pc at which the ship currently is
+	 */
 	public void setPC(int i){
 		// no logging!
 		this.pc=i;
 	}
 	
+	
+	/**
+	 * simple fetter for the next Command
+	 * 
+	 * @return	the next Command, so just the command at index pc of the commandList
+	 */
 	public Command getCommand(){
 		return team.getCommands().get(pc);
 	}
