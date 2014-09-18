@@ -410,6 +410,7 @@ public class Translator {
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 		boolean tooLong = false;
 		row = 0;
+		tactic.clear();
 		errors.clear();
 					try {
 				if (labelized){
