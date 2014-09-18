@@ -205,7 +205,7 @@ public class Ship {
 			return;
 		}
 		registers[Register.ship_condition.ordinal()]=condition+i;
-		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+1);
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
 	}
 	
 	public int getPause(){
