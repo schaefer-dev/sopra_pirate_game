@@ -259,7 +259,6 @@ public class TranslatorTools {
 				return null;
 			if (operator == null)
 				return null;
-			System.out.println(operand2);
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
 				if(0 <= constant && constant <= 5)
