@@ -1,6 +1,7 @@
 package de.unisaarland.cs.st.pirates.group5.main;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import controller.Simulator;
 
@@ -8,7 +9,7 @@ public class Main {
 	
 	private static boolean endGame = false;
 	
-	public static void main(String[] args) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException {
+	public static void main(String[] args) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		
 		String mapFile = args[0];
 		
