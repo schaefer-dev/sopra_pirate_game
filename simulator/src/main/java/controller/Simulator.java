@@ -62,9 +62,17 @@ public class Simulator {
 			//System.out.println(teams.get(2).getCommands());
 		}
 		
-		URL path = getClass().getResource(logFile);
-		File file = new File(path.toURI());
-		FileOutputStream stream = new FileOutputStream(file);
+		FileOutputStream stream;
+		if(getClass().getResource(logFile) != null)
+		{
+			URL temp = getClass().getResource(logFile);
+			File file = new File(temp.toURI());
+			stream = new FileOutputStream(file);
+		}
+		else
+		{
+			stream = new FileOutputStream(logFile);
+		}
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);
