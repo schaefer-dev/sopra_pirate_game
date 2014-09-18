@@ -62,6 +62,7 @@ public class Ship {
 				noPositivActionCounter=0;
 			}
 			if (pc!=oldpc)
+				System.out.print((field==null)+"\n");
 				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 		}
 		else
@@ -369,15 +370,16 @@ public class Ship {
 		if (previousShip==null){
 			field.setShip(null);
 			team.deleteShip(this);
-			this.field.getMap().setFirstShip(nextShip);
-			nextShip.previousShip=null;		
+			field.getMap().setFirstShip(nextShip);
+			if (nextShip != null)
+				nextShip.previousShip=null;		
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
 			field = null;			// important for checks in Move if ship is still alive
 		}
 		else{
 			field.setShip(null);
 			team.deleteShip(this);
-			previousShip.nextShip.setNextShip(nextShip);
+			previousShip.setNextShip(nextShip);
 			if (nextShip != null)
 				nextShip.previousShip=previousShip;	
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
