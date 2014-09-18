@@ -15,7 +15,7 @@ public class Main {
 		
 		String[] tactics = new String[args.length - 1];
 		for(int i = 1; i <= tactics.length; i++)
-			tactics[i-1] = args[i];	
+			tactics[i-1] = args[i];
 	
 		//String logFile = System.getProperty("log");
 		//int turns = Integer.parseInt(System.getProperty("turns"));
