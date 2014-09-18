@@ -162,15 +162,20 @@ public class MapGenerator {
 						lastShip = true;
 					}
 				}
+				System.out.println(tactic1.get(1));
+				System.out.println(tactic2.get(1));
 			}
 			else{
 				for(Team team: teams){
 					log.fleetScore(team.getName() - 'a', 0);
-				
+					
+					
 					if(team.getShipCount() <= 0)
 						throw new IllegalArgumentException("Not every team has bases/ships on the map");
 				}
 			}
+			
+			
 		}
 				
 		map.setMapValues(fields, kraken);
