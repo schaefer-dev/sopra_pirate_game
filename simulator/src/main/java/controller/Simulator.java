@@ -37,6 +37,7 @@ public class Simulator {
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
 
 		Translator translator = new Translator();
+		System.out.println(logFile);
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
 			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
