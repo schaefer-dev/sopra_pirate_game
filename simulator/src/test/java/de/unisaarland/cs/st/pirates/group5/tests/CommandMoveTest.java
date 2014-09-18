@@ -344,7 +344,6 @@ public class CommandMoveTest {
 	
 	@Test
 	public void testMoveShipFightTreasureNew(){
-		System.out.print("start\n");
 		shipme.setLoad(0);
 		shipme.changePause(-20);
 		shipme.changeDirection(false);
@@ -375,7 +374,6 @@ public class CommandMoveTest {
 	
 	@Test
 	public void testMoveShipFightTreasureOld(){
-		System.out.print("\nend\n");
 		shipme.changePause(-8);
 		waterenemy.exchangeTreasure(2);
 		shipme.changeDirection(false);
