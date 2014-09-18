@@ -53,10 +53,6 @@ public class Simulator {
 				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-				for (int z = 0; i-z>=0;z++){
-					System.out.println(teams.get(z).getCommands());
-				}
-				System.out.println("run finished");
 			}
 
 			
