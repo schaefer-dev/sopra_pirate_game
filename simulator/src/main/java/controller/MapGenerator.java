@@ -59,7 +59,7 @@ public class MapGenerator {
 		
 		while((line = reader.readLine()) != null){
 			
-			line.trim(); // replaces tabs with ""
+			line.trim();
 			line = line.replaceAll(" ", "");
 
 			for(int i = 0; i < line.length(); i++){
@@ -162,8 +162,6 @@ public class MapGenerator {
 						lastShip = true;
 					}
 				}
-				System.out.println(tactic1.get(1));
-				System.out.println(tactic2.get(1));
 			}
 			else{
 				for(Team team: teams){
@@ -174,8 +172,6 @@ public class MapGenerator {
 						throw new IllegalArgumentException("Not every team has bases/ships on the map");
 				}
 			}
-			
-			
 		}
 				
 		map.setMapValues(fields, kraken);
