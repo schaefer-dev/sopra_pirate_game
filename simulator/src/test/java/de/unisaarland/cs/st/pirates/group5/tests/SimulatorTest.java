@@ -3,6 +3,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class SimulatorTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws URISyntaxException {
 	//	DummyLogWriter log = new DummyLogWriter();
 		Simulator sim;
 		try {
