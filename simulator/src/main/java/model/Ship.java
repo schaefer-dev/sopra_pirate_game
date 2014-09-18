@@ -63,7 +63,6 @@ public class Ship {
 					noPositivActionCounter=0;
 				}
 				if (pc!=oldpc)
-					System.out.print((field==null)+"\n");
 					field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 			}
 		}
