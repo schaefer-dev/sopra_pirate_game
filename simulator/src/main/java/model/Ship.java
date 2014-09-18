@@ -236,7 +236,7 @@ public class Ship {
 	 * @param relDirection	relative sight direction
 	 * @return				absolute watch direction of the ship
 	 */
-	int relativeToAbsoluteDirection(int relDirection){
+	public int relativeToAbsoluteDirection(int relDirection){
 		if (relDirection == 6)
 			return 6;
 		
