@@ -11,15 +11,16 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorTest {
-	String[] ships = new String[1];
+	String[] ships = {"/TestShip.ship","/TestShip2.ship" ,"/TestShip3.ship" ,"/TestShip4.ship", "/TestShip5.ship"};
 	String map;
 	String logfile;
-	
+	int rounds;
 	@Before
 	public void setUp(){
-		ships[0] = "/TestShip.ship";
-		map = "/testMap.map";
-		logfile = "src/test/resources/log.log";
+		
+		map = "/map.txt";
+		logfile = "/log.log";
+		rounds = 10000;
 	}
 
 	@Test
@@ -28,8 +29,9 @@ public class SimulatorTest {
 	//	DummyLogWriter log = new DummyLogWriter();
 
 		Simulator sim;
-			sim = new Simulator(ships,map, 5,logfile, 2);
-			sim.step(2);
+			sim = new Simulator(ships,map, 5,logfile, rounds);
+			sim.step(rounds);
+			sim.end();
 
 
 	}// catch (ArrayIndexOutOfBoundsException e) {
