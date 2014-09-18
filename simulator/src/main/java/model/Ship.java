@@ -228,7 +228,15 @@ public class Ship {
 		}
 	}
 	
-	public int relativeToAbsoluteDirection(int relDirection){
+	
+	/**
+	 * calculates the relative sight direction into the ships absolute direction to return the
+	 * absolute watchdirection of the ship
+	 * 
+	 * @param relDirection	relative sight direction
+	 * @return				absolute watch direction of the ship
+	 */
+	int relativeToAbsoluteDirection(int relDirection){
 		if (relDirection == 6)
 			return 6;
 		
@@ -240,10 +248,24 @@ public class Ship {
 		
 	}
 	
+	
+	/**
+	 * simple getter for shipmoral
+	 * 
+	 * @return	shipmoral
+	 */
 	public int getMoral(){
 		return registers[Register.ship_moral.ordinal()];
 	}
 	
+	
+	/**
+	 * calculates i to the ships Moral. Also checks that the moral wont go higher than 4 or less than 0
+	 * increasing the ships moral also resets the noPositiveActionCounter to zero. If the moral changes
+	 * these changes are logged here as well
+	 * 
+	 * @param i	change moral value, can be >0 and <0
+	 */
 	public void changeMoral(int i){
 		int moral = this.getMoral();
 		
@@ -272,10 +294,24 @@ public class Ship {
 		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, moral+i);
 	}
 	
+	
+	/**
+	 * simple getter for shipcondition
+	 * 
+	 * @return shipcondition
+	 */
 	public int getCondition(){
 		return registers[Register.ship_condition.ordinal()];
 	}
 	
+	
+	/**
+	 * calculates i to the ships Condition. Also checks that the condition wont go higher than 3 or less
+	 * than 0. If the condition changes these changes are logged here as well. Also checks that condition
+	 * can't ever be <=0 when calling this method.
+	 * 
+	 * @param i	change ship condition value
+	 */
 	public void changeCondition(int i){
 		int condition = this.getCondition();
 		if (condition<=0)
@@ -299,10 +335,23 @@ public class Ship {
 		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
 	}
 	
+	
+	/**
+	 * simple getter for pause
+	 * 
+	 * @return	current pause of the ship
+	 */
 	public int getPause(){
 		return this.pause;
 	}
 	
+	
+	/**
+	 * changes the pause of the ship with value i. If Pause is already >0 and i>0 throw IllegalStateException
+	 * also logs changes if the pause really changes. Pause can never go below 0
+	 * 
+	 * @param i	pause change value
+	 */
 	public void changePause(int i){
 		int pauseBefore = getPause();
 		if ((pauseBefore > 0) && (i > 0))
@@ -318,10 +367,22 @@ public class Ship {
 		
 	}
 	
+	
+	/**
+	 * simple getter for shipload
+	 * 
+	 * @return	currecnt shipload
+	 */
 	public int getLoad(){
 		return registers[Register.ship_load.ordinal()];
 	}
-		
+	
+	
+	/**
+	 * simple setter for shipload. Will throw exception for everything but 0<=i<=4. Logs changes
+	 * 
+	 * @param i	new load value
+	 */
 	public void setLoad(int i){
 		//TODO need good tests because its setted immediately without checking again what was inside before, has to be called carefully!
 		if ((i>4)||(i<0))
