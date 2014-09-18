@@ -59,7 +59,7 @@ public class MapGenerator {
 		
 		while((line = reader.readLine()) != null){
 			
-			line.trim(); // replaces tabs with ""
+			line.trim();
 			line = line.replaceAll(" ", "");
 
 			for(int i = 0; i < line.length(); i++){
@@ -166,7 +166,8 @@ public class MapGenerator {
 			else{
 				for(Team team: teams){
 					log.fleetScore(team.getName() - 'a', 0);
-				
+					
+					
 					if(team.getShipCount() <= 0)
 						throw new IllegalArgumentException("Not every team has bases/ships on the map");
 				}

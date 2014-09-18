@@ -11,7 +11,7 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorTest {
-	String[] ships = {"/TestShip.ship","/TestShip2.ship"};
+	String[] ships = {"/TestShip.ship","/TestShip2.ship","/TestShip3.ship"};
 	String map;
 	String logfile;
 	int rounds;
