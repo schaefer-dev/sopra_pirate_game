@@ -58,7 +58,7 @@ public class Simulator {
 		FileOutputStream stream;
 		if(getClass().getResource(logFile) != null)
 		{
-			URL temp = new URL(logFile);
+			URL temp = getClass().getResource(logFile);
 			File file = new File(temp.toURI());
 			stream = new FileOutputStream(file);
 		}
