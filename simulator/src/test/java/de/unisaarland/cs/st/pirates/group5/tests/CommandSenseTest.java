@@ -186,7 +186,6 @@ public class CommandSenseTest {
 		}
 		@Test
 		public void testNullDrei(){
-			System.out.println(shipAtNullNull.getPC());
 			shipAtNullNull.act();
 			shipAtNullNull.act();
 			shipAtNullNull.act();

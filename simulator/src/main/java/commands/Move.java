@@ -143,14 +143,14 @@ public class Move implements Command {
 			}
 			if (loadLater > 4)	//Debugging
 				throw new IllegalStateException("you should not be here... go away!");
+			calcAndSetShipPause(ship);
 			ship.setLoad(loadLater);
-			if ((targetLoad - loadLater) > 0)
-				targetShip.getPosition().exchangeTreasure(targetLoad - loadLater); // drop additional value to ground
+			if ((targetShip.getLoad() - (loadLater-shipLoad)) > 0)
+				targetShip.getPosition().exchangeTreasure(targetShip.getLoad() - (loadLater-shipLoad)); // drop additional value to ground
 			Field savedShipPosition = targetShip.getPosition();
 			targetShip.changeMoral(-1);
 			targetShip.changeCondition(-1);
 			ship.getPosition().moveShip(savedShipPosition);
-			calcAndSetShipPause(ship);
 		}
 		else{
 			targetShip.changeMoral(-1);
