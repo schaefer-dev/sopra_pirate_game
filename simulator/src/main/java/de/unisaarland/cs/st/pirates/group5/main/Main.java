@@ -21,7 +21,7 @@ public class Main {
 		//int turns = Integer.parseInt(System.getProperty("turns"));
 		//int seed  = Integer.parseInt(System.getProperty("seed"));
 		
-		String logFile = "src/test/resources/log.log";
+		String logFile = "/log.log";
 		int turns = 100;
 		int seed = 1;
 
