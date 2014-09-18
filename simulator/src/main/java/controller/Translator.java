@@ -27,7 +27,6 @@ import commands.Unmark;
 public class Translator {
 	
 	Map<String, Integer> labels = new HashMap<String, Integer>();
-	List<Command> tactic;
 	List<String> errors; //Eventuell als map<integer, string>. In der GUI könnten dann zwei 
 	//docs geprompt werden, das rechte wäre die tacticfile, die linke enthält alle errors, von 
 	//denen jeder in der draufsicht seinem auftreten zugeordnet ist, weil die map die zeile des 
@@ -41,7 +40,6 @@ public class Translator {
 	TranslatorTools toolBox;
 	
 	public Translator(){
-		this.tactic = new ArrayList<Command>();
 		this.errors = new ArrayList<String>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
@@ -410,7 +408,7 @@ public class Translator {
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 		boolean tooLong = false;
 		row = 0;
-		tactic.clear();
+		List<Command> tactic = new ArrayList<Command>();
 		errors.clear();
 					try {
 				if (labelized){

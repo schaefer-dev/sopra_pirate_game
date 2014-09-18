@@ -40,6 +40,7 @@ public class Simulator {
 		System.out.println(logFile);
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
+
 			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
 			String[]tempFiles = new String[26];
 			Arrays.fill(tempFiles, shipFiles[0]);
@@ -53,7 +54,17 @@ public class Simulator {
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
 			}
+		System.out.println(teams.get(0).getCommands().get(3));
+		System.out.println(teams.get(0).getName());
+
+		System.out.println(teams.get(1).getCommands().get(3));
+		System.out.println(teams.get(0).getName());
+
+		System.out.println(teams.get(2).getCommands().get(3));
+		System.out.println(teams.get(0).getName());
 		}
+		
+		
 		
 		URL path = getClass().getResource(logFile);
 		File file = new File(path.toURI());
