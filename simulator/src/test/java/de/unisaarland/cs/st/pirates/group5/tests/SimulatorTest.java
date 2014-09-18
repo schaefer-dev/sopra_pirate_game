@@ -18,7 +18,7 @@ public class SimulatorTest {
 	public void setUp(){
 		ships[0] = "/TestShip.ship";
 		map = "/map2x2.txt";
-		logfile = "/log.log";
+		logfile = "src/test/resources/log.log";
 	}
 
 	@Test

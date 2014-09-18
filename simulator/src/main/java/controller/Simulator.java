@@ -33,7 +33,7 @@ public class Simulator {
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException();
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
-		
+
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
