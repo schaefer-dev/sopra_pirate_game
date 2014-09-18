@@ -53,22 +53,26 @@ public class Simulator {
 				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
+				for (int z = 0; i-z>=0;z++){
+					System.out.println(teams.get(z).getCommands());
+				}
+				System.out.println("run finished");
 			}
-		System.out.println(teams.get(0).getCommands().get(3));
-		System.out.println(teams.get(0).getName());
 
-		System.out.println(teams.get(1).getCommands().get(3));
-		System.out.println(teams.get(0).getName());
-
-		System.out.println(teams.get(2).getCommands().get(3));
-		System.out.println(teams.get(0).getName());
+			
 		}
 		
-		
-		
-		URL path = getClass().getResource(logFile);
-		File file = new File(path.toURI());
-		FileOutputStream stream = new FileOutputStream(file);
+		FileOutputStream stream;
+		if(getClass().getResource(logFile) != null)
+		{
+			URL temp = getClass().getResource(logFile);
+			File file = new File(temp.toURI());
+			stream = new FileOutputStream(file);
+		}
+		else
+		{
+			stream = new FileOutputStream(logFile);
+		}
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);
