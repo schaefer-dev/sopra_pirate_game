@@ -37,6 +37,7 @@ public class Simulator {
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
 
 		Translator translator = new Translator();
+		System.out.println(logFile);
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
 			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
@@ -53,11 +54,9 @@ public class Simulator {
 				teams.add(team);
 			}
 		}
-		
-		
-		URL path = getClass().getResource(logFile);
-		File file = new File(path.toURI());
-		FileOutputStream stream = new FileOutputStream(file);
+	//	URL path = getClass().getResource(logFile);
+	//	File file = new File(path.toURI());
+		FileOutputStream stream = new FileOutputStream(logFile);
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);
