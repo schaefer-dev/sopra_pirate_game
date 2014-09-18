@@ -6,9 +6,6 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
 
 /**
- * 
- * @author danielschaefer
- *
  * The Ship class
  * 
  * An instance of this class will perform a single act(). 
@@ -34,6 +31,8 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
  * to absolute directions on the map to avoid confusion by only working with absolute 
  * directions outside the ship.class
  * 
+ * 
+ * @author danielschaefer
  */
 public class Ship {
 
@@ -125,7 +124,7 @@ public class Ship {
 	 * Getter for noPositiveActionCounter
 	 * 
 	 * @return 	noPositiveActionCounter which describes the amout of turn the ship
-	 * has not done a "positive" action (see project description).	 * 
+	 * has not done a "positive" action (see project description).
 	 */
 	public int getNoPositivActionCounter() {
 		return noPositivActionCounter;
