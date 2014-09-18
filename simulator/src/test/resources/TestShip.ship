@@ -1,4 +1,7 @@
 sense 0
+move else 0
+move else 0
+move else 0
 ifall sense_treasure ship_load<4 else 4;
 pickup 0 else 6;
 goto 0; Was auch immer

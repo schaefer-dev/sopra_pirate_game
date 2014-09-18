@@ -1,0 +1,15 @@
+0 move else 4
+1 sense 0
+2 if sense_treasure else 10
+3 pickup 3 else
+4 turn right
+5 turn right
+6 turn right
+7 move else
+8 sense 6
+9 ifany sense_celltype==home sense_treasure else 10
+10 if sense_celltype==home else 12
+11 drop
+12 pickup 6 else 7
+10 turn left
+11 goto 7

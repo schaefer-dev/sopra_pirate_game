@@ -161,10 +161,8 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 4)
-					return new IntComparison(operator,Register.sense_shipcondition, constant);
-				else return null;
-			}
+				return new IntComparison(operator,Register.sense_shipcondition, constant);
+			}			
 			if(operand2.equalsIgnoreCase("sense_shipcondition"))
 				return new IntComparison(operator,Register.sense_shipcondition, Register.sense_shipcondition);
 			if(operand2.equalsIgnoreCase("sense_shipdirection"))
@@ -186,9 +184,7 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 6)
-					return new IntComparison(operator,Register.sense_shipdirection, constant);
-				else return null;
+				return new IntComparison(operator,Register.sense_shipdirection, constant);
 			}
 			if(operand2.equalsIgnoreCase("sense_shipcondition"))
 				return new IntComparison(operator,Register.sense_shipdirection, Register.sense_shipcondition);
@@ -211,9 +207,7 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 5)
-					return new IntComparison(operator,Register.ship_condition, constant);
-				else return null;
+				return new IntComparison(operator,Register.ship_condition, constant);
 			}
 			if(operand2.equalsIgnoreCase("sense_shipcondition"))
 				return new IntComparison(operator,Register.ship_condition, Register.sense_shipcondition);
@@ -236,9 +230,7 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 6)
-					return new IntComparison(operator,Register.ship_direction, constant);
-				else return null;
+				return new IntComparison(operator,Register.ship_direction, constant);
 			}
 			if(operand2.equalsIgnoreCase("sense_shipcondition"))
 				return new IntComparison(operator,Register.ship_direction, Register.sense_shipcondition);
@@ -261,9 +253,7 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 5)
-					return new IntComparison(operator,Register.ship_load, constant);
-				else return null;
+				return new IntComparison(operator,Register.ship_load, constant);
 			}
 			if(operand2.equalsIgnoreCase("sense_shipcondition"))
 				return new IntComparison(operator,Register.ship_load, Register.sense_shipcondition);
@@ -286,9 +276,7 @@ public class TranslatorTools {
 				return null;
 			if(isInteger(operand2)){
 				constant = toInt(operand2);
-				if(0 <= constant && constant <= 5)
-					return new IntComparison(operator,Register.ship_moral, constant);
-				else return null;
+				return new IntComparison(operator,Register.ship_moral, constant);
 			}
 			if(operand2.equalsIgnoreCase("sense_shipcondition"))
 				return new IntComparison(operator,Register.ship_moral, Register.sense_shipcondition);

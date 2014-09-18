@@ -57,12 +57,14 @@ public class Ship {
 			noPositivActionCounter+=1;
 			
 			team.getCommands().get(oldpc).execute(this);
-			if (noPositivActionCounter==40){
-				this.changeMoral(-1);
-				noPositivActionCounter=0;
+			if (this.field!=null){
+				if (noPositivActionCounter==40){
+					this.changeMoral(-1);
+					noPositivActionCounter=0;
+				}
+				if (pc!=oldpc)
+					field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 			}
-			if (pc!=oldpc)
-				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
 		}
 		else
 			changePause(-1);
@@ -369,15 +371,16 @@ public class Ship {
 		if (previousShip==null){
 			field.setShip(null);
 			team.deleteShip(this);
-			this.field.getMap().setFirstShip(nextShip);
-			nextShip.previousShip=null;		
+			field.getMap().setFirstShip(nextShip);
+			if (nextShip != null)
+				nextShip.previousShip=null;		
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
 			field = null;			// important for checks in Move if ship is still alive
 		}
 		else{
 			field.setShip(null);
 			team.deleteShip(this);
-			previousShip.nextShip.setNextShip(nextShip);
+			previousShip.setNextShip(nextShip);
 			if (nextShip != null)
 				nextShip.previousShip=previousShip;	
 			field.getMap().getLogWriter().destroy(Entity.SHIP, id);

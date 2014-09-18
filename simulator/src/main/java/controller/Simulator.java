@@ -54,9 +54,10 @@ public class Simulator {
 				teams.add(team);
 			}
 		}
-	//	URL path = getClass().getResource(logFile);
-	//	File file = new File(path.toURI());
-		FileOutputStream stream = new FileOutputStream(logFile);
+		
+		URL path = getClass().getResource(logFile);
+		File file = new File(path.toURI());
+		FileOutputStream stream = new FileOutputStream(file);
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);

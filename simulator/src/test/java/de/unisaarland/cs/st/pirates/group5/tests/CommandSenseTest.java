@@ -217,26 +217,6 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_enemymarker),BoolWert.False.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure),BoolWert.False.ordinal());	
 		}
-		@Test
-		public void testaftercombat(){
-			shipAtNullNull.act();//Kaempft gegen enemyship
-			shipAtNullNull.act();//springt auf sensecommand 7
-			shipAtNullNull.act();//schaut auf 1,0
-			shipAtNullNull.act();
-			shipAtNullNull.act();
-			shipAtNullNull.act();
-			shipAtNullNull.act();
-			shipAtNullNull.act();
-			shipAtNullNull.act();
-			shipAtNullNull.act();
-		    assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure),BoolWert.True.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker5),BoolWert.True.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Undefined.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker1),BoolWert.False.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker2),BoolWert.False.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker3),BoolWert.False.ordinal());
-			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker4),BoolWert.False.ordinal());
-		}
+		
 
 }
