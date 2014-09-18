@@ -53,9 +53,7 @@ public class Simulator {
 				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-			}
-
-			
+			}	
 		}
 		
 		FileOutputStream stream;
