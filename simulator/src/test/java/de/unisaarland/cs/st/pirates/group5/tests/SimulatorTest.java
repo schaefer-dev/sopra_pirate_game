@@ -11,21 +11,18 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorTest {
-	String[] ships = {"/TestShip.ship","/TestShip2.ship" ,"/TestShip3.ship" ,"/TestShip4.ship", "/TestShip5.ship"};
+	String[] ships = {"/TestShip.ship","/TestShip2.ship"};
 	String map;
 	String logfile;
 	int rounds;
 	@Before
 	public void setUp(){
-
-		
 		map = "/map.txt";
 		logfile = "/log.log";
 		rounds = 10000;
 	}
 
 	@Test
-
 	public void test() throws URISyntaxException, ArrayIndexOutOfBoundsException, NullPointerException, IOException {
 	//	DummyLogWriter log = new DummyLogWriter();
 
