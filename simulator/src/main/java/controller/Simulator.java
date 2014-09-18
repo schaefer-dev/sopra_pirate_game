@@ -17,6 +17,7 @@ import view.GUIController;
 import view.Log;
 import view.SimpleLogWriter;
 import model.Kraken;
+import model.Register;
 import model.Ship;
 import model.Team;
 import model.Map;
@@ -37,7 +38,6 @@ public class Simulator {
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
 
 		Translator translator = new Translator();
-		System.out.println(logFile);
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
 
@@ -57,16 +57,14 @@ public class Simulator {
 		}
 		
 		FileOutputStream stream;
-		if(getClass().getResource(logFile) != null)
-		{
+		if(getClass().getResource(logFile) != null){
 			URL temp = getClass().getResource(logFile);
 			File file = new File(temp.toURI());
 			stream = new FileOutputStream(file);
 		}
 		else
-		{
 			stream = new FileOutputStream(logFile);
-		}
+		
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);
@@ -123,6 +121,14 @@ public class Simulator {
 	
 	public void end() throws IllegalStateException, IOException{
 		logWriter.close();
+		
+		for(Team team: teams){			
+			int load = 0;
+			for(Ship ship: team.getShips())
+				load += ship.getSenseRegister(Register.ship_load);
+			System.out.println(team.getScore() + "(" +  load + "," + team.getShipCount() + "," + team.getCommands().size() + ")");
+		}
+
 		Main.endGame();
 	}
 	

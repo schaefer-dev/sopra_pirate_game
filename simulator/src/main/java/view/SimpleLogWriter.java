@@ -208,7 +208,8 @@ public class SimpleLogWriter implements LogWriter {
 		
 		Integer score = arg1;
 		teamScores[arg0] = score;
-		write(LogType.Update, "TEAM " + teamName(arg0), "Score:", "->" + score.toString(), true);
+		String prefix = (round > 0) ? round.toString() : "#";
+		write(LogType.Update, prefix, "TEAM " + teamName(arg0), "Score:", "->" + score.toString(), true);
 		
 		return this;
 	}

@@ -11,7 +11,7 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorTest {
-	String[] ships = {"/TestShip.ship","/TestShip2.ship","/TestShip3.ship"};
+	String[] ships = {"/TestShip.ship"};
 	String map;
 	String logfile;
 	int rounds;
@@ -22,8 +22,19 @@ public class SimulatorTest {
 		rounds = 10000;
 	}
 
+	
+	/*
 	@Test (expected = IllegalArgumentException.class)
 	public void test() throws URISyntaxException, ArrayIndexOutOfBoundsException, NullPointerException, IOException {
+		String[] ships2 = {"/TestShip.ship","/TestShip2.ship","/TestShip3.ship"};
+		Simulator sim = new Simulator(ships2,map, 5,logfile, rounds);
+	}
+	*/
+	
+	@Test
+	public void test2() throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException{
 		Simulator sim = new Simulator(ships,map, 5,logfile, rounds);
+		sim.step(rounds);
+		sim.end();
 	}
 }

@@ -1,5 +1,11 @@
 sense 0
 sense 0
+mark 1;
+mark 2;
+mark 3;
+mark 4;
+mark 5;
+mark 0;
 ifall sense_treasure ship_load<4 else 4;
 pickup 0 else 6;
 goto 0; Was auch immer
