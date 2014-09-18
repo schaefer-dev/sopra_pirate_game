@@ -55,9 +55,8 @@ public class Simulator {
 			}
 		}
 		
-		URL path = getClass().getResource(logFile);
-		File file = new File(path.toURI());
-		FileOutputStream stream = new FileOutputStream(file);
+	
+		FileOutputStream stream = new FileOutputStream(logFile);
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);
