@@ -336,13 +336,6 @@ public class TranslatorTools {
 		return Integer.parseInt(addr);
 	}
 	
-	/** @Specs: returns the index of the invalid expressions first char within the initial line.**/
-	
-	public int indexOfError(int columns, String currentLine, String currentElement){
-		return columns - currentLine.length() - currentElement.length();
-
-	}
-	
 	public TranslatorTools(){
 	}
 
