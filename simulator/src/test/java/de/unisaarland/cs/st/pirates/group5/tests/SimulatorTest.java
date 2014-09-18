@@ -22,28 +22,8 @@ public class SimulatorTest {
 		rounds = 10000;
 	}
 
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void test() throws URISyntaxException, ArrayIndexOutOfBoundsException, NullPointerException, IOException {
-	//	DummyLogWriter log = new DummyLogWriter();
-
-		Simulator sim;
-			sim = new Simulator(ships,map, 5,logfile, rounds);
-			sim.step(rounds);
-			sim.end();
-
-
-	}// catch (ArrayIndexOutOfBoundsException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (NullPointerException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-
-
+		Simulator sim = new Simulator(ships,map, 5,logfile, rounds);
+	}
 }

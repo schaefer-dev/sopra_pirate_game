@@ -39,6 +39,7 @@ public class Simulator {
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
+
 			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
 			String[]tempFiles = new String[26];
 			Arrays.fill(tempFiles, shipFiles[0]);
@@ -51,12 +52,20 @@ public class Simulator {
 				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-			}
+			}	
 		}
 		
-		URL path = getClass().getResource(logFile);
-		File file = new File(path.toURI());
-		FileOutputStream stream = new FileOutputStream(file);
+		FileOutputStream stream;
+		if(getClass().getResource(logFile) != null)
+		{
+			URL temp = getClass().getResource(logFile);
+			File file = new File(temp.toURI());
+			stream = new FileOutputStream(file);
+		}
+		else
+		{
+			stream = new FileOutputStream(logFile);
+		}
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		
 		Scanner scanner = new Scanner(in);
