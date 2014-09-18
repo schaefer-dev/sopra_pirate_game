@@ -162,7 +162,6 @@ public class SimpleLogWriter implements LogWriter {
 	@Override
 	public void logStep() throws IllegalStateException, IOException {
 		if(!init) throw new IllegalStateException();
-		
 		round++;
 		try{
 			out.write("\nRound " + round.toString() + "  " + border);
