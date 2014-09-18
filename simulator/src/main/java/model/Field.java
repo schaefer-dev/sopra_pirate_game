@@ -120,7 +120,6 @@ public abstract class Field {
 		if(kraken == null) throw new IllegalStateException();
 		
 		if(destination.setKraken(kraken)){
-			
 			if(x != destination.getX())
 				map.getLogWriter().notify(Entity.KRAKEN, kraken.getId(), Key.X_COORD, destination.getX());
 			if(y != destination.getY())
