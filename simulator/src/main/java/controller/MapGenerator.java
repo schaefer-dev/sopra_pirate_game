@@ -125,7 +125,7 @@ public class MapGenerator {
 					log.addCell(Cell.ISLAND, null, x, y);
 				}
 				else
-					throw new IllegalArgumentException("Invalid character in map file at position (" + x + "," + y + ")");
+					throw new IllegalArgumentException("Invalid character " + c + " in map file at position (" + x + "," + y + ")");
 				
 				fields[x][y] = field;
 				incrementXY(width, height);
