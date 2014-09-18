@@ -350,6 +350,7 @@ public class CommandMoveTest {
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(4);
+		shipme.setLoad(3);
 		shipenemy.changeMoral(-4);
 		shipenemy.changeCondition(-2);
 		shipenemy.setLoad(4);
@@ -363,10 +364,11 @@ public class CommandMoveTest {
 		assertTrue("move must be succesfull, ship must changed fieds",waterenemy.getShip().equals(shipme));
 		assertTrue ("winner ship must not changed condition",shipme.getCondition() == mecondition);
 		assertTrue("pc not in else case",shipme.getPC() != 13);
-		assertEquals ("pause must be 4", 4, shipme.getPause());
+		assertEquals ("pause must be 6", 6, shipme.getPause());
 		assertTrue ("new Treasure must be on enemywater", waterenemy.getTreasure() != null );
-		assertEquals ("new treasure must have value 4",4,  waterenemy.getTreasure().getValue());
+		assertEquals ("new treasure must have value 3",3,  waterenemy.getTreasure().getValue());
 		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-2) == FreeId);
+		assertEquals("", 4, shipme.getLoad());
 		
 		
 	}
@@ -394,8 +396,9 @@ public class CommandMoveTest {
 		assertTrue("pc not in else case",shipme.getPC() != 13);
 		assertEquals ("pause must be 4", 4, shipme.getPause());
 		assertTrue ("new Treasure must be on enemywater", waterenemy.getTreasure() != null );
-		assertEquals ("new treasure must have value 3",3,  waterenemy.getTreasure().getValue());
+		assertEquals ("new treasure must have value 3",2,  waterenemy.getTreasure().getValue());
 		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-1) == FreeId);
+		assertEquals ("", 1, shipme.getLoad());
 		
 		
 	}
