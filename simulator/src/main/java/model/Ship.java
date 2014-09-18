@@ -4,6 +4,32 @@ import controller.Command;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
+
+/**
+ * 
+ * @author danielschaefer
+ *
+ * The Ship class
+ * 
+ * An instance of this class will perform a single act(). 
+ * 
+ * Every Ship basically owns its own program-counter, which describes in which line of the
+ * CommandList which represents the teams tactics the ship currently is. Ships are called
+ * from the simulator class to perform an act if they are allowed to do so (break = 0).
+ * 
+ * Additionally the ship holds the described Registers which describe its condition, 
+ * position and so on.
+ * 
+ * If one ship performed an act, the next ship is called via ship.getNextShip(), so 
+ * firstShip in Map basically is an initial node of a whole linked List of ships, due to
+ * the improved ability to delete single ships efficiently and easy.
+ * 
+ * Basically the ship controls everything which is happening because of it or with itself,
+ * actively and passively (moving on enemy ships but also getting destroyed if an enemy
+ * ship destroys it)
+ * 
+ */
+
 public class Ship {
 
 	public static final int undefinedInt = 6;
@@ -205,7 +231,7 @@ public class Ship {
 			return;
 		}
 		registers[Register.ship_condition.ordinal()]=condition+i;
-		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+1);
+		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
 	}
 	
 	public int getPause(){

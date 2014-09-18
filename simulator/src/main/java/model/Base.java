@@ -49,7 +49,8 @@ public class Base extends Water {
 		
 		return false;
 	}
-	
+	/* 
+	 * no override because its allowed?
 	@Override
 	public boolean placeBuoy(int type, Team team){
 		return false;
@@ -59,6 +60,7 @@ public class Base extends Water {
 	public void deleteBuoy(Team team, int value){
 		return;
 	}
+	*/
 	
 	@Override
 	public FieldType getFieldType() {
