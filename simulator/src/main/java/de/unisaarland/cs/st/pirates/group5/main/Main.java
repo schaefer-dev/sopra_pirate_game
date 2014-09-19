@@ -17,12 +17,11 @@ public class Main {
 		for(int i = 1; i <= tactics.length; i++)
 			tactics[i-1] = args[i];
 	
-		//String logFile = System.getProperty("log");
-		//int turns = Integer.parseInt(System.getProperty("turns"));
-		//int seed  = Integer.parseInt(System.getProperty("seed"));
+		String logFile = System.getProperty("log");
+		int turns = Integer.parseInt(System.getProperty("turns"));
+		int seed  = Integer.parseInt(System.getProperty("seed"));
 		
-		String logFile = "/log.log";
-		int turns = 100;
+		int turns = 1000;
 		int seed = 1;
 
 		
