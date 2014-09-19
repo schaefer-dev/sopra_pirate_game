@@ -3,12 +3,23 @@ package controller;
 import model.BoolWert;
 import model.Register;
 import model.Ship;
-
+/**
+ * Implements the interface <code>Comparison</code>. A <code>BoolComparison</code> is a comparison consisting of one
+ * bool register and a boolean value that specifies whether there is a not operator in front of bool register.
+ * This class is used in the <code>If</code>, <code>IfAll</code> and <code>IfAny</code> commands.
+ * @author Jan
+ *
+ */
 public class BoolComparison implements Comparison {
 
 	private Register register;
 	private boolean invert;
-	
+	/**
+	 * Constructor of the <code>BoolComparison</code> class. Sets invert to invert and register to register.
+	 * @param register The bool register to be tested in the ship.
+	 * @param invert Specifies whether this register's value is negated.
+	 * @throws IllegalArgumentException if the Register is no BoolRegister.
+	 */
 	public BoolComparison(Register register, boolean invert) {
 		switch(register){
 		case sense_supply:
@@ -37,7 +48,12 @@ public class BoolComparison implements Comparison {
 		this.invert = invert;
 		this.register = register;
 	}
-	
+	/**
+	 * Overrides the eval method in Comparison.
+	 * Evaluates the comparison: If the registers value is undefined the result is false. Otherwise the result is the value of the Register or,
+	 * if invert is true, the opposite of the value of the register.
+	 * @param ship the ship with the register to be tested.
+	 */
 	@Override
 	public boolean eval(Ship ship) {
 		int temp = ship.getSenseRegister(register);
@@ -48,7 +64,10 @@ public class BoolComparison implements Comparison {
 		else
 			return temp == BoolWert.True.ordinal();
 	}
-	
+	/**
+	 * Overrides the equals method of Object. Two <code>BoolComparisons</code> are equal if register and invert of both <code>BoolComparison</code>s are identical.
+	 * @param o the Object to be tested for equality.
+	 */
 	@Override
 	public boolean equals (Object o)
 	{
