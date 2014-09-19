@@ -7,15 +7,37 @@ import java.util.List;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
+/**
+ * This class implements the LogWriter interface and additionally serves as a compound for all other used objects that implement
+ * this interface as well. Calling the methods of this class will result in calls of the same methods of the subordinate
+ * LogWriters. 
+ * 
+ * The class itself has no logging functionality, this is completely done by its subordinates
+ * 
+ * @author Rafael Theis
+ * @see de.uni-saarland.cs.st.pirates.logger
+ */
 public class Log implements LogWriter {
 
 	private List<LogWriter> loggers = new LinkedList<LogWriter>();
+	private boolean init = false;
 	
-	
-	public void addLogger(LogWriter l){
-		if(l == null) throw new NullPointerException();
-		loggers.add(l);
+	/**
+	 * Adds a LogWriter object to the compound whose functionality
+	 * will then be completely wrapped by this class.
+	 * 
+	 * New LogWriters can only be added before init(..) is called
+	 * 
+	 * @param logWriter The to be added LogWriter
+	 * @throws NullPointerException when the logWriter is null
+	 * @throws IllegalStateException when init(..) has been called already
+	 */
+	public void addLogger(LogWriter logWriter){
+		if(logWriter == null) throw new NullPointerException();
+		if(init) throw new IllegalStateException();
+		loggers.add(logWriter);
 	}
+	
 	@Override
 	public LogWriter addCell(Cell arg0, Integer arg1, int arg2, int arg3) throws NullPointerException, ArrayIndexOutOfBoundsException, IllegalArgumentException, IllegalStateException {
 		for(LogWriter log: loggers)
@@ -84,6 +106,7 @@ public class Log implements LogWriter {
 	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
 		if(loggers.size() == 0) throw new IllegalThreadStateException("No loggers added");
 		
+		init = true;
 		for(LogWriter log: loggers)
 			log.init(arg0, arg1, arg2);
 	}

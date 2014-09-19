@@ -8,6 +8,17 @@ import java.util.List;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 
+
+/**
+ * This class implements the LogWriter interface and writes the logged data formatted in a textfile that is specified as a parameter in
+ * the init(..) method
+ * 
+ * 
+ * @author Rafael THeis
+ *
+ */
+
+
 public class SimpleLogWriter implements LogWriter {
 	
 	public enum LogType{

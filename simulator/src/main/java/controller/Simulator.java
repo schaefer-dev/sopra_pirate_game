@@ -40,7 +40,6 @@ public class Simulator {
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
-
 			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
 			String[]tempFiles = new String[26];
 			Arrays.fill(tempFiles, shipFiles[0]);
@@ -72,8 +71,9 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
+		
 		logWriter = new Log();
-	    logWriter.addLogger(new SimpleLogWriter());
+	    //logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapString, shipFiles);
 		
