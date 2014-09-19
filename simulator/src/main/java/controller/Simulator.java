@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,12 +37,14 @@ public class Simulator {
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException();
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
-
+		
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
-
-			List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[0]));
+			InputStream in = getClass().getResourceAsStream(shipFiles[0]);
+			if(in == null)
+				in = new FileInputStream(shipFiles[0]);
+			List<Command> tactic = translator.run(in);
 			String[]tempFiles = new String[26];
 			Arrays.fill(tempFiles, shipFiles[0]);
 			shipFiles = tempFiles;
@@ -50,7 +53,10 @@ public class Simulator {
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
-				List<Command> tactic = translator.run(getClass().getResourceAsStream(shipFiles[i]));
+				InputStream in = getClass().getResourceAsStream(shipFiles[i]);
+				if(in == null)
+					in = new FileInputStream(shipFiles[i]);
+				List<Command> tactic = translator.run(in);
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
 			}	
@@ -66,7 +72,8 @@ public class Simulator {
 			stream = new FileOutputStream(logFile);
 		
 		InputStream in = getClass().getResourceAsStream(mapFile);
-		
+		if(in == null)
+			in = new FileInputStream(mapFile);
 		Scanner scanner = new Scanner(in);
 		String mapString = "";
 		while(scanner.hasNextLine())
