@@ -36,7 +36,7 @@ public class Translator {
 	int columns;
 	TranslatorTools toolBox;
 	int invokes = -1;
-	String input = null; 
+	String input = ""; 
 	
 	public Translator(){
 		this.errors = new ArrayList<String>();
@@ -408,7 +408,7 @@ public class Translator {
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 		boolean tooLong = false;
 		row = 0;
-		input = null;
+		input = "";
 		List<Command> tactic = new ArrayList<Command>();
 		errors = new ArrayList<String>();
 		invokes += 1;
