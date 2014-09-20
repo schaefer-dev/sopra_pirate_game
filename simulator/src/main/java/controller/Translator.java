@@ -27,20 +27,20 @@ import commands.Unmark;
 public class Translator {
 	
 	Map<String, Integer> labels = new HashMap<String, Integer>();
-	List<String> errors; //Eventuell als map<integer, string>. In der GUI könnten dann zwei 
-	//docs geprompt werden, das rechte wäre die tacticfile, die linke enthält alle errors, von 
-	//denen jeder in der draufsicht seinem auftreten zugeordnet ist, weil die map die zeile des 
-	//fehlers kennt. ALTERNATIV koennte auch vor jedem return ein error("ok") gedruckt werden, 
-	//aber die Lösung macht grade noch alles kaputt.
+	Map<Character, List<String>> reports;
+	List<String> errors;
 	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row;
 	int columns;
 	TranslatorTools toolBox;
+	int invokes = -1;
+	String input = null; 
 	
 	public Translator(){
 		this.errors = new ArrayList<String>();
+		this.reports = new HashMap<Character, List<String>>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
 		this.labelized = false;
@@ -89,12 +89,12 @@ public class Translator {
 		List<String> conditions = new ArrayList<String>();
 		List<Comparison> bools = new ArrayList<Comparison>();
 		Comparison comparison = null;
-		columns = line.length();
 		int type = -1;
 		boolean checkBools = true;
 		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
 		}
+		columns = line.length();
 		makeSplits(line);
 
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
@@ -408,8 +408,10 @@ public class Translator {
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 		boolean tooLong = false;
 		row = 0;
+		input = null;
 		List<Command> tactic = new ArrayList<Command>();
-		errors.clear();
+		errors = new ArrayList<String>();
+		invokes += 1;
 					try {
 				if (labelized){
 					while(tacticdoc.readLine() != null){
@@ -430,7 +432,9 @@ public class Translator {
 					}
 					if(currentLine == null)
 						break;		
+					input = input + currentLine + "\n";
 					tactic.add(translate(currentLine));	
+					reports.put(((char)( 'a' + invokes)), errors);
 					row++;
 				}
 				
@@ -447,7 +451,7 @@ public class Translator {
 		if(tooLong)
 			throw new IllegalArgumentException("Tactics file too long.");
 		if (errors.size() > 0)
-			throw new IllegalArgumentException(errors.get(0));
+			throw new IllegalArgumentException(input);//(errors.get(0));
 		return tactic;
 	}
 	
