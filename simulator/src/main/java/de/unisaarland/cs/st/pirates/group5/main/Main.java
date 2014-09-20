@@ -17,13 +17,17 @@ public class Main {
 		for(int i = 1; i <= tactics.length; i++)
 			tactics[i-1] = args[i];
 	
-		//String logFile = System.getProperty("log");
-		//int turns = Integer.parseInt(System.getProperty("turns"));
-		//int seed  = Integer.parseInt(System.getProperty("seed"));
-		
-		String logFile = "/log.log";
-		int turns = 100;
-		int seed = 1;
+		String logFile = System.getProperty("log");
+		int turns;
+		int seed;
+		if(System.getProperty("turns") != null && System.getProperty("turns") != "")
+			turns = Integer.parseInt(System.getProperty("turns"));
+		else
+			turns = 10000;
+		if(System.getProperty("seed") != null && System.getProperty("seed") != "")
+			seed  = Integer.parseInt(System.getProperty("seed"));
+		else
+			seed = 19580427;
 
 		
 		Simulator sim = new Simulator(tactics, mapFile, seed, logFile, turns);
