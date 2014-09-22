@@ -82,7 +82,7 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		//in.close();
+		in.close();
 		
 		logWriter = new Log();
 	    //logWriter.addLogger(new SimpleLogWriter());

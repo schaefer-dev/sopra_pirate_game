@@ -197,12 +197,6 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
-	@Test
-	public void theirTest(){
-	String tactic = "goto 15;\nsense 0;\nifall sense_celltype==empty else 7;\nifany sense_shiptype==friend sense_shiptype==enemy else 5;\ngoto 7;\nmove else 1;\ngoto 15;\nifany sense_shiptype==friend sense_shiptype==enemy sense_celltype==island sense_celltype==enemyhome else 13;\nflipzero 2 else 11;\nturn left;\ngoto 1;\nturn right;\ngoto 1;\nmove else 1;\ngoto 1;\nifany ship_load>0 ship_condition==1 ship_moral==0 else 17;\ngoto 84;\nsense 5 \nifany sense_shiptype==enemy sense_treasure sense_supply else 27;\nifall sense_shiptype==enemy ship_moral>3 ship_condition>1 else 23;\nturn left;\nmove else 15;\ngoto 15;\nif sense_treasure else 26;\npickup 5 else 15;\ngoto 78;\nrefresh 5 else 27;\nsense 1\nifany sense_shiptype==enemy sense_treasure sense_supply else 37;\nifall sense_shiptype==enemy ship_moral>3 ship_condition>1 else 33;\nturn right;\nmove else 15;\ngoto 15;\nif sense_treasure else 36;\npickup 1 else 15;\ngoto 78;\nrefresh 1 else 37;\nsense 0;\nifany sense_marker0 sense_marker1 sense_marker2 sense_shiptype==enemy sense_shipty";
-	InputStream in = stringToStream(tactic);
-	translator.run(in);
-}
 	
 	@Test
 	public void testNonsense()
