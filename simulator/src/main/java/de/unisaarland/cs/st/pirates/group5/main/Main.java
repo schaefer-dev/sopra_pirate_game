@@ -18,6 +18,7 @@ public class Main {
 			tactics[i-1] = args[i];
 	
 		String logFile = System.getProperty("log");
+
 		int turns;
 		int seed;
 		if(System.getProperty("turns") != null && System.getProperty("turns") != "")
@@ -28,7 +29,6 @@ public class Main {
 			seed  = Integer.parseInt(System.getProperty("seed"));
 		else
 			seed = 19580427;
-
 		
 		Simulator sim = new Simulator(tactics, mapFile, seed, logFile, turns);
 		
