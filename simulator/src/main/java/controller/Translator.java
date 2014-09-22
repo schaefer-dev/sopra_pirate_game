@@ -51,7 +51,7 @@ public class Translator {
 	 * 
 	 * @Params: the line, to work with **/
 	
-	public void makeSplits(String line){
+	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
 		line.trim();
@@ -70,6 +70,9 @@ public class Translator {
 		}
 	}
 	
+	/*private void removeTabs(){
+		
+	}*/
 	
 	/** @See: the class'es main method. A Hybrid of lexer and parser, which evaluates the semantics of
 	 *  single strings and builds a valid command or prints an error. Due to the tactics grammar 
@@ -95,6 +98,9 @@ public class Translator {
 		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
 		}
+		/*if(line.contains("	"))
+			System.out.println("contains tab");*/
+		line = line.replaceAll("	"," ");
 		columns = line.length();
 		makeSplits(line);
 
@@ -452,7 +458,7 @@ public class Translator {
 		if(tooLong)
 			throw new IllegalArgumentException("Tactics file too long.");
 		if (errors.size() > 0)
-			throw new IllegalArgumentException(input);//(errors.get(0));
+			throw new IllegalArgumentException(input + "Text: " +errors.get(0) +" laenge " +  errors.size());//(errors.get(0));
 		return tactic;
 	}
 	
