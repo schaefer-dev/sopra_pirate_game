@@ -46,9 +46,9 @@ public class Simulator {
 			if(in == null)
 				in = new FileInputStream(shipFiles[0]);
 			List<Command> tactic = translator.run(in);
-			String[]tempFiles = new String[26];
-			Arrays.fill(tempFiles, shipFiles[0]);
-			shipFiles = tempFiles;
+			//String[]tempFiles = new String[26];
+			//Arrays.fill(tempFiles, shipFiles[0]);
+			//shipFiles = tempFiles;
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
 			//in.close();
