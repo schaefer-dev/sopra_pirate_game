@@ -1,0 +1,21 @@
+Start der GUI erstellung des Hauptfensters (Main) in GUIController.start
+Erstellen des StartScreens
+
+Der Team-Button wechselt in TheTeam:View, von dort per zurück Button.press wieder zu StartScreen
+
+ExitButton.press schließt die Programminstanz
+
+StartScreen:Play:Button.press initialisiert die Simulation (Ladescreen während Grafiken geladen werden)
+
+StartScreen:CustomGame:Button.press leitet in ein Untermenu das verschiedene Arten der MapKonfiguration erlaubt
+
+Nach fertigstellen der Map gelangt man in GameSettings:View um weitere Details via Slider einzustellen (mit Hilfe Buttons + Popups als erklärung dieser Slider).
+
+per GameSettings:View:ButtonTeamSettings.press gelangt man in den TeamSettings:view der nach bestätigung mit ButtonSetSails.press die eingetragenen Einstellungen in eine Spielsimulation einfügt und das fertige Spiel läd
+
+
+Interaktion mit Simulator:
+GuiController initialisiert bei laden einer SpielSimulation einen Simulator
+GuiController fuehrt via Play / nextStep / pause gezielt step() ind Simulator aus
+Simulator controlliert über die Log-Überklasse mit dem GUIController, der die eingetragenen Zeilen in LOG als grafisches Spiel "darstellt"
+GUIController signalisiert dem Simulator also genau wann er ein step() ausfuehren soll und in welchen intervallen.
