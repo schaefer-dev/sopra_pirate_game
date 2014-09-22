@@ -289,7 +289,7 @@ public class TranslatorTest {
 	public void testWhitespaceBeforeComment(){
 	
 	String tactic = lines.get(0)
-				+ "turn right ;"
+				+ "turn right ;\n"
 				+ lines.get(7);
 		List<Command> sollErg = new LinkedList<Command>();
 		sollErg.add(commands.get(0));

@@ -66,9 +66,10 @@ public class Translator {
 				res = res + splits[index] + " ";
 				index++;
 			}
-			appendix = res;
+				appendix = res;
 		}
 	}
+	
 	
 	/** @See: the class'es main method. A Hybrid of lexer and parser, which evaluates the semantics of
 	 *  single strings and builds a valid command or prints an error. Due to the tactics grammar 
