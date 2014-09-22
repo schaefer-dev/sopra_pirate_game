@@ -441,7 +441,7 @@ public class Translator {
 					reports.put(((char)( 'a' + invokes)), errors);
 					row++;
 				}
-				
+				tacticdoc.close();
 				/*if (errors.size() > 0){
 					int error = 0;
 					while(error < errors.size()){

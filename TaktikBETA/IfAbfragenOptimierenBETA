@@ -1,0 +1,16 @@
+BOJEN ABFRAGEN:
+		sense 0  
+
+		ifany !sense_marker1 !sense_marker2 !sense_marker4 !sense_marker5 else sense4_5
+                if sense_marker3 else ; wohin boje0 zeigt
+		goto                  ; wohin boje3 zeigt
+*sense4_5	ifany !sense_marker4 !sense_marker5 else sense4
+		if sense_marker1 else ; wohin boje2 zeigt
+		goto                  ; wohin boje1 zeigt
+*sense4		if sense_marker4 else ; wohin boje5 zeigt
+		goto moves4           ; wohin boje4 zeigt
+
+(mindestens 2 abfragen, höchstens 3; mindestens 4 instructions, höchstens 5)
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
