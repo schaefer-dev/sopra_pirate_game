@@ -7,7 +7,7 @@ public class Goto implements Command {
 
 	private int pc;
 	
-	public Goto(int pc){
+	public Goto(int pc) {
 		if(pc < 0 || pc > 2000) throw new IllegalArgumentException();
 		
 		this.pc = pc;

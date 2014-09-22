@@ -2,6 +2,7 @@ import java.awt.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+
 public class Hexagon {
 
 	private Point up;
@@ -31,6 +32,9 @@ public class Hexagon {
 		gc.strokeLine(upR.x, upR.y, downR.x, downR.y);
 		gc.strokeLine(downL.x, downL.y, down.x, down.y);
 		gc.strokeLine(downR.x, downR.y, down.x, down.y);
+		
+		gc.fillText("#", mid.x, mid.y);
+		
 	}
 	
 	private void computePoints(){
@@ -44,7 +48,4 @@ public class Hexagon {
 		downL = new Point(mid.x - radius, mid.y + radius/2);
 		downR = new Point(mid.x + radius, mid.y + radius/2);
 	}
-	
-	
-	
 }

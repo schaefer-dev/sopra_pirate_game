@@ -54,11 +54,11 @@ public class Map {
 	}
 	
 	public int giveNewActorID(){	
-			return nextFreeActorID++;	
+		return nextFreeActorID++;	
 	}
 	
 	public int giveNewEntityID(){
-			return nextFreeEntityID++;	
+		return nextFreeEntityID++;	
 	}
 	
 	public LogWriter getLogWriter(){
