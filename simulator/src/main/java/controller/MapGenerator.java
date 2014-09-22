@@ -167,7 +167,6 @@ public class MapGenerator {
 				for(Team team: teams){
 					log.fleetScore(team.getName() - 'a', 0);
 					
-					
 					if(team.getShipCount() <= 0)
 						throw new IllegalArgumentException("Not every team has bases/ships on the map");
 				}

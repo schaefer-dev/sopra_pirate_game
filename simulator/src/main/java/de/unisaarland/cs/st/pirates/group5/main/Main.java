@@ -21,10 +21,6 @@ public class Main {
 		int turns = Integer.parseInt(System.getProperty("turns"));
 		int seed  = Integer.parseInt(System.getProperty("seed"));
 		
-		int turns = 1000;
-		int seed = 1;
-
-		
 		Simulator sim = new Simulator(tactics, mapFile, seed, logFile, turns);
 		
 		while(!endGame){

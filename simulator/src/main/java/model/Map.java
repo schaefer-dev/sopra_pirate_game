@@ -66,8 +66,6 @@ public class Map {
 	}
 	
 	public void setFirstShip(Ship ship){
-		if(ship == null) throw new NullPointerException();
-		
 		firstShip = ship;
 	}
 	
