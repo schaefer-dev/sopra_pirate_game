@@ -19,7 +19,7 @@ public class SimulatorTest {
 	public void setUp(){
 		map = "/map.txt";
 		logfile = "/log.log";
-		rounds = 10000;
+		rounds = 2000;
 	}
 
 	

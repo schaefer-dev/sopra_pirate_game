@@ -87,7 +87,7 @@ public class Simulator {
 		in.close();
 		
 		logWriter = new Log();
-	    //logWriter.addLogger(new SimpleLogWriter());
+	    logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapString, shipFiles);
@@ -138,11 +138,14 @@ public class Simulator {
 	public void step(int rounds) throws IllegalStateException, IOException{
 		if((rounds + roundCounter) > roundMax) throw new IllegalStateException();
 		
+		
 		for(int i = 0; i < rounds; i++){
 			if(!endGame)
 				step();	
-			else
+			else{
 				break;
+			}
+				
 		}
 	}
 	
