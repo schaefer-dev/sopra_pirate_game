@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import de.unisaarland.cs.st.pirates.logger.LogProvider;
-import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.group5.main.Main;
 import view.GUIController;
 import view.Log;
@@ -47,11 +46,12 @@ public class Simulator {
 			if(in == null)
 				in = new FileInputStream(shipFiles[0]);
 			List<Command> tactic = translator.run(in);
-			String[]tempFiles = new String[26];
-			Arrays.fill(tempFiles, shipFiles[0]);
-			shipFiles = tempFiles;
+			//String[]tempFiles = new String[26];
+			//Arrays.fill(tempFiles, shipFiles[0]);
+			//shipFiles = tempFiles;
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
+			//in.close();
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
@@ -61,6 +61,7 @@ public class Simulator {
 				List<Command> tactic = translator.run(in);
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
+				//in.close();
 			}	
 		}
 		
@@ -81,6 +82,7 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
+		in.close();
 		
 		logWriter = new Log();
 	    //logWriter.addLogger(new SimpleLogWriter());

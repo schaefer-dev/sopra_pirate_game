@@ -455,7 +455,7 @@ public class Translator {
 		if(tooLong)
 			throw new IllegalArgumentException("Tactics file too long.");
 		if (errors.size() > 0)
-			throw new IllegalArgumentException(input + "Text: " +errors.get(0) +" laenge " +  errors.size());//(errors.get(0));
+			throw new IllegalArgumentException("Text: " +errors.get(0) +" laenge " +  errors.size()+"\n"+ input);//(errors.get(0));
 		return tactic;
 	}
 	
