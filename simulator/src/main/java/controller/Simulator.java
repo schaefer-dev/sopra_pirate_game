@@ -8,13 +8,11 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import de.unisaarland.cs.st.pirates.logger.LogProvider;
-import de.unisaarland.cs.st.pirates.group5.main.Main;
 import view.GUIController;
 import view.Log;
 import view.SimpleLogWriter;
@@ -48,9 +46,6 @@ public class Simulator {
 			if(in == null)
 				in = new FileInputStream(shipFiles[0]);
 			List<Command> tactic = translator.run(in);
-			//String[]tempFiles = new String[26];
-			//Arrays.fill(tempFiles, shipFiles[0]);
-			//shipFiles = tempFiles;
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
 			//in.close();
@@ -138,14 +133,12 @@ public class Simulator {
 	public void step(int rounds) throws IllegalStateException, IOException{
 		if((rounds + roundCounter) > roundMax) throw new IllegalStateException();
 		
-		
 		for(int i = 0; i < rounds; i++){
 			if(!endGame)
 				step();	
 			else
 				break;	
 		}
-
 	}
 	
 	private void end() throws IllegalStateException, IOException{
@@ -158,10 +151,5 @@ public class Simulator {
 				load += ship.getSenseRegister(Register.ship_load);
 			System.out.println(team.getScore() + "(" +  load + "," + team.getShipCount() + "," + team.getCommands().size() + ")");
 		}
-		//Main.endGame();
-	}
-	
-	public boolean canStep(){
-		return roundCounter <= roundMax;
 	}
 }
