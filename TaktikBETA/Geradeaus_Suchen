@@ -35,7 +35,7 @@
 *return_now 	turn right
 		turn right
 		turn right
-		sense 0
+		sense 6
 		ifany !sense_marker1 !sense_marker2 !sense_marker4 !sense_marker5 else sense4_5
 		goto moves3
 *sense4_5	ifany !sense_marker4 !sense_marker5 else sense4
@@ -132,6 +132,44 @@
 		goto init
 *proceed	move else ??
 		goto callingHome
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ALTERNATIVE 4:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	Macht im Grunde dasselbe wie Alternative 3, nur dass alle nachbar kacheln abgesucht werden, vor einem move command.Die Abdeckung ist 		also sehr hoch.
+	#Zuege = n*12 + (sum[i = 0, n] m) + 3, m = (1,2,3,4,5), n > 0
+
+*nexdir0	pickup 0 else nexdir1
+		goto return
+*nexdir1	pickup 1 else nexdir2
+		goto return
+*nexdir2	pickup 2 else nexdir4
+		goto return
+*nexdir4	pickup 4 else nexdir5
+		goto return
+*nexdir5	pickup 5 else init
+		goto return
+*init 		move else ??
+		goto nexdir0
+*return		turn right				
+		turn right
+		turn right 
+*callingHome	sense0
+		if sense_celltype==home else proceed
+		move else ??
+		drop
+		turn left
+		turn left 	
+		turn left
+		goto init
+*proceed	move else ??
+		goto callingHome
+
+
+
+
+
+
+
 
 
 
