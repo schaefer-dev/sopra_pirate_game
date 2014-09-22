@@ -70,9 +70,6 @@ public class Translator {
 		}
 	}
 	
-	/*private void removeTabs(){
-		
-	}*/
 	
 	/** @See: the class'es main method. A Hybrid of lexer and parser, which evaluates the semantics of
 	 *  single strings and builds a valid command or prints an error. Due to the tactics grammar 
@@ -468,7 +465,7 @@ public class Translator {
 	
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
-			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
+			    if(0 <= toolBox.toInt(currentElement))
 			    		return toolBox.toInt(currentElement);
 		}if(labelized){
 				if(labels.containsKey(currentElement.toLowerCase()))

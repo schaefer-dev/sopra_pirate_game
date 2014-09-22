@@ -60,7 +60,18 @@ public class TranslatorTest {
 		}
 		catch(IllegalArgumentException e){}
 	}
-	
+	@Test
+	public void testNoTwoSpaces()
+	{
+		String badTactic = lines.get(0) + lines.get(17) +
+				"sense  3\n";
+		InputStream in = stringToStream(badTactic);
+		try{
+			translator.run(in);
+			fail("Translator should not allow two spaces between words of a command");
+			}
+		catch(IllegalArgumentException e){}
+	}
 	@Test
 	public void testToBigDirection()
 	{
