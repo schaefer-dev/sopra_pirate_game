@@ -27,20 +27,20 @@ import commands.Unmark;
 public class Translator {
 	
 	Map<String, Integer> labels = new HashMap<String, Integer>();
-	List<String> errors; //Eventuell als map<integer, string>. In der GUI könnten dann zwei 
-	//docs geprompt werden, das rechte wäre die tacticfile, die linke enthält alle errors, von 
-	//denen jeder in der draufsicht seinem auftreten zugeordnet ist, weil die map die zeile des 
-	//fehlers kennt. ALTERNATIV koennte auch vor jedem return ein error("ok") gedruckt werden, 
-	//aber die Lösung macht grade noch alles kaputt.
+	Map<Character, List<String>> reports;
+	List<String> errors;
 	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row;
 	int columns;
 	TranslatorTools toolBox;
+	int invokes = -1;
+	String input = ""; 
 	
 	public Translator(){
 		this.errors = new ArrayList<String>();
+		this.reports = new HashMap<Character, List<String>>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
 		this.labelized = false;
@@ -51,7 +51,7 @@ public class Translator {
 	 * 
 	 * @Params: the line, to work with **/
 	
-	public void makeSplits(String line){
+	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
 		line.trim();
@@ -66,9 +66,13 @@ public class Translator {
 				res = res + splits[index] + " ";
 				index++;
 			}
-			appendix = res;
+				appendix = res;
 		}
 	}
+	
+	/*private void removeTabs(){
+		
+	}*/
 	
 	/** @See: the class'es main method. A Hybrid of lexer and parser, which evaluates the semantics of
 	 *  single strings and builds a valid command or prints an error. Due to the tactics grammar 
@@ -89,12 +93,15 @@ public class Translator {
 		List<String> conditions = new ArrayList<String>();
 		List<Comparison> bools = new ArrayList<Comparison>();
 		Comparison comparison = null;
-		columns = line.length();
 		int type = -1;
 		boolean checkBools = true;
 		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
 		}
+		/*if(line.contains("	"))
+			System.out.println("contains tab");*/
+		line = line.replaceAll("	"," ");
+		columns = line.length();
 		makeSplits(line);
 
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
@@ -408,8 +415,10 @@ public class Translator {
 		BufferedReader tacticdoc = new BufferedReader(new InputStreamReader(tacticFile));
 		boolean tooLong = false;
 		row = 0;
+		input = "";
 		List<Command> tactic = new ArrayList<Command>();
-		errors.clear();
+		errors = new ArrayList<String>();
+		invokes += 1;
 					try {
 				if (labelized){
 					while(tacticdoc.readLine() != null){
@@ -430,7 +439,9 @@ public class Translator {
 					}
 					if(currentLine == null)
 						break;		
+					input = input + currentLine + "\n";
 					tactic.add(translate(currentLine));	
+					reports.put(((char)( 'a' + invokes)), errors);
 					row++;
 				}
 				
@@ -447,7 +458,7 @@ public class Translator {
 		if(tooLong)
 			throw new IllegalArgumentException("Tactics file too long.");
 		if (errors.size() > 0)
-			throw new IllegalArgumentException(errors.get(0));
+			throw new IllegalArgumentException(input + "Text: " +errors.get(0) +" laenge " +  errors.size());//(errors.get(0));
 		return tactic;
 	}
 	
