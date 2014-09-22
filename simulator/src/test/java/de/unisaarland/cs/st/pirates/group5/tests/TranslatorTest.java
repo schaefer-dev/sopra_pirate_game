@@ -197,6 +197,7 @@ public class TranslatorTest {
 			}
 			catch(IllegalArgumentException e){}
 	}
+	
 	@Test
 	public void testNonsense()
 	{

@@ -10,6 +10,13 @@ public class CellTypeComparison implements Comparison {
 	private Register register;
 	private CellType type;
 	
+	/**
+	 * Implements the interface <code>Comparison</code>. A <code>CellTypeComparison</code> is a comparison consisting of one
+	 * CellTypeRegister register (should only be sense_celltype) and a boolean value that specifies whether there is a not operator in front of bool register.
+	 * This class is used in the <code>If</code>, <code>IfAll</code> and <code>IfAny</code> commands.
+	 * @author Jan
+	 *
+	 */
 	public CellTypeComparison(Operator opr, Register register, CellType type) {
 		if(register != Register.sense_celltype)
 		{
