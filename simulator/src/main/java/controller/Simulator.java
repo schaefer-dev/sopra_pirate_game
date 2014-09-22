@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import de.unisaarland.cs.st.pirates.logger.LogProvider;
+import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.group5.main.Main;
 import view.GUIController;
 import view.Log;
@@ -82,6 +84,7 @@ public class Simulator {
 		
 		logWriter = new Log();
 	    //logWriter.addLogger(new SimpleLogWriter());
+		logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapString, shipFiles);
 		
