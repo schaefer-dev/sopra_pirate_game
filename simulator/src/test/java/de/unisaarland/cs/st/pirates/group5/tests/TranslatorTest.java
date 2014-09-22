@@ -298,6 +298,50 @@ public class TranslatorTest {
 		InputStream in = stringToStream(tactic);
 		assertEquals("Translator should allow whitespace between the commands and the semicolon starting the comment.", sollErg, translator.run(in));
 	}
+	
+	
+	@Test
+	public void testWhitespaceBeforeComment2(){
+	
+	String tactic = lines.get(0)
+				+ "turn right 	;12"
+				+ lines.get(7);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		sollErg.add(commands.get(12)); // Dies ist ein turn-right
+		sollErg.add(commands.get(7));
+		InputStream in = stringToStream(tactic);
+		assertEquals("Translator should allow whitespace between the commands and the semicolon starting the comment.", sollErg, translator.run(in));
+	}
+	
+	@Test
+	public void testWhitespaceBeforeComment3(){
+	
+	String tactic = lines.get(0)
+				+ "turn right	;5"
+				+ lines.get(7);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		sollErg.add(commands.get(12)); // Dies ist ein turn-right
+		sollErg.add(commands.get(7));
+		InputStream in = stringToStream(tactic);
+		assertEquals("Translator should allow whitespace between the commands and the semicolon starting the comment.", sollErg, translator.run(in));
+	}
+	
+	@Test
+	public void testWhitespaceBeforeComment4(){
+	
+	String tactic = lines.get(0)
+				+ "turn right 	 ;A6"
+				+ lines.get(7);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(commands.get(0));
+		sollErg.add(commands.get(12)); // Dies ist ein turn-right
+		sollErg.add(commands.get(7));
+		InputStream in = stringToStream(tactic);
+		assertEquals("Translator should allow whitespace between the commands and the semicolon starting the comment.", sollErg, translator.run(in));
+	}
+	
 	@Test
 	public void testIgnoreComments1()
 	{
