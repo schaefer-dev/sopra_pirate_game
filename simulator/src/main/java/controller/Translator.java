@@ -468,7 +468,7 @@ public class Translator {
 	
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
-			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
+			    if(0 <= toolBox.toInt(currentElement))
 			    		return toolBox.toInt(currentElement);
 		}if(labelized){
 				if(labels.containsKey(currentElement.toLowerCase()))
