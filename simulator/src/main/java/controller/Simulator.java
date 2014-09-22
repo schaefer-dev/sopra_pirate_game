@@ -127,12 +127,12 @@ public class Simulator {
 		}
 		
 		logWriter.logStep();
-		
-		
-		if(roundCounter == roundMax)
-			end();
-	
 		roundCounter++;
+		
+		if(roundCounter == roundMax){
+			end();
+			return;
+		}
 	}
 	
 	public void step(int rounds) throws IllegalStateException, IOException{
@@ -142,11 +142,10 @@ public class Simulator {
 		for(int i = 0; i < rounds; i++){
 			if(!endGame)
 				step();	
-			else{
-				break;
-			}
-				
+			else
+				break;	
 		}
+
 	}
 	
 	private void end() throws IllegalStateException, IOException{
