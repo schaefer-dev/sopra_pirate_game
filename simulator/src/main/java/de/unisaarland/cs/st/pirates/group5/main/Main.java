@@ -35,7 +35,7 @@ public class Main {
 		while(!endGame){
 			if(!sim.canStep())
 				break;
-				
+			
 			sim.step();
 		}
 	}

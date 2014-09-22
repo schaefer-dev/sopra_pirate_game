@@ -107,16 +107,16 @@ public class Simulator {
 	public void step() throws IllegalStateException, IOException{
 		if(roundCounter > roundMax) throw new IllegalStateException();
 		
-		if((roundCounter % 20) == 0){
-			for(Kraken k: kraken)
-				k.move();
-		}
-		
 		Ship ship = map.getFirstShip();
 		
 		if(ship == null){
 			end();
 			return;
+		}
+		
+		if((roundCounter % 20) == 0){
+			for(Kraken k: kraken)
+				k.move();
 		}
 		
 		while(ship != null){

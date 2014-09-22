@@ -17,8 +17,6 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
  * @author Rafael THeis
  *
  */
-
-
 public class SimpleLogWriter implements LogWriter {
 	
 	public enum LogType{
@@ -58,8 +56,14 @@ public class SimpleLogWriter implements LogWriter {
 		init = true;
 		round = 0;
 		
-		teamCount = arg2.length;
-		teamScores = new int[teamCount];
+		if(arg2 == 1){
+			
+		}
+		else{
+			teamCount = arg2.length;
+			teamScores = new int[teamCount];	
+		}
+
 		startTime = System.nanoTime();
 		
 		//Read map size
@@ -157,10 +161,11 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg0 == null) throw new NullPointerException();
 		if(!(init && round == 0)) throw new IllegalStateException();
 		if(arg2 < 0 || arg3 < 0) throw new IllegalArgumentException();
+		/*
 		if(teamCount > 1 && arg1 != null){
 			if(arg1 > teamCount)
 				throw new ArrayIndexOutOfBoundsException();
-		}
+		}*/
 		
 		if(arg1 == null)
 			write(LogType._Field, "#", arg0.toString(), "at", "(" + arg2 + "," + arg3 + ")", true);
@@ -214,7 +219,7 @@ public class SimpleLogWriter implements LogWriter {
 	@Override
 	public LogWriter fleetScore(int arg0, int arg1) throws IllegalArgumentException, IllegalStateException {
 		if(arg0 < 0 || arg1 < 0) throw new IllegalArgumentException();
-		if(teamCount != 1 && arg0 > teamCount) throw new ArrayIndexOutOfBoundsException();
+		//if(teamCount != 1 && arg0 > teamCount) throw new ArrayIndexOutOfBoundsException();
 		if(!init) throw new IllegalStateException();
 		
 		Integer score = arg1;
