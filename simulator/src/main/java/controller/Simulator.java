@@ -37,8 +37,8 @@ public class Simulator {
 	
 	
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
-		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException();
-		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4) throw new IllegalArgumentException();
+		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException("No shipFiles, MapFile or logFile specified");
+		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
 		
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
