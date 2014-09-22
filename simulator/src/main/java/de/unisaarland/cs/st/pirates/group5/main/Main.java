@@ -7,8 +7,6 @@ import controller.Simulator;
 
 public class Main {
 	
-	private static boolean endGame = false;
-	
 	public static void main(String[] args) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		
 		String mapFile = args[0];
@@ -31,17 +29,9 @@ public class Main {
 			seed = 19580427;
 		
 		Simulator sim = new Simulator(tactics, mapFile, seed, logFile, turns);
-		
-		while(!endGame){
-			if(!sim.canStep())
-				break;
-				
-			sim.step();
-		}
+		sim.step(turns);
+
 	}
 	
-	public static void endGame(){
-		endGame = true;
-	}
 }
 

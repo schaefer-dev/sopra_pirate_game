@@ -19,7 +19,7 @@ public class SimulatorTest {
 	public void setUp(){
 		map = "/map.txt";
 		logfile = "/log.log";
-		rounds = 10000;
+		rounds = 2000;
 	}
 
 	
@@ -35,6 +35,6 @@ public class SimulatorTest {
 	public void test2() throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException{
 		Simulator sim = new Simulator(ships,map, 5,logfile, rounds);
 		sim.step(rounds);
-		sim.end();
+		//sim.end();
 	}
 }
