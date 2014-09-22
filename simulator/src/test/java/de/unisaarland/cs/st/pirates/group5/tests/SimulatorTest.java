@@ -35,6 +35,6 @@ public class SimulatorTest {
 	public void test2() throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException{
 		Simulator sim = new Simulator(ships,map, 5,logfile, rounds);
 		sim.step(rounds);
-		sim.end();
+		//sim.end();
 	}
 }

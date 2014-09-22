@@ -1,0 +1,38 @@
+*goElse1 	turn left			; d.h. bewegungsrichtung ist jetzt 2(weg nachhause ginge ueber *einN-trtr)
+		turn left			; d.h. bewegungsrichtung ist jetzt 1(weg nachhause ginge ueber *einN-tr)
+		mark0
+		move else ??
+		move else ??
+		move else ?? 
+		goto somewhereElse 
+		pickup 0 else ??
+		goto move1
+		pickup 0
+		goto move2
+		pickup 0
+*move3		turn right 
+		turn right
+		turn right
+		move else friendOrFoe?
+		move else ??
+		move else ??
+		goto returnGE12			;triggert eine rechtskurve und dann den weg nachhause.
+*move1		turn right
+		turn right
+		turn right
+		move else ??
+		goto returnGE13			;triggert eine rechtskurve und dann den weg nachhause.
+*move2		turn right 
+		turn right
+		turn right
+		move else ??
+		move else ??
+		sense 0
+		if sense_marker0 else
+		goto ein1-tr			; der weg nachhause.
+*returnGE12	sense 0
+		if sense_marker0 else
+		goto ein2-tr			; der weg nachhause.
+*returnGE13	sense 0
+		if sense_marker0 else
+		goto ein3-tr			; der weg nachhause.

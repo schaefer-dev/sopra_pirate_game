@@ -56,14 +56,12 @@ public class SimpleLogWriter implements LogWriter {
 		init = true;
 		round = 0;
 		
-		if(arg2 == 1){
-			
-		}
-		else{
+		if(arg2.length == 1)
+			teamCount = 26;
+		else
 			teamCount = arg2.length;
-			teamScores = new int[teamCount];	
-		}
-
+		
+		teamScores = new int[teamCount];	
 		startTime = System.nanoTime();
 		
 		//Read map size

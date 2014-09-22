@@ -34,6 +34,8 @@ public class Simulator {
 	private List<Team> teams;
 	private List<Kraken> kraken;
 	
+	private boolean endGame;
+	
 	
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException("No shipFiles, MapFile or logFile specified");
@@ -125,17 +127,27 @@ public class Simulator {
 		}
 		
 		logWriter.logStep();
+		
+		
+		if(roundCounter == roundMax)
+			end();
+	
 		roundCounter++;
 	}
 	
 	public void step(int rounds) throws IllegalStateException, IOException{
 		if((rounds + roundCounter) > roundMax) throw new IllegalStateException();
 		
-		for(int i = 0; i < rounds; i++)
-			step();	
+		for(int i = 0; i < rounds; i++){
+			if(!endGame)
+				step();	
+			else
+				break;
+		}
 	}
 	
-	public void end() throws IllegalStateException, IOException{
+	private void end() throws IllegalStateException, IOException{
+		endGame = true;
 		logWriter.close();
 		
 		for(Team team: teams){			
@@ -144,8 +156,7 @@ public class Simulator {
 				load += ship.getSenseRegister(Register.ship_load);
 			System.out.println(team.getScore() + "(" +  load + "," + team.getShipCount() + "," + team.getCommands().size() + ")");
 		}
-
-		Main.endGame();
+		//Main.endGame();
 	}
 	
 	public boolean canStep(){
