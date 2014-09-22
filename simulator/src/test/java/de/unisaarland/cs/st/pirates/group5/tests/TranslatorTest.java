@@ -41,7 +41,7 @@ public class TranslatorTest {
 		commands = constr.getCommandList();
 	}
 	
-/**	@Test
+	@Test
 	public void testExampleTactic(){
 		String tactic = lines.get(lines.size()-1); //das letzte element der liste ist die taktik im ganzen.
 		InputStream in = stringToStream(tactic);
@@ -297,7 +297,7 @@ public class TranslatorTest {
 		sollErg.add(commands.get(7));
 		InputStream in = stringToStream(tactic);
 		assertEquals("Translator should allow whitespace between the commands and the semicolon starting the comment.", sollErg, translator.run(in));
-	}**/
+	}
 	
 	@Test
 	public void testWhitespaceBeforeComment2(){
@@ -341,7 +341,7 @@ public class TranslatorTest {
 		assertEquals("Translator should allow whitespace between the commands and the semicolon starting the comment.", sollErg, translator.run(in));
 	}
 	
-/**	@Test
+	@Test
 	public void testIgnoreComments1()
 	{
 		String tactic = lines.get(0)
@@ -518,7 +518,7 @@ public class TranslatorTest {
 			fail("Only two commands each line are allowed");
 		}
 		catch(IllegalArgumentException e){}
-	}**/
+	}
 	
 	private InputStream stringToStream(String tactic)
 	{
