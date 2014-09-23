@@ -435,8 +435,9 @@ public class Translator {
 						break;
 					}
 					if(currentLine == null)
-						break;		
-					input = input + currentLine + "\n";
+						break;
+					if(row >= 139)
+						input = row + " " + input + currentLine + "\n";
 					tactic.add(translate(currentLine));	
 					reports.put(((char)( 'a' + invokes)), errors);
 					row++;
