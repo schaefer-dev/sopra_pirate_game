@@ -132,7 +132,6 @@ public class MapGenerator {
 				boolean lastShip = false;
 				for(int i = teams.size() - 1; i >= 0; i--){
 					Team team = teams.get(i);
-				
 					if(team.getShipCount() <= 0){
 						if(lastShip)
 							throw new IllegalArgumentException("Not every team has bases/ships on the map");
@@ -140,15 +139,12 @@ public class MapGenerator {
 							teams.remove(team);
 					}			
 					else{
-						log.fleetScore(team.getName() - 'a', 0);
 						lastShip = true;
 					}
 				}
 			}
 			else{
-				for(Team team: teams){
-					log.fleetScore(team.getName() - 'a', 0);
-					
+				for(Team team: teams){	
 					if(team.getShipCount() <= 0)
 						throw new IllegalArgumentException("Not every team has bases/ships on the map");
 				}
@@ -210,11 +206,15 @@ public class MapGenerator {
 					assert(field.getTreasure().getValue() < 10);
 					Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
 					int[] values = {field.getTreasure().getValue(), field.getX(), field.getY()};
-					log.create(Entity.TREASURE, field.getTreasure().get, keys, values);
+					log.create(Entity.TREASURE, field.getTreasure().getId(), keys, values);
 				}
 			}
 		}
-		
+		for(Team team: teams)
+		{
+			assert(team.getScore() == 0);
+			log.fleetScore(team.getName() - 'a', team.getScore());
+		}
 		return map;
 	}
 	
