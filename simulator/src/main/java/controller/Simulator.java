@@ -49,7 +49,7 @@ public class Simulator {
 			List<Command> tactic = translator.run(shipStream);
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
-			shipStream.close();											//TODO erstellen neues in ohne zu schließen? Close eingefügt
+			shipStream.close();											
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
@@ -59,7 +59,7 @@ public class Simulator {
 				List<Command> tactic = translator.run(shipStream);
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-				shipStream.close();										//TODO erstellen neues in ohne zu schließen? Close eingefügt
+				shipStream.close();		
 			}	
 		}
 		
@@ -71,7 +71,7 @@ public class Simulator {
 			stream = new FileOutputStream(file);
 		}
 		else														//TODO logger usw. erst erstellen nachdem Map auf gültigkeit überprüft wurde
-			stream = new FileOutputStream(logFile);					//TODO wozu ist logfile?
+			stream = new FileOutputStream(logFile);					
 		
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
