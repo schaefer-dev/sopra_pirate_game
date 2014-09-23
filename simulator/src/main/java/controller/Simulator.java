@@ -64,15 +64,13 @@ public class Simulator {
 				shipStream.close();		
 			}	
 		}
-																	//TODO stream lokale variable? geht nach verlassen des Konstruktors 
-																	//verloren! Vielleicht wird er nach verlassen des Konstruktors von java geschlossen?
+																	
 		if(getClass().getResource(logFile) != null){
-			//URL temp = getClass().getResource(logFile);
-			//File file = new File(temp.toURI());						//TODO warum hier uri?
-			//stream = new FileOutputStream(file);
-			throw new IllegalStateException("simulator-log wrong case");
+			URL temp = getClass().getResource(logFile);
+			File file = new File(temp.toURI());						
+			stream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
 		}
-		else														//TODO logger usw. erst erstellen nachdem Map auf gültigkeit überprüft wurde
+		else														
 			stream = new FileOutputStream(logFile);					
 		
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
