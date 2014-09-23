@@ -70,18 +70,18 @@ public class Simulator {
 			File file = new File(temp.toURI());						//TODO warum hier uri?
 			stream = new FileOutputStream(file);
 		}
-		else
+		else														//TODO logger usw. erst erstellen nachdem Map auf gültigkeit überprüft wurde
 			stream = new FileOutputStream(logFile);					//TODO wozu ist logfile?
 		
-		InputStream in = getClass().getResourceAsStream(mapFile);
-		if(in == null)
-			in = new FileInputStream(mapFile);
-		Scanner scanner = new Scanner(in);
+		InputStream mapStream = getClass().getResourceAsStream(mapFile);
+		if(mapStream == null)
+			mapStream= new FileInputStream(mapFile);
+		Scanner scanner = new Scanner(mapStream);
 		String mapString = "";
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		in.close();
+		mapStream.close();
 		
 		logWriter = new Log();
 	    logWriter.addLogger(new SimpleLogWriter());
