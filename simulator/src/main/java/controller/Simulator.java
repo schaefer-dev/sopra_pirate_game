@@ -87,9 +87,7 @@ public class Simulator {
 		if(logFile != null)
 		{
 			logWriter = new Log();
-			//logWriter.addLogger(new SimpleLogWriter());							//TODO log enable/disable here
-			logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
-			logWriter.addLogger(new GUIController());
+		//	logWriter.addLogger(new SimpleLogWriter());							//TODO log enable/disable here
 		}
 		
 		MapGenerator generator = new MapGenerator();
@@ -125,7 +123,6 @@ public class Simulator {
 			ship.act();
 			ship = ship.getNextShip();
 		}
-		
 		logWriter.logStep();
 		roundCounter++;
 		

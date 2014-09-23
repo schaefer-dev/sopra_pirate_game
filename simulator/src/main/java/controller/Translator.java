@@ -480,5 +480,4 @@ public class Translator {
 			   return -1;
 			   }
 	}
-	
 }

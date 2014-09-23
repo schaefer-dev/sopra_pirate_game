@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import view.GUIController;
+import de.unisaarland.cs.st.pirates.logger.LogProvider;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
@@ -24,6 +26,7 @@ import model.Ship;
 import model.Team;
 import model.Treasure;
 import model.Water;
+import view.Log;
 
 public class MapGenerator {
 
@@ -152,6 +155,8 @@ public class MapGenerator {
 		map.setMapValues(fields, kraken);
 		if(log != null)
 		{
+			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
+			((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
 			for(Field[] row : fields)
 			{
