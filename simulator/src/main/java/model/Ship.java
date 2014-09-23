@@ -3,6 +3,7 @@ package model;
 import controller.Command;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
 
 
 /**
@@ -111,7 +112,11 @@ public class Ship {
 						noPositivActionCounter=0;
 					}
 					if (pc!=oldpc)
-						field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
+					{
+						Transaction t = field.getMap().getLogWriter().beginTransaction(Entity.SHIP, id);
+						t = t.set(Key.PC, pc);
+						field.getMap().getLogWriter().commitTransaction(t);
+					}
 				}
 			}
 			else
