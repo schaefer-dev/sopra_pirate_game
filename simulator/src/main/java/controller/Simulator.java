@@ -38,7 +38,7 @@ public class Simulator {
 	
 	
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
-		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException("No shipFiles, MapFile or logFile specified");
+		if(shipFiles == null || mapFile == null) throw new NullPointerException("No shipFiles or MapFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
 		
 		endGame = false;
@@ -64,14 +64,16 @@ public class Simulator {
 				shipStream.close();		
 			}	
 		}
-																	
-		if(getClass().getResource(logFile) != null){
-			URL temp = getClass().getResource(logFile);
-			File file = new File(temp.toURI());						
-			stream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
+		if(logFile!= null)
+		{
+			if(getClass().getResource(logFile) != null){
+				URL temp = getClass().getResource(logFile);
+				File file = new File(temp.toURI());						
+				stream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
+			}
+			else														
+				stream = new FileOutputStream(logFile);
 		}
-		else														
-			stream = new FileOutputStream(logFile);					
 		
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
@@ -82,21 +84,22 @@ public class Simulator {
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
 		mapStream.close();
-		
-		logWriter = new Log();
-	    //logWriter.addLogger(new SimpleLogWriter());
-		logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
-		logWriter.addLogger(new GUIController());
-		logWriter.init(stream, mapString, shipFiles);
+		if(logFile != null)
+		{
+			logWriter = new Log();
+			//logWriter.addLogger(new SimpleLogWriter());							//TODO log enable/disable here
+			logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
+			logWriter.addLogger(new GUIController());
+		}
 		
 		MapGenerator generator = new MapGenerator();
 		InputStream inMap = getClass().getResourceAsStream(mapFile);
 		if(inMap == null)
 			inMap = new FileInputStream(mapFile);
-		map = generator.createMap(inMap, teams, logWriter, new Random(seed));
+		map = generator.createMap(inMap, teams, logWriter, new Random(seed), mapString, shipFiles, stream);
 		kraken = map.getKraken();
-		
-		logWriter.logStep();
+		if(logFile!= null)
+			logWriter.logStep();
 		
 		roundCounter = 1;
 		roundMax = turns + 1;

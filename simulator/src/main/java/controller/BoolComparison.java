@@ -60,9 +60,9 @@ public class BoolComparison implements Comparison {
 		if (temp == BoolWert.Undefined.ordinal())
 			return false;
 		if(invert)
-			return temp == BoolWert.False.ordinal();
+			return (temp == BoolWert.False.ordinal());
 		else
-			return temp == BoolWert.True.ordinal();
+			return (temp == BoolWert.True.ordinal());
 	}
 	/**
 	 * Overrides the equals method of Object. Two <code>BoolComparisons</code> are equal if register and invert of both <code>BoolComparison</code>s are identical.
