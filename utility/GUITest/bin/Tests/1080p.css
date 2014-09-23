@@ -1,0 +1,16 @@
+#title {
+    -fx-font-size: 90px;
+}
+
+#text {
+	-fx-font-size: 30px;
+}
+
+.label {
+    -fx-font-size: 25px;
+}
+
+.button {
+	-fx-font-size: 50px;
+	-fx-padding: 20px;
+}

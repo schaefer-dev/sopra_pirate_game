@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import view.GUIController;
+import de.unisaarland.cs.st.pirates.logger.LogProvider;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
@@ -24,6 +26,7 @@ import model.Ship;
 import model.Team;
 import model.Treasure;
 import model.Water;
+import view.Log;
 
 public class MapGenerator {
 
@@ -120,8 +123,6 @@ public class MapGenerator {
 		if(teams.size() == 1) {
 			if(teams.get(0).getShipCount() <= 0)
 				throw new IllegalArgumentException("Not every team has bases/ships on the map");
-			
-			log.fleetScore(teams.get(0).getName(), 0);
 		}
 		else{
 			List<Command> tactic1 = teams.get(0).getCommands();
@@ -154,6 +155,8 @@ public class MapGenerator {
 		map.setMapValues(fields, kraken);
 		if(log != null)
 		{
+			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
+			((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
 			for(Field[] row : fields)
 			{

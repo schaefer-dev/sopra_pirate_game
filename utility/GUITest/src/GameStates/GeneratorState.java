@@ -41,7 +41,7 @@ public class GeneratorState implements GameState {
 		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel);
 		
 		Label islandCount = new Label("Island Count");
-		Slider islandCountSlider = new Slider(1, 40, 1);
+		Slider islandCountSlider = new Slider(1, 80, 1);
 		islandCountSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Quantity of the islands"));
 		islandCountSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		islandCountSlider.setMaxWidth(200);
@@ -89,8 +89,8 @@ public class GeneratorState implements GameState {
 		grid.add(islandSizeLabel, 2, 2);
 		grid.add(generate, 1, 3);
 		grid.add(back, 0, 7);
-		grid.add(next, 9, 7);
-
+		grid.add(next, 4, 7);
+		
 		manager.getRoot().setCenter(grid);
 	}
 
@@ -98,5 +98,4 @@ public class GeneratorState implements GameState {
 	public void Exiting() {
 		manager.getRoot().setCenter(null);
 	}
-
 }

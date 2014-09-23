@@ -1,0 +1,47 @@
+#title {
+    -fx-font-size: 60px;
+  	-fx-font-family: "UglyQua";
+   	-fx-fill: #818181;
+	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#text {
+    -fx-font-family: "UglyQua";
+}
+
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+.label {
+    -fx-font-family: "UglyQua";
+}
+
+.button {
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+}
+
+.button:hover {
+	-fx-text-fill: #A62E2E;
+}
+
+.slider .track {
+    -fx-base: derive(goldenrod, 50%);
+    -fx-padding: 0.208333em
+}
+
+.slider .thumb {
+    -fx-shape: "M 50,5 L 37,40 5,40 30,60 20,95 50,75 80,95 70,60 95,40 63,40 Z";
+    -fx-background-color: derive(goldenrod, -50%), goldenrod;
+    -fx-background-radius: 0, 0;
+    -fx-background-insets: 0, 2;
+    -fx-padding: 10;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+    /*-fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);*/
+}
+
+.root {
+     -fx-background-image: url("storm.jpg");
+     -fx-background-size: stretch;
+}

@@ -13,7 +13,6 @@ public class MainMenuState implements GameState {
 
 	private StateManager manager;
 	
-	
 	@Override
 	public void Entered(StateManager root) {
 		manager = root;
@@ -21,7 +20,7 @@ public class MainMenuState implements GameState {
 		
 		VBox vBox = new VBox(20);
 		vBox.setAlignment(Pos.TOP_CENTER);
-		vBox.setPadding(new Insets(75,25,25,25));
+		vBox.setPadding(new Insets(25,25,25,25));
 		
 		Button quickGame = new Button(" Quick Game ");
 		quickGame.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Start a new game immediately"));
@@ -33,9 +32,18 @@ public class MainMenuState implements GameState {
 		customGame.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Start a new game with custom settings"));
 		customGame.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		customGame.setOnAction(new SwitchState(manager, new CustomGameState()));
-
 		
-		vBox.getChildren().addAll(quickGame, customGame);
+		Button team = new Button("Team");
+		team.setAlignment(Pos.CENTER);
+		team.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Learn about the magnificent minds behind this game"));
+		team.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
+		team.setOnAction(new SwitchState(manager, new TeamInfoState()));
+		
+		Button settings = new Button("Settings");
+		settings.setAlignment(Pos.CENTER);
+		settings.setOnAction(new SwitchState(manager, new SettingsState()));
+		
+		vBox.getChildren().addAll(quickGame, customGame, settings, team);
 		manager.getRoot().setCenter(vBox);
 	}
 

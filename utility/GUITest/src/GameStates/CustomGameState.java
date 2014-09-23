@@ -26,7 +26,7 @@ public class CustomGameState implements GameState {
 		mapSelection.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Play on one of our preset maps"));
 		mapSelection.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		mapSelection.setAlignment(Pos.CENTER);
-		//TODO: add gameState
+		mapSelection.setOnAction(new SwitchState(manager, new MapSelectionState()));
 
 		Button mapGenerator = new Button("Map Generator");
 		mapGenerator.setAlignment(Pos.CENTER);
