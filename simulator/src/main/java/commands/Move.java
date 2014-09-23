@@ -44,7 +44,7 @@ public class Move implements Command {
 	public void execute(Ship ship) {
 		// TODO Auto-generated method stub
 		Field shipField = ship.getPosition();
-		Field targetField = shipField.getNeigbour(ship.relativeToAbsoluteDirection(0));
+		Field targetField = shipField.getNeigbour(0);
 		int load = ship.getLoad();
 		
 		switch(targetField.getFieldType()){

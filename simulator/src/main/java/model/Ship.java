@@ -237,6 +237,8 @@ public class Ship {
 	 * @return				absolute watch direction of the ship
 	 */
 	public int relativeToAbsoluteDirection(int relDirection){
+		if (relDirection>6)
+			throw new IllegalArgumentException("no direction > 6 allowed");
 		if (relDirection == 6)
 			return 6;
 
