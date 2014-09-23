@@ -120,8 +120,6 @@ public class MapGenerator {
 		if(teams.size() == 1) {
 			if(teams.get(0).getShipCount() <= 0)
 				throw new IllegalArgumentException("Not every team has bases/ships on the map");
-			
-			log.fleetScore(teams.get(0).getName(), 0);
 		}
 		else{
 			List<Command> tactic1 = teams.get(0).getCommands();
