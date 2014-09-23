@@ -92,6 +92,7 @@ public class Ship {
 
 	/**
 	 * Executes the next command in the commandList at index pc
+	 * logs PC changing in the end if he changed (compared to oldpc)
 	 *
 	 */
 	public void act(){
