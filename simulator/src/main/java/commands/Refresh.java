@@ -11,8 +11,8 @@ public class Refresh implements Command {
 	private int elsePC;
 	
 	public Refresh(int dir, int pc){
-		if(pc<0 || pc >= 2000 || dir> 5 || dir<0)
-			throw new IllegalArgumentException("PC or direction are out of range.");
+		if(pc<0 || pc >= 2000 || dir> 6 || dir<0)
+			throw new IllegalArgumentException("PC or refresh direction are out of range.");
 		this.direction = dir;
 		this.elsePC = pc;
 	}
