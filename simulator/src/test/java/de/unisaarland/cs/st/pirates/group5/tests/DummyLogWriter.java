@@ -124,10 +124,16 @@ public class DummyLogWriter implements LogWriter {
 			ArrayIndexOutOfBoundsException {
 		this.what.add("init");
 		this.what.add(arg1);
-		for(String s: arg2)
+		if(arg2 == null)
+			what.add(null);
+		else
 		{
-			what.add(s);
+			for(String s: arg2)
+			{
+				what.add(s);
+			}
 		}
+		
 		
 	}
 
