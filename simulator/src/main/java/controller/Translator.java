@@ -240,7 +240,7 @@ public class Translator {
 				makeSplits(appendix);
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
-						if(0 <= type && type <= 5){
+						if(0 <= type && type <= 6){
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
