@@ -18,8 +18,13 @@ public class SliderListener {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0,	Number oldV, Number newV) {
 				value = String.format("%.0f", newV);
-				label.setText(value);
-			}			
+				if(value.length() == 1)
+					label.setText(value + "  ");
+				else if(value.length() == 2)
+					label.setText(value + " ");
+				else
+					label.setText(value);
+			}
 		});
 	}
 	

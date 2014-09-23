@@ -1,0 +1,12 @@
+#text {
+    -fx-font-size: 22px;
+}
+
+.label {
+    -fx-font-size: 18px;
+}
+
+.button {
+	-fx-font-size: 30px;
+}
+
