@@ -100,8 +100,8 @@ public class Ship {
 		else{
 
 			if (pause == 0){
-				int oldpc=pc;
-				pc+=1;
+				pc = pc +1;
+				int oldpc=pc-1;
 				noPositivActionCounter+=1;
 
 				team.getCommands().get(oldpc).execute(this);
