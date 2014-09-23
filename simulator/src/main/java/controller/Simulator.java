@@ -63,14 +63,15 @@ public class Simulator {
 			}	
 		}
 		
-		FileOutputStream stream;
+		FileOutputStream stream;									//TODO stream lokale variable? geht nach verlassen des Konstruktors 
+																	//verloren! Vielleicht wird er nach verlassen des Konstruktors von java geschlossen?
 		if(getClass().getResource(logFile) != null){
 			URL temp = getClass().getResource(logFile);
 			File file = new File(temp.toURI());						//TODO warum hier uri?
 			stream = new FileOutputStream(file);
 		}
 		else
-			stream = new FileOutputStream(logFile);
+			stream = new FileOutputStream(logFile);					//TODO wozu ist logfile?
 		
 		InputStream in = getClass().getResourceAsStream(mapFile);
 		if(in == null)
