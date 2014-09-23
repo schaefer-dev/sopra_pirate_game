@@ -85,7 +85,7 @@ public class Simulator {
 		mapStream.close();
 		
 		logWriter = new Log();
-	    logWriter.addLogger(new SimpleLogWriter());
+	    //logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
 		logWriter.addLogger(new GUIController());
 		logWriter.init(stream, mapString, shipFiles);
