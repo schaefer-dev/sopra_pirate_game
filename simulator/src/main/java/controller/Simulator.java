@@ -26,21 +26,21 @@ public class Simulator {
 
 	private int roundCounter;
 	private int roundMax;
-	
+
 	private Map map;
 	private Log logWriter;
 	private List<Team> teams;
 	private List<Kraken> kraken;
-	
+
 	private boolean endGame;
-	
+
 	FileOutputStream stream;
-	
-	
+
+
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null) throw new NullPointerException("No shipFiles or MapFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
-		
+
 		endGame = false;
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
@@ -51,7 +51,7 @@ public class Simulator {
 			List<Command> tactic = translator.run(shipStream);
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
-			shipStream.close();											
+			shipStream.close();
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
@@ -61,20 +61,20 @@ public class Simulator {
 				List<Command> tactic = translator.run(shipStream);
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-				shipStream.close();		
-			}	
+				shipStream.close();
+			}
 		}
 		if(logFile!= null)
 		{
 			if(getClass().getResource(logFile) != null){
 				URL temp = getClass().getResource(logFile);
-				File file = new File(temp.toURI());						
+				File file = new File(temp.toURI());
 				stream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
 			}
-			else														
+			else
 				stream = new FileOutputStream(logFile);
 		}
-		
+
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
 			mapStream= new FileInputStream(mapFile);
@@ -87,11 +87,11 @@ public class Simulator {
 		if(logFile != null)
 		{
 			logWriter = new Log();
-			logWriter.addLogger(new SimpleLogWriter());							//TODO log enable/disable here
+			//logWriter.addLogger(new SimpleLogWriter());							//TODO log enable/disable here
 			logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
 			logWriter.addLogger(new GUIController());
 		}
-		
+
 		MapGenerator generator = new MapGenerator();
 		InputStream inMap = getClass().getResourceAsStream(mapFile);
 		if(inMap == null)
@@ -100,57 +100,56 @@ public class Simulator {
 		kraken = map.getKraken();
 		if(logFile!= null)
 			logWriter.logStep();
-		
+
 		roundCounter = 1;
 		roundMax = turns + 1;
 	}
-	
-	
+
+
 	public void step() throws IllegalStateException, IOException{
 		if(roundCounter > roundMax) throw new IllegalStateException();
-		
+
 		Ship ship = map.getFirstShip();
-		
+
 		if(ship == null){
 			end();
 			return;
 		}
-		
+
 		if((roundCounter % 20) == 0){
 			for(Kraken k: kraken)
 				k.move();
 		}
-		
+
 		while(ship != null){
 			ship.act();
 			ship = ship.getNextShip();
 		}
-		
 		logWriter.logStep();
 		roundCounter++;
-		
+
 		if(roundCounter == roundMax){
 			end();
 			return;
 		}
 	}
-	
+
 	public void step(int rounds) throws IllegalStateException, IOException{
 		if((rounds + roundCounter) > roundMax) throw new IllegalStateException();
-		
+
 		for(int i = 0; i < rounds; i++){
 			if(!endGame)
-				step();	
+				step();
 			else
-				break;	
+				break;
 		}
 	}
-	
+
 	private void end() throws IllegalStateException, IOException{
 		endGame = true;
 		logWriter.close();
-		
-		for(Team team: teams){			
+
+		for(Team team: teams){
 			int load = 0;
 			for(Ship ship: team.getShips())
 				load += ship.getSenseRegister(Register.ship_load);
