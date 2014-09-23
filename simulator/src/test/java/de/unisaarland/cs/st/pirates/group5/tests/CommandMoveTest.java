@@ -131,6 +131,23 @@ public class CommandMoveTest {
 		
 				
 	}
+	
+
+	@Test
+	 public void testMoveBaseShip(){
+		Ship shipenemy2 = new Ship(teamenemy, baseenemy, 3, null);
+		baseenemy.setShip(shipenemy2);
+		
+		shipenemy.changeDirection(true);
+		shipenemy.changeDirection(true);
+		
+		moveit.execute(shipenemy);
+		
+		assertTrue ("don´t move!", shipenemy.getPosition().equals(waterenemy));
+		assertTrue("Don´t move!",waterenemy.getShip().equals(shipenemy));
+		assertTrue("pause must be 0", shipme.getPause() == 0);
+		assertTrue("Don´t move!",baseenemy.getShip().equals(shipenemy2));
+	 }
 
 	@Test
 	 public void testMoveWater1(){
