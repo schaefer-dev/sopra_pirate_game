@@ -240,7 +240,7 @@ public class Translator {
 				makeSplits(appendix);
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
-						if(0 <= type && type <= 5){
+						if(0 <= type && type <= 6){
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
@@ -385,7 +385,7 @@ public class Translator {
 	
 /** @Specs: returns the index of the invalid expressions first char within the initial line.**/
 	
-	public int indexOfError(){
+	private int indexOfError(){
 		if(appendix != null)
 			return columns - appendix.length() - currentElement.length();
 		return columns - currentElement.length();
@@ -466,7 +466,7 @@ public class Translator {
 	
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
-			    if(0 <= toolBox.toInt(currentElement))
+			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
 			    		return toolBox.toInt(currentElement);
 		}if(labelized){
 				if(labels.containsKey(currentElement.toLowerCase()))
