@@ -70,6 +70,7 @@ public class MapTest {
 		assertEquals("getNeighbour fail!",map.getNeighbour(water, 5), linksObenVorne);
 		assertEquals("getNeighbour fail!",map.getNeighbour(geradeaus, 3), water);
 	}
+	
 	@Test
 	public void testGetNeighbour1(){
 		Field[][]fieldmap = new Field[3][3];		
@@ -92,6 +93,22 @@ public class MapTest {
 		assertEquals(fieldmap[0][2],map.getNeighbour(fieldmap[2][1], 1));
 		assertEquals(fieldmap[0][0],map.getNeighbour(fieldmap[2][1], 5));
 	}
+	
+	@Test
+	public void testGetNeighbour265(){
+		Field[][]fieldmap = new Field[28][28];		
+		for (int x=0; x<28 ; x++){
+			for (int y=0; y<28 ; y++){
+				Water field = new Water(map,x,y,null);
+				fieldmap[x][y]=field;
+			}
+		}
+		map.setMapValues(fieldmap, krakens);
+		
+		assertEquals(fieldmap[27][5], map.getNeighbour(fieldmap[26][5], 0));
+		assertEquals(fieldmap[27][4], map.getNeighbour(fieldmap[26][5], 5));
+	}
+	
 	@Test 
 	public void testGetFirstShip(){
 

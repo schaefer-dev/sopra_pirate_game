@@ -44,7 +44,7 @@ public class Move implements Command {
 	public void execute(Ship ship) {
 		// TODO Auto-generated method stub
 		Field shipField = ship.getPosition();
-		Field targetField = shipField.getNeigbour(0);
+		Field targetField = shipField.getNeigbour(ship.getShipDirection());
 		int load = ship.getLoad();
 		
 		switch(targetField.getFieldType()){
@@ -57,10 +57,14 @@ public class Move implements Command {
 				calcAndSetShipPause(ship);
 				if (targetWater.getKraken()!=null)
 					ship.changeCondition(-1);	
+				return;
 			}
 			else{
-				if (targetField.getShip().getTeam().equals(ship.getTeam()))
+				if (targetField.getShip().getTeam().equals(ship.getTeam())){
 					ship.setPC(elsePC);
+					return;
+				}
+				
 				else{
 				
 					// Kampf findet statt
@@ -102,21 +106,30 @@ public class Move implements Command {
 							}
 						}
 					}
+					return;
 				}
 			}
-			break;
+			// break; unreachable
 			
 		case Base:
 			Base targetBase=(Base)targetField;
 			if (targetBase.getTeam().equals(ship.getTeam())){
-				shipField.moveShip(targetBase);
-				calcAndSetShipPause(ship);
-				ship.changeMoral(4);
+				if (targetBase.getShip()==null){
+					shipField.moveShip(targetBase);
+					calcAndSetShipPause(ship);
+					ship.changeMoral(4);
+					return;
+				}
+				else{
+					ship.setPC(elsePC);
+					return;
+				}
 			}
 			else{
 				ship.setPC(elsePC);	
+				return;
 			}
-			break;
+			//break; unreachable
 			
 		case Island: 
 			Island targetIsland=(Island)targetField;
