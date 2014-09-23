@@ -39,47 +39,50 @@ public class Simulator {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException("No shipFiles, MapFile or logFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
 		
+		endGame = false;
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
-			InputStream in = getClass().getResourceAsStream(shipFiles[0]);
-			if(in == null)
-				in = new FileInputStream(shipFiles[0]);
-			List<Command> tactic = translator.run(in);
+			InputStream shipStream = getClass().getResourceAsStream(shipFiles[0]);
+			if(shipStream == null)
+				shipStream = new FileInputStream(shipFiles[0]);
+			List<Command> tactic = translator.run(shipStream);
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
-			//in.close();
+			shipStream.close();											
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
-				InputStream in = getClass().getResourceAsStream(shipFiles[i]);
-				if(in == null)
-					in = new FileInputStream(shipFiles[i]);
-				List<Command> tactic = translator.run(in);
+				InputStream shipStream = getClass().getResourceAsStream(shipFiles[i]);
+				if(shipStream == null)
+					shipStream = new FileInputStream(shipFiles[i]);
+				List<Command> tactic = translator.run(shipStream);
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-				//in.close();
+				shipStream.close();		
 			}	
 		}
 		
-		FileOutputStream stream;
+		FileOutputStream stream;									//TODO stream lokale variable? geht nach verlassen des Konstruktors 
+																	//verloren! Vielleicht wird er nach verlassen des Konstruktors von java geschlossen?
 		if(getClass().getResource(logFile) != null){
-			URL temp = getClass().getResource(logFile);
-			File file = new File(temp.toURI());
-			stream = new FileOutputStream(file);
+			//URL temp = getClass().getResource(logFile);
+			//File file = new File(temp.toURI());						//TODO warum hier uri?
+			//stream = new FileOutputStream(file);
+			throw new IllegalStateException("simulator-log wrong case");
 		}
-		else
-			stream = new FileOutputStream(logFile);
+		else														//TODO logger usw. erst erstellen nachdem Map auf gültigkeit überprüft wurde
+			stream = new FileOutputStream(logFile);					
 		
-		InputStream in = getClass().getResourceAsStream(mapFile);
-		if(in == null)
-			in = new FileInputStream(mapFile);
-		Scanner scanner = new Scanner(in);
+		InputStream mapStream = getClass().getResourceAsStream(mapFile);
+		if(mapStream == null)
+			mapStream= new FileInputStream(mapFile);
+		Scanner scanner = new Scanner(mapStream);
 		String mapString = "";
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		in.close();
+		mapStream.close();
 		
 		logWriter = new Log();
 	    logWriter.addLogger(new SimpleLogWriter());

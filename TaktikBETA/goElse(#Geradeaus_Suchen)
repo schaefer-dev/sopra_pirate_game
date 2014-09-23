@@ -16,12 +16,12 @@
 		move else friendOrFoe?
 		move else ??
 		move else ??
-		goto returnGE12			;triggert eine rechtskurve und dann den weg nachhause.
+		goto returnGE12			;triggert eine rechtskurve und dann den weg nach hause.
 *move1		turn right
 		turn right
 		turn right
 		move else ??
-		goto returnGE13			;triggert eine rechtskurve und dann den weg nachhause.
+		goto returnGE13			;triggert eine rechtskurve und dann den weg nach hause.
 *move2		turn right 
 		turn right
 		turn right

@@ -1,0 +1,83 @@
+taktik ideen:
+
+		move else einsammeln0		; bisher keinmal bewegt
+		move else einsammeln1		; bisher einmal bewegt
+		move else einsammeln2		; bisher zweimal bewegt
+		move else einsammeln3		; bisher dreimal bewegt
+		move else einsammeln4		; bisher 4mal bewegt
+		move else einsammeln5		; bisher 5mal bewegt
+*einsammeln0 	pickup 0 else 			; hier hat das schiff sich noch nicht bewegt, also muss auch keine boje gesetzt werden.
+		goto drop
+*einsammeln1 	pickup 0 else 			; 1* move, return now: das schiff ist nur gerade aus gefahren bisher
+		mark1				; schmeisst eine boje, die ihm sagt wie oft es sich bewegen muss.(hier einmal)
+		goto return_now
+*einsammeln2	pickup 0 else 			; 2* move
+		mark2				; schmeisst eine boje, die ihm sagt wie oft es sich bewegen muss.(hier zweimal)
+		goto return_now			
+*einsammeln3	pickup 0 else 			; 3* move
+		mark3				; schmeisst eine boje, die ihm sagt wie oft es sich bewegen muss.(hier dreimal)
+		goto return_now			
+*einsammeln4	pickup 0 else 			; 4* move
+		mark4				; schmeisst eine boje, die ihm sagt wie oft es sich bewegen muss.(hier 4mal)
+		goto return_now
+*einsammeln5	pickup 0 else 			; 5* move	
+		mark5				; schmeisst eine boje, die ihm sagt wie oft es sich bewegen muss.(hier 5mal)
+            	goto return_now
+*boje0	 	boje0
+		goto flip2
+*boje1	 	boje1
+		goto flip2
+*boje2	 	boje2
+		goto flip2
+*boje3	 	boje3
+		goto flip2
+*boje4	 	boje4
+		goto flip2
+*boje5	 	boje5
+		goto flip2
+*flip2		flipzero 2 else links
+        	turn right
+		move else			;was wenn bewegung nicht stattgefunden hat?
+		turn left
+		turn left 
+  		goto proceedR			;unklar, was dann passieren soll
+*links  	turn left
+		move else			;was wenn bewegung nicht stattgefunden hat?
+		turn right
+		turn right
+		goto proceedL
+*proceedR
+
+
+
+*proceedL
+*return_now 	turn right
+		turn right
+		turn right
+		sense 0
+		ifany !sense_marker1 !sense_marker2 !sense_marker4 !sense_marker5 else sense4_5
+		goto moves3
+*sense4_5	ifany !sense_marker4 !sense_marker5 else sense4
+		if sense_marker1 else moves2
+		goto moves1
+*sense4		if sense_marker4 else moves5
+		goto moves4
+*moves5		move else  friendorfoe1  ;wenn da kein weiterkommen ist, steht da jemand im weg.
+*moves4		move else  friendorfoe2
+*moves3		move else  friendorfoe3
+*moves2		move else  friendorfoe4
+*moves1		move else  friendorfoe5
+		drop
+*friendorfoe1    if sense_ship==enemy else moves0;wenn es ein freund ist, egal; wenn feind, hat man den kampf verloren, was schlecht ist.
+		 goto	???
+*friendorfoe2    if sense_ship==enemy else moves0
+		 goto	???
+*friendorfoe3    if sense_ship==enemy else moves0
+		 goto	???
+*friendorfoe4    if sense_ship==enemy else moves0
+		 goto	???
+*friendorfoe5    if sense_ship==enemy else moves0
+		 goto	???
+
+
+
