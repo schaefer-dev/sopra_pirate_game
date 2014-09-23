@@ -190,25 +190,56 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 
 	0|  1|  2|  3|  4|  5|     
        -----------------------
-	1|  0|  0|  0|  0|  0|
-       -----------------------
- 	1|  1|  0|  0|  0|  0|
-       -----------------------
- 	1|  1|  1|  0|  0|  0|
-       -----------------------
-	1|  1|  1|  1|  0|  0|
-       -----------------------
- 	1|  1|  1|  1|  1|  0|
-       -----------------------
 	1|  1|  1|  1|  1|  1|
        -----------------------
-	1|  2|  4|  1|  2|  4|
+	1|  2|(1)|1,2|2,4|4,8|
 
-		Bojen 0,1,2 werden benutzt um dir Richtung zu kodieren, 3,4,5 fuer die Entfernung.
+		Bojen 0,1,(2) werden benutzt um die Richtung zu kodieren, (2),3,4,5 fuer die Entfernung.
+
+Richtung: 
+		marker0  && !marker1 := dir == 1 
+		!marker0 &&  marker1 := dir == 2 
+		marker0  &&  marker1 := dir == 3 
+		!marker0 && !marker1 := dir == 4 
+    !marker0 && !marker1 &&  marker2 := dir == 5
+
+Entfernung, Fall 1 marker0 || marker1 (max 15):
+
+		 marker2  && !marker3 &&  !marker4 && !marker5 := distance == 1 + 0 + 0 + 0 =  1
+		!marker2  &&  marker3 &&  !marker4 && !marker5 := distance == 0 + 2 + 0 + 0 =  2
+		 marker2  &&  marker3 &&  !marker4 && !marker5 := distance == 1 + 2 + 0 + 0 =  3
+		!marker2  && !marker3 &&   marker4 && !marker5 := distance == 0 + 0 + 4 + 0 =  4
+		 marker2  &&  marker3 &&   marker4 && !marker5 := distance == 1 + 2 + 4 + 0 =  7
+		!marker2  && !marker3 &&  !marker4 &&  marker5 := distance == 0 + 0 + 0 + 8 =  8
+		 marker2  && !marker3 &&  !marker4 &&  marker5 := distance == 1 + 0 + 0 + 8 =  9
+		!marker2  &&  marker3 &&  !marker4 &&  marker5 := distance == 0 + 2 + 0 + 8 = 10
+		 marker2  &&  marker3 &&  !marker4 &&  marker5 := distance == 1 + 2 + 0 + 8 = 11
+		!marker2  && !marker3 &&   marker4 &&  marker5 := distance == 0 + 0 + 4 + 8 = 12
+		 marker2  && !marker3 &&   marker4 &&  marker5 := distance == 1 + 0 + 4 + 8 = 13
+		!marker2  && !marker3 &&  !marker4 &&  marker5 := distance == 0 + 2 + 4 + 8 = 14
+		 marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 1 + 2 + 4 + 8 = 15
+		
+Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7): 
+
+		 marker3 &&  !marker4 && !marker5 := distance == 1 + 0 + 0 =  1
+		!marker3 &&   marker4 && !marker5 := distance == 0 + 2 + 0 =  2
+		 marker3 &&   marker4 && !marker5 := distance == 1 + 2 + 0 =  3
+		!marker3 &&  !marker4 &&  marker5 := distance == 0 + 0 + 4 =  4
+		!marker3 &&   marker4 &&  marker5 := distance == 0 + 2 + 4 =  6
+		 marker3 &&   marker4 &&  marker5 := distance == 1 + 2 + 4 =  7
+
 
 *moveon		move else ??
 		sense 0 
-		ifany sense_marker0, sense_marker1, sense_marker2
+		ifany sense_marker2 sense_marker3 sense_marker4 sense_marker5 else moveon
+		ifany sense_marker0 sense_marker1 else markEQ5		; marks dir == 5 
+		ifall sense_marker0 sense_marker1 !sense_marker2	; dir == 3
+		
+		ifall sense_marker0 !sense_marker1 !sense_marker2	; dir == 1 
+*markEQ5	if ship_direction<2 else dirGT2
 
 
+*move15
+*move14
+	
 
