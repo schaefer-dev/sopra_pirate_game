@@ -39,33 +39,34 @@ public class Simulator {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException("No shipFiles, MapFile or logFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 1e4 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
 		
+		endGame = false;
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
-			InputStream in = getClass().getResourceAsStream(shipFiles[0]);
-			if(in == null)
-				in = new FileInputStream(shipFiles[0]);
-			List<Command> tactic = translator.run(in);
+			InputStream shipStream = getClass().getResourceAsStream(shipFiles[0]);
+			if(shipStream == null)
+				shipStream = new FileInputStream(shipFiles[0]);
+			List<Command> tactic = translator.run(shipStream);
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
-			//in.close();
+			shipStream.close();											//TODO erstellen neues in ohne zu schließen? Close eingefügt
 		}
 		else{
 			for(int i = 0; i < shipFiles.length; i++){
-				InputStream in = getClass().getResourceAsStream(shipFiles[i]);
-				if(in == null)
-					in = new FileInputStream(shipFiles[i]);
-				List<Command> tactic = translator.run(in);
+				InputStream shipStream = getClass().getResourceAsStream(shipFiles[i]);
+				if(shipStream == null)
+					shipStream = new FileInputStream(shipFiles[i]);
+				List<Command> tactic = translator.run(shipStream);
 				Team team = new Team((char)('a' + i), tactic);
 				teams.add(team);
-				//in.close();
+				shipStream.close();										//TODO erstellen neues in ohne zu schließen? Close eingefügt
 			}	
 		}
 		
 		FileOutputStream stream;
 		if(getClass().getResource(logFile) != null){
 			URL temp = getClass().getResource(logFile);
-			File file = new File(temp.toURI());
+			File file = new File(temp.toURI());						//TODO warum hier uri?
 			stream = new FileOutputStream(file);
 		}
 		else
