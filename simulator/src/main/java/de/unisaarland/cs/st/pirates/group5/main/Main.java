@@ -30,7 +30,6 @@ public class Main {
 		
 		Simulator sim = new Simulator(tactics, mapFile, seed, logFile, turns);
 		sim.step(turns);
-
 	}
 	
 }
