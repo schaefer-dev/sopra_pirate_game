@@ -385,7 +385,7 @@ public class Translator {
 	
 /** @Specs: returns the index of the invalid expressions first char within the initial line.**/
 	
-	public int indexOfError(){
+	private int indexOfError(){
 		if(appendix != null)
 			return columns - appendix.length() - currentElement.length();
 		return columns - currentElement.length();

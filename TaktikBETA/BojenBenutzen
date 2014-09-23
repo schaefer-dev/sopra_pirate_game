@@ -1,0 +1,214 @@
+Wie können Bojen benutzt werden?
+
+Naheliegend: Zum markieren von Entfernungen oder Richtungen. 
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Alternative 1: Bojen als Entfernungsmesser>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Wie würde das mit den Entfernungen funktionieren? Beispiel: 
+	
+	Cons: irgendein Schiff muss auf der Geraden, die von der Heimbasis wegführt, nach jedem Move in Richtung 0 eine Boje abgelegt haben.
+	Pros: es koennten Sammelstellen eingerichtet werden, ueber die eimerkettenartig Schaetze nach hause gebracht werden koennten. 
+
+*moveon		move else ??
+		sense 0  				; das Schiff schaut geradeaus, ob da Bojen sind.
+		ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else moveon
+		move					; das Schiff bewegt sich auf das feld mit der Boje und 
+		sense 0					; beginnt, die umgebung nach weiteren Bojen abzusuchen.
+		ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else sensenext1
+		goto checkdistance
+sensenext1	ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else sensenext2
+		turn right				; das Schiff kennt jetzt die Richtung, in die es muss, und passt seinen Kurs an. 
+		goto checkdistance			; die boje die liegt, sagt dem Schiff jetzt, wie weit es zu fahren hat.
+sensenext2	ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else sensenext4
+		turn right
+		turn right
+		goto checkdistance
+sensenext4	ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else sensenext5
+		turn left
+		turn left
+		goto checkdistance
+sensenext5	turn left
+		goto checkdistance
+checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
+                ifany sense_marker3 sense_marker4 else gohomemax; wohin boje0 zeigt
+		if    sense_marker3 else gohome5              	; wohin boje3 zeigt
+		goto gohome4
+*sense0_1	ifany sense_marker0 sense_marker1 else gohome3
+		if sense_marker1 else 				; wohin boje2 zeigt
+		goto                  				; wohin boje1 zeigt
+*sense4		if sense_marker4 else 				; wohin boje5 zeigt
+		goto moves4           				; wohin boje4 zeigt
+*gohomemax	move	else friendOrFoe
+*gohome5	move	else friendOrFoe
+*gohome4	move	else friendOrFoe
+*gohome3	move	else friendOrFoe
+*gohome2	move	else friendOrFoe
+*gohome1	move	else friendOrFoe
+		drop
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Alternative 1: Bojen als Richtungsanzeigen>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	Pros: Schiff kann komplett unabhängig von anderen Schiffen operieren.
+	Nachteil: Viele instructions und mehr Zuege.  
+
+*moveon		move else ??
+		sense 0  				; das Schiff schaut geradeaus, ob da Bojen sind.
+		ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else moveon
+		ifany sense_marker3 sense_marker4 sense_marker5 else markLT3
+		ifany sense_marker3 sense_marker4 else markEQ5
+		if sense_marker3	else markEQ4	; mark==3
+		if ship_direction<2 else m3dirGT2
+		if ship_direction<1 else m3dirEQ1	; also dir==0
+		turn right 
+		turn right
+		turn right
+		goto return
+*m3dirEQ1	turn right
+		turn right
+		goto return
+*m3dirGT2	if ship_direction>2 else m3dirEQ2
+		if ship_direction>3 else m3dirEQ3
+		if ship_direction>4 else m3dirEQ4
+		turn left
+		turn left
+		goto return
+*m3dirEQ2	turn right
+		goto return
+*m3dirEQ3	goto return
+*m3dirEQ4	turn left
+		goto return
+*markEQ5	if ship_direction<2 else m5dirGT2
+		if ship_direction<1 else m5dirEQ1	; also dir==0
+		turn left
+		goto return
+*m5dirEQ1	turn left
+		turn left
+		goto return
+*m5dirGT2	if ship_direction>2 else m5dirEQ2
+		if ship_direction>3 else m5dirEQ3
+		if ship_direction>4 else m5dirEQ4
+		goto return
+*m5dirEQ2	turn right
+		turn right
+		turn right
+		goto return
+*m5dirEQ3	turn right
+		turn right
+		goto return
+*m5dirEQ4	turn right 
+		goto return
+*markEQ4	if ship_direction<2 else m4dirGT2
+		if ship_direction<1 else m4dirEQ1
+		turn left
+		turn left
+		goto return
+*m4dirEQ1	turn left
+		turn left
+		turn left
+		goto return
+*m4dirGT2	if ship_direction>2 else m4dirEQ2
+		if ship_direction>3 else m4dirEQ3
+		if ship_direction>4 else m4dirEQ4
+		turn right
+		goto return
+*m4dirEQ2	turn right
+		turn right
+		goto return
+*m4dirEQ3	turn right
+		goto return
+*m4dirEQ4	goto return
+*markLT3	ifany sense_marker0 sense_marker1 else markEQ2
+		if sense_marker0 else markEQ1		; mark == 0
+		if ship_direction<2 else m0dirGT2
+		if ship_direction<1 else m0dirEQ1	; dir == 0
+		goto return
+*m0dirEQ1	turn left
+		goto return
+*m0dirGT2	if ship_direction>2 else m0dirEQ2
+		if ship_direction>3 else m0dirEQ3
+		if ship_direction>4 else m0dirEQ4	; dir == 5
+		turn right
+		goto return
+*m0dirEQ2	turn left 
+		turn left
+		goto return
+*m0dirEQ3	turn left 
+		turn left
+		turn left
+		goto return
+*m0dirEQ4	turn right
+		turn right
+		goto return
+*markEQ2	if ship_direction<2 else m2dirGT2
+		if ship_direction<1 else m2dirEQ1	; dir == 0
+		turn right
+		turn right
+		goto return
+*m2dirEQ1	turn right
+		goto return
+*m2dirGT2	if ship_direction>2 else m2dirEQ2
+		if ship_direction>3 else m2dirEQ3
+		if ship_direction>4 else m2dirEQ4	; dir == 5
+		turn right
+		turn right
+		turn right
+		goto return
+*m2dirEQ2	goto return
+*m2dirEQ3	turn left
+		goto return
+*m2dirEQ4	turn left
+		turn left
+		goto return
+*markEQ1	if ship_direction<2 else m1dirGT2
+		if ship_direction<1 else m1dirEQ1	; dir == 0
+		turn right
+		goto return
+*m1dirEQ1	goto return
+*m1dirGT2	if ship_direction>2 else m1dirEQ2
+		if ship_direction>3 else m1dirEQ3
+		if ship_direction>4 else m1dirEQ4	; dir == 5
+		turn right
+		turn right
+		goto return
+*m1dirEQ2	turn left
+		goto return
+*m1dirEQ3	turn left
+		turn left
+		goto return
+*m1dirEQ4	turn right
+		turn right
+		turn right
+		goto return
+*return		move else friendOrFoe
+		sense 0
+		if celltype==home else return
+		move
+		drop
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Alternative 3: Hybride, Bojen als Code>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	0|  1|  2|  3|  4|  5|     
+       -----------------------
+	1|  0|  0|  0|  0|  0|
+       -----------------------
+ 	1|  1|  0|  0|  0|  0|
+       -----------------------
+ 	1|  1|  1|  0|  0|  0|
+       -----------------------
+	1|  1|  1|  1|  0|  0|
+       -----------------------
+ 	1|  1|  1|  1|  1|  0|
+       -----------------------
+	1|  1|  1|  1|  1|  1|
+       -----------------------
+	1|  2|  4|  1|  2|  4|
+
+		Bojen 0,1,2 werden benutzt um dir Richtung zu kodieren, 3,4,5 fuer die Entfernung.
+
+*moveon		move else ??
+		sense 0 
+		ifany sense_marker0, sense_marker1, sense_marker2
+
+
+
