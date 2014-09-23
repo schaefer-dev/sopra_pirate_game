@@ -34,6 +34,8 @@ public class Simulator {
 	
 	private boolean endGame;
 	
+	FileOutputStream stream;
+	
 	
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null || logFile == null) throw new NullPointerException("No shipFiles, MapFile or logFile specified");
@@ -62,8 +64,7 @@ public class Simulator {
 				shipStream.close();		
 			}	
 		}
-		
-		FileOutputStream stream;									//TODO stream lokale variable? geht nach verlassen des Konstruktors 
+																	//TODO stream lokale variable? geht nach verlassen des Konstruktors 
 																	//verloren! Vielleicht wird er nach verlassen des Konstruktors von java geschlossen?
 		if(getClass().getResource(logFile) != null){
 			//URL temp = getClass().getResource(logFile);
