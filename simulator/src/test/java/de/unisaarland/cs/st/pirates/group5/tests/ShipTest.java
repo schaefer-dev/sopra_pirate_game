@@ -644,7 +644,7 @@ public class ShipTest {
 		assertTrue ("relativetoabsolutedir turned right 6 times rel = abs",ship.relativeToAbsoluteDirection(6) == 6);
 	}
 	
-	@Test (expected = AssertionError.class)
+	@Test (expected = Exception.class)
 	public void testRelativeToAbsolute2(){
 		
 		ship = new Ship(null, null, 0, shipv);
