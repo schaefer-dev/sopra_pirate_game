@@ -87,13 +87,12 @@ public class Simulator {
 	    logWriter.addLogger(new SimpleLogWriter());
 		logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
 		logWriter.addLogger(new GUIController());
-		logWriter.init(stream, mapString, shipFiles);
 		
 		MapGenerator generator = new MapGenerator();
 		InputStream inMap = getClass().getResourceAsStream(mapFile);
 		if(inMap == null)
 			inMap = new FileInputStream(mapFile);
-		map = generator.createMap(inMap, teams, logWriter, new Random(seed));
+		map = generator.createMap(inMap, teams, logWriter, new Random(seed), mapString, shipFiles, stream);
 		kraken = map.getKraken();
 		
 		logWriter.logStep();
