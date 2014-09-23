@@ -8,6 +8,7 @@ Wie würde das mit den Entfernungen funktionieren? Beispiel:
 	
 	Cons: irgendein Schiff muss auf der Geraden, die von der Heimbasis wegführt, nach jedem Move in Richtung 0 eine Boje abgelegt haben.
 	Pros: es koennten Sammelstellen eingerichtet werden, ueber die eimerkettenartig Schaetze nach hause gebracht werden koennten. 
+	SuperCon: Das Pro wird wohl kaum zu realisieren sein. 
 
 *moveon		move else ??
 		sense 0  				; das Schiff schaut geradeaus, ob da Bojen sind.
@@ -50,9 +51,13 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 
 	Pros: Schiff kann komplett unabhängig von anderen Schiffen operieren.
 	Nachteil: Viele instructions und mehr Zuege.  
+	Facts: min 9 + n*(6,8,10), max 12 + n*(6,8,10) Zuege; mit n = Anzahl der MoveCommands
+
+			; Zuege: Bojen finden: 2; Richtung bestimmen: (3,4); Schiff wenden: (5,6)	
+			; Entfernung feststellen: (3,4,5)
 
 *moveon		move else ??
-		sense 0  				; das Schiff schaut geradeaus, ob da Bojen sind.
+		sense 0  				; das Schiff schaut geradeaus, ob da Bojen sind. 5Zuege 2 Instructions
 		ifany sense_marker0 sense_marker1 sense_marker2 sense_marker4 sense_marker5 else moveon
 		ifany sense_marker3 sense_marker4 sense_marker5 else markLT3
 		ifany sense_marker3 sense_marker4 else markEQ5
@@ -180,13 +185,17 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		turn right
 		goto return
 *return		move else friendOrFoe
-		sense 0
+		sense 6
 		if celltype==home else return
-		move
 		drop
 
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Alternative 3: Hybride, Bojen als Code>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	Pros: Schiffe koennen vollkommen unabhängig voneinander operieren. 
+	Cons: Schiffe muessen bei bei jeder Richtungsänderung bis zu 6 Bojen abwerfen.
+
+	Facts:  141 Instructions
+		min 12 + n*(4,6,8); max 18 + n*(4,6,8) Zuege bis ein gefundener Schatz abgeliefert wird; mit n = Anzahl der Move- Commands
 
 	0|  1|  2|  3|  4|  5|     
        -----------------------
@@ -197,9 +206,9 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		Bojen 0,1,(2) werden benutzt um die Richtung zu kodieren, (2),3,4,5 fuer die Entfernung.
 
 Richtung: 
-		marker0  && !marker1 := dir == 1 
+		 marker0 && !marker1 := dir == 1 
 		!marker0 &&  marker1 := dir == 2 
-		marker0  &&  marker1 := dir == 3 
+		 marker0 &&  marker1 := dir == 3 
 		!marker0 && !marker1 := dir == 4 
     !marker0 && !marker1 &&  marker2 := dir == 5
 
@@ -209,6 +218,8 @@ Entfernung, Fall 1 marker0 || marker1 (max 15):
 		!marker2  &&  marker3 &&  !marker4 && !marker5 := distance == 0 + 2 + 0 + 0 =  2
 		 marker2  &&  marker3 &&  !marker4 && !marker5 := distance == 1 + 2 + 0 + 0 =  3
 		!marker2  && !marker3 &&   marker4 && !marker5 := distance == 0 + 0 + 4 + 0 =  4
+		 marker2  && !marker3 &&   marker4 && !marker5 := distance == 1 + 0 + 4 + 0 =  5
+		!marker2  &&  marker3 &&   marker4 && !marker5 := distance == 0 + 2 + 4 + 0 =  6
 		 marker2  &&  marker3 &&   marker4 && !marker5 := distance == 1 + 2 + 4 + 0 =  7
 		!marker2  && !marker3 &&  !marker4 &&  marker5 := distance == 0 + 0 + 0 + 8 =  8
 		 marker2  && !marker3 &&  !marker4 &&  marker5 := distance == 1 + 0 + 0 + 8 =  9
@@ -216,7 +227,7 @@ Entfernung, Fall 1 marker0 || marker1 (max 15):
 		 marker2  &&  marker3 &&  !marker4 &&  marker5 := distance == 1 + 2 + 0 + 8 = 11
 		!marker2  && !marker3 &&   marker4 &&  marker5 := distance == 0 + 0 + 4 + 8 = 12
 		 marker2  && !marker3 &&   marker4 &&  marker5 := distance == 1 + 0 + 4 + 8 = 13
-		!marker2  && !marker3 &&  !marker4 &&  marker5 := distance == 0 + 2 + 4 + 8 = 14
+		!marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 0 + 2 + 4 + 8 = 14
 		 marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 1 + 2 + 4 + 8 = 15
 		
 Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7): 
@@ -225,21 +236,170 @@ Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7):
 		!marker3 &&   marker4 && !marker5 := distance == 0 + 2 + 0 =  2
 		 marker3 &&   marker4 && !marker5 := distance == 1 + 2 + 0 =  3
 		!marker3 &&  !marker4 &&  marker5 := distance == 0 + 0 + 4 =  4
+		 marker3 &&  !marker4 &&  marker5 := distance == 1 + 0 + 4 =  5
 		!marker3 &&   marker4 &&  marker5 := distance == 0 + 2 + 4 =  6
 		 marker3 &&   marker4 &&  marker5 := distance == 1 + 2 + 4 =  7
 
-
-*moveon		move else ??
+*moveon		move else ??				; 5 Zuege //2 Instructions
 		sense 0 
-		ifany sense_marker2 sense_marker3 sense_marker4 sense_marker5 else moveon
-		ifany sense_marker0 sense_marker1 else markEQ5		; marks dir == 5 
-		ifall sense_marker0 sense_marker1 !sense_marker2	; dir == 3
-		
-		ifall sense_marker0 !sense_marker1 !sense_marker2	; dir == 1 
-*markEQ5	if ship_direction<2 else dirGT2
-
-
-*move15
-*move14
+*return		ifany sense_marker2 sense_marker3 sense_marker4 sense_marker5 else moveon ; min3, max4 Zuege     //8 Instructions
+		if sense_marker0 else notNull		 
+		if !sense_marker1 else markEQ3		; marks dir == 1 else dir == 3
+		goto markEQ1
+*notNull	if sense_marker1  else notOne		; marks dir == 2 else jump to check if marker2
+		goto markEQ2
+*notOne		if !sense_marker2 else markEQ5
+		goto markEQ4 
+*markEQ5	if ship_direction<2 else m5dirGT2			; jump to getShort //min 5, max 6 Zuege//20 Instructions
+		if ship_direction<1 else m5dirEQ1			; dir == 0 
+		turn left
+		goto getShort
+*m5dirEQ1	turn left
+		turn left 
+		goto getShort
+*m5dirGT2	if ship_direction>2 else m5dirEQ2
+		if ship_direction>3 else m5dirEQ3
+		if ship_direction>4 else m5dirEQ4
+		got getShort						; dir == 5
+*m5dirEQ2	turn right
+		turn right
+		turn right
+		goto getShort
+*m5dirEQ3	turn right
+		turn right
+		goto getShort
+*m5dirEQ4	turn right	
+		goto getShort
+*markEQ1	if ship_direction<2 else m1dirGT2			; jump to getLong //min 5, max 6 Zuege//20 Instructions
+		if ship_direction<1 else m1dirEQ1
+		turn right						; dir == 0
+		goto getLong
+*m1dirEQ1	goto getLong
+*m1dirGT2	if ship_direction>2 else m1dirEQ2
+		if ship_direction>3 else m1dirEQ3
+		if ship_direction>4 else m1dirEQ4
+		turn right
+		turn right
+		goto getLong
+*m1dirEQ2	turn left
+		goto getLong
+*m1dirEQ3	turn left 
+		turn left
+		goto getLong
+*m1dirEQ4 	turn left
+		turn left
+		turn left
+		goto getLong
+*markEQ2	if ship_direction<2 else m2dirGT2			; jump to getLong //min 5, max 6 Zuege//20 Instructions
+		if ship_direction<1 else m2dirEQ1
+		turn right
+		turn right
+		goto getLong
+*m2dirEQ1	goto turn right
+		goto getLong
+*m2dirGT2 	if ship_direction>2 else m2dirEQ2
+		if ship_direction>3 else m2dirEQ3
+		if ship_direction>4 else m2dirEQ4
+		turn left
+		turn left
+		turn left
+		goto getLong
+*m2dirEQ2	goto getLong
+*m2dirEQ3	turn left
+		goto getLong
+*m2dirEQ4	turn left
+		turn left
+		goto getLong
+*markEQ3	if sense_direction<2 else m3dirGT2			; jump to getLong //min 5, max 6 Zuege//20 Instructions
+		if sense_direction<1 else m3dirEQ1
+		turn right
+		turn right
+		turn rigt
+		goto getLong
+*m3dirEQ1	turn right
+		turn right
+		goto getLong
+*m3dirGT2	if ship_direction>2 else m2dirEQ2
+		if ship_direction>3 else m2dirEQ3
+		if ship_direction>4 else m2dirEQ4
+		turn left 
+		turn left
+		goto getLong
+*m3dirEQ2	turn right
+		goto getLong
+*m3dirEQ3	goto getLong
+*m3dirEQ4	turn left
+		goto getLong
+*markEQ4	if ship_direction<2 else m4dirGT2			; jump to getShort//min 5, max 6 Zuege//20 Instructions
+		if ship_direction<1 else m4dirEQ1
+		turn left
+		turn left
+		goto getShort
+*m4dirEQ1	turn left
+		turn left
+		turn left
+		goto getShort
+*m4dirGT2	if ship_direction>2 else m4dirEQ2
+		if ship_direction>3 else m4dirEQ3
+		if ship_direction>4 else m4dirEQ4
+		turn left
+		goto getShort
+*m4dirEQ2	turn right
+		turn right
+		goto getShort
+*m4dirEQ3	turn right 
+		goto getShort
+*m4dirEQ4	goto getShort
+*getShort	if sense_marker3 else notThree		; getShort: mindestens 3 Zuege, maximal 4  	//10 Instructions
+		if sense_marker4 else andNotFour
+		if !sense_marker5 else move7
+		goto move3
+*andNotFour	if !sense_marker5 else move5 
+		goto move1
+*notThree	if sense_marker4 else norFour
+		if !sense_marker5 else move6
+		goto move2
+*norFour	goto move4
+*getLong	if sense_marker5  else notFive		; getLong: mindestens 4 Zuege, maximal 5	//22Instructions
+		if sense_marker4  else butNotFour	 
+		if sense_marker3  else butNotThree	
+		if !sense_marker2 else move15		 
+		goto move14				 
+*notFive	if sense_marker4 else norFour		 
+		if sense_marker3 else neitherThree
+		if !sense_marker2 else move7
+		goto move6
+*norFour	if sense_marker3 else norThree
+		if !sense_marker2 else move3
+		goto move2
+*norThree	goto move1
+*neitherThree 	if !sense_marker2 else move5
+		goto move4
+*butNotFour	if sense_marker3 else andNotThree
+		if !sense_marker2 else move11
+		move10
+*andNotThree	if !sense_marker2 else move9
+		goto move8
+*butNotThree	if !sense_marker2 else move13
+		goto move12
+*move15		move else friendOrFoe			; bis zu 19 Zuege //19 Instructions //// 19 + 22 + 10 + 2 + 8 + 100 = 141
+*move14		move else friendOrFoe			; Zuege: Bojen finden: 2; Richtung bestimmen: (3,4); Schiff wenden: (5,6)	
+*move13		move else friendOrFoe			; Entfernung feststellen: (3,4,5) + 3					
+*move12		move else friendOrFoe
+*move11		move else friendOrFoe
+*move10		move else friendOrFoe
+*move9		move else friendOrFoe
+*move8		move else friendOrFoe
+*move7		move else friendOrFoe
+*move6		move else friendOrFoe
+*move5		move else friendOrFoe
+*move4		move else friendOrFoe
+*move3		move else friendOrFoe
+*move2		move else friendOrFoe
+*move1		move else friendOrFoe
+		sense 6
+		if sense_celltype==home else return
+		drop
+		goto fadingToTheHorizon
 	
 
