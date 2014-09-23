@@ -100,8 +100,8 @@ public class Ship {
 		else{
 
 			if (pause == 0){
-				int oldpc=pc;
-				pc+=1;
+				pc = pc +1;
+				int oldpc=pc-1;
 				noPositivActionCounter+=1;
 
 				team.getCommands().get(oldpc).execute(this);
@@ -237,6 +237,8 @@ public class Ship {
 	 * @return				absolute watch direction of the ship
 	 */
 	public int relativeToAbsoluteDirection(int relDirection){
+		if (relDirection>6)
+			throw new IllegalArgumentException("no direction > 6 allowed");
 		if (relDirection == 6)
 			return 6;
 

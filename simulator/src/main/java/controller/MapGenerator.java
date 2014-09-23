@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +15,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 import model.Base;
 import model.Field;
+import model.FieldType;
 import model.Island;
 import model.Kraken;
 import model.Map;
@@ -30,8 +32,8 @@ public class MapGenerator {
 	private int y;
 
 	
-	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random) throws IOException{
-		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
+	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, OutputStream logStream) throws IOException{
+		if(stream == null || teams == null || random == null) throw new NullPointerException();
 		if(teams.size() < 1 || teams.size() > 26) throw new IllegalArgumentException();
 		
 		Map map = new Map(random, log);
@@ -65,33 +67,25 @@ public class MapGenerator {
 			for(int i = 0; i < line.length(); i++){
 				if(y >= height) throw new IllegalArgumentException("Map is bigger than was specified in the first two lines.");
 			
-				char c = line.charAt(i);
+				char glyph = line.charAt(i);
 				Field field;
 				
-				if(c == '.'){
+				if(glyph == '.'){
 					field = new Water(map, x, y, null);
-					log.addCell(Cell.WATER, null, x, y);
 				}
-				else if(c == '#'){
+				else if(glyph == '#'){
 					field = new Island(map, x, y, null);
-					log.addCell(Cell.ISLAND, null, x, y);
 				}
-				else if(c == '$'){
+				else if(glyph == '$'){
 					field = new ProvisionIsland(map, x, y);
-					log.addCell(Cell.SUPPLY, null, x, y);
 				}
-				else if(c == '&'){
+				else if(glyph == '&'){
 					Kraken k = new Kraken(map.giveNewEntityID(), null);
-					Key[] keys = {Key.X_COORD, Key.Y_COORD};
-					int[] values = {x, y};
-					log.create(Entity.KRAKEN, k.getId(), keys, values);
 					kraken.add(k);
-					
 					field = new Water(map, x, y, k);
-					log.addCell(Cell.WATER, null, x, y); // null for the team
 				}
-				else if(isTeamLetter(c, teams.size())){
-					int teamNumber = c - 'a';
+				else if(isTeamLetter(glyph, teams.size())){
+					int teamNumber = glyph - 'a';
 					Team team;
 					
 					try{
@@ -100,32 +94,20 @@ public class MapGenerator {
 					catch(ArrayIndexOutOfBoundsException e){
 						throw new ArrayIndexOutOfBoundsException("Base on map has no related team");
 					}
-					
 					Ship ship = new Ship(team, null, map.giveNewActorID(), previousShip);
-					teams.get(teamNumber).addShip(ship);
-					Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
-					int[] values = {0, 3, teamNumber, 4, 0, 0, 0, x, y};
-					log.create(Entity.SHIP, ship.getID(), keys, values);
-					
+					teams.get(teamNumber).addShip(ship);					
 					if(previousShip == null)
 						map.setFirstShip(ship);
 					previousShip = ship;
-					
 					field = new Base(map, x, y, team, ship);
-					log.addCell(Cell.WATER, teamNumber, x, y);
 				}
-				else if(isDigit(c)){
+				else if(isDigit(glyph)){
 					int id = map.giveNewEntityID();
-					Treasure t = new Treasure(id, c - '0');
-					Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
-					int[] values = {t.getValue(), x, y};
-					log.create(Entity.TREASURE, id, keys, values);
-					
+					Treasure t = new Treasure(id, glyph - '0');					
 					field = new Island(map, x, y, t);
-					log.addCell(Cell.ISLAND, null, x, y);
 				}
 				else
-					throw new IllegalArgumentException("Invalid character " + c + " in map file at position (" + x + "," + y + ")");
+					throw new IllegalArgumentException("Invalid character " + glyph + " in map file at position (" + x + "," + y + ")");
 				
 				fields[x][y] = field;
 				incrementXY(width, height);
@@ -138,8 +120,6 @@ public class MapGenerator {
 		if(teams.size() == 1) {
 			if(teams.get(0).getShipCount() <= 0)
 				throw new IllegalArgumentException("Not every team has bases/ships on the map");
-			
-			log.fleetScore(teams.get(0).getName(), 0);
 		}
 		else{
 			List<Command> tactic1 = teams.get(0).getCommands();
@@ -150,7 +130,6 @@ public class MapGenerator {
 				boolean lastShip = false;
 				for(int i = teams.size() - 1; i >= 0; i--){
 					Team team = teams.get(i);
-				
 					if(team.getShipCount() <= 0){
 						if(lastShip)
 							throw new IllegalArgumentException("Not every team has bases/ships on the map");
@@ -158,15 +137,12 @@ public class MapGenerator {
 							teams.remove(team);
 					}			
 					else{
-						log.fleetScore(team.getName() - 'a', 0);
 						lastShip = true;
 					}
 				}
 			}
 			else{
-				for(Team team: teams){
-					log.fleetScore(team.getName() - 'a', 0);
-					
+				for(Team team: teams){	
 					if(team.getShipCount() <= 0)
 						throw new IllegalArgumentException("Not every team has bases/ships on the map");
 				}
@@ -174,6 +150,72 @@ public class MapGenerator {
 		}
 				
 		map.setMapValues(fields, kraken);
+		if(log != null)
+		{
+			log.init(logStream, mapString, shipFiles);
+			for(Field[] row : fields)
+			{
+				for(Field field : row)
+				{
+					switch (field.getFieldType())
+					{
+					case Base:
+						log.addCell(Cell.WATER, ((Base) field).getTeam().getName()-'a', field.getX(), field.getY());
+						break;
+					case Island:
+						log.addCell(Cell.ISLAND, null, field.getX(), field.getY());
+						break;
+					case ProvisionIsland:
+						log.addCell(Cell.SUPPLY, null, field.getX(), field.getY());
+						break;
+					case Water:
+						log.addCell(Cell.WATER, null, field.getX(), field.getY());
+						break;
+					default:
+						throw new IllegalStateException("Unknown fieldType in map");
+					
+					}
+				}
+			}
+			for(Field[] row: fields)
+			{
+				for(Field field : row)
+				{
+					if(field.getKraken() != null)
+					{
+						Key[] keys = {Key.X_COORD, Key.Y_COORD};
+						int[] values = {field.getX(), field.getY()};
+						log.create(Entity.KRAKEN, field.getKraken().getId(), keys, values);
+					}
+					if(field.getShip() != null)
+					{
+						assert(field.getFieldType() == FieldType.Base);
+						Ship ship = field.getShip();
+						assert(ship.getShipDirection() == 0);
+						assert(ship.getCondition() == 3);
+						assert(ship.getMoral() == 4);
+						assert(ship.getPC() == 0);
+						assert(ship.getPause() == 0);
+						assert(ship.getLoad() == 0);
+						Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
+						int[] values = {ship.getShipDirection(), ship.getCondition(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
+						log.create(Entity.SHIP, ship.getID(), keys, values);
+					}
+					if(field.getTreasure() != null)
+					{
+						assert(field.getTreasure().getValue() < 10);
+						Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
+						int[] values = {field.getTreasure().getValue(), field.getX(), field.getY()};
+						log.create(Entity.TREASURE, field.getTreasure().getId(), keys, values);
+					}
+				}
+			}
+			for(Team team: teams)
+			{
+				assert(team.getScore() == 0);
+				log.fleetScore(team.getName() - 'a', team.getScore());
+			}
+		}
 		return map;
 	}
 	

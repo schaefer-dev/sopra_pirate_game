@@ -87,7 +87,7 @@
 		move else ??
 		move else ??
 		move else ??
-		goto drop_label			; zum label, weil danach irgendwas neues ausgeführt werden soll. 
+		goto drop_label			; kein drop, sondern zeiger auf drop, weil danach irgendwas neues ausgeführt werden soll
 *einsammeln5	pickup 0 else 	goElse5		; 5* move
 		turn right			; angenommen, es gibt einen Schatz
 *ein4-tr	turn right
@@ -97,12 +97,12 @@
 		move else ??
 		move else ??
 		move else ??
-		goto drop_label			; zum label, weil danach irgendwas neues ausgeführt werden soll. 	
+		drop 	
             	
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ALTERNATIVE 3:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	Pros: sehr wenige instructions fuer sehr viele aktionen. Braucht gelegentlich weniger Zuege.
 	Cons: braucht uU sehr viel mehr Zuege.(s. Beispiel Rechnung unten)
-	#Zuege = n*12 + 4, n > 0
+	#Zuege = n*12 + 4; mit n > 0
 
 			Fuer 	1 move  = 16 Zuege (alt1: 19; alt2: 14)
 				2 moves = 28 Zuege (alt1: 26; alt2: 22)
@@ -135,20 +135,20 @@
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ALTERNATIVE 4:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	Macht im Grunde dasselbe wie Alternative 3, nur dass alle nachbar kacheln abgesucht werden, vor einem move command.Die Abdeckung ist 		also sehr hoch.
-	#Zuege = n*12 + (sum[i = 0, n] m) + 3, m = (1,2,3,4,5), n > 0
+	Macht im Grunde dasselbe wie Alternative 3, nur dass alle Nachbar kacheln abgesucht werden, vor einem move command.Die Abdeckung ist 		also sehr hoch.
+	#Zuege = n*12 + (1,2,3,4,5) + (sum[i = 2; n] m) + 3; mit m = (1,2,3); n > 0
 
+		pickup 2 else nexdir4
+		goto return
+*nexdir4	pickup 4 else nexdir0
+		goto return
+*init 		move else ??
 *nexdir0	pickup 0 else nexdir1
 		goto return
-*nexdir1	pickup 1 else nexdir2
-		goto return
-*nexdir2	pickup 2 else nexdir4
-		goto return
-*nexdir4	pickup 4 else nexdir5
+*nexdir1	pickup 1 else nexdir5
 		goto return
 *nexdir5	pickup 5 else init
 		goto return
-*init 		move else ??
 		goto nexdir0
 *return		turn right				
 		turn right

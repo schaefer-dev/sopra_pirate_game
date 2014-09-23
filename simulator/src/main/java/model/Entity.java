@@ -27,4 +27,11 @@ public abstract class Entity {
 			throw new IllegalArgumentException ("id must be greater 0");
 		}
 	}
+
+
+	public int getId() {
+		return id;
+	}
+	
+	
 }

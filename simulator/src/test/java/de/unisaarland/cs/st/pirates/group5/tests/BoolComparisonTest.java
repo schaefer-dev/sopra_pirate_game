@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import controller.BoolComparison;
 import controller.Command;
+import controller.Comparison;
 
 public class BoolComparisonTest {
 
@@ -79,6 +80,13 @@ public class BoolComparisonTest {
 		
 		compare = new BoolComparison(Register.sense_supply, true);
 		ship.setSenseRegister(Register.sense_supply, BoolWert.False.ordinal());
-		assertTrue(compare.eval(ship));	
+		assertTrue(compare.eval(ship));
+	}
+	@Test
+	public void testSelf()
+	{
+		ship.setSenseRegister(Register.sense_shiploaded, BoolWert.False.ordinal());
+		Comparison comp = new BoolComparison(Register.sense_shiploaded, true);
+		assertTrue(comp.eval(ship));
 	}
 }

@@ -60,7 +60,7 @@ public class MapGeneratorTest {
 	@Test
 	public void mapGenTest() throws IOException {
 		LogWriter log = new DummyLogWriter();
-		map = mapgen.createMap(stream, teamlist, log, random);
+		map = mapgen.createMap(stream, teamlist, log, random, null, null, null);
 		assertTrue (map.giveNewEntityID() == 0);
 		assertTrue (map.giveNewActorID() == 1);
 		assertTrue (map.getKraken().size() == 0);
