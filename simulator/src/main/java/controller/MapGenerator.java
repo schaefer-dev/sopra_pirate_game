@@ -33,7 +33,7 @@ public class MapGenerator {
 
 	
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, OutputStream logStream) throws IOException{
-		if(stream == null || teams == null || log == null || random == null) throw new NullPointerException();
+		if(stream == null || teams == null || random == null) throw new NullPointerException();
 		if(teams.size() < 1 || teams.size() > 26) throw new IllegalArgumentException();
 		
 		Map map = new Map(random, log);
@@ -152,68 +152,71 @@ public class MapGenerator {
 		}
 				
 		map.setMapValues(fields, kraken);
-		log.init(logStream, mapString, shipFiles);
-		for(Field[] row : fields)
+		if(log != null)
 		{
-			for(Field field : row)
+			log.init(logStream, mapString, shipFiles);
+			for(Field[] row : fields)
 			{
-				switch (field.getFieldType())
+				for(Field field : row)
 				{
-				case Base:
-					log.addCell(Cell.WATER, ((Base) field).getTeam().getName()-'a', field.getX(), field.getY());
-					break;
-				case Island:
-					log.addCell(Cell.ISLAND, null, field.getX(), field.getY());
-					break;
-				case ProvisionIsland:
-					log.addCell(Cell.SUPPLY, null, field.getX(), field.getY());
-					break;
-				case Water:
-					log.addCell(Cell.WATER, null, field.getX(), field.getY());
-					break;
-				default:
-					throw new IllegalStateException("Unknown fieldType in map");
+					switch (field.getFieldType())
+					{
+					case Base:
+						log.addCell(Cell.WATER, ((Base) field).getTeam().getName()-'a', field.getX(), field.getY());
+						break;
+					case Island:
+						log.addCell(Cell.ISLAND, null, field.getX(), field.getY());
+						break;
+					case ProvisionIsland:
+						log.addCell(Cell.SUPPLY, null, field.getX(), field.getY());
+						break;
+					case Water:
+						log.addCell(Cell.WATER, null, field.getX(), field.getY());
+						break;
+					default:
+						throw new IllegalStateException("Unknown fieldType in map");
 					
+					}
 				}
 			}
-		}
-		for(Field[] row: fields)
-		{
-			for(Field field : row)
+			for(Field[] row: fields)
 			{
-				if(field.getKraken() != null)
+				for(Field field : row)
 				{
-					Key[] keys = {Key.X_COORD, Key.Y_COORD};
-					int[] values = {field.getX(), field.getY()};
-					log.create(Entity.KRAKEN, field.getKraken().getId(), keys, values);
-				}
-				if(field.getShip() != null)
-				{
-					assert(field.getFieldType() == FieldType.Base);
-					Ship ship = field.getShip();
-					assert(ship.getShipDirection() == 0);
-					assert(ship.getCondition() == 3);
-					assert(ship.getMoral() == 4);
-					assert(ship.getPC() == 0);
-					assert(ship.getPause() == 0);
-					assert(ship.getLoad() == 0);
-					Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
-					int[] values = {ship.getShipDirection(), ship.getCondition(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
-					log.create(Entity.SHIP, ship.getID(), keys, values);
-				}
-				if(field.getTreasure() != null)
-				{
-					assert(field.getTreasure().getValue() < 10);
-					Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
-					int[] values = {field.getTreasure().getValue(), field.getX(), field.getY()};
-					log.create(Entity.TREASURE, field.getTreasure().getId(), keys, values);
+					if(field.getKraken() != null)
+					{
+						Key[] keys = {Key.X_COORD, Key.Y_COORD};
+						int[] values = {field.getX(), field.getY()};
+						log.create(Entity.KRAKEN, field.getKraken().getId(), keys, values);
+					}
+					if(field.getShip() != null)
+					{
+						assert(field.getFieldType() == FieldType.Base);
+						Ship ship = field.getShip();
+						assert(ship.getShipDirection() == 0);
+						assert(ship.getCondition() == 3);
+						assert(ship.getMoral() == 4);
+						assert(ship.getPC() == 0);
+						assert(ship.getPause() == 0);
+						assert(ship.getLoad() == 0);
+						Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
+						int[] values = {ship.getShipDirection(), ship.getCondition(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
+						log.create(Entity.SHIP, ship.getID(), keys, values);
+					}
+					if(field.getTreasure() != null)
+					{
+						assert(field.getTreasure().getValue() < 10);
+						Key[] keys = {Key.VALUE, Key.X_COORD, Key.Y_COORD};
+						int[] values = {field.getTreasure().getValue(), field.getX(), field.getY()};
+						log.create(Entity.TREASURE, field.getTreasure().getId(), keys, values);
+					}
 				}
 			}
-		}
-		for(Team team: teams)
-		{
-			assert(team.getScore() == 0);
-			log.fleetScore(team.getName() - 'a', team.getScore());
+			for(Team team: teams)
+			{
+				assert(team.getScore() == 0);
+				log.fleetScore(team.getName() - 'a', team.getScore());
+			}
 		}
 		return map;
 	}
