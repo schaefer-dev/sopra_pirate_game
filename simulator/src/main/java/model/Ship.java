@@ -118,7 +118,7 @@ public class Ship {
 					}
 				//	if (pc!=oldpc && hasLogWriter)
 			//		{
-						field.provideLogger().notify(Entity.SHIP, id, Key.PC, 1);
+						field.provideLogger().notify(Entity.SHIP, id, Key.PC, 3);
 				//	}
 				}
 			}
