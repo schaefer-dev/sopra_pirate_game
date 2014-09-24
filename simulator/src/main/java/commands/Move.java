@@ -2,8 +2,6 @@ package commands;
 
 import model.Base;
 import model.Field;
-import model.Island;
-import model.ProvisionIsland;
 import model.Ship;
 import model.Water;
 import controller.Command;
@@ -73,8 +71,8 @@ public class Move implements Command {
 					int targetMoral = targetShip.getMoral();
 					int shipCondition = ship.getCondition();
 					int targetCondition = targetShip.getCondition();
-					int shipLoad = ship.getLoad();
-					int targetLoad = targetShip.getLoad();
+					//int shipLoad = ship.getLoad();
+					//int targetLoad = targetShip.getLoad();
 					
 					if (targetMoral > shipMoral){
 						executeTargetShipWins(ship,targetShip);
@@ -132,7 +130,7 @@ public class Move implements Command {
 			//break; unreachable
 			
 		case Island: 
-			Island targetIsland=(Island)targetField;
+			//Island targetIsland=(Island)targetField;
 			ship.changeMoral(-1);
 			ship.changeCondition(-1);
 			ship.setPC(elsePC);
@@ -143,7 +141,7 @@ public class Move implements Command {
 			break;
 			
 		case ProvisionIsland:
-			ProvisionIsland targetProvIsland=(ProvisionIsland)targetField;
+			//ProvisionIsland targetProvIsland=(ProvisionIsland)targetField;
 			ship.changeMoral(-1);
 			ship.changeCondition(-1);
 			ship.setPC(elsePC);
