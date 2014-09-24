@@ -87,7 +87,7 @@ public class MapGenerator {
 					kraken.add(k);
 					field = new Water(map, x, y, k);
 				}
-				else if(isTeamLetter(glyph, teams.size())){
+				else if(isTeamLetter(glyph, 26)){
 					int teamNumber = glyph - 'a';
 					Team team;
 					
