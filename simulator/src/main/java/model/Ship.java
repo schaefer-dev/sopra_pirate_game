@@ -3,6 +3,7 @@ package model;
 import controller.Command;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
 
 
 /**
@@ -47,6 +48,7 @@ public class Ship {
 	private int[] registers = new int[18];
 	private Ship previousShip;
 	private Ship nextShip;
+	private boolean hasLogWriter;
 
 
 
@@ -63,6 +65,8 @@ public class Ship {
 		this.id = id;
 		this.field=field;						// field should always be null when called properly (outside tests)!
 		this.team=team;
+		if(field != null)
+			hasLogWriter = field.provideLogger() != null;
 		this.previousShip=previous;
 		if (previous!=null)
 			previousShip.nextShip=this;
@@ -92,6 +96,7 @@ public class Ship {
 
 	/**
 	 * Executes the next command in the commandList at index pc
+	 * logs PC changing in the end if he changed (compared to oldpc)
 	 *
 	 */
 	public void act(){
@@ -110,8 +115,10 @@ public class Ship {
 						this.changeMoral(-1);
 						noPositivActionCounter=0;
 					}
-					if (pc!=oldpc)
-						field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.PC, pc);
+					if (pc!=oldpc && hasLogWriter)
+					{
+						field.provideLogger().notify(Entity.SHIP, id, Key.PC, pc);
+					}
 				}
 			}
 			else
@@ -169,6 +176,8 @@ public class Ship {
 	public void setField(Field field){
 		//no logging!
 		this.field=field;
+		if(field != null)
+			hasLogWriter = field.provideLogger() != null;
 	}
 
 
@@ -205,24 +214,28 @@ public class Ship {
 		if (left){
 			if (dir==0){
 				registers[Register.ship_direction.ordinal()]=5;
-				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, 5);
+				if(hasLogWriter)
+					field.provideLogger().notify(Entity.SHIP, id, Key.DIRECTION, 5);
 				return;
 			}
 			else{
 				registers[Register.ship_direction.ordinal()]=dir-1;
-				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, dir-1);
+				if(hasLogWriter)
+					field.provideLogger().notify(Entity.SHIP, id, Key.DIRECTION, dir-1);
 				return;
 			}
 		}
 		else{
 			if (dir==5){
 				registers[Register.ship_direction.ordinal()]=0;
-				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, 0);
+				if(hasLogWriter)
+					field.provideLogger().notify(Entity.SHIP, id, Key.DIRECTION, 0);
 				return;
 			}
 			else{
 				registers[Register.ship_direction.ordinal()]=dir+1;
-				field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.DIRECTION, dir+1);
+				if(hasLogWriter)
+					field.provideLogger().notify(Entity.SHIP, id, Key.DIRECTION, dir+1);
 				return;
 			}
 		}
@@ -282,18 +295,21 @@ public class Ship {
 
 		if ((moral+i)<=0){
 			registers[Register.ship_moral.ordinal()]=0;
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, 0);
+			if(hasLogWriter)
+				field.provideLogger().notify(Entity.SHIP, id, Key.MORAL, 0);
 			return;
 		}
 
 		if ((moral+i)>=4){
 			registers[Register.ship_moral.ordinal()]=4;
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, 4);
+			if(hasLogWriter)
+				field.provideLogger().notify(Entity.SHIP, id, Key.MORAL, 4);
 			return;
 		}
 
 		registers[Register.ship_moral.ordinal()]=moral+i;
-		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.MORAL, moral+i);
+		if(hasLogWriter)
+			field.provideLogger().notify(Entity.SHIP, id, Key.MORAL, moral+i);
 	}
 
 
@@ -324,17 +340,20 @@ public class Ship {
 
 		if ((condition+i)<=0){
 			registers[Register.ship_condition.ordinal()]=0;
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 0);
+			if(hasLogWriter)
+				field.provideLogger().notify(Entity.SHIP, id, Key.CONDITION, 0);
 			this.destroy();
 			return;
 		}
 		if ((condition+i)>=3){
 			registers[Register.ship_condition.ordinal()]=3;
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, 3);
+			if(hasLogWriter)
+				field.provideLogger().notify(Entity.SHIP, id, Key.CONDITION, 3);
 			return;
 		}
 		registers[Register.ship_condition.ordinal()]=condition+i;
-		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
+		if(hasLogWriter)
+			field.provideLogger().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
 	}
 
 
@@ -364,8 +383,8 @@ public class Ship {
 		pause += i;
 		if (pause <= 0)
 			pause = 0;
-		if (pauseBefore != pause)
-			field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.RESTING, pause);
+		if (pauseBefore != pause && hasLogWriter)
+			field.provideLogger().notify(Entity.SHIP, id, Key.RESTING, pause);
 
 	}
 
@@ -390,7 +409,8 @@ public class Ship {
 		if ((i>4)||(i<0))
 			throw new IllegalArgumentException("load can not be setted to value not between 0-4");
 		registers[Register.ship_load.ordinal()]=i;
-		field.getMap().getLogWriter().notify(Entity.SHIP, id, Key.VALUE, i);
+		if(hasLogWriter)
+			field.provideLogger().notify(Entity.SHIP, id, Key.VALUE, i);
 	}
 
 
@@ -563,7 +583,8 @@ public class Ship {
 			field.getMap().setFirstShip(nextShip);
 			if (nextShip != null)
 				nextShip.previousShip=null;
-			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+			if(hasLogWriter)
+				field.provideLogger().destroy(Entity.SHIP, id);
 			field = null;			// important for checks in Move if ship is still alive
 		}
 		else{
@@ -572,7 +593,8 @@ public class Ship {
 			previousShip.setNextShip(nextShip);
 			if (nextShip != null)
 				nextShip.previousShip=previousShip;
-			field.getMap().getLogWriter().destroy(Entity.SHIP, id);
+			if(hasLogWriter)
+				field.provideLogger().destroy(Entity.SHIP, id);
 			field = null;
 		}
 

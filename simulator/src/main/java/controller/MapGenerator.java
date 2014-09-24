@@ -156,7 +156,7 @@ public class MapGenerator {
 		if(log != null)
 		{
 			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
-			((Log) log).addLogger(new GUIController());
+		//	((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
 			for(Field[] row : fields)
 			{

@@ -37,8 +37,10 @@ public class Pickup implements Command {
 					int load = ship.getLoad();
 					if(load < 4)
 						ship.changeMoral(2);
-					if(load == 4)
+					if(load == 4){
 						ship.setPC(elsePC);
+						return;
+					}
 					if(value + load >= 4){
 						ship.setLoad(4);
 						field.exchangeTreasure(-(4-load));
@@ -47,7 +49,9 @@ public class Pickup implements Command {
 						field.exchangeTreasure(-value);
 					}
 				}else ship.setPC(elsePC);
-		}else ship.setPC(elsePC);
+		}
+		else
+			throw new IllegalStateException("direction pickup not valid");
 	}
 	@Override
 	public boolean equals (Object o)

@@ -51,7 +51,7 @@ public class Water extends Field {
 			typearray[2] = newbuoy.getTeam().getName() - 'a';
 			typearray[3] = newbuoy.getType();
 			
-			map.getLogWriter().create(Entity.BUOY, newbuoy.id, keyarray, typearray);
+			provideLogger().create(Entity.BUOY, newbuoy.id, keyarray, typearray);
 			return true;
 		}
 	}
@@ -65,7 +65,7 @@ public class Water extends Field {
 		for(Buoy buoy: buoys){
 			if(buoy.getTeam().equals(team) && buoy.getType() == value){
 				buoys.remove(buoy);
-				map.getLogWriter().destroy(Entity.BUOY, buoy.id);
+				provideLogger().destroy(Entity.BUOY, buoy.id);
 				break;
 			}
 		}

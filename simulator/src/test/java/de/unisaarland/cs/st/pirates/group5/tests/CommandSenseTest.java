@@ -135,6 +135,7 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), Ship.undefinedInt);
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), Ship.undefinedInt);
 		}
+		
 		@Test
 		public void testEinsNull(){
 			shipAtNullNull.act();
@@ -144,6 +145,7 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), 0);
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), 1);
 		}
+		
 		@Test
 		public void testNullEins(){
 			shipAtNullNull.act();
@@ -155,6 +157,7 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), Ship.undefinedInt);
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), Ship.undefinedInt);
 		}
+		
 		@Test
 		public void testDreiEins(){
 			shipAtNullNull.act();
@@ -162,6 +165,7 @@ public class CommandSenseTest {
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.EnemyHome.ordinal());
 		}
+		
 		@Test
 		public void testDreiNull(){
 			shipAtNullNull.act();
@@ -170,8 +174,8 @@ public class CommandSenseTest {
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Island.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_supply), BoolWert.True.ordinal());
-
 		}
+		
 		@Test
 		public void testDreiDrei(){
 			shipAtNullNull.act();
@@ -184,6 +188,7 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker3),BoolWert.True.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker4),BoolWert.True.ordinal());
 		}
+		
 		@Test
 		public void testNullDrei(){
 			shipAtNullNull.act();
@@ -200,6 +205,7 @@ public class CommandSenseTest {
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_enemymarker),BoolWert.True.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_treasure),BoolWert.True.ordinal());
 		}
+		
 		@Test
 		public void testNullNull(){
 

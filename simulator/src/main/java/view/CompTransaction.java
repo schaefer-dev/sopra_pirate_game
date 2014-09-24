@@ -25,7 +25,10 @@ public class CompTransaction implements Transaction {
 	@Override
 	public Transaction set(Key arg0, int arg1) throws NullPointerException, IllegalArgumentException {
 		for(Transaction trans: transactions)
-			trans.set(arg0, arg1);
+		{
+			if(trans != null)
+				trans.set(arg0, arg1);
+		}
 		
 		return this;
 	}

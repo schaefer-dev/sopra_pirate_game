@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
-
+// is used in tests
 public class EntityData {
 
 	public Entity entity;
