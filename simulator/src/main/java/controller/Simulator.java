@@ -106,7 +106,7 @@ public class Simulator {
 
 
 	public void step() throws IllegalStateException, IOException{
-		if(roundCounter > roundMax) throw new IllegalStateException();
+		if(roundCounter > roundMax) throw new IllegalStateException(); // roundMax = turns + 1
 
 		Ship ship = map.getFirstShip();
 

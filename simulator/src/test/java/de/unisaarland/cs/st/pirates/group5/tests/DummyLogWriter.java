@@ -41,8 +41,7 @@ public class DummyLogWriter implements LogWriter {
 	public Transaction beginTransaction(Entity arg0, int arg1)
 			throws NullPointerException, IllegalArgumentException,
 			IllegalStateException {
-		// TODO Auto-generated method stub
-		return null;
+		return new DummyTransaction(arg0, arg1, this);
 	}
 
 	public void setEntities(List<Entity> els) {
@@ -67,8 +66,7 @@ public class DummyLogWriter implements LogWriter {
 	public LogWriter commitTransaction(Transaction arg0)
 			throws NullPointerException, IllegalArgumentException,
 			IllegalStateException {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
