@@ -58,7 +58,7 @@ public class CellTypeComparison implements Comparison {
 			return type.ordinal() != temp; //Fall unequal
 	}
 	/**
-	 * Overrides the equals method of Object. Two <code>CellTypeComparisons</code> are equal if register and invert of both <code>CellTypeComparison</code>s are identical.
+	 * Overrides the equals method of Object. Two <code>CellTypeComparisons</code> are equal if register, type and invert of both <code>CellTypeComparison</code>s are identical.
 	 * @param o the Object to be tested for equality.
 	 * @result Returns whether the object equals this <code>CellTypeComparison</code>
 	 */

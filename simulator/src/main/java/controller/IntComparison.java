@@ -121,7 +121,7 @@ public class IntComparison implements Comparison {
 		
 	}
 	/**
-	 * Overrides the equals method of Object. Two <code>IntComparisons</code> are equal if register and invert of both <code>IntComparison</code>s are identical.
+	 * Overrides the equals method of Object. Two <code>IntComparisons</code> are equal if left, right, constant and operator of both <code>IntComparison</code>s are identical.
 	 * @param o the Object to be tested for equality.
 	 * @result Returns whether the object equals this <code>IntComparison</code>
 	 */
