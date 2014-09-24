@@ -51,7 +51,8 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 
 	Pros: Schiff kann komplett unabhängig von anderen Schiffen operieren.
 	Nachteil: Viele instructions und mehr Zuege.  
-	Facts: min 9 + n*(6,8,10), max 12 + n*(6,8,10) Zuege; mit n = Anzahl der MoveCommands
+	Facts:  132 Instructions
+		min 9 + n*(6,8,10), max 12 + n*(6,8,10) Zuege; mit n = Anzahl der MoveCommands
 
 			; Zuege: Bojen finden: 2; Richtung bestimmen: (3,4); Schiff wenden: (5,6)	
 			; Entfernung feststellen: (3,4,5)
@@ -65,7 +66,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		if ship_direction<2 else m3dirGT2
 		if ship_direction<1 else m3dirEQ1	; also dir==0
 		turn right 
-		turn right
+		turn right ;10
 		turn right
 		goto return
 *m3dirEQ1	turn right
@@ -75,7 +76,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		if ship_direction>3 else m3dirEQ3
 		if ship_direction>4 else m3dirEQ4
 		turn left
-		turn left
+		turn left ;20
 		goto return
 *m3dirEQ2	turn right
 		goto return
@@ -85,7 +86,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 *markEQ5	if ship_direction<2 else m5dirGT2
 		if ship_direction<1 else m5dirEQ1	; also dir==0
 		turn left
-		goto return
+		goto return ;30
 *m5dirEQ1	turn left
 		turn left
 		goto return
@@ -95,7 +96,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		goto return
 *m5dirEQ2	turn right
 		turn right
-		turn right
+		turn right ;40
 		goto return
 *m5dirEQ3	turn right
 		turn right
@@ -105,7 +106,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 *markEQ4	if ship_direction<2 else m4dirGT2
 		if ship_direction<1 else m4dirEQ1
 		turn left
-		turn left
+		turn left ;50
 		goto return
 *m4dirEQ1	turn left
 		turn left
@@ -115,7 +116,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		if ship_direction>3 else m4dirEQ3
 		if ship_direction>4 else m4dirEQ4
 		turn right
-		goto return
+		goto return ;60
 *m4dirEQ2	turn right
 		turn right
 		goto return
@@ -125,7 +126,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 *markLT3	ifany sense_marker0 sense_marker1 else markEQ2
 		if sense_marker0 else markEQ1		; mark == 0
 		if ship_direction<2 else m0dirGT2
-		if ship_direction<1 else m0dirEQ1	; dir == 0
+		if ship_direction<1 else m0dirEQ1 ;70	; dir == 0
 		goto return
 *m0dirEQ1	turn left
 		goto return
@@ -135,7 +136,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		turn right
 		goto return
 *m0dirEQ2	turn left 
-		turn left
+		turn left ;80
 		goto return
 *m0dirEQ3	turn left 
 		turn left
@@ -145,7 +146,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		turn right
 		goto return
 *markEQ2	if ship_direction<2 else m2dirGT2
-		if ship_direction<1 else m2dirEQ1	; dir == 0
+		if ship_direction<1 else m2dirEQ1 ;90	; dir == 0
 		turn right
 		turn right
 		goto return
@@ -155,7 +156,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		if ship_direction>3 else m2dirEQ3
 		if ship_direction>4 else m2dirEQ4	; dir == 5
 		turn right
-		turn right
+		turn right ;100
 		turn right
 		goto return
 *m2dirEQ2	goto return
@@ -165,7 +166,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		turn left
 		goto return
 *markEQ1	if ship_direction<2 else m1dirGT2
-		if ship_direction<1 else m1dirEQ1	; dir == 0
+		if ship_direction<1 else m1dirEQ1 ;110	; dir == 0
 		turn right
 		goto return
 *m1dirEQ1	goto return
@@ -175,7 +176,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		turn right
 		turn right
 		goto return
-*m1dirEQ2	turn left
+*m1dirEQ2	turn left	;120
 		goto return
 *m1dirEQ3	turn left
 		turn left
@@ -185,7 +186,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 		turn right
 		goto return
 *return		move else friendOrFoe
-		sense 6
+		sense 6	;130
 		if celltype==home else return
 		drop
 
@@ -194,7 +195,7 @@ checkdistance	ifany sense_marker3 sense_marker4 sense_marker5 else sense0_1
 	Pros: Schiffe koennen vollkommen unabhängig voneinander operieren. 
 	Cons: Schiffe muessen bei bei jeder Richtungsänderung bis zu 6 Bojen abwerfen.
 
-	Facts:  141 Instructions
+	Facts:  161 Instructions
 		min 12 + n*(4,6,8); max 18 + n*(4,6,8) Zuege bis ein gefundener Schatz abgeliefert wird; mit n = Anzahl der Move- Commands
 
 	0|  1|  2|  3|  4|  5|     
@@ -230,7 +231,7 @@ Entfernung, Fall 1 marker0 || marker1 (max 15):
 		!marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 0 + 2 + 4 + 8 = 14
 		 marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 1 + 2 + 4 + 8 = 15
 		
-Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7): 
+Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7): (dir 5)
 
 		 marker3 &&  !marker4 && !marker5 := distance == 1 + 0 + 0 =  1
 		!marker3 &&   marker4 && !marker5 := distance == 0 + 2 + 0 =  2
@@ -382,7 +383,7 @@ Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7):
 		goto move8
 *butNotThree	if !sense_marker2 else move13
 		goto move12
-*move15		move else friendOrFoe			; bis zu 19 Zuege //19 Instructions //// 19 + 22 + 10 + 2 + 8 + 100 = 141
+*move15		move else friendOrFoe			; bis zu 19 Zuege //19 Instructions //// 19 + 22 + 10 + 2 + 8 + 100 = 161
 *move14		move else friendOrFoe			; Zuege: Bojen finden: 2; Richtung bestimmen: (3,4); Schiff wenden: (5,6)	
 *move13		move else friendOrFoe			; Entfernung feststellen: (3,4,5) + 3					
 *move12		move else friendOrFoe

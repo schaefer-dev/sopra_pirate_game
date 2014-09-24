@@ -24,6 +24,39 @@ import commands.Sense;
 import commands.Turn;
 import commands.Unmark;
 
+/**
+ * A single instance of this class is invoked by the simulator.
+ * 
+ * The simulator performs the method run(InputStream tactics) with every single given tactics file 
+ * and the method returns a new List<Command> on every invoke. Within the translator, run(InputStream 
+ * tactics) invokes sequentially translate(String line) with whole lines of the input stream. 
+ * 
+ * Translate will use makeSplits() to get the next element of the line until there is invalid input 
+ * or a valid command is build. The command is returned to run, which adds it to the list and proceeds
+ * to invoke translate with the next line again. Errors will be printed in their own List<String>. The
+ * occurrence of errors will not stop the translating process. In the end, there will be a List of valid 
+ * commands and a list of errors, but instead of the command list, the error list will be returned as
+ * an invalid argument exception. 
+ * 
+ * The process of translating a single line: 
+ * 
+ * The first element of the file will be checked, whether it is a valid command word or not. In the
+ * last case, translate will print an error and break. In the former case, the translator will perform
+ * a specified translating routine for every valid command. It will check the syntax and semantics
+ * of every next element as a whole and breaks, if there are errors. If there are no errors but some
+ * gibberish in the appendix of the line, the build command will be returned but also an error will be 
+ * printed. Hence exists a method overloadTest(). The deeper reason is to save code, because every
+ * routine can dispense from one conditional instruction and one additional break statement.
+ * At the positions, where an jump address must occure, the method evaluateAddress will be invoke, 
+ * to return a valid integer or -1 for invalid input.
+ * 
+ * 	Maybe, there could be created a class Reports which includes team names, the input tactic, the 
+ *  translated tactic and the error list. Before a game starts, the players could be easily informed
+ *  about mistakes in there tactics. 
+ * 
+ * @author Andreas
+ *
+ */
 public class Translator {
 	
 	Map<String, Integer> labels = new HashMap<String, Integer>();
@@ -456,7 +489,7 @@ public class Translator {
 		if(tooLong)
 			throw new IllegalArgumentException("Tactics file too long.");
 		if (errors.size() > 0)
-			throw new IllegalArgumentException("Text: " +errors.get(0) +" laenge " +  errors.size()+"\n"+ input);//(errors.get(0));
+			throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n"+ input);//(errors.get(0));
 		return tactic;
 	}
 	
