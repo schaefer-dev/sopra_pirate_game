@@ -34,8 +34,6 @@ public class Simulator {
 
 	private boolean endGame;
 
-	FileOutputStream stream;
-
 
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null) throw new NullPointerException("No shipFiles or MapFile specified");
@@ -64,17 +62,6 @@ public class Simulator {
 				shipStream.close();
 			}
 		}
-		if(logFile!= null)
-		{
-			if(getClass().getResource(logFile) != null){
-				URL temp = getClass().getResource(logFile);
-				File file = new File(temp.toURI());
-				stream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
-			}
-			else
-				stream = new FileOutputStream(logFile);
-		}
-
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
 			mapStream= new FileInputStream(mapFile);
@@ -95,7 +82,7 @@ public class Simulator {
 		InputStream inMap = getClass().getResourceAsStream(mapFile);
 		if(inMap == null)
 			inMap = new FileInputStream(mapFile);
-		map = generator.createMap(inMap, teams, logWriter, new Random(seed), mapString, shipFiles, stream);
+		map = generator.createMap(inMap, teams, logWriter, new Random(seed), mapString, shipFiles, logFile);
 		kraken = map.getKraken();
 		if(logFile!= null)
 			logWriter.logStep();

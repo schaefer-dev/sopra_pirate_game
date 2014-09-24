@@ -1,10 +1,14 @@
 package controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,7 +39,7 @@ public class MapGenerator {
 	private int y;
 
 	
-	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, OutputStream logStream) throws IOException{
+	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, String logFile) throws IOException, URISyntaxException{
 		if(stream == null || teams == null || random == null) throw new NullPointerException();
 		if(teams.size() < 1 || teams.size() > 26) throw new IllegalArgumentException();
 		
@@ -155,6 +159,17 @@ public class MapGenerator {
 		map.setMapValues(fields, kraken);
 		if(log != null)
 		{
+			OutputStream logStream = null;
+			if(logFile!= null)
+			{
+				if(getClass().getResource(logFile) != null){
+					URL temp = getClass().getResource(logFile);
+					File file = new File(temp.toURI());
+					logStream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
+				}
+				else
+					logStream = new FileOutputStream(logFile);
+			}
 			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
 		//	((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);

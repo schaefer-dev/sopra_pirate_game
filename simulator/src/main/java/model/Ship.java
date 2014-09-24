@@ -66,7 +66,9 @@ public class Ship {
 		this.field=field;						// field should always be null when called properly (outside tests)!
 		this.team=team;
 		if(field != null)
-			hasLogWriter = field.provideLogger() != null;
+			hasLogWriter = (field.provideLogger() != null);
+		else
+			hasLogWriter = false;
 		this.previousShip=previous;
 		if (previous!=null)
 			previousShip.nextShip=this;
@@ -177,7 +179,9 @@ public class Ship {
 		//no logging!
 		this.field=field;
 		if(field != null)
-			hasLogWriter = field.provideLogger() != null;
+			hasLogWriter = (field.provideLogger() != null);
+		else
+			hasLogWriter = false;
 	}
 
 
