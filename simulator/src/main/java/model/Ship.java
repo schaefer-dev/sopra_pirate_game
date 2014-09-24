@@ -355,6 +355,7 @@ public class Ship {
 				field.provideLogger().notify(Entity.SHIP, id, Key.CONDITION, 3);
 			return;
 		}
+		
 		registers[Register.ship_condition.ordinal()]=condition+i;
 		if(hasLogWriter)
 			field.provideLogger().notify(Entity.SHIP, id, Key.CONDITION, condition+i);
@@ -413,6 +414,11 @@ public class Ship {
 		if ((i>4)||(i<0))
 			throw new IllegalArgumentException("load can not be setted to value not between 0-4");
 		registers[Register.ship_load.ordinal()]=i;
+		
+		if (hasLogWriter == false )throw new IllegalStateException ("hasLogWriter in field is false") ;
+		if (field == null) throw new IllegalStateException ("Field in ship is null!");
+		if (field.provideLogger() == null) throw new IllegalStateException("field.provideLogger is null!");
+		
 		if(hasLogWriter)
 			field.provideLogger().notify(Entity.SHIP, id, Key.VALUE, i);
 	}
