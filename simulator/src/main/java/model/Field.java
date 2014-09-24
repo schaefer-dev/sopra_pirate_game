@@ -26,7 +26,7 @@ public abstract class Field {
 		this.y = y;
 		this.map = map;
 		this.ship = ship;
-			hasLogWriter = provideLogger() != null;
+		hasLogWriter = provideLogger() != null;
 	}
 	
 	

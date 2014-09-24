@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import view.GUIController;
+import view.SimpleLogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogProvider;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
@@ -171,6 +172,7 @@ public class MapGenerator {
 					logStream = new FileOutputStream(logFile);
 			}
 			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
+		//	LogProvider.register("BYPASS",SimpleLogWriter.class);
 		//	((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
 			for(Field[] row : fields)
@@ -217,8 +219,8 @@ public class MapGenerator {
 						assert(ship.getPC() == 0);
 						assert(ship.getPause() == 0);
 						assert(ship.getLoad() == 0);
-						Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
-						int[] values = {ship.getShipDirection(), ship.getCondition(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
+						Key[] keys = { Key.CONDITION, Key.DIRECTION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
+						int[] values = { ship.getCondition(),ship.getShipDirection(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
 						log.create(Entity.SHIP, ship.getID(), keys, values);
 					}
 					if(field.getTreasure() != null)
