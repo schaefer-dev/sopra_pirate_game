@@ -25,11 +25,11 @@ public class Base extends Water {
 			if((team.getScore() + value) < 0) throw new IllegalArgumentException();
 			
 			team.addLoot(value);
-			map.getLogWriter().fleetScore(team.getName() - 'a', team.getScore());
+			provideLogger().fleetScore(team.getName() - 'a', team.getScore());
 		}
 		else if(value >= 1 && value <= 4){
 			team.addLoot(value);
-			map.getLogWriter().fleetScore(team.getName() - 'a', team.getScore());
+			provideLogger().fleetScore(team.getName() - 'a', team.getScore());
 		}
 		else
 			throw new IllegalArgumentException();
