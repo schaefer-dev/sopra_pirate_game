@@ -210,7 +210,7 @@ Richtung:
 		 marker0 && !marker1 := dir == 1 
 		!marker0 &&  marker1 := dir == 2 
 		 marker0 &&  marker1 := dir == 3 
-		!marker0 && !marker1 := dir == 4 
+    !marker0 &&	!marker1 && !marker2 := dir == 4 
     !marker0 && !marker1 &&  marker2 := dir == 5
 
 Entfernung, Fall 1 marker0 || marker1 (max 15):
