@@ -185,7 +185,7 @@
 			goto return6
 *pickL8L		pickup 0 else s47LLL
 			goto return7
-*deepSeaShortARight 	turn right	
+*deepSeaShortRight 	turn right	
 			move else pickR1
 			pickup 1 else s41R
 			goto return0
@@ -537,11 +537,14 @@
 			goto return7
 *pickL8RRR		pickup 0 else DSSRRmarkR8
 			goto return8
-*pickL9RRR		pickup 0 else DSSRRmarkR9
+*pickL9RRR		refresh 0 else prRRR1
+*prRRR1			pickup 0 else DSSRRmarkR9
 			goto return9
-*pickL10RRR  		pickup 0 else DSSRRmarkR10
+*pickL10RRR		refresh 0 else prRRR2  		
+*prRRR2			pickup 0 else DSSRRmarkR10
 			goto return10
-*pickL11RRR		pickup 0 else DSSRRmarkR11
+*pickL11RRR		refresh 0 else prRRR3
+*prRRR3			pickup 0 else DSSRRmarkR11
 			goto return11
 *pickL12RRR		pickup 0 else DSSRRmarkR12
 			goto return12
