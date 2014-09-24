@@ -231,7 +231,7 @@ Entfernung, Fall 1 marker0 || marker1 (max 15):
 		!marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 0 + 2 + 4 + 8 = 14
 		 marker2  &&  marker3 &&   marker4 &&  marker5 := distance == 1 + 2 + 4 + 8 = 15
 		
-Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7): (dir 5)
+Entfernung, Fall2 !marker0 && !marker1 &&  marker2 (max 7): (dir 5 und 4)
 
 		 marker3 &&  !marker4 && !marker5 := distance == 1 + 0 + 0 =  1
 		!marker3 &&   marker4 && !marker5 := distance == 0 + 2 + 0 =  2
