@@ -106,10 +106,8 @@ public class Ship {
 			this.destroy();
 		else{
 			if (pause == 0){
-				pc = pc +1;
-				int oldpc=pc-1;
+				int oldpc= pc++;
 				noPositivActionCounter+=1;
-
 				team.getCommands().get(oldpc).execute(this);
 				if (this.field!=null){
 					if (noPositivActionCounter==40){

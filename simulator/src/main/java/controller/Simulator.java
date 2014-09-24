@@ -134,7 +134,8 @@ public class Simulator {
 
 	private void end() throws IllegalStateException, IOException{
 		endGame = true;
-		logWriter.close();
+		if(logWriter != null)
+			logWriter.close();
 
 		for(Team team: teams){
 			int load = 0;
