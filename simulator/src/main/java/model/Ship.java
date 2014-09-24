@@ -105,7 +105,6 @@ public class Ship {
 		if (pc+1 > this.getTeam().getCommands().size())
 			this.destroy();
 		else{
-
 			if (pause == 0){
 				pc = pc +1;
 				int oldpc=pc-1;
@@ -117,10 +116,10 @@ public class Ship {
 						this.changeMoral(-1);
 						noPositivActionCounter=0;
 					}
-					if (pc!=oldpc && hasLogWriter)
-					{
-						field.provideLogger().notify(Entity.SHIP, id, Key.PC, pc);
-					}
+				//	if (pc!=oldpc && hasLogWriter)
+			//		{
+						field.provideLogger().notify(Entity.SHIP, id, Key.PC, 1);
+				//	}
 				}
 			}
 			else
