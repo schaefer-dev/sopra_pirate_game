@@ -53,6 +53,7 @@ public class BoolComparison implements Comparison {
 	 * Evaluates the comparison: If the registers value is undefined the result is false. Otherwise the result is the value of the Register or,
 	 * if invert is true, the opposite of the value of the register.
 	 * @param ship the ship with the register to be tested.
+	 * @return a boolean, false if register's value is undefined. The result of the comparison otherwise.
 	 */
 	@Override
 	public boolean eval(Ship ship) {
@@ -67,6 +68,7 @@ public class BoolComparison implements Comparison {
 	/**
 	 * Overrides the equals method of Object. Two <code>BoolComparisons</code> are equal if register and invert of both <code>BoolComparison</code>s are identical.
 	 * @param o the Object to be tested for equality.
+	 * @result Returns whether the object equals this <code>BoolComparison</code>
 	 */
 	@Override
 	public boolean equals (Object o)

@@ -1,15 +1,20 @@
 package controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import view.GUIController;
+import view.SimpleLogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogProvider;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
@@ -35,7 +40,7 @@ public class MapGenerator {
 	private int y;
 
 	
-	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, OutputStream logStream) throws IOException{
+	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, String logFile) throws IOException, URISyntaxException{
 		if(stream == null || teams == null || random == null) throw new NullPointerException();
 		if(teams.size() < 1 || teams.size() > 26) throw new IllegalArgumentException();
 		
@@ -87,7 +92,7 @@ public class MapGenerator {
 					kraken.add(k);
 					field = new Water(map, x, y, k);
 				}
-				else if(isTeamLetter(glyph, teams.size())){
+				else if(isTeamLetter(glyph, 26)){
 					int teamNumber = glyph - 'a';
 					Team team;
 					
@@ -155,7 +160,19 @@ public class MapGenerator {
 		map.setMapValues(fields, kraken);
 		if(log != null)
 		{
+			OutputStream logStream = null;
+			if(logFile!= null)
+			{
+				if(getClass().getResource(logFile) != null){
+					URL temp = getClass().getResource(logFile);
+					File file = new File(temp.toURI());
+					logStream = new FileOutputStream(file);					// then state is never reached, except for test reasons!
+				}
+				else
+					logStream = new FileOutputStream(logFile);
+			}
 			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
+		//	LogProvider.register("BYPASS",SimpleLogWriter.class);
 		//	((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
 			for(Field[] row : fields)
@@ -202,8 +219,8 @@ public class MapGenerator {
 						assert(ship.getPC() == 0);
 						assert(ship.getPause() == 0);
 						assert(ship.getLoad() == 0);
-						Key[] keys = {Key.DIRECTION, Key.CONDITION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
-						int[] values = {ship.getShipDirection(), ship.getCondition(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
+						Key[] keys = { Key.CONDITION, Key.DIRECTION, Key.FLEET, Key.MORAL, Key.PC, Key.RESTING, Key.VALUE, Key.X_COORD, Key.Y_COORD};
+						int[] values = { ship.getCondition(),ship.getShipDirection(), ship.getTeam().getName()-'a', ship.getMoral(), ship.getPC(), ship.getPause(), ship.getLoad(), field.getX(), field.getY()};
 						log.create(Entity.SHIP, ship.getID(), keys, values);
 					}
 					if(field.getTreasure() != null)

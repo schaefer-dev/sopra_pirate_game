@@ -5,6 +5,7 @@ import java.awt.List;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -58,9 +59,8 @@ public class MapGeneratorTest {
 	}
 
 	@Test
-	public void mapGenTest() throws IOException {
-		LogWriter log = new DummyLogWriter();
-		map = mapgen.createMap(stream, teamlist, log, random, null, null, null);
+	public void mapGenTest() throws IOException, URISyntaxException {
+		map = mapgen.createMap(stream, teamlist, null, random, null, null, null);
 		assertTrue (map.giveNewEntityID() == 0);
 		assertTrue (map.giveNewActorID() == 1);
 		assertTrue (map.getKraken().size() == 0);
