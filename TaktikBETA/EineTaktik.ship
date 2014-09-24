@@ -1,0 +1,68 @@
+*luckypunch0		pickup 0 else 0blocked?
+			drop 
+			goto luckypunch
+*0blocked?		sense0
+			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+*alterDir		flipzero 2 else down
+			flipzero 2 else doubleup
+*luckypunch5		pickup 5 else 5blocked?
+			drop 
+			goto luckypunch5
+5blocked?		sense 5 
+			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			goto initoneleft
+*doubleup		pickup 4 else 4blocked?
+			drop 
+			goto doubleup
+*4blocked?		sense 4
+			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			turn left
+*initoneleft		turn left
+			goto routine
+*down			flipzero 2 else doubledown
+*luckypunch1		pickup 1 else 1blocked?
+			drop 
+			goto luckypunch1
+*1blocked?		sense 1
+			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			goto initoneright
+*doubledown		pickup 2 else 2blocked?
+			drop 
+			goto doubleup
+*2blocked?		sense 2
+                	ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			turn right
+*initoneright		turn right 
+			goto routine 	
+*routine		sense 6
+			flipzero 2 else deepSeaInit
+			goto lowRangeInit		
+*deepSeaInit		move else friendOrFoe
+			flipzero left or right (muss also zwei grundverschiedene geben.)
+			if sense_direction!=5 else deepSeaShort
+			goto deepsea2
+*deepSeaLong		move else pick1
+*deepSea2		move else pick2
+*pick2 			pickup 0 else turn2
+*turn2			flipzero 2 else left2
+			turn right
+			sense 6
+			if shipdirection<2 else tdirGT2
+			if shipdirection<1 else tdirGT1
+			mark 3
+			goto deepsea	
+			mark 
+*left2			
+*deepSeaShort		move else pick2
+			move else pick3
+			move else pick4
+			move else pick5
+			move else pick6 
+			mark 2
+			flipzero 2 else deepSeaShort
+			turn right
+			goto deepSeaLong
+
+			
+			
+*lowRange
