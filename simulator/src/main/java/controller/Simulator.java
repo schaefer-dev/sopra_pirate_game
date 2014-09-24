@@ -88,8 +88,6 @@ public class Simulator {
 		{
 			logWriter = new Log();
 			//logWriter.addLogger(new SimpleLogWriter());							//TODO log enable/disable here
-			logWriter.addLogger(LogProvider.createInstance("DEFAULT"));
-			logWriter.addLogger(new GUIController());
 		}
 
 		MapGenerator generator = new MapGenerator();
