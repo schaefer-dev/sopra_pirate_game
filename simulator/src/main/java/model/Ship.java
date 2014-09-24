@@ -11,7 +11,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
  *
  * An instance of this class will perform a single act().
  *
- * Every Ship basically owns its own programcounter, which describes in which line of the
+ * Every Ship basically owns its own program counter, which describes in which line of the
  * CommandList (which represents the teams tactics) the ship currently is. Ships are called
  * from the simulator.class to perform an act if they are allowed to do so (break = 0).
  *
@@ -116,10 +116,10 @@ public class Ship {
 						this.changeMoral(-1);
 						noPositivActionCounter=0;
 					}
-				//	if (pc!=oldpc && hasLogWriter)
-			//		{
-						field.provideLogger().notify(Entity.SHIP, id, Key.PC, 3);
-				//	}
+					if (pc!=oldpc && hasLogWriter)
+					{
+						field.provideLogger().notify(Entity.SHIP, id, Key.PC, pc);
+					}
 				}
 			}
 			else
