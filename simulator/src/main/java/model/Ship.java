@@ -117,9 +117,7 @@ public class Ship {
 					}
 					if (pc!=oldpc && hasLogWriter)
 					{
-						Transaction t = field.provideLogger().beginTransaction(Entity.SHIP, id);
-						t = t.set(Key.PC, pc);
-						field.provideLogger().commitTransaction(t);
+						field.provideLogger().notify(Entity.SHIP, id, Key.PC, pc);
 					}
 				}
 			}
