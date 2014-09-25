@@ -48,7 +48,22 @@ public class TranslatorTest {
 		List<Command> erg = translator.run(in);
 		assertEquals("translation of the example tactic did not result in the correct list of commands",commands,erg);
 	}
-	
+	@Test 
+	public void testLabels(){
+		List<Command> soll = new LinkedList<Command>();
+		String labeledTactics = "move else hierhin\n"
+				+"sense 2"
+				+"*hierhin sense 0";
+		InputStream in = stringToStream(labeledTactics);
+		Move move = new Move(2);
+		Sense sense2= new Sense(2); 
+		Sense sense0 = new Sense(0);
+		soll.add(move);
+		soll.add(sense2);
+		soll.add(sense0);
+		List<Command> erg = translator.run(in);
+		assertEquals("Labels haben nicht funktioniert", soll, erg);
+	}
 	@Test
 	public void testNoSpacesInComparisons(){
 		String badTactic = "move else 1\n"

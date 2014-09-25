@@ -204,6 +204,7 @@ public class TeamTest {
 		assertTrue(teamA.getName()=='a');
 		assertTrue(teamA.getShipCount()==0);
 	}
+	
 	@Test
 	public void TestCreation02(){
 		Command commandA= new Move(12);

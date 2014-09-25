@@ -49,42 +49,43 @@
 *DSright		turn right							; wenn er von rechts kommt nur links abbiegen
 			ifall ship_direction!=5 ship_direction!=4 else deepSeaLongAheadInit ; fate: longAhead, (s||l)Left, 
 			goto deepSeaShortRightInit					; fate: shortAhead, longLeft
-*deepSeaShortAhead	move else pickA1						; move 1 else still 0
+*deepSeaShortAhead	if shipcondition>1 else return0
+			move else pickA1						; move 1 else still 0
 			pickup 1 else s41A
-			goto return0
+			goto turn0
 *s41A			pickup 5 else deepSeaShortAheadInit
-			goto return0
+			goto turn0
 *deepSeaShortAheadInit	move else pickA2						; move 2 else still 1
 			pickup 1 else s42A						; goto sense deepsea short ahead 4(s42A)
-			goto return1
+			goto turn1
 *s42A			pickup 5 else m3dSsA						; goto move deepsea short ahead 3(m3dSsA)
-			goto return1
+			goto turn1
 *m3dSsA			move else pickA3						; move 3 else still 2
 			pickup 1 else s43A						; wenn man schonmal da ist, kann man auch gleich
-			goto return2							; rechts und links nach schaetzen schauen
+			goto turn2							; rechts und links nach schaetzen schauen
 *s43A			pickup 5 else m4dSsA
-			goto return2
+			goto turn2
 *m4dSsA			move else pickA4						; move 4 else still 3
 			pickup 1 else s44A
-			goto return3
+			goto turn3
 *s44A			pickup 5 else m5dSsA
-			goto return3
+			goto turn3
 *m5dSsA			move else pickA5						; move 5 else still 4
 			pickup 1 else s45A
-			goto return4
+			goto turn4
 *s45A			pickup 5 else m6dSsA
-			goto return4
+			goto turn4
 *m6dSsA			move else pickA6						; move 6 else still 5
 			pickup 1 else s46A
-			goto return5
+			goto turn5
 *s46A			pickup 5 else m7dSsA
-			goto return5
+			goto turn5
 *m7dSsA		 	move else pickA7 						; move 7 else still 6
 			goto pickA8			
 *s47AA			pickup 1 else s47A
-			goto return6
+			goto turn6
 *s47A			pickup 5 else DSSAmarkR7
-			goto return6
+			goto turn6
 *DSSAmarkR5		mark 5								; markiere range 5
 *DSSAmarkR1		mark 3								; markiere range 1
 			goto fzdSsA
@@ -94,66 +95,73 @@
 *DSSAmarkR7		mark 3								; markiere range 7 (3+4+5)
 *DSSAmarkR6		mark 4								; markiere range 6
 *DSSAmarkR4		mark 5								; markiere range 4	
-*fzdSsA			sense 6
+*fzdSsA			sense 6								; leaving deepSeaShortAhead
+			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceSA
 			if ship_direction==5 else dir4A
 			mark 2
+			mark 1
+			goto DSAdirEQ5
 *dir4A			mark 1
-			flipzero 3 else deepSeaShortAhead 		; wenn false bleibt dir==5, deshalb nochmal die kurze routine.
-			flipzero 2 else deepSeaLongLeft
+			goto DSAdirEQ4
+*fastChoiceSA		if ship_direction==5 else DSAdirEQ4
+*DSAdirEQ5		flipzero 2 else deepSeaShortLeft		; falls false new dir==4, deshalb nochmal die kurze routine.
 			goto deepSeaLongRight
+*DSAdirEQ4		flipzero 2 else deepSeaLongLeft
+			goto deepSeaShortRight				; falls true new dir==5
 *pickA1			pickup 0 else fzdSsA				; wenns nicht weitergeht und kein Schatz gefunden, werden Richtung
-			goto return0
+			goto turn0
 *pickA2			pickup 0 else DSSAmarkR1			; und Entfernung markiert, dann wird weitergesucht
-			goto return1
+			goto turn1
 *pickA3			pickup 0 else DSSAmarkR2
-			goto return2
+			goto turn2
 *pickA4			pickup 0 else DSSAmarkR3
-			goto return3
+			goto turn3
 *pickA5			pickup 0 else DSSAmarkR4
-			goto return4
+			goto turn4
 *pickA6			pickup 0 else DSSAmarkR5
-			goto return5
+			goto turn5
 *pickA7			pickup 0 else DSSAmarkR6
-			goto return6
+			goto turn6
 *pickA8			pickup 0 else s47AA
-			goto return7
-*deepSeaShortLeft	turn left
+			goto turn7
+*deepSeaShortLeft	if ship_condition>1 else return0	
+			turn left							; begin deepSeaShortLeft
 			move else pickL1L
 			pickup 1 else s41LL
-			goto return0
+			goto turn0
 *s41L			pickup 5 else deepSeaShortLeftInitL
-			goto return0
+			goto turn0
 *deepSeaShortLeftInitL	move else pickL2L						; move 2 else still 1
 			pickup 1 else s42LL						; goto sense deepsea short ahead 4(s42A)
-			goto return1
+			goto turn1
 *s42LL			pickup 5 else m3dSsLL						; goto move deepsea short ahead 3(m3dSsA)
-			goto return1
+			goto turn1
 *m3dSsLL		move else pickL3L						; move 3 else still 2
 			pickup 1 else s43LL						; wenn man schonmal da ist, kann man auch gleich
-			goto return2							; rechts und links nach schaetzen schauen
+			goto turn2							; rechts und links nach schaetzen schauen
 *s43LL			pickup 5 else m4dSsLL
-			goto return2
+			goto turn2
 *m4dSsLL		move else pickL4L						; move 4 else still 3
 			pickup 1 else s44LL
-			goto return3
+			goto turn3
 *s44LL			pickup 5 else m5dSsLL
-			goto return3
+			goto turn3
 *m5dSsLL		move else pickL5L						; move 5 else still 4
 			pickup 1 else s45LL
-			goto return4
+			goto turn4
 *s45LL			pickup 5 else m6dSsLL
-			goto return4
+			goto turn4
 *m6dSsLL		move else pickL6L						; move 6 else still 5
 			pickup 1 else s46LL
-			goto return5
+			goto turn5
 *s46LL			pickup 5 else m7dSsLL
-			goto return5
+			goto turn5
 *m7dSsLL		move else pickL7L 						; move 7 else still 6
 			goto pickL8L
 *s47LLL			pickup 1 else s47LL
-			goto return6
+			goto turn6
 *s47LL			pickup 5 else DSSLmarkR7L
-			goto return6
+			goto turn6
 *DSSLmarkR5L		mark 5								; markiere range 5
 *DSSLmarkR1L		mark 3								; markiere range 1
 			goto fzdSsLL
@@ -163,65 +171,72 @@
 *DSSLmarkR7L		mark 3								; markiere range 7 (3+4+5)
 *DSSLmarkR6L		mark 4								; markiere range 6
 *DSSLmarkR4L		mark 5								; markiere range 4	
-*fzdSsLL		sense 6
+*fzdSsLL		sense 6								; leaving DeepSeaShortLeft
+			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceSL
 			if ship_direction==5 else dir4L
 			mark 2
+			mark 1
+			goto DSLdirEQ5
 *dir4L			mark 1
-			flipzero 2 else deepSeaShortAhead 		;wenn false bleibt dir==5, deshalb nochmal die kurze routine.
-			goto deepSeaLongRight
+			goto DSLdirEQ4
+*fastChoiceSL		if ship_direction==5 else DSLdirEQ4
+*DSLdirEQ5		goto deepSeaLongRight 				; new dir==0
+*DSLdirEQ4		goto deepSeaShortRight				; new dir==5
+			goto deepSea
 *pickL1L		pickup 0 else fzdSsLL
-			goto return0
+			goto turn0
 *pickL2L		pickup 0 else DSSLmarkR1L
-			goto return1
+			goto turn1
 *pickL3L		pickup 0 else DSSLmarkR2L
-			goto return2
+			goto turn2
 *pickL4L		pickup 0 else DSSLmarkR3L
-			goto return3
+			goto turn3
 *pickL5L		pickup 0 else DSSLmarkR4L
-			goto return4
+			goto turn4
 *pickL6L		pickup 0 else DSSLmarkR5L
-			goto return5
+			goto turn5
 *pickL7L		pickup 0 else DSSLmarkR6L
-			goto return6
+			goto turn6
 *pickL8L		pickup 0 else s47LLL
-			goto return7
-*deepSeaShortRight 	turn right	
+			goto turn7
+*deepSeaShortRight 	if ship_condition>1 else return0
+			turn right							; begin deepSeaShortRight
 			move else pickR1
 			pickup 1 else s41R
-			goto return0
+			goto turn0
 *s41R			pickup 5 else deepSeaShortRightInit
-			goto return0
+			goto turn0
 *deepSeaShortRightInit	move else pickR2						; move 2 else still 1
 			pickup 1 else s42R						; goto sense deepsea short ahead 4(s42A)
-			goto return1
+			goto turn1
 *s42R			pickup 5 else m3dSsR						; goto move deepsea short ahead 3(m3dSsA)
-			goto return1
+			goto turn1
 *m3dSsR			move else pickR3						; move 3 else still 2
 			pickup 1 else s43R						; wenn man schonmal da ist, kann man auch gleich
-			goto return2							; rechts und links nach schaetzen schauen
+			goto turn2							; rechts und links nach schaetzen schauen
 *s43R			pickup 5 else m4dSsR
-			goto return2
+			goto turn2
 *m4dSsR			move else pickR4						; move 4 else still 3
 			pickup 1 else s44L
-			goto return3
+			goto turn3
 *s44R			pickup 5 else m5dSsR
-			goto return3
+			goto turn3
 *m5dSsR			move else pickR5						; move 5 else still 4
 			pickup 1 else s45R
-			goto return4
+			goto turn4
 *s45R			pickup 5 else m6dSsR
-			goto return4
+			goto turn4
 *m6dSsR			move else pickR6						; move 6 else still 5
 			pickup 1 else s46R
-			goto return5
+			goto turn5
 *s46R			pickup 5 else m7dSsR
-			goto return5
+			goto turn5
 *m7dSsR		 	move else pickR7 						; move 7 else still 6
 			goto pickR8		
 *s47RR			pickup 1 else s47R
-			goto return6
+			goto turn6
 *s47R			pickup 5 else DSSRmarkR7
-			goto return6
+			goto turn6
 *DSSRmarkR5		mark 5								; markiere range 5
 *DSSRmarkR1		mark 3								; markiere range 1
 			goto fzdSsR
@@ -231,104 +246,111 @@
 *DSSRmarkR7		mark 3								; markiere range 7 (3+4+5)
 *DSSRmarkR6		mark 4								; markiere range 6
 *DSSRmarkR4		mark 5								; markiere range 4	
-*fzdSsR			sense 6
-			if ship_direction==5 else dir4R
+*fzdSsR			sense 6								; leaving deepSeaShortRight
+			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceSR
+			if ship_direction==5 else DSRdirEQ4
 			mark 2
+			mark 1
+			goto DSRdirEQ5							; DSRdirEQ5 := DeepSeaShort current dir == 5
 *dir4R			mark 1
-			flipzero 2 else deepSeaShortAhead 		;wenn false bleibt dir==5, deshalb nochmal die kurze routine.
-			goto deepSeaLongLeft
+			goto DSRdirEQ4
+*fastChoiceSR		if ship_direction==5 else DSRdirEQ4
+			goto DSRdirEQ5
+*DSRdirEQ4		goto deepSeaLongLeft 						; new dir==3, 
+*DSRdirEQ5		goto deepSeaShortLeft				; kein turn right:das waere insgesamt ein doppelturn right und 											fuer den Fall gibt es die shortRange Routine
 *pickR1			pickup 0 else fzdSsR
-			goto return0
+			goto turn0
 *pickR2			pickup 0 else DSSRmarkR1
-			goto return1
+			goto turn1
 *pickR3			pickup 0 else DSSRmarkR2
-			goto return2
+			goto turn2
 *pickR4			pickup 0 else DSSRmarkR3
-			goto return3
+			goto turn3
 *pickR5			pickup 0 else DSSRmarkR4
-			goto return4
+			goto turn4
 *pickR6			pickup 0 else DSSRmarkR5
-			goto return5
+			goto turn5
 *pickR7			pickup 0 else DSSRmarkR6
-			goto return6
+			goto turn6
 *pickR8			pickup 0 else s47RR
-			goto return7
-*deepSeaLongAhead	move else pickL0aA					; move 1 else still 0
+			goto turn7
+*deepSeaLongAhead	if ship_condition>1 else return0			; begin DeepSeaLongAhead
+			move else pickL0aA					; move 1 else still 0
 			pickup 1 else s31aAA
-			goto return0
+			goto turn0
 *s31aAA			pickup 5 else deepSeaLongAheadInit
-			goto return0
+			goto turn0
 *deepSeaLongAheadInit	move else pickL1aA					; move 2 else still 1
 			pickup 1 else s32aAA					; goto sense deepsea short ahead 4(s42A)
-			goto return1
+			goto turn1
 *s32aAA			pickup 5 else m3dSaA					; goto move deepsea short ahead 3(m3dSsA)
-			goto return1
+			goto turn1
 *m3dSaA			move else pickL2aA					; move 3 else still 2
 			pickup 1 else s33aAA					; wenn man schonmal da ist, kann man auch gleich
-			goto return2						; rechts und links nach schaetzen schauen
+			goto turn2						; rechts und links nach schaetzen schauen
 *s33aAA			pickup 5 else m4dSlaA
-			goto return2
+			goto turn2
 *m4dSlaA		move else pickL3aA					; move 4 else still 3
 			pickup 1 else s34aAA
-			goto return3
+			goto turn3
 *s34aAA			pickup 5 else m5dSlaA
-			goto return3
+			goto turn3
 *m5dSlaA		move else pickL4aA					; move 5 else still 4
 			pickup 1 else s35aAA
-			goto return4
+			goto turn4
 *s35aAA			pickup 5 else m6dSlaA
-			goto return4
+			goto turn4
 *m6dSlaA		move else pickL5aA					; move 6 else still 5
 			pickup 1 else s36aAA
-			goto return5
+			goto turn5
 *s36aAA			pickup 5 else m7dSlaA
-			goto return5
+			goto turn5
 *m7dSlaA		move else pickL6aA					; move 7 else still 6
 			pickup 1 else s37aAA
-			goto return6
+			goto turn6
 *s37aAA			pickup 5 else m8dSlaA
-			goto return6
+			goto turn6
 *m8dSlaA		move else pickL7aA					; move 8 else still 7
 			pickup 1 else s38aAA
-			goto return7
+			goto turn7
 *s38aAA			pickup 5 else m9dSlaA
-			goto return7
+			goto turn7
 *m9dSlaA		move else pickL8aA					; move 9 else still 8
 			pickup 1 else s39aAA
-			goto return8
+			goto turn8
 *s39aAA			pickup 5 else m10dSlaA
-			goto return8
+			goto turn8
 *m10dSlaA		move else pickL9aA					; move 10 else still 9
 			pickup 1 else s40aAA
-			goto return9
+			goto turn9
 *s40aAA			pickup 5 else m11dSlaA
-			goto return9
+			goto turn9
 *m11dSlaA		move else pickL10aA					; move 11 else still 10
 			pickup 1 else s41aAA
-			goto return10
+			goto turn10
 *s41aAA			pickup 5 else m12dSlaA
-			goto return10
+			goto turn10
 *m12dSlaA		move else pickL11aA					; move 12 else still 11
 			pickup 1 else s42aAA
-			goto return11
+			goto turn11
 *s42aAA			pickup 5 else m13dSlaA
-			goto return11
+			goto turn11
 *m13dSlaA		move else pickL12aA					; move 13 else still 12
 			pickup 1 else s43aAA
-			goto return12
+			goto turn12
 *s43aAA			pickup 5 else m14dSlaA
-			goto return12
+			goto turn12
 *m14dSlaA		move else pickL13aA					; move 14 else still 13
 			pickup 1 else s44aAA
-			goto return13
+			goto turn13
 *s44aAA			pickup 5 else m15dSlaA
-			goto return13
+			goto turn13
 *m15dSlaA		move else pickL14aA 					; move 15 else still 14
 			goto pickL15aA			
 *s445aAA		pickup 1 else s45aAA
-			goto return14
+			goto turn14
 *s45aAA			pickup 5 else DSSAmarkR15
-			goto return14
+			goto turn14
 *DSSAmarkR7		mark 4							; markiere range 7
 *DSSAmarkR3		mark 3							; markiere range 3
 *DSSAmarkR1		mark 2							; markiere range 1
@@ -351,8 +373,9 @@
 *DSSAmarkR14		mark 3							; markiere range 14
 *DSSAmarkR12		mark 4							; markiere range 12
 *DSSAmarkR8		mark 5							; markiere range 8	
-*fzdSlaA		sense 6
-			if ship_direction<3 else AALT3
+*fzdSlaA		sense 6							; leaving DeepSeaLongAhead
+			ifall !sense_marker3 !sense_marker4 !sense_marker5 !sense_marker2 else fastChoiceAA
+			if ship_direction>2 else AALT3
 			mark 0
 			goto AArightEQ4
 *AALT3			if ship_direction<2 else AAEQ2
@@ -363,124 +386,125 @@
 			goto tripleLong
 *AAEQ2			mark 5
 			goto triplelong
-*AAleftEQ5		flipzero 3 else deepSeaShortLeft
-			flipzero 2 else deepSeaLongRight
-			goto deepSeaLongAhead
-*AArightEQ4		flipzero 3 else deepSeaLongLeft
-			flipzero 2 else deepSeaShortRight
-			goto deepSeaLongAhead
-*tripleLong		flipzero 3 else deepSeaLongLeft
-			flipzero 2 else deepSeaLongRight
-			goto deepSeaLongAhead
+fastChoiceAA		if ship_direction!=3 else AArightEQ4
+			if ship_direction!=0 else AAleftEQ5
+			goto tripleLong
+*AAleftEQ5		flipzero 2 else deepSeaShortLeft
+			goto deepSeaLongRight
+*AArightEQ4		flipzero 2 else deepSeaLongLeft
+			goto deepSeaShortRight
+*tripleLong		flipzero 2 else deepSeaLongLeft
+			goto deepSeaLongRight
 *pickL0aA		pickup 0 else fzdSlaA
-			goto return0
+			goto turn0
 *pickL1aA		pickup 0 else DSSAmarkR1
-			goto return1
+			goto turn1
 *pickL2aA		pickup 0 else DSSAmarkR2
-			goto return2
+			goto turn2
 *pickL3aA		pickup 0 else DSSAmarkR3
-			goto return3
+			goto turn3
 *pickL4aA		pickup 0 else DSSAmarkR4
-			goto return4
+			goto turn4
 *pickL5aA		pickup 0 else DSSAmarkR5
-			goto return5
+			goto turn5
 *pickL6aA		pickup 0 else DSSAmarkR6
-			goto return6
+			goto turn6
 *pickL7aA		pickup 0 else DSSAmarkR7
-			goto return7
+			goto turn7
 *pickL8aA		pickup 0 else DSSAmarkR8
-			goto return8
+			goto turn8
 *pickL9aA		pickup 0 else DSSAmarkR9
-			goto return9
+			goto turn9
 *pickL10aA  		pickup 0 else DSSAmarkR10
-			goto return10
+			goto turn10
 *pickL11aA		pickup 0 else DSSAmarkR11
-			goto return11
+			goto turn11
 *pickL12aA		pickup 0 else DSSAmarkR12
-			goto return12
+			goto turn12
 *pickL13aA		pickup 0 else DSSAmarkR13
-			goto return13
+			goto turn13
 *pickL14aA		pickup 0 else DSSAmarkR14
-			goto return14
+			goto turn14
 *pickL15aA		pickup 0 else s445aAA
-			goto return15
-*deepSeaLongLeft	turn left
+			goto turn15
+*deepSeaLongLeft	if ship_condition!=1 else return0			; begin deepSeaLongLeft
+			turn left
 			move else pickL0RRR					; move 1 else still 0
 			pickup 1 else s31RRR
-			goto return0
+			goto turn0
 *s31RRR			pickup 5 else deepSeaLongLeftInit
-			goto return0
+			goto turn0
 *deepSeaLongLeftInit	move else pickL1RRR					; move 2 else still 1
 			pickup 1 else s32RRR					; goto sense deepsea short ahead 4(s42A)
-			goto return1
+			goto turn1
 *s32RRR			pickup 5 else m3dSlRRR					; goto move deepsea short ahead 3(m3dSsA)
-			goto return1
+			goto turn1
 *m3dSlRRR		move else pickL2RRR					; move 3 else still 2
 			pickup 1 else s33RRR					; wenn man schonmal da ist, kann man auch gleich
-			goto return2						; rechts und links nach schaetzen schauen
+			goto turn2						; rechts und links nach schaetzen schauen
 *s33RRR			pickup 5 else m4dSlRRR
-			goto return2
+			goto turn2
 *m4dSlRRR		move else pickL3RRR					; move 4 else still 3
 			pickup 1 else s34RRR
-			goto return3
+			goto turn3
 *s34RRR			pickup 5 else m5dSlRRR
-			goto return3
+			goto turn3
 *m5dSlRRR		move else pickL4RRR					; move 5 else still 4
 			pickup 1 else s35RRR
-			goto return4
+			goto turn4
 *s35RRR			pickup 5 else m6dSlRRR
-			goto return4
+			goto turn4
 *m6dSlRRR		move else pickL5RRR					; move 6 else still 5
 			pickup 1 else s36RRR
-			goto return5
+			goto turn5
 *s36RRR			pickup 5 else m7dSlRRR
-			goto return5
+			goto turn5
 *m7dSlRRR		move else pickL6RRR					; move 7 else still 6
 			pickup 1 else s37RRR
-			goto return6
+			goto turn6
 *s37RRR			pickup 5 else m8dSlRRR
-			goto return6
+			goto turn6
 *m8dSlRRR		move else pickL7RRR					; move 8 else still 7
 			pickup 1 else s38RRR
-			goto return7
+			goto turn7
 *s38RRR			pickup 5 else m9dSlRRR
-			goto return7
+			goto turn7
 *m9dSlRRR		move else pickL8RRR					; move 9 else still 8
 			pickup 1 else s39RRR
-			goto return8
+			goto turn8
 *s39RRR			pickup 5 else m10dSlRRR
-			goto return8
+			goto turn8
 *m10dSlRRR		move else pickL9RRR					; move 10 else still 9
 			pickup 1 else s40RRR
-			goto return9
+			goto turn9
 *s40RRR			pickup 5 else *m11dSlRRR
-			goto return9
+			goto turn9
 *m11dSlRRR		move else pickL10RRR					; move 11 else still 10
 			pickup 1 else s41RRR
-			goto return10
+			goto turn10
 *s41RRR			pickup 5 else *m12dSlRRR
-			goto return10
+			goto turn10
 *m12dSlRRR		move else pickL11RRR					; move 12 else still 11
 			pickup 1 else s42RRR
-			goto return11
+			goto turn11
 *s42RRR			pickup 5 else m13dSlRRR
-			goto return11
+			goto turn11
 *m13dSlRRR		move else pickL12RRR					; move 13 else still 12
 			pickup 1 else s43RRR
-			goto return12
+			goto turn12
 *s43RRR			pickup 5 else m14dSlRRR
-			goto return12
+			goto turn12
 *m14dSlRRR		move else pickL13RRR					; move 14 else still 13
 			pickup 1 else s44RRR
-			goto return13
+			goto turn13
 *s44RRR			pickup 5 else m15dSlRRR
-			goto return13
+			goto turn13
 *m15dSlRRR		move else pickL14RRR 					; move 15 else still 14
 			goto pickL15RRR			
 *s445RRR		pickup 1 else s45RRR
-			goto return14
+			goto turn14
 *s45RRR			pickup 5 else DSSRmarkRR15
-			goto return14
+			goto turn14
 *DSSRRmarkR7		mark 4							; markiere range 7
 *DSSRRmarkR3		mark 3							; markiere range 3
 *DSSRRmarkR1		mark 2							; markiere range 1
@@ -503,8 +527,9 @@
 *DSSRRmarkR14		mark 3							; markiere range 14
 *DSSRRmarkR12		mark 4							; markiere range 12
 *DSSRRmarkR8		mark 5							; markiere range 8	
-*fzdSlRRR		sense 6
-			if ship_direction<3 else RRLT3
+*fzdSlRRR		sense 6							; leaving DeepSeaLongLeft
+			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceLL			
+			if ship_direction>2 else RRLT3				; dir!=4,5,denn diese Faelle existieren nur in DeepSeaShort
 			mark 0
 			goto RRrightEQ4
 *RRLT3			if ship_direction<2 else RREQ2
@@ -515,122 +540,123 @@
 			goto doubleLong
 *RREQ2			mark 5
 			goto doublelong
-*RRrightEQ4		flipzero 2 else deepSeaShortRight
-			goto deepSeaLongAhead
-*doubleLong		flipzero 2 else deepSeaLongRight
-			goto deepSeaLongAhead
+*fastChoiceLL		if ship_direction<3 else RRrightEQ4
+			goto doubleLong
+*RRrightEQ4		goto deepSeaShortRight
+*doubleLong		goto deepSeaLongRight
 *pickL0RRR		pickup 0 else fzdSlRRR
-			goto return0
+			goto turn0
 *pickL1RRR		pickup 0 else DSSRRmarkR1
-			goto return1
+			goto turn1
 *pickL2RRR		pickup 0 else DSSRRmarkR2
-			goto return2
+			goto turn2
 *pickL3RRR		pickup 0 else DSSRRmarkR3
-			goto return3
+			goto turn3
 *pickL4RRR		pickup 0 else DSSRRmarkR4
-			goto return4
+			goto turn4
 *pickL5RRR		pickup 0 else DSSRRmarkR5
-			goto return5
+			goto turn5
 *pickL6RRR		pickup 0 else DSSRRmarkR6
-			goto return6
+			goto turn6
 *pickL7RRR		pickup 0 else DSSRRmarkR7
-			goto return7
+			goto turn7
 *pickL8RRR		pickup 0 else DSSRRmarkR8
-			goto return8
+			goto turn8
 *pickL9RRR		refresh 0 else prRRR1
 *prRRR1			pickup 0 else DSSRRmarkR9
-			goto return9
+			goto turn9
 *pickL10RRR		refresh 0 else prRRR2  		
 *prRRR2			pickup 0 else DSSRRmarkR10
-			goto return10
+			goto turn10
 *pickL11RRR		refresh 0 else prRRR3
 *prRRR3			pickup 0 else DSSRRmarkR11
-			goto return11
+			goto turn11
 *pickL12RRR		pickup 0 else DSSRRmarkR12
-			goto return12
+			goto turn12
 *pickL13RRR		pickup 0 else DSSRRmarkR13
-			goto return13
+			goto turn13
 *pickL14RRR		pickup 0 else DSSRRmarkR14
-			goto return14
+			goto turn14
 *pickL15RRR		pickup 0 else s445RRR
-			goto return15
-*deepSeaLongRight	turn right
+			goto turn15
+*deepSeaLongRight	if ship_condition!=1 else return 0 			; begin deepSeaLongRight
+			turn right
 			move else pickL0LLL					; move 1 else still 0
 			pickup 1 else s31LLL
-			goto return0
+			goto turn0
 *s31LLL			pickup 5 else deepSeaLongRightInit
-			goto return0
+			goto turn0
 *deepSeaLongRightInit	move else pickL1LLL					; move 2 else still 1
 			pickup 1 else s32LLL					; goto sense deepsea short ahead 4(s42A)
-			goto return1
+			goto turn1
 *s32LLL			pickup 5 else m3dSlLLL					; goto move deepsea short ahead 3(m3dSsA)
-			goto return1
+			goto turn1
 *m3dSlLLL		move else pickL2LLL					; move 3 else still 2
 			pickup 1 else s33LLL					; wenn man schonmal da ist, kann man auch gleich
-			goto return2						; rechts und links nach schaetzen schauen
+			goto turn2						; rechts und links nach schaetzen schauen
 *s33LLL			pickup 5 else m4dSlLLL
-			goto return2
+			goto turn2
 *m4dSlLLL		move else pickL3LLL					; move 4 else still 3
 			pickup 1 else s34LLL
-			goto return3
+			goto turn3
 *s34LLL			pickup 5 else m5dSlLLL
-			goto return3
+			goto turn3
 *m5dSlLLL		move else pickL4LLL					; move 5 else still 4
 			pickup 1 else s35LLL
-			goto return4
+			goto turn4
 *s35LLL			pickup 5 else m6dSlLLL
-			goto return4
+			goto turn4
 *m6dSlLLL		move else pickL5LLL					; move 6 else still 5
 			pickup 1 else s36LLL
-			goto return5
+			goto turn5
 *s36LLL			pickup 5 else m7dSlLLL
-			goto return5
+			goto turn5
 *m7dSlLLL		move else pickL6LLL					; move 7 else still 6
 			pickup 1 else s37LLL
-			goto return6
+			goto turn6
 *s37LLL			pickup 5 else m8dSlLLL
-			goto return6
+			goto turn6
 *m8dSlLLL		move else pickL7LLL					; move 8 else still 7
 			pickup 1 else s38LLL
-			goto return7
+			goto turn7
 *s38LLL			pickup 5 else m9dSlLLL
-			goto return7
+			goto turn7
 *m9dSlLLL		move else pickL8LLL					; move 9 else still 8
 			pickup 1 else s39LLL
-			goto return8
+			goto turn8
 *s39LLL			pickup 5 else m10dSlLLL
-			goto return8
+			goto turn8
 *m10dSlLLL		move else pickL9LLL					; move 10 else still 9
 			pickup 1 else s40LLL
-			goto return9
+			goto turn9
 *s40LLL			pickup 5 else *m11dSlLLL
-			goto return9
+			goto turn9
 *m11dSlLLL		move else pickL10LLL					; move 11 else still 10
 			pickup 1 else s41LLL
-			goto return10
+			goto turn10
 *s41LLL			pickup 5 else *m12dSlLLL
-			goto return10
+			goto turn10
 *m12dSlLLL		move else pickL11LLL					; move 12 else still 11
 			pickup 1 else s42LLL
-			goto return11
+			goto turn11
 *s42LLL			pickup 5 else m13dSlLLL
-			goto return11
+			goto turn11
 *m13dSlLLL		move else pickL12LLL					; move 13 else still 12
 			pickup 1 else s43LLL
-			goto return12
+			goto turn12
 *s43LLL			pickup 5 else m14dSlLLL
-			goto return12
+			goto turn12
 *m14dSlLLL		move else pickL13LLL					; move 14 else still 13
 			pickup 1 else s44LLL
-			goto return13
+			goto turn13
 *s44LLL			pickup 5 else m15dSlLLL
-			goto return13
+			goto turn13
 *m15dSlLLL		move else pickL14LLL 					; move 15 else still 14
 			goto pickL15LLL			
 *s445LLL		pickup 1 else s45LLL
-			goto return14
+			goto turn14
 *s45LLL			pickup 5 else DSSLmarkR15
-			goto return14
+			goto turn14
 *DSSLmarkR7		mark 4							; markiere range 7
 *DSSLmarkR3		mark 3							; markiere range 3
 *DSSLmarkR1		mark 2							; markiere range 1
@@ -653,56 +679,116 @@
 *DSSLmarkR14		mark 3							; markiere range 14
 *DSSLmarkR12		mark 4							; markiere range 12
 *DSSLmarkR8		mark 5							; markiere range 8	
-*fzdSlLLL		sense 6
-			if ship_direction<3 else LLLT3
+*fzdSlLLL		sense 6							; leaving DeepSeaLongRight
+			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceRR
+			if ship_direction>2 else LLLT3
 			mark 0
 			goto doubleLong
 *LLLT3			if ship_direction<2 else LLEQ2
 			if ship_direction<1 else LLEQ1
-			mark 3
+			mark 3							; dir==0
 			goto LLleftEQ5
 *LLEQ1			mark 4
-			goto doubleLong
+			goto doubleLongR
 *LLEQ2			mark 5
-			goto doublelong
-*LLleftEQ5		flipzero 2 else deepSeaShortLeft
-			goto deepSeaLongAhead
-*doubleLong		flipzero 2 else deepSeaLongLeft
-			goto deepSeaLongAhead
+			goto doublelongR
+*fastChoiceRR		if ship_direction!=0 else LLleftEQ5
+			goto doubleLongR
+*LLleftEQ5		goto deepSeaShortLeft
+*doubleLongR		goto deepSeaLongLeft
 *pickL0LLL		pickup 0 else fzdSlLLL
-			goto return0
+			goto turn0
 *pickL1LLL		pickup 0 else DSSLmarkR1
-			goto return1
+			goto turn1
 *pickL2LLL		pickup 0 else DSSLmarkR2
-			goto return2
+			goto turn2
 *pickL3LLL		pickup 0 else DSSLmarkR3
-			goto return3
+			goto turn3
 *pickL4LLL		pickup 0 else DSSLmarkR4
-			goto return4
+			goto turn4
 *pickL5LLL		pickup 0 else DSSLmarkR5
-			goto return5
+			goto turn5
 *pickL6LLL		pickup 0 else DSSLmarkR6
-			goto return6
+			goto turn6
 *pickL7LLL		pickup 0 else DSSLmarkR7
-			goto return7
+			goto turn7
 *pickL8LLL		pickup 0 else DSSLmarkR8
-			goto return8
+			goto turn8
 *pickL9LLL		pickup 0 else DSSLmarkR9
-			goto return9
+			goto turn9
 *pickL10LLL  		pickup 0 else DSSLmarkR10
-			goto return10
+			goto turn10
 *pickL11LLL		pickup 0 else DSSLmarkR11
-			goto return11
+			goto turn11
 *pickL12LLL		pickup 0 else DSSLmarkR12
-			goto return12
+			goto turn12
 *pickL13LLL		pickup 0 else DSSLmarkR13
-			goto return13
+			goto turn13
 *pickL14LLL		pickup 0 else DSSLmarkR14
-			goto return14
+			goto turn14
 *pickL15LLL		pickup 0 else s445LLL
-			goto return15		
+			goto turn15		
 *shortRangeInit					
 *shortRange
+*turn1			turn right				; dreht schiffe um 180* vor dem weg nach hause
+			turn right
+			turn right
+			goto return1
+*turn2			turn left
+			turn left
+			turn left
+			goto return2
+*turn3			turn right
+			turn right
+			turn right 
+			goto return3
+*turn4			turn left 
+			turn left
+			turn left
+			goto return4
+*turn5			turn right
+			turn right
+			turn right
+			goto return5
+*turn6			turn left
+			turn left
+			turn left 
+			goto return6
+*turn7			turn right 
+			turn right
+			turn right
+			goto return7
+*turn8			turn left 
+			turn left
+			turn left 
+			goto return8
+*turn9			turn right
+			turn right
+			turn right
+			goto return9
+*turn10			turn left
+			turn left
+			turn left
+			goto return10
+*turn11			turn right
+			turn right
+			turn right
+			goto return11
+*turn12			turn left
+			turn left
+			turn left
+			goto return12
+*turn13			turn right
+			turn right
+			turn right
+			goto return13
+*turn14			turn left 
+			turn left
+			turn left
+			goto return14
+*turn15			turn right
+			turn right
+			turn right
 *return15		move else friendorfoe15				; hier beginnt die return home routine
 *return14		move else friendorfoe14
 *return13		move else friendorfoe13
