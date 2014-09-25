@@ -15,6 +15,7 @@ import commands.Pickup;
 import commands.Refresh;
 import commands.Repair;
 import commands.Sense;
+import commands.Turn;
 import commands.Unmark;
 
 import org.junit.Test;
@@ -114,7 +115,26 @@ public class TranslatorTest {
 		
 		
 	}
-	
+	@Test
+	public void testJumpMarks()
+	{
+		translator.setLabelized(true);
+		String tactic = 
+		"*start move else dreh\n"
+		+"sense 0;\n"
+		+"*dreh turn left\n"
+		+"goto start";
+		
+		InputStream in = stringToStream(tactic);
+		List<Command> sollErg = new LinkedList<Command>();
+		sollErg.add(new Move(2));
+		sollErg.add(new Sense(0));
+		sollErg.add(new Turn(true));
+		sollErg.add(new Goto(0));
+		
+		List<Command> erg = translator.run(in);
+		assertEquals("Jump marks were not resolved correctly. Should have been " + sollErg + " but is " + erg, sollErg, erg);
+	}
 	@Test
 	public void testCapitalLetters()
 	{
