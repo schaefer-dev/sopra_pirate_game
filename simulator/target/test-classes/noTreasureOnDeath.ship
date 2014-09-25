@@ -1,0 +1,4 @@
+pickup 0 else 100	; 0
+move else 2			; 1
+pickup 6 else 100	; 2
+goto 1				; 3
