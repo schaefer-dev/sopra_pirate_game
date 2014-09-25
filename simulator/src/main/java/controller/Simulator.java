@@ -84,7 +84,7 @@ public class Simulator {
 		if(logFile != null)
 		{
 			logWriter = new Log();
-			logWriter.addLogger(new SimpleLogWriter());		//TODO log enable/disable here
+		//	logWriter.addLogger(new SimpleLogWriter());		//TODO log enable/disable here
 			// Please do not include the adding of the of the logWriters again, since this is done in MapGenerator now.
 		}
 
