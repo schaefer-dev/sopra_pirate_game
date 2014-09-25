@@ -37,8 +37,7 @@
 *routine		sense 6
 			flipzero 2 else deepSeaInit					; deepSea <> longRange := single turn l||r
 			goto shortRangeInit						; shortRange := (doppel turn) l||r	
-*deepSeaInit		move else friendOrFoe						; move 1
-			flipzero 3 else	DSleft						; wuerfeln: rechts, links oder geradeaus
+*deepSeaInit		flipzero 3 else	DSleft						; wuerfeln: rechts, links oder geradeaus
 			flipzero 2 else DSright						
 			goto DSahead
 *DSahead		ifall ship_direction!=5 ship_direction!=4 else deepSeaLongAheadInit ; fate: LongAhead, (s||l)Left, (s||l)Right
@@ -107,28 +106,43 @@
 			goto turn6
 *s47A			pickup 5 else DSSAmarkR7
 			goto turn6
-*DSSAmarkR5		mark 5								; markiere range 5
-*DSSAmarkR1		mark 3								; markiere range 1
+*DSSAmarkR5		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSA
+*bouySA5a		mark 5								; markiere range 5
+			goto bouySA3
+*DSSAmarkR1		sense 6
+			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
+*bouySA3a		mark 3								; markiere range 1
 			goto fzdSsA
-*DSSAmarkR3		mark 3								; markiere range 3
-*DSSAmarkR2		mark 4								; markiere range 2
+*DSSAmarkR3		sense 6
+			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
+			mark 3								; markiere range 3
+			goto bouySA4a
+*DSSAmarkR2		sense 6
+			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
+*bouySA4a		mark 4								; markiere range 2
 			goto fzdSsA
-*DSSAmarkR7		mark 3								; markiere range 7 (3+4+5)
-*DSSAmarkR6		mark 4								; markiere range 6
-*DSSAmarkR4		mark 5								; markiere range 4	
-*fzdSsA			sense 6								; leaving deepSeaShortAhead
-			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceSA
-			if ship_direction==5 else dir4A
+*DSSAmarkR7		sense 6
+			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
+			mark 3
+			goto bouySA4b							; markiere range 7 (3+4+5)
+*DSSAmarkR6		sense 6
+			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
+*bouySA4b		mark 4
+			goto bouySA5b							; markiere range 6
+*DSSAmarkR4		sense 6
+			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
+*bouySA5b		mark 5								; markiere range 4	
+*fzdSsA			if ship_direction==5 else dir4A					; leaving deepSeaShortAhead
 			mark 2
 			mark 1
-			goto DSAdirEQ5
-*dir4A			mark 1
-			goto DSAdirEQ4
-*fastChoiceSA		if ship_direction==5 else DSAdirEQ4
 *DSAdirEQ5		flipzero 2 else deepSeaShortLeft		; falls false new dir==4, deshalb nochmal die kurze routine.
 			goto deepSeaLongRight
+*dir4A			mark 1
 *DSAdirEQ4		flipzero 2 else deepSeaLongLeft
 			goto deepSeaShortRight				; falls true new dir==5
+*fastChoiceSA		if ship_direction==5 else DSAdirEQ4
+			goto DSAdirEQ5
 *pickA1			pickup 0 else fzdSsA				; wenns nicht weitergeht und kein Schatz gefunden, werden Richtung
 			goto return0
 *pickA2			pickup 0 else DSSAmarkR1			; und Entfernung markiert, dann wird weitergesucht
@@ -203,26 +217,41 @@
 			goto turn6
 *s47LL			pickup 5 else DSSLmarkR7L
 			goto turn6
-*DSSLmarkR5L		mark 5								; markiere range 5
-*DSSLmarkR1L		mark 3								; markiere range 1
+*DSSLmarkR5L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+			mark 5								; markiere range 5
+			goto Bouy3DSLa
+*DSSLmarkR1L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+*Bouy3DSLa		mark 3								; markiere range 1
 			goto fzdSsLL
-*DSSLmarkR3L		mark 3								; markiere range 3
-*DSSLmarkR2L		mark 4								; markiere range 2
+*DSSLmarkR3L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+			mark 3								; markiere range 3
+			goto Bouy4DSLa
+*DSSLmarkR2L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+*Bouy4DSLa		mark 4								; markiere range 2
 			goto fzdSsLL
-*DSSLmarkR7L		mark 3								; markiere range 7 (3+4+5)
-*DSSLmarkR6L		mark 4								; markiere range 6
-*DSSLmarkR4L		mark 5								; markiere range 4	
-*fzdSsLL		sense 6								; leaving DeepSeaShortLeft
-			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceSL
-			if ship_direction==5 else dir4L
+*DSSLmarkR7L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+			mark 3								; markiere range 7 (3+4+5)
+			goto Bouy4DSLb
+*DSSLmarkR6L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+*Bouy4DSLb		mark 4								; markiere range 6
+			goto Bouy5DSLa
+*DSSLmarkR4L		sense 6 		
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSL
+*Bouy5DSLa		mark 5								; markiere range 4	
+*fzdSsLL		if ship_direction==5 else dir4L					; leaving DeepSeaShortLeft
 			mark 2
 			mark 1
-			goto DSLdirEQ5
-*dir4L			mark 1
-			goto DSLdirEQ4
-*fastChoiceSL		if ship_direction==5 else DSLdirEQ4
 *DSLdirEQ5		goto deepSeaLongRight 				; new dir==0
+*dir4L			mark 1
 *DSLdirEQ4		goto deepSeaShortRight				; new dir==5
+*fastChoiceSL		if ship_direction==5 else DSLdirEQ4
+			goto DSLdirEQ4
 			goto deepSea
 *pickL1L		pickup 0 else fzdSsLL
 			goto return0
@@ -299,6 +328,7 @@
 			goto turn6
 *s47R			pickup 5 else DSSRmarkR7
 			goto turn6
+------------------------------hier----------------------------------------------------------------------------------------
 *DSSRmarkR5		mark 5								; markiere range 5
 *DSSRmarkR1		mark 3								; markiere range 1
 			goto fzdSsR
@@ -320,6 +350,7 @@
 			goto DSRdirEQ5
 *DSRdirEQ4		goto deepSeaLongLeft 						; new dir==3, 
 *DSRdirEQ5		goto deepSeaShortLeft				; kein turn right:das waere insgesamt ein doppelturn right und 											fuer den Fall gibt es die shortRange Routine
+----------------------------bis hier----------------------------------------------------------------------------------------------
 *pickR1			pickup 0 else fzdSsR
 			goto return0
 *pickR2			pickup 0 else DSSRmarkR1
@@ -458,6 +489,7 @@
 			goto turn14
 *s45aAA			pickup 5 else DSSAmarkR15
 			goto turn14
+------------------------------hier----------------------------------------------------------------------------------------
 *DSSAmarkR7		mark 4							; markiere range 7
 *DSSAmarkR3		mark 3							; markiere range 3
 *DSSAmarkR1		mark 2							; markiere range 1
@@ -502,6 +534,7 @@ fastChoiceAA		if ship_direction!=3 else AArightEQ4
 			goto deepSeaShortRight
 *tripleLong		flipzero 2 else deepSeaLongLeft
 			goto deepSeaLongRight
+------------------------------hier----------------------------------------------------------------------------------------
 *pickL0aA		pickup 0 else fzdSlaA
 			goto return0
 *pickL1aA		pickup 0 else DSSAmarkR1
@@ -632,31 +665,32 @@ fastChoiceAA		if ship_direction!=3 else AArightEQ4
 			goto turn11
 *s42RRR			pickup 5 else m13dSlRRR
 			goto turn11
-*m13dSlRRR		
-
-
-			move else pickL12RRR					; move 13 else still 12
+*m13dSlRRR		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m13dSlRRR2
+			goto pickL12RRR
+*m13dSlRRR2		move else DSSRRmarkR12					; move 13 else still 12
 			pickup 1 else s43RRR
 			goto turn12
 *s43RRR			pickup 5 else m14dSlRRR
 			goto turn12
-*m14dSlRRR		
-
-
-			move else pickL13RRR					; move 14 else still 13
+*m14dSlRRR		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m14dSlRRR2
+			goto pickL13RRR
+*m14dSlRRR2		move else DSSRRmarkR13						; move 14 else still 13
 			pickup 1 else s44RRR
 			goto turn13
 *s44RRR			pickup 5 else m15dSlRRR
 			goto turn13
-*m15dSlRRR		
-
-
-			move else pickL14RRR 					; move 15 else still 14
+*m15dSlRRR		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m15dSlRRR2
+			goto pickL14RRR
+*m15dSlRRR2		move else DSSRRmarkR14					; move 15 else still 14
 			goto pickL15RRR			
 *s445RRR		pickup 1 else s45RRR
 			goto turn14
 *s45RRR			pickup 5 else DSSRmarkRR15
 			goto turn14
+------------------------------hier----------------------------------------------------------------------------------------
 *DSSRRmarkR7		mark 4							; markiere range 7
 *DSSRRmarkR3		mark 3							; markiere range 3
 *DSSRRmarkR1		mark 2							; markiere range 1
@@ -681,7 +715,7 @@ fastChoiceAA		if ship_direction!=3 else AArightEQ4
 *DSSRRmarkR8		mark 5							; markiere range 8	
 *fzdSlRRR		sense 6							; leaving DeepSeaLongLeft
 			ifall !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else fastChoiceLL			
-			if ship_direction>2 else RRLT3				; dir!=4,5,denn diese Faelle existieren nur in DeepSeaShort
+			if ship_direction>2 else RRLT3				; dir!=4,5,denn diese Faelle existieren nur in 												DeepSeaShort
 			mark 0
 			goto RRrightEQ4
 *RRLT3			if ship_direction<2 else RREQ2
@@ -696,6 +730,7 @@ fastChoiceAA		if ship_direction!=3 else AArightEQ4
 			goto doubleLong
 *RRrightEQ4		goto deepSeaShortRight
 *doubleLong		goto deepSeaLongRight
+------------------------------hier----------------------------------------------------------------------------------------
 *pickL0RRR		pickup 0 else fzdSlRRR
 			goto return0
 *pickL1RRR		pickup 0 else DSSRRmarkR1
@@ -733,82 +768,128 @@ fastChoiceAA		if ship_direction!=3 else AArightEQ4
 			goto turn15
 *deepSeaLongRight	if ship_condition!=1 else return 0 			; begin deepSeaLongRight
 			turn right
-			move else pickL0LLL					; move 1 else still 0
+			sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m1dSlLLL
+			goto pickL0LLL
+*m1dSlLLL		move else m1dSlLLL					; move 1 else still 0
 			pickup 1 else s31LLL
 			goto return0
 *s31LLL			pickup 5 else deepSeaLongRightInit
 			goto return0
-*deepSeaLongRightInit	move else pickL1LLL					; move 2 else still 1
+*deepSeaLongRightInit	sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m2dSlLLL
+			goto pickL1LLL
+*m2dSlLLL		move else DSSLmarkR1					; move 2 else still 1
 			pickup 1 else s32LLL					; goto sense deepsea short ahead 4(s42A)
 			goto turn1
 *s32LLL			pickup 5 else m3dSlLLL					; goto move deepsea short ahead 3(m3dSsA)
 			goto turn1
-*m3dSlLLL		move else pickL2LLL					; move 3 else still 2
+*m3dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m3dSlLLL2
+			goto pickL2LLL
+*m3dSlLLL2		move else DSSLmarkR2					; move 3 else still 2
 			pickup 1 else s33LLL					; wenn man schonmal da ist, kann man auch gleich
 			goto turn2						; rechts und links nach schaetzen schauen
 *s33LLL			pickup 5 else m4dSlLLL
 			goto turn2
-*m4dSlLLL		move else pickL3LLL					; move 4 else still 3
+*m4dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m4dSlLLL2
+			goto pickL3LLL
+*m4dSlLLL2		move else DSSLmarkR3					; move 4 else still 3
 			pickup 1 else s34LLL
 			goto turn3
 *s34LLL			pickup 5 else m5dSlLLL
 			goto turn3
-*m5dSlLLL		move else pickL4LLL					; move 5 else still 4
+*m5dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m5dSlLLL2
+			goto pickL4LLL
+*m5dSlLLL2		move else DSSLmarkR4					; move 5 else still 4
 			pickup 1 else s35LLL
 			goto turn4
 *s35LLL			pickup 5 else m6dSlLLL
 			goto turn4
-*m6dSlLLL		move else pickL5LLL					; move 6 else still 5
+*m6dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m6dSlLLL2
+			goto pickL5LLL
+*m6dSlLLL2		move else DSSLmarkR5					; move 6 else still 5
 			pickup 1 else s36LLL
 			goto turn5
 *s36LLL			pickup 5 else m7dSlLLL
 			goto turn5
-*m7dSlLLL		move else pickL6LLL					; move 7 else still 6
+*m7dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m7dSlLLL2
+			goto pickL6LLL
+*m7dSlLLL2		move else DSSLmarkR6					; move 7 else still 6
 			pickup 1 else s37LLL
 			goto turn6
 *s37LLL			pickup 5 else m8dSlLLL
 			goto turn6
-*m8dSlLLL		move else pickL7LLL					; move 8 else still 7
+*m8dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m8dSlLLL2
+			goto pickL7LLL
+*m8dSlLLL2		move else DSSLmarkR7					; move 8 else still 7
 			pickup 1 else s38LLL
 			goto turn7
 *s38LLL			pickup 5 else m9dSlLLL
 			goto turn7
-*m9dSlLLL		move else pickL8LLL					; move 9 else still 8
+*m9dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m9dSlLLL2
+			goto pickL8LLL
+*m9dSlLLL2		move else DSSLmarkR8					; move 9 else still 8
 			pickup 1 else s39LLL
 			goto turn8
 *s39LLL			pickup 5 else m10dSlLLL
 			goto turn8
-*m10dSlLLL		move else pickL9LLL					; move 10 else still 9
+*m10dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m10dSlLLL2
+			goto pickL9LLL
+*m10dSlLLL2		move else DSSLmarkR9					; move 10 else still 9
 			pickup 1 else s40LLL
 			goto turn9
 *s40LLL			pickup 5 else *m11dSlLLL
 			goto turn9
-*m11dSlLLL		move else pickL10LLL					; move 11 else still 10
+*m11dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m11dSlLLL2
+			goto pickL10LLL
+*m11dSlLLL2		move else DSSLmarkR10					; move 11 else still 10
 			pickup 1 else s41LLL
 			goto turn10
 *s41LLL			pickup 5 else *m12dSlLLL
 			goto turn10
-*m12dSlLLL		move else pickL11LLL					; move 12 else still 11
+*m12dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m12dSlLLL2
+			goto pickL11LLL
+*m12dSlLLL2		move else DSSLmarkR11				; move 12 else still 11
 			pickup 1 else s42LLL
 			goto turn11
 *s42LLL			pickup 5 else m13dSlLLL
 			goto turn11
-*m13dSlLLL		move else pickL12LLL					; move 13 else still 12
+*m13dSlLLL		sense 0 
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m13dSlLLL2
+			goto pickL12LLL
+*m13dSlLLL2		move else DSSLmarkR12					; move 13 else still 12
 			pickup 1 else s43LLL
 			goto turn12
 *s43LLL			pickup 5 else m14dSlLLL
 			goto turn12
-*m14dSlLLL		move else pickL13LLL					; move 14 else still 13
+*m14dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m14dSlLLL2
+			goto pickL13LLL
+*m14dSlLLL2		move else DSSLmarkR13					; move 14 else still 13
 			pickup 1 else s44LLL
 			goto turn13
 *s44LLL			pickup 5 else m15dSlLLL
 			goto turn13
-*m15dSlLLL		move else pickL14LLL 					; move 15 else still 14
+*m15dSlLLL		sense 0
+			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m15dSlLLL2
+			goto pickL14LLL
+*m15dSlLLL2		move else DSSLmarkR14 					; move 15 else still 14
 			goto pickL15LLL			
 *s445LLL		pickup 1 else s45LLL
 			goto turn14
 *s45LLL			pickup 5 else DSSLmarkR15
 			goto turn14
+------------------------------hier----------------------------------------------------------------------------------------
 *DSSLmarkR7		mark 4							; markiere range 7
 *DSSLmarkR3		mark 3							; markiere range 3
 *DSSLmarkR1		mark 2							; markiere range 1
@@ -848,6 +929,7 @@ fastChoiceAA		if ship_direction!=3 else AArightEQ4
 			goto doubleLongR
 *LLleftEQ5		goto deepSeaShortLeft
 *doubleLongR		goto deepSeaLongLeft
+------------------------------hier----------------------------------------------------------------------------------------
 *pickL0LLL		pickup 0 else fzdSlLLL
 			goto return0
 *pickL1LLL		pickup 0 else DSSLmarkR1
