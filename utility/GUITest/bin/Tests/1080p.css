@@ -2,7 +2,7 @@
     -fx-font-size: 90px;
 }
 
-#text {
+#hover {
 	-fx-font-size: 30px;
 }
 
@@ -10,7 +10,12 @@
     -fx-font-size: 25px;
 }
 
-.button {
+.menubutton {
 	-fx-font-size: 50px;
 	-fx-padding: 20px;
+}
+
+.vbox {
+    -fx-padding: 80 0 80 0;
+    -fx-spacing: 20;
 }

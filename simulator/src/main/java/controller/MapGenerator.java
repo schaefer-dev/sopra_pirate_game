@@ -38,6 +38,7 @@ public class MapGenerator {
 	private Field[][] fields;
 	private int x;
 	private int y;
+	OutputStream logStream;
 
 	
 	public Map createMap(InputStream stream, List<Team> teams, LogWriter log, Random random, String mapString, String[] shipFiles, String logFile) throws IOException, URISyntaxException{
@@ -160,7 +161,6 @@ public class MapGenerator {
 		map.setMapValues(fields, kraken);
 		if(log != null)
 		{
-			OutputStream logStream = null;
 			if(logFile!= null)
 			{
 				if(getClass().getResource(logFile) != null){

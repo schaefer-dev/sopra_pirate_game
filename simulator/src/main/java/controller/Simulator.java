@@ -38,7 +38,6 @@ public class Simulator {
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException {
 		if(shipFiles == null || mapFile == null) throw new NullPointerException("No shipFiles or MapFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 10000 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
-
 		endGame = false;
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
@@ -62,6 +61,18 @@ public class Simulator {
 				shipStream.close();
 			}
 		}
+		for(int i = 0; i< shipFiles.length; i++)
+		{
+			InputStream shipStream = getClass().getResourceAsStream(shipFiles[i]);
+			if(shipStream == null)
+				shipStream = new FileInputStream(shipFiles[i]);
+			Scanner scanner = new Scanner(shipStream);
+			String shipString = "";
+			while(scanner.hasNextLine())
+				shipString += scanner.nextLine() + "\n";
+			scanner.close();
+			shipFiles[i] = shipString;
+		}
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
 			mapStream= new FileInputStream(mapFile);
@@ -70,7 +81,6 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		mapStream.close();
 		if(logFile != null)
 		{
 			logWriter = new Log();

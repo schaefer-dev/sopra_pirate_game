@@ -1,6 +1,10 @@
 package Tests;
 
+import java.util.EmptyStackException;
+import java.util.Stack;
+
 import GameStates.MainMenuState;
+import GameStates.MapSelectionState;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -16,19 +20,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class StateManager extends Application {
+public class GUIController extends Application {
 
 	public Resolution resolution = Resolution.HD;
 	
 	private Stage stage;
 	private Scene scene;
 	
+	private SimulatorSettings mapSettings = new SimulatorSettings();
 	private Text title = new Text();
 	private Text hoverText = new Text();
 	private BorderPane borderPane;
+	
+	private Stack<GameState> states = new Stack<GameState>();
 	private GameState currentState = new MainMenuState();
 	
-	private char[][] map;
 	
     public static void main(String[] args) {
         launch(args);
@@ -40,14 +46,62 @@ public class StateManager extends Application {
 		currentState.Entered(this);
 	}
 	
+	public void switchState(GameState state){
+		for(GameState current: states)
+			current.Exiting();
+		
+		state.Entered(this);
+		states = new Stack<GameState>();
+		states.push(state);
+	}
+	
+	public void addState(GameState state){
+		if(state == null) throw new NullPointerException();
+		
+		try{
+			GameState current = states.peek();
+			current.Concealing();
+		}
+		catch(EmptyStackException e){}
+		
+		state.Entered(this);
+		states.push(state);
+	}
+	
+	public GameState removeState(){
+		GameState current;
+		try{
+			current = states.pop();
+			current.Exiting();
+		}
+		catch(EmptyStackException e){
+			throw e;
+		}
+		try{
+			states.peek().Revealed();
+		}
+		catch(EmptyStackException e){}
+		
+		return current;
+	}
+	
+	public GameState currentState(){
+		try{
+			return states.peek();
+		}
+		catch(EmptyStackException e){
+			return null;
+		}
+	}
+	
+	
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Pirates of the Saaribean");
 		title.setId("title");
-		hoverText.setId("text");
-		
-
+		hoverText.setId("hover");
 		
 		GridPane bottom = new GridPane();
 		bottom.setAlignment(Pos.CENTER);
@@ -60,12 +114,11 @@ public class StateManager extends Application {
 		BorderPane.setAlignment(bottom, Pos.BOTTOM_CENTER);
 		borderPane.setBottom(bottom);
 
-		
-		currentState.Entered(this);
+		addState(currentState);
+		//currentState.Entered(this);
 		scene = new Scene(borderPane, 1280, 720);
-
 		stage.setScene(scene);
-		primaryStage.setResizable(false);
+		//primaryStage.setResizable(false);
 		stage.show();
 		
 		setScreen(scene);
@@ -84,15 +137,10 @@ public class StateManager extends Application {
 	public BorderPane getRoot(){
 		return borderPane;
 	}
+		
 	
-	
-	public void setMap(char[][] map){
-		this.map = map;
-	}
-	
-	
-	public char[][] getMap(){
-		return map;
+	public SimulatorSettings getMap(){
+		return mapSettings;
 	}
 	
 	public Scene getScene(){

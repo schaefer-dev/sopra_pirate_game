@@ -1,36 +1,30 @@
 package GameStates;
 
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import Events.GenerateEvent;
 import Events.HoverEvent;
 import Events.SliderListener;
 import Events.SwitchState;
 import Tests.GameState;
-import Tests.StateManager;
+import Tests.SimulatorSettings;
+import Tests.GUIController;
 
 public class GeneratorState implements GameState {
 
-	private StateManager manager;
+	private GUIController manager;
+	private BorderPane root;
 	
 	@Override
-	public void Entered(StateManager root) {
-		manager = root;
+	public void Entered(GUIController control) {
+		manager = control;
 		manager.getTitleText().setText("Custom Map");
-		
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
-		
+	
 		Label mapSize = new Label("Map Size");
-		Slider mapSizeSlider = new Slider(10, 198, 10);
+		Slider mapSizeSlider = new Slider(SimulatorSettings.MAP_SIZE_MIN, SimulatorSettings.MAP_SIZE_MAX, SimulatorSettings.MAP_SIZE_MIN);
 		mapSizeSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines width & height of the map"));
 		mapSizeSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		mapSizeSlider.setMaxWidth(200);
@@ -41,7 +35,7 @@ public class GeneratorState implements GameState {
 		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel);
 		
 		Label islandCount = new Label("Island Count");
-		Slider islandCountSlider = new Slider(1, 80, 1);
+		Slider islandCountSlider = new Slider(SimulatorSettings.ISLAND_COUNT_MIN, SimulatorSettings.ISLAND_COUNT_MAX, SimulatorSettings.ISLAND_COUNT_MIN);
 		islandCountSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Quantity of the islands"));
 		islandCountSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		islandCountSlider.setMaxWidth(200);
@@ -51,7 +45,7 @@ public class GeneratorState implements GameState {
 		SliderListener icListener = new SliderListener(islandCountSlider, islandCountLabel);
 		
 		Label islandSize = new Label("Island Size");
-		Slider islandSizeSlider = new Slider(2, 10, 2);
+		Slider islandSizeSlider = new Slider(SimulatorSettings.ISLAND_SIZE_MIN, SimulatorSettings.ISLAND_SIZE_MAX, SimulatorSettings.ISLAND_SIZE_MIN);
 		islandSizeSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Average size of the islands"));
 		islandSizeSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		islandSizeSlider.setMaxWidth(200);
@@ -61,23 +55,13 @@ public class GeneratorState implements GameState {
 		SliderListener isListener = new SliderListener(islandSizeSlider, islandSizeLabel);
 		
 		Button generate = new Button("Generate");
-		generate.setAlignment(Pos.CENTER);
-		generate.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Generate a map with given values"));
-		generate.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
+		generate.getStyleClass().add("menubutton");
+		generate.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Generate a map with given values"));
+		generate.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		generate.setOnAction(new GenerateEvent(msListener, icListener, isListener));
-		
-		Button back = new Button("< Map Type");
-		back.setAlignment(Pos.BOTTOM_LEFT);
-		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go back to map type selection"));
-		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
-		back.setOnAction(new SwitchState(manager, new CustomGameState()));
-		
-		Button next = new Button("Game Settings >");
-		next.setAlignment(Pos.BOTTOM_RIGHT);
-		next.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go to game settings"));
-		next.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
-		next.setOnAction(new SwitchState(manager, new GameSettingsState()));
-        		
+
+		GridPane grid = new GridPane();
+		grid.getStyleClass().add("grid");
 		grid.add(mapSize, 0, 0);
 		grid.add(mapSizeSlider, 1, 0);
 		grid.add(mapSizeLabel, 2, 0);
@@ -88,14 +72,45 @@ public class GeneratorState implements GameState {
 		grid.add(islandSizeSlider, 1, 2);
 		grid.add(islandSizeLabel, 2, 2);
 		grid.add(generate, 1, 3);
-		grid.add(back, 0, 7);
-		grid.add(next, 4, 7);
 		
-		manager.getRoot().setCenter(grid);
+		
+		Button back = new Button("< Map Type");
+		back.getStyleClass().add("menubutton");
+		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go back to map type selection"));
+		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		back.setOnAction(new SwitchState(manager));
+		
+		Button next = new Button("Game Settings >");
+		next.getStyleClass().add("menubutton");
+		next.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go to game settings"));
+		next.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		next.setOnAction(new SwitchState(manager, new GameSettingsState()));
+        		
+		GridPane selection = new GridPane();
+		selection.getStyleClass().add("grid");
+		selection.add(back, 0, 0);
+		selection.add(next, 6, 0);
+		
+		
+		root = new BorderPane();
+		root.setCenter(grid);
+		root.setBottom(selection);
+		
+		manager.getRoot().setCenter(root);
 	}
 
 	@Override
 	public void Exiting() {
 		manager.getRoot().setCenter(null);
+	}
+
+	@Override
+	public void Concealing() {
+		manager.getRoot().setCenter(null);
+	}
+
+	@Override
+	public void Revealed() {
+		manager.getRoot().setCenter(root);
 	}
 }
