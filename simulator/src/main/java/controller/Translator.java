@@ -513,4 +513,9 @@ public class Translator {
 			   return -1;
 			   }
 	}
+	
+	public void setLabelized(boolean what)
+	{
+		labelized = what;
+	}
 }
