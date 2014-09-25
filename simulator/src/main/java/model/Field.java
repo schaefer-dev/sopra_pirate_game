@@ -169,4 +169,9 @@ public abstract class Field {
 	public Map getMap(){
 		return map;
 	}
+
+
+	public boolean dropTreasure(int value) {
+		return this.exchangeTreasure(value);
+	}
 }

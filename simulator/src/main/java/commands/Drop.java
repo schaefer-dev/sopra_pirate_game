@@ -19,7 +19,7 @@ public class Drop implements Command {
 			throw new IllegalStateException("Ship is not postitioned on water field.");
 		int value = ship.getLoad();
 		ship.setLoad(0);
-		field.exchangeTreasure(value);
+		field.dropTreasure(value);
 		if(field.getFieldType() != FieldType.Base && value != 0)
 		{
 			ship.changeMoral(-2);

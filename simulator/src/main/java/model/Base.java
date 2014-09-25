@@ -17,8 +17,7 @@ public class Base extends Water {
 
 	
 	@Override
-	public boolean exchangeTreasure(int value){
-		
+	public boolean dropTreasure(int value){
 		if(value == 0)
 			return true;
 		else if(value == -2){
@@ -36,6 +35,9 @@ public class Base extends Water {
 		
 		return true;
 	}
+	
+	
+
 	
 	@Override
 	public boolean setKraken(Kraken kraken){
