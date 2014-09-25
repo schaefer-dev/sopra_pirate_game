@@ -14,13 +14,13 @@ import javafx.scene.text.Text;
 import Events.HoverEvent;
 import Events.SwitchState;
 import Tests.GameState;
-import Tests.StateManager;
+import Tests.GUIController;
 
 public class TeamInfoState implements GameState {
 
-	private StateManager manager;
+	private GUIController manager;
 	@Override
-	public void Entered(StateManager root) {
+	public void Entered(GUIController root) {
 		manager = root;
 		manager.getTitleText().setText("Team Info");
 		
@@ -71,6 +71,18 @@ public class TeamInfoState implements GameState {
 	public void Exiting() {
 		manager.getRoot().setCenter(null);
 		manager.getRoot().setBottom(null);
+	}
+
+	@Override
+	public void Concealing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Revealed() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

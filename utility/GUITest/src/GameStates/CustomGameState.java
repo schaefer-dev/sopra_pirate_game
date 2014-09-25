@@ -3,52 +3,49 @@ package GameStates;
 import Events.HoverEvent;
 import Events.SwitchState;
 import Tests.GameState;
-import Tests.StateManager;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import Tests.GUIController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class CustomGameState implements GameState {
 
-	private StateManager manager;
+	private GUIController manager;
+	private VBox root;
 	
 	@Override
-	public void Entered(StateManager root) {
-		manager = root;
+	public void Entered(GUIController control) {
+		manager = control;
 		manager.getTitleText().setText("Custom Game");
 
-		VBox vBox = new VBox(20);
-		vBox.setAlignment(Pos.TOP_CENTER);
-		vBox.setPadding(new Insets(25,25,25,25));
-		
 		Button mapSelection = new Button("Map Selection");
-		mapSelection.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Play on one of our preset maps"));
-		mapSelection.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
-		mapSelection.setAlignment(Pos.CENTER);
+		mapSelection.getStyleClass().add("menubutton");
+		mapSelection.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Play on one of our preset maps"));
+		mapSelection.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		mapSelection.setOnAction(new SwitchState(manager, new MapSelectionState()));
 
 		Button mapGenerator = new Button("Map Generator");
-		mapGenerator.setAlignment(Pos.CENTER);
-		mapGenerator.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Generate and play on your own map"));
-		mapGenerator.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
+		mapGenerator.getStyleClass().add("menubutton");
+		mapGenerator.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Generate and play on your own map"));
+		mapGenerator.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		mapGenerator.setOnAction(new SwitchState(manager, new GeneratorState()));
 		
 		Button googleMaps = new Button("Google Maps");
-		googleMaps.setAlignment(Pos.CENTER);
-		googleMaps.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Start a new game with custom settings"));
-		googleMaps.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
+		googleMaps.getStyleClass().add("menubutton");
+		googleMaps.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Start a new game with custom settings"));
+		googleMaps.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		//TODO: add gameState
 		
 		Button back = new Button("< Back");
-		back.setAlignment(Pos.CENTER);
-		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Start a new game with custom settings"));
-		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
-		back.setOnAction(new SwitchState(manager, new MainMenuState()));
+		back.getStyleClass().add("menubutton");
+		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Start a new game with custom settings"));
+		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		back.setOnAction(new SwitchState(manager));
 		
-
-		vBox.getChildren().addAll(mapSelection, mapGenerator, googleMaps, back);
-		manager.getRoot().setCenter(vBox);
+		root = new VBox(20);
+		root.getStyleClass().add("vbox");
+		root.getChildren().addAll(mapSelection, mapGenerator, googleMaps, back);
+		
+		manager.getRoot().setCenter(root);
 	}
 
 	@Override
@@ -56,4 +53,13 @@ public class CustomGameState implements GameState {
 		manager.getRoot().setCenter(null);
 	}
 
+	@Override
+	public void Concealing() {
+		manager.getRoot().setCenter(null);
+	}
+
+	@Override
+	public void Revealed() {
+		manager.getRoot().setCenter(root);	
+	}
 }
