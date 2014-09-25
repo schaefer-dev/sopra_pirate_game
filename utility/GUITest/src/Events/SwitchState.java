@@ -1,5 +1,7 @@
 package Events;
 
+import java.io.FileNotFoundException;
+
 import Tests.GameState;
 import Tests.GUIController;
 import javafx.event.ActionEvent;
@@ -20,10 +22,15 @@ public class SwitchState implements EventHandler<ActionEvent> {
 	}
 	
 	@Override
-	public void handle(ActionEvent arg0) {
+	public void handle(ActionEvent arg0){
 		if(state == null)
 			manager.removeState();
 		else
-			manager.addState(state);
+			try {
+				manager.addState(state);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 }

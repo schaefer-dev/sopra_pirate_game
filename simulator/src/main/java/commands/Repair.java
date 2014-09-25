@@ -40,7 +40,7 @@ public class Repair implements Command {
 			Base currbase = (Base) ship.getPosition();
 			if((ship.getTeam().getScore() >= 2)&&(ship.getTeam().equals(currbase.getTeam()))){
 				ship.changeCondition(3);
-				ship.getPosition().exchangeTreasure(-2);
+				ship.getPosition().dropTreasure(-2);
 				ship.changePause(4);
 			}
 			else{
