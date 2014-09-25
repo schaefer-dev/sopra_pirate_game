@@ -1,5 +1,6 @@
 package Tests;
 
+import java.io.FileNotFoundException;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -40,13 +41,13 @@ public class GUIController extends Application {
         launch(args);
     }
     
-	public void setState(GameState state){
+	public void setState(GameState state) throws FileNotFoundException{
 		currentState.Exiting();
 		currentState = state;
 		currentState.Entered(this);
 	}
 	
-	public void switchState(GameState state){
+	public void switchState(GameState state) throws FileNotFoundException{
 		for(GameState current: states)
 			current.Exiting();
 		
@@ -55,7 +56,7 @@ public class GUIController extends Application {
 		states.push(state);
 	}
 	
-	public void addState(GameState state){
+	public void addState(GameState state) throws FileNotFoundException{
 		if(state == null) throw new NullPointerException();
 		
 		try{
