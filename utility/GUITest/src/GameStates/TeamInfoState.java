@@ -7,6 +7,7 @@ import java.io.InputStream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -29,7 +30,7 @@ public class TeamInfoState implements GameState {
 	public void Entered(GUIController root) throws FileNotFoundException {
 		manager = root;
 		manager.getTitleText().setText("Team Info");
-		
+		Label thanks = new Label("                                   We also want to thank our tutor Maximilian Zöllner");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -38,7 +39,6 @@ public class TeamInfoState implements GameState {
 		GridPane forText = new GridPane();
 		forText.setAlignment(Pos.TOP_CENTER);
 		manager.getTitleText().setText("The Team");
-		
 		Button back = new Button("< Back");
 		back.setAlignment(Pos.BOTTOM_LEFT);
 		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go back to main menu"));
@@ -50,11 +50,13 @@ public class TeamInfoState implements GameState {
 				+ "Group 5 consists of 5 people who are keen to present you the very best of Pirate adventures.\n"
 				+ "We are proud to announce that we did not only manage to present you with the most silly pirate names and map creations.\n We also succeded in finding the most hidious designs for ships\n"
 				+ "But enough of talking: This is your amazing team of game developers: Group 5\n");
-				
-		Text thanks = new Text();
-		thanks.setText("We also want to thank our tutor Maximilian Zöllner");
-		thanks.setFill(Color.RED);
+	//	Text thanks = new Text();
+	//	thanks.setText("We also want to thank our tutor Maximilian Zöllner");
 		thanks.setFont(Font.font("UglyQua", 20));
+		thanks.setTextAlignment(TextAlignment.CENTER);
+		thanks.setAlignment(Pos.CENTER);
+		thanks.setTextFill(Color.RED);
+		thanks.autosize();
 		grid.add(back, 0, 0);
 		forText.add(text, 0, 0);
 		forText.add(thanks,0,2);
@@ -114,7 +116,6 @@ public class TeamInfoState implements GameState {
 		HBox pictures = new HBox(140);
 		pictures.getChildren().addAll(one,two,three,four,five);
 		forText.add(pictures, 0, 1);
-		thanks.setTextAlignment(TextAlignment.CENTER);
 		manager.getRoot().setBottom(grid);
 		manager.getRoot().setCenter(forText);
 	}
