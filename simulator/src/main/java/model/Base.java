@@ -15,7 +15,13 @@ public class Base extends Water {
 		this.team = team;
 	}
 
-	
+	/**
+	 * Drops Treasure onto base -> gives points to team
+	 * 
+	 * @param value 	the amout of treasure to drop
+	 * @returns	true
+	 * @Autor Daniel
+	 */
 	@Override
 	public boolean dropTreasure(int value){
 		if(value == 0)
