@@ -62,6 +62,18 @@ public class Simulator {
 				shipStream.close();
 			}
 		}
+		for(int i = 0; i< shipFiles.length; i++)
+		{
+			InputStream shipStream = getClass().getResourceAsStream(shipFiles[i]);
+			if(shipStream == null)
+				shipStream = new FileInputStream(shipFiles[i]);
+			Scanner scanner = new Scanner(shipStream);
+			String shipString = "";
+			while(scanner.hasNextLine())
+				shipString += scanner.nextLine() + "\n";
+			scanner.close();
+			shipFiles[i] = shipString;
+		}
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
 			mapStream= new FileInputStream(mapFile);
@@ -70,7 +82,6 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		mapStream.close();
 		if(logFile != null)
 		{
 			logWriter = new Log();
