@@ -79,7 +79,7 @@ public class Translator {
 		this.reports = new HashMap<Character, List<String>>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
-		this.labelized = true;
+		this.labelized = false;
 		this.labels = new HashMap<String, Integer>();
 	}
 	
