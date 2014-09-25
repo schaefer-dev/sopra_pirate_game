@@ -4,8 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,46 +14,43 @@ import Events.HoverEvent;
 import Events.SwitchState;
 import Tests.GameState;
 import Tests.Resolution;
-import Tests.StateManager;
+import Tests.GUIController;
 
 public class SettingsState implements GameState {	
 	
-	private StateManager manager;
+	private GUIController manager;
+	private GridPane root;
 	
 	@Override
-	public void Entered(StateManager root) {
-		manager = root;
+	public void Entered(GUIController control) {
+		manager = control;
 		manager.getTitleText().setText("Settings");
 		
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
-		
-		ObservableList<String> supportedResolutions = FXCollections.observableArrayList(Resolution.FULLSCREEN.toString(), Resolution.SD.toString());
+		ObservableList<Resolution> supportedResolutions = FXCollections.observableArrayList(Resolution.FULLSCREEN, Resolution.SD);
 		if(Screen.getPrimary().getVisualBounds().getMaxY() > 700)
-			supportedResolutions.add(Resolution.HD.toString());
-		if(Screen.getPrimary().getVisualBounds().getMaxY() > 1000)
-			supportedResolutions.add(Resolution.FHD.toString());
+			supportedResolutions.add(Resolution.HD);
+		if(Screen.getPrimary().getVisualBounds().getMaxY() >= 1040)
+			supportedResolutions.add(Resolution.FHD);
 		
 		Label resolutionLabel = new Label("Resolution");
-		final ComboBox<String> resolutionBox = new ComboBox<String>(supportedResolutions);
-		
-		Button back = new Button("< Back");
-		back.setAlignment(Pos.BOTTOM_LEFT);
-		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go back to main menu"));
-		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
-		back.setOnAction(new SwitchState(manager, new MainMenuState()));
-
-		resolutionBox.setValue(manager.getResolution().toString());
+		final ComboBox<Resolution> resolutionBox = new ComboBox<Resolution>(supportedResolutions);
+		resolutionBox.setValue(manager.getResolution());
 		addResolutionListener(resolutionBox);
 		
-		grid.add(resolutionLabel, 0, 0);
-		grid.add(resolutionBox, 1, 0);
-		grid.add(back, 0, 2);
+		Button back = new Button("< Back");
+		back.getStyleClass().add("menubutton");
+		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go back to main menu"));
+		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		back.setOnAction(new SwitchState(manager));
+
 		
-		manager.getRoot().setCenter(grid);
+		root = new GridPane();
+		root.getStyleClass().add("grid");
+		root.add(resolutionLabel, 0, 0);
+		root.add(resolutionBox, 1, 0);
+		root.add(back, 0, 2);
+		
+		manager.getRoot().setCenter(root);
 	}
 
 	@Override
@@ -63,12 +58,21 @@ public class SettingsState implements GameState {
 		manager.getRoot().setCenter(null);
 	}
 	
-	private void addResolutionListener(ComboBox<String> resolution){
-		resolution.valueProperty().addListener(new ChangeListener<String>(){
+	@Override
+	public void Concealing() {
+		manager.getRoot().setCenter(null);
+	}
+
+	@Override
+	public void Revealed() {
+		manager.getRoot().setCenter(root);
+	}
+	
+	private void addResolutionListener(ComboBox<Resolution> resolution){
+		resolution.valueProperty().addListener(new ChangeListener<Resolution>(){
 
 			@Override
-			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-				
+			public void changed(ObservableValue<? extends Resolution> arg0, Resolution arg1, Resolution arg2) {
 				Stage stage = manager.getStage();
 				double midX = Screen.getPrimary().getVisualBounds().getMaxX()/2;
 				double midY = Screen.getPrimary().getVisualBounds().getMaxY()/2;
@@ -77,25 +81,25 @@ public class SettingsState implements GameState {
 				double height = 480;
 				
 				switch(arg2){
-					case "Auto (Fullscreen)":
+					case FULLSCREEN:
 						width  = Screen.getPrimary().getVisualBounds().getMaxX();
 						height = Screen.getPrimary().getVisualBounds().getMaxY();
 						stage.setFullScreen(true);
 						manager.setResolution(Resolution.FULLSCREEN);
 						break;
-					case "480p (Window)":
+					case SD:
 						width  = 854;
 						height = 480;
 						stage.setFullScreen(false);
 						manager.setResolution(Resolution.SD);
 						break;
-					case "720p (Window)":
+					case HD:
 						width  = 1280;
 						height = 720;
 						stage.setFullScreen(false);
 						manager.setResolution(Resolution.HD);
 						break;
-					case "1080p (Window)":
+					case FHD:
 						width  = 1980;
 						height = 1080;
 						stage.setFullScreen(false);
@@ -107,6 +111,7 @@ public class SettingsState implements GameState {
 				stage.setY(midY - height/2);
 				stage.setHeight(height);
 				stage.setWidth(width);
+				
 			}	
 		});
 	}

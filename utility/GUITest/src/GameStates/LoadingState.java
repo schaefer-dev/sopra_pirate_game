@@ -3,19 +3,18 @@ package GameStates;
 import Tests.GameState;
 import Tests.GUIController;
 
-public class TeamInfoState implements GameState {
+public class LoadingState implements GameState {
 
-	private GUIController manager;
 	@Override
 	public void Entered(GUIController root) {
-		manager = root;
-		manager.getTitleText().setText("Team Info");
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void Exiting() {
-		manager.getRoot().setCenter(null);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
