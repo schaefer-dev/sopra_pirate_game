@@ -68,7 +68,7 @@ public class StateManager extends Application {
 		primaryStage.setResizable(false);
 		stage.show();
 		
-		//setScreen(scene);
+		setScreen(scene);
 		addResizeListener(scene);
 		addKeyListener(scene);
 	}
