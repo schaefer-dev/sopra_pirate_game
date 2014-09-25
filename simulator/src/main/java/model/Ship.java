@@ -120,8 +120,14 @@ public class Ship {
 					}
 				}
 			}
-			else
+			else{
 				changePause(-1);
+				noPositivActionCounter+=1;
+				if (noPositivActionCounter==40){
+					this.changeMoral(-1);
+					noPositivActionCounter=0;
+				}
+			}
 		}
 	}
 

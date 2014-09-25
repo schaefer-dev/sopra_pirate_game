@@ -172,7 +172,7 @@ public class MapGenerator {
 					logStream = new FileOutputStream(logFile);
 			}
 			((Log) log).addLogger(LogProvider.createInstance("DEFAULT"));
-		//	LogProvider.register("BYPASS",SimpleLogWriter.class);
+		//	LogProvider.register("BYPASS",SimpleLogWriter.class);				
 		//	((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
 			for(Field[] row : fields)

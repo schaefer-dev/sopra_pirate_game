@@ -226,7 +226,7 @@ public class FieldTest {
 		Base base = ((Base) rechtsUntenHinten);
 		int score = base.getTeam().getScore();
 		
-		rechtsUntenHinten.exchangeTreasure(3);
+		rechtsUntenHinten.dropTreasure(3);
 		assertTrue("giving Treasure to the base did not work.", score+3 == base.getTeam().getScore());
 		assertTrue("change in FleetScore was not logged.", log.what.remove("changeScore"));
 		assertTrue("wrong values were logged", log.values.remove(toInteger(base.getTeam().getName()-'a')) && log.values.remove(toInteger(3)));

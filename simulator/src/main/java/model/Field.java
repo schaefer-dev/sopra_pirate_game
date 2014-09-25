@@ -169,4 +169,15 @@ public abstract class Field {
 	public Map getMap(){
 		return map;
 	}
+
+
+	/**
+	 * 
+	 * @param value
+	 * @return	returns this.exchangeTreasure(value), only overwritten in base for being able to drop treasure on base if you hit a island for exmple
+	 * @Author Daniel
+	 */
+	public boolean dropTreasure(int value) {
+		return this.exchangeTreasure(value);
+	}
 }

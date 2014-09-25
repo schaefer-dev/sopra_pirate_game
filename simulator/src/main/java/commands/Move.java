@@ -135,8 +135,10 @@ public class Move implements Command {
 			ship.changeCondition(-1);
 			ship.setPC(elsePC);
 			if (load >= 1){
-				ship.setLoad(load-1);
-				shipField.exchangeTreasure(+1);
+				if (ship.getPosition()!=null){		//case for ship already destroyed
+					ship.setLoad(load-1);
+					shipField.exchangeTreasure(+1);
+				}
 			}		
 			break;
 			
@@ -146,8 +148,10 @@ public class Move implements Command {
 			ship.changeCondition(-1);
 			ship.setPC(elsePC);
 			if (load >= 1){
-				ship.setLoad(load-1);
-				shipField.exchangeTreasure(+1);
+				if (ship.getPosition()!=null){			//case for ship already destroyed
+					ship.setLoad(load-1);
+					shipField.exchangeTreasure(+1);
+				}
 			}		
 			break;		
 		}
