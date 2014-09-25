@@ -41,19 +41,13 @@ public class TranslatorTest {
 		commands = constr.getCommandList();
 	}
 	
-	@Test
-	public void testExampleTactic(){
-		String tactic = lines.get(lines.size()-1); //das letzte element der liste ist die taktik im ganzen.
-		InputStream in = stringToStream(tactic);
-		List<Command> erg = translator.run(in);
-		assertEquals("translation of the example tactic did not result in the correct list of commands",commands,erg);
-	}
 	@Test 
 	public void testLabels(){
 		List<Command> soll = new LinkedList<Command>();
 		String labeledTactics = "move else hierhin\n"
-				+"sense 2"
-				+"*hierhin sense 0";
+				+"sense 2\n"
+				+"*hierhin sense 0\n";
+				
 		InputStream in = stringToStream(labeledTactics);
 		Move move = new Move(2);
 		Sense sense2= new Sense(2); 
@@ -62,8 +56,26 @@ public class TranslatorTest {
 		soll.add(sense2);
 		soll.add(sense0);
 		List<Command> erg = translator.run(in);
+		/*for (Command expected: soll)
+			System.out.println("soll: " + expected);
+		for (Command build: erg){
+			System.out.println("erg:" + build);
+			if(build instanceof Move){
+				Move mo = (Move) build;
+				System.out.println("mo:" + mo.getPC());
+ 			}			
+		}*/
 		assertEquals("Labels haben nicht funktioniert", soll, erg);
 	}
+	
+	@Test
+	public void testExampleTactic(){
+		String tactic = lines.get(lines.size()-1); //das letzte element der liste ist die taktik im ganzen.
+		InputStream in = stringToStream(tactic);
+		List<Command> erg = translator.run(in);
+		assertEquals("translation of the example tactic did not result in the correct list of commands",commands,erg);
+	}
+	
 	@Test
 	public void testNoSpacesInComparisons(){
 		String badTactic = "move else 1\n"
@@ -546,7 +558,7 @@ public class TranslatorTest {
 		}
 		catch(IllegalArgumentException e){}
 	}
-	
+
 	private InputStream stringToStream(String tactic)
 	{
 

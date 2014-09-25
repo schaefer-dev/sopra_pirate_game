@@ -59,10 +59,10 @@ import commands.Unmark;
  */
 public class Translator {
 	
-	Map<String, Integer> labels = new HashMap<String, Integer>();
+	Map<String, Integer> labels;
 	Map<Character, List<String>> reports;
 	List<String> errors;
-	boolean labelized = false;
+	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row;
@@ -76,7 +76,8 @@ public class Translator {
 		this.reports = new HashMap<Character, List<String>>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
-		this.labelized = false;
+		this.labelized = true;
+		this.labels = new HashMap<String, Integer>();
 	}
 	
 	/** @Specs: splits the given line in a and saves the first word in currentElements and the rest 
@@ -87,7 +88,7 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		if (!line.startsWith("*"))
+		//if (!line.startsWith("*"))
 			line.trim();
 		splits = line.split(" ");
 		String res = "";
@@ -452,20 +453,34 @@ public class Translator {
 		invokes += 1;
 					try {
 				if(labelized){
-			//	tacticsdoc.mark(0);
-					while(tacticsdoc.readLine() != null){
-						makeSplits(tacticsdoc.readLine());
-						if(currentElement.startsWith("*"))
+				tacticsdoc.mark(140*2000);
+					while(true){
+						String labeledLine = tacticsdoc.readLine();
+						if(row >= 2001){
+							tooLong = true;
+							break;
+						}
+						if(labeledLine == null)
+							break;
+						makeSplits(labeledLine);
+//						System.out.println("blub: " + labeledLine);
+//						System.out.println(currentElement);
+						if(currentElement.startsWith("*")){
+//							System.out.println("ROW!!! " + row);
 							labels.put(currentElement.substring(1).toLowerCase(), row);
-						else continue;
-					row++;
+							row++;
+						}else{ 
+							row++;
+							continue;
+						}
 					}
-		//		if(tacticsdoc.markSupported())
-		//			tacticsdoc.reset();
-		//		else throw new IllegalStateException("mark not supported!");
+				if(tacticsdoc.markSupported())
+					tacticsdoc.reset();
+				else throw new IllegalStateException("mark not supported!");
 				row = 0;
 				}
-						
+//				System.out.println("blub.: " + labels.size() + labels.keySet() + labels.values());
+	
 				while(true){
 					String currentLine = tacticsdoc.readLine();
 					if(row >= 2001){
@@ -476,7 +491,15 @@ public class Translator {
 						break;
 					if(row >= 139)
 						input = row + " " + input + currentLine + "\n";
-					tactic.add(translate(currentLine));	
+					//System.out.println("Current: " + currentLine);
+					if(labelized){
+						if(currentLine.trim().startsWith("*")){
+							makeSplits(currentLine);
+							tactic.add(translate(appendix));
+						}else
+							tactic.add(translate(currentLine));	
+					}else 	
+						tactic.add(translate(currentLine));	
 					reports.put(((char)( 'a' + invokes)), errors);
 					row++;
 				}
