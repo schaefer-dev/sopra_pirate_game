@@ -131,7 +131,7 @@ public class GUIController extends Application {
 		setScreen(scene);
 		addResizeListener(scene);
 		addKeyListener(scene);
-		File temp = new File("F:\\Eigene Dateien\\Jan\\Uni\\SoPra\\gruppe-05\\utility\\GUITest\\Filmmusik.mp3");
+		File temp = new File("bin\\ressources\\Filmmusik.mp3");
 		final Media media = new Media(temp.toURI().toString());
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
