@@ -126,7 +126,7 @@ public class Translator {
 		if(toAdd.equalsIgnoreCase("error"))
 			delabeledTactics = delabeledTactics + "INVALID: " + currentElement + "\n";
 		else
-			delabeledTactics = delabeledTactics + "		" + toAdd;						
+			delabeledTactics = delabeledTactics + " " + toAdd;						
 
 	}
 	private Command translate(String line){
@@ -143,7 +143,6 @@ public class Translator {
 		line = line.replaceAll("	"," ");
 		columns = line.length();
 		makeSplits(line.trim());
-
 
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
@@ -569,42 +568,43 @@ public class Translator {
 				row = 0;
 				}
 /******************HIER BEGINNT DAS PARSEN*****************************/
-				if(labelized){
-					File file = new File("src/test/resources/dereferenzierteTaktik.log");
-					out = new PrintWriter(file);
+				
 						while(true){
 							String currentLine = tacticsdoc.readLine();
-							currentLine = currentLine.replaceAll("	", " ");
-								if(row >= 2001){
-									tooLong = true;
-									break;
-								}
-								if(currentLine == null || currentLine.isEmpty())
-									break;
+						//	currentLine = currentLine.replaceAll("	", " ");
+							if(row >= 2001){
+								tooLong = true;
+								break;
+							}
+							if(currentLine == null || currentLine.isEmpty())
+								break;
 								/*if(row >= 139)
 						input = row + " " + input + currentLine + "\n";*/
-								if(labelized){
-										if(currentLine.startsWith("*")){
-											makeSplits(currentLine);
-											tactic.add(translate(appendix));
-										}else
-											tactic.add(translate(currentLine.replaceAll("	", " ")));
-								}else 	
-									tactic.add(translate(currentLine));	
-								reports.put(((char)( 'a' + invokes)), errors);
-								row++;
-						}
+							if(labelized){
+									if(currentLine.startsWith("*")){
+										makeSplits(currentLine);
+										tactic.add(translate(appendix));
+									}else
+										tactic.add(translate(currentLine.replaceAll("	", " ")));
+							}else 	
+								tactic.add(translate(currentLine.replaceAll("	", " ")));	
+							reports.put(((char)( 'a' + invokes)), errors);
+							row++;
+					}
+					if(labelized){
+					File file = new File("src/test/resources/dereferenzierteTaktik.log2");
+					out = new PrintWriter(file);	
 					out.write(delabeledTactics);
 					out.close();
 				}	
 				
-				/*if (errors.size() > 0){
+				if (errors.size() > 0){
 					int error = 0;
 					while(error < errors.size()){
 						System.out.println("Error:" + (error+1) + errors.get(error));
 						error++;
 					}
-				}*/
+				}
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}
