@@ -128,10 +128,10 @@ public class GUIController extends Application {
 		//primaryStage.setResizable(false);
 		stage.show();
 		
-		setScreen(scene);
+		//setScreen(scene);							//TODO GUI-CSS switch
 		addResizeListener(scene);
 		addKeyListener(scene);
-		File temp = new File("bin\\ressources\\Filmmusik.mp3");
+		File temp = new File("bin//ressources//Filmmusik.mp3");
 		final Media media = new Media(temp.toURI().toString());
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
