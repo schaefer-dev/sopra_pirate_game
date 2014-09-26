@@ -206,6 +206,7 @@ public class Move implements Command {
 		}
 		else{
 			ship.setPC(elsePC);
+			targetShip.setLoad(0);
 		}
 		
 	}
@@ -242,7 +243,11 @@ public class Move implements Command {
 		ship.changeMoral(-1);
 		ship.changeCondition(-1);
 		if(shipCondition != 0)
+		{
 			ship.setPC(elsePC);
+			ship.setLoad(0);
+		}
+		
 }
 	
 	@Override
