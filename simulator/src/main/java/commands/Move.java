@@ -181,7 +181,6 @@ public class Move implements Command {
 	 * @param targetShip
 	 */
 	private void executeShipWins(Ship ship, Ship targetShip){
-		int targetCondition = targetShip.getCondition();
 		int shipLoad = ship.getLoad();
 		int targetLoad = targetShip.getLoad();
 		
@@ -200,7 +199,7 @@ public class Move implements Command {
 		Field savedShipPosition = targetShip.getPosition();
 		targetShip.changeMoral(-1);
 		targetShip.changeCondition(-1);
-		if(targetCondition == 1){
+		if(targetShip.getCondition() == 0){
 			calcAndSetShipPause(ship);
 			ship.getPosition().moveShip(savedShipPosition);
 		}
@@ -242,7 +241,7 @@ public class Move implements Command {
 			ship.getPosition().exchangeTreasure(shipLoad); // drop additional value to ground
 		ship.changeMoral(-1);
 		ship.changeCondition(-1);
-		if(shipCondition != 0)
+		if(ship.getCondition() != 0)
 		{
 			ship.setPC(elsePC);
 			ship.setLoad(0);
