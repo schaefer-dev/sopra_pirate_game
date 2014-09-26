@@ -201,7 +201,7 @@ public class CommandMoveTest {
 	}
 	
 	@Test
-	public void testMoveShipEnemyWinsurvive(){
+	public void testMoveShipEnemyLoosesurvive(){
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(4);
@@ -222,7 +222,7 @@ public class CommandMoveTest {
 	}
 	
 	@Test
-	public void testMoveShipEnemyWinNotsurvive(){
+	public void testMoveShipEnemyLooseNotsurvive(){
 		
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
@@ -243,7 +243,7 @@ public class CommandMoveTest {
 	}
 	
 	@Test
-	public void testMoveShipEnemyLooseSurvive(){
+	public void testMoveShipEnemyWinSurvive(){
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(-4);
@@ -261,7 +261,7 @@ public class CommandMoveTest {
 		assertTrue ("pause must be 0", shipme.getPause() == 0);
 	}
 	@Test
-	public void testMoveShipEnemyLooseNotSurvive(){
+	public void testMoveShipEnemyWinNotSurvive(){
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipme.changeMoral(-4);
