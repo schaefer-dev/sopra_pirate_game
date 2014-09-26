@@ -447,6 +447,7 @@ public class CommandMoveTest {
 		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-1) == FreeId);
 		assertEquals ("", 4, shipme.getLoad());
 		assertEquals ("enemywater must have treasure 4",4, waterenemy.getTreasure().getValue());
+		assertEquals ("treasure in looser ship ust be 0", 0, shipenemy.getLoad());
 		
 		
 	}
@@ -480,6 +481,7 @@ public class CommandMoveTest {
 		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-1) == FreeId);
 		assertEquals ("", 4, shipenemy.getLoad());
 		assertEquals ("mewater must have treasure 4",4, waterme.getTreasure().getValue());
+		assertEquals ("treasure in looser ship must be 0", 0, shipme.getLoad());
 		
 		
 	}
