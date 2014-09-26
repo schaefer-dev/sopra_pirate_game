@@ -32,51 +32,51 @@ import javafx.stage.Stage;
 public class GUIController extends Application {
 
 	public Resolution resolution = Resolution.HD;
-	
+
 	private Stage stage;
 	private Scene scene;
-	
+
 	private SimulatorSettings mapSettings = new SimulatorSettings();
 	private Text title = new Text();
 	private Text hoverText = new Text();
 	private BorderPane borderPane;
-	
+
 	private Stack<GameState> states = new Stack<GameState>();
 	private GameState currentState = new MainMenuState();
-	
-	
+
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 	public void setState(GameState state) throws FileNotFoundException{
 		currentState.Exiting();
 		currentState = state;
 		currentState.Entered(this);
 	}
-	
+
 	public void switchState(GameState state) throws FileNotFoundException{
 		for(GameState current: states)
 			current.Exiting();
-		
+
 		state.Entered(this);
 		states = new Stack<GameState>();
 		states.push(state);
 	}
-	
+
 	public void addState(GameState state) throws FileNotFoundException{
 		if(state == null) throw new NullPointerException();
-		
+
 		try{
 			GameState current = states.peek();
 			current.Concealing();
 		}
 		catch(EmptyStackException e){}
-		
+
 		state.Entered(this);
 		states.push(state);
 	}
-	
+
 	public GameState removeState(){
 		GameState current;
 		try{
@@ -90,10 +90,10 @@ public class GUIController extends Application {
 			states.peek().Revealed();
 		}
 		catch(EmptyStackException e){}
-		
+
 		return current;
 	}
-	
+
 	public GameState currentState(){
 		try{
 			return states.peek();
@@ -102,20 +102,20 @@ public class GUIController extends Application {
 			return null;
 		}
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Pirates of the Saaribean");
 		title.setId("title");
 		hoverText.setId("hover");
-		
+
 		GridPane bottom = new GridPane();
 		bottom.setAlignment(Pos.CENTER);
 		bottom.getChildren().add(hoverText);
-		
+
 		borderPane = new BorderPane();
 		borderPane.setTop(title);
 		BorderPane.setMargin(title, new Insets(25,25,25,25));
@@ -129,8 +129,8 @@ public class GUIController extends Application {
 		stage.setScene(scene);
 		//primaryStage.setResizable(false);
 		stage.show();
-		
-		setScreen(scene);
+
+		//setScreen(scene);							//TODO GUI-CSS switch
 		addResizeListener(scene);
 		addKeyListener(scene);
 		try{
@@ -141,38 +141,38 @@ public class GUIController extends Application {
 		}
 		catch(Exception e){}
 	}
-	
+
 	public Text getTitleText(){
 		return title;
 	}
-	
+
 	public Text getHoverText(){
 		return hoverText;
 	}
-	
+
 	public BorderPane getRoot(){
 		return borderPane;
 	}
-		
-	
+
+
 	public SimulatorSettings getMap(){
 		return mapSettings;
 	}
-	
+
 	public Scene getScene(){
 		return scene;
 	}
-	
+
 	public Stage getStage(){
 		return stage;
 	}
-	
-	private void setScreen(Scene scene){		
+
+	private void setScreen(Scene scene){
 		int height = (int) scene.getHeight();
-		
+
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add(getClass().getResource("common.css").toExternalForm());
-		
+
 		if(height < 700)
 			scene.getStylesheets().add(getClass().getResource("480p.css").toExternalForm());
 		else if(height < 1000)
@@ -180,34 +180,34 @@ public class GUIController extends Application {
 		else
 			scene.getStylesheets().add(getClass().getResource("1080p.css").toExternalForm());
 	}
-	
+
 	public Resolution getResolution(){
 		return resolution;
 	}
-	
+
 	public void setResolution(Resolution resolution){
 		this.resolution = resolution;
 	}
-	
-	
+
+
 	private void addResizeListener(final Scene scene){
-		
+
 		scene.heightProperty().addListener(new ChangeListener<Number>() {
-			
-		    @Override 
+
+		    @Override
 		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
 		        setScreen(scene);
 		    }
 		});
 	}
-	
+
 	private void addKeyListener(final Scene scene){
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
 
 			@Override
 			public void handle(KeyEvent arg0) {
 				if(arg0.getCode().equals(KeyCode.ESCAPE));
-					Platform.exit();	
+					Platform.exit();
 			}
 		});
 	}
