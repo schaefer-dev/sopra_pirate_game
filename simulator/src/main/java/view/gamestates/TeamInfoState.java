@@ -64,9 +64,6 @@ public class TeamInfoState implements GameState {
 		texts.add(text);
 		thanks.setTextAlignment(TextAlignment.CENTER);
 		thanks.setFill(Color.RED);
-		InnerShadow innerShadow = new InnerShadow();
-		innerShadow.setColor(Color.BLACK);
-		text.setEffect(innerShadow);
 		grid.add(back, 0, 0);
 		forText.add(text, 0, 0);
 		forText.add(new Text(""), 0,2);
@@ -135,12 +132,14 @@ public class TeamInfoState implements GameState {
 		HBox pictures = new HBox(manager.getStage().getWidth()/15);
 		pictures.getChildren().addAll(one,two,three,four,five);
 		pictures.setAlignment(Pos.CENTER);
+		InnerShadow innerShadow = new InnerShadow();
+		innerShadow.setColor(Color.BLACK);
 		if(manager.getStage().getWidth() < 1280){
 			
 			for(Text akt: texts)
 			{
 				akt.setFont(Font.font("UglyQua", 13));
-	//			manager.getTitleText().setFont(Font.font("UglyQua", 46));
+				akt.setEffect(innerShadow);
 			}
 		}
 		else
@@ -148,6 +147,7 @@ public class TeamInfoState implements GameState {
 			for(Text akt: texts)
 			{
 				akt.setFont(Font.font("UglyQua", 18));
+				akt.setEffect(innerShadow);
 
 			}
 		}
