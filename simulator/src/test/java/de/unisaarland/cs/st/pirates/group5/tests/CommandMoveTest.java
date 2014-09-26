@@ -450,4 +450,36 @@ public class CommandMoveTest {
 		
 		
 	}
+	
+	@Test
+	public void testMoveShipFightTreasureOldsurvive2(){
+		shipme.changePause(-8);
+		waterme.exchangeTreasure(2);
+		shipme.changeDirection(false);
+		shipme.changeDirection(false);
+		shipenemy.changeMoral(4);
+		shipme.changeMoral(-4);
+		shipme.changeCondition(-1);
+		shipme.setLoad(4);
+		shipenemy.setLoad(2);
+		int FreeId = shipme.getPosition().getMap().giveNewEntityID();
+		
+		moveit.execute(shipme);
+		
+		assertTrue("wrong x or y coordinate",((shipme.getPosition().getX()==waterme.getX()) &&(shipme.getPosition().getY()==waterme.getY())));
+		assertTrue ("move must not be succesfull, ship must not changed fieds",shipme.getPosition().equals(waterme));
+		assertTrue("move must not be succesfull, ship must not changed fieds",waterme.getShip().equals(shipme));
+		assertTrue("move must not be succesfull, ship must not changed fieds",waterenemy.getShip().equals(shipenemy));
+		assertTrue ("winner ship must not changed condition",shipenemy.getCondition() == mecondition);
+		assertTrue ("winner ship must not changed condition",shipme.getCondition() == (mecondition -1));
+		assertTrue("pc  in else case",shipme.getPC() == 13);
+		assertEquals ("pause must be 0", 0, shipme.getPause());
+		assertTrue ("Treasure must be on mewater", waterme.getTreasure() != null );
+		assertEquals ("new treasure must have value 4",4,  waterme.getTreasure().getValue());
+		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-1) == FreeId);
+		assertEquals ("", 4, shipenemy.getLoad());
+		assertEquals ("mewater must have treasure 4",4, waterme.getTreasure().getValue());
+		
+		
+	}
 }
