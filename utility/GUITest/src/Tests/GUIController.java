@@ -7,6 +7,8 @@ import java.nio.file.FileSystems;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import com.sun.media.jfxmedia.MediaException;
+
 import GameStates.MainMenuState;
 import GameStates.MapSelectionState;
 import javafx.application.Application;
@@ -131,10 +133,13 @@ public class GUIController extends Application {
 		setScreen(scene);
 		addResizeListener(scene);
 		addKeyListener(scene);
+		try{
 		File temp = new File("bin/ressources/GUIMusik.mp3");
 		final Media media = new Media(temp.toURI().toString());
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
+		}
+		catch(Exception e){}
 	}
 	
 	public Text getTitleText(){
