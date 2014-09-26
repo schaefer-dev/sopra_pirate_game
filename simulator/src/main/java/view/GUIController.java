@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -115,7 +116,7 @@ public class GUIController extends Application {
 		//primaryStage.setResizable(false);
 		stage.show();
 		
-		//setScreen(scene);
+		setScreen(scene);
 		addResizeListener(scene);
 		//addKeyListener(scene);
 	}
@@ -147,15 +148,23 @@ public class GUIController extends Application {
 	private void setScreen(Scene scene){		
 		int height = (int) scene.getHeight();
 		
+		File file = new File("src/main/resources/common.css");
 		scene.getStylesheets().clear();
-		scene.getStylesheets().add(getClass().getResource("common.css").toExternalForm());
+		scene.getStylesheets().add(file.toURI().toString());
 		
-		if(height < 680)
-			scene.getStylesheets().add(getClass().getResource("480p.css").toExternalForm());
-		else if(height < 1000)
-			scene.getStylesheets().add(getClass().getResource("720p.css").toExternalForm());
-		else
-			scene.getStylesheets().add(getClass().getResource("1080p.css").toExternalForm());
+		if(height < 680){
+			file = new File("src/main/resources/480p.css");
+			scene.getStylesheets().add(file.toURI().toString());
+		}	
+		else if(height < 1000){
+			file = new File("src/main/resources/720p.css");
+			scene.getStylesheets().add(file.toURI().toString());
+			
+		}
+		else{
+			file = new File("src/main/resources/1080p.css");
+			scene.getStylesheets().add(file.toURI().toString());
+		}		
 	}
 	
 	public Resolution getResolution(){
