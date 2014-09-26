@@ -135,7 +135,6 @@ public class Translator {
 		List<Comparison> bools = new ArrayList<Comparison>();
 		Comparison comparison = null;
 		int type = -1;
-		boolean checkBools = true;
 		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
 		}
@@ -143,14 +142,15 @@ public class Translator {
 			System.out.println("contains tab");*/
 		line = line.replaceAll("	"," ");
 		columns = line.length();
-		makeSplits(line);
+		makeSplits(line.trim());
+
 
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
 			case DROP:
 				line = appendix;
 				overloadTest();
-				addDelabeled("drop");
+				addDelabeled("drop\n");
 				return new Drop();
 			
 			case TURN:
@@ -431,23 +431,26 @@ public class Translator {
 					if(comparison == null){
 						addDelabeled("error");
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
-						checkBools = false;
 						break;
 					}
 					addDelabeled(condition);
 					bools.add(comparison);
 				}
-				if(checkBools = false)
+				if(bools.size() < conditions.size()){
+					addDelabeled("error");
+					errors.add("l: " + row + "invalid conditions");
 					break;
-				makeSplits(appendix);
-				type = evaluateAddress(currentElement);
-				if(type != -1){
-					addDelabeled("else");
-					addDelabeled(type + "\n");
-					overloadTest();
-					return new IfAll(bools, type);
 				}else{
-						break;
+					makeSplits(appendix);
+					type = evaluateAddress(currentElement);
+					if(type != -1){
+						addDelabeled("else");
+						addDelabeled(type + "\n");
+						overloadTest();
+						return new IfAll(bools, type);
+					}else{
+							break;
+					}
 				}
 				
 			
@@ -470,23 +473,26 @@ public class Translator {
 					if(comparison == null){
 						addDelabeled("error");
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
-						checkBools = false;
 						break;
 					}
 					addDelabeled(condition);
 					bools.add(comparison);
 				}
-				if(checkBools = false)
+				if(bools.size() < conditions.size()){
+					addDelabeled("error");
+					errors.add("l: " + row + "invalid conditions");
 					break;
-				makeSplits(appendix);
-				type = evaluateAddress(currentElement);
-				if(type != -1){
-					addDelabeled("else");
-					addDelabeled(type + "\n");
-					overloadTest();
-					return new IfAny(bools, type);
 				}else{
-						break;
+					makeSplits(appendix);
+					type = evaluateAddress(currentElement);
+					if(type != -1){
+						addDelabeled("else");
+						addDelabeled(type + "\n");
+						overloadTest();
+						return new IfAny(bools, type);
+					}else{
+							break;
+					}			
 				}
 			
 			default:
@@ -533,6 +539,7 @@ public class Translator {
 		errors = new ArrayList<String>();
 		invokes += 1;
 					try {
+/*************HIER WERDEN DIE LABELS AUSGELESEN*****************************/
 				if(labelized){
 					tacticsdoc.mark(140*2000);
 					delabeledTactics ="";
@@ -544,11 +551,9 @@ public class Translator {
 							}
 							if(labeledLine == null)
 								break;
+							labeledLine = labeledLine.replaceAll("	", " ");
 							makeSplits(labeledLine);
-//							System.out.println("blub: " + labeledLine);
-//							System.out.println(currentElement);
 							if(currentElement.startsWith("*")){
-//								ystem.out.println("ROW!!! " + row);
 								labels.put(currentElement.substring(1).toLowerCase(), row);
 								row++;
 							}else{ 
@@ -556,39 +561,42 @@ public class Translator {
 								continue;
 							}
 						}
+/*************DER STREAM WIRD RESETTET*****************************************/
+
 				if(tacticsdoc.markSupported())
 					tacticsdoc.reset();
 				else throw new IllegalStateException("mark not supported!");
 				row = 0;
 				}
-//				System.out.println("blub.: " + labels.size() + labels.keySet() + labels.values());
-	
-				while(true){
-					String currentLine = tacticsdoc.readLine();
-					if(row >= 2001){
-						tooLong = true;
-						break;
-					}
-					if(currentLine == null)
-						break;
-					if(row >= 139)
-						input = row + " " + input + currentLine + "\n";
-					//System.out.println("Current: " + currentLine);
-					if(labelized){
-						File file = new File("src/test/resources/dereferenzierteTaktik.log");
-						out = new PrintWriter(file);
-						if(currentLine.trim().startsWith("*")){
-							makeSplits(currentLine);
-							tactic.add(translate(appendix));
-						}else
-							tactic.add(translate(currentLine));
-						out.write(delabeledTactics);
-						out.close();
-					}else 	
-						tactic.add(translate(currentLine));	
-					reports.put(((char)( 'a' + invokes)), errors);
-					row++;
-				}
+/******************HIER BEGINNT DAS PARSEN*****************************/
+				if(labelized){
+					File file = new File("src/test/resources/dereferenzierteTaktik.log");
+					out = new PrintWriter(file);
+						while(true){
+							String currentLine = tacticsdoc.readLine();
+							currentLine = currentLine.replaceAll("	", " ");
+								if(row >= 2001){
+									tooLong = true;
+									break;
+								}
+								if(currentLine == null || currentLine.isEmpty())
+									break;
+								/*if(row >= 139)
+						input = row + " " + input + currentLine + "\n";*/
+								if(labelized){
+										if(currentLine.startsWith("*")){
+											makeSplits(currentLine);
+											tactic.add(translate(appendix));
+										}else
+											tactic.add(translate(currentLine.replaceAll("	", " ")));
+								}else 	
+									tactic.add(translate(currentLine));	
+								reports.put(((char)( 'a' + invokes)), errors);
+								row++;
+						}
+					out.write(delabeledTactics);
+					out.close();
+				}	
 				
 				/*if (errors.size() > 0){
 					int error = 0;
