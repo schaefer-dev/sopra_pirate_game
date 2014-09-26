@@ -2,13 +2,9 @@ package Tests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.nio.file.FileSystems;
 import java.util.EmptyStackException;
 import java.util.Stack;
-
-import com.sun.media.jfxmedia.MediaException;
-
 import GameStates.MainMenuState;
 import GameStates.MapSelectionState;
 import javafx.application.Application;
@@ -25,7 +21,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayerBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -130,11 +125,11 @@ public class GUIController extends Application {
 		//primaryStage.setResizable(false);
 		stage.show();
 
-		//setScreen(scene);							//TODO GUI-CSS switch
+		setScreen(scene);							//TODO GUI-CSS switch
 		addResizeListener(scene);
 		addKeyListener(scene);
 		try{
-		File temp = new File("bin/ressources/GUIMusik.mp3");
+		File temp = new File("src/ressources/GUIMusik.mp3");
 		final Media media = new Media(temp.toURI().toString());
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.play();
