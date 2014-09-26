@@ -1,74 +1,191 @@
 package view;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
-import de.unisaarland.cs.st.pirates.logger.LogWriter;
+import view.gamestates.MainMenuState;
+import view.utility.Configuration;
+import view.utility.GameState;
+import view.utility.Resolution;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class GUIController implements LogWriter {	
+public class GUIController extends Application {
+
+	public Resolution resolution = Resolution.HD;
 	
-	@Override
-	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
+	private Stage stage;
+	private Scene scene;
+	
+	private Configuration config = new Configuration();
+	private Text title = new Text();
+	private Text hoverText = new Text();
+	private BorderPane borderPane;
+	
+	private Stack<GameState> states = new Stack<GameState>();
+	
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+	
+	public void switchState(GameState state){
+		if(state == null) throw new NullPointerException();
 		
-	}
-	
-	@Override
-	public void close() throws IllegalStateException, IOException {
-
-	}
-	
-	
-	@Override
-	public LogWriter create(Entity arg0, int arg1, Key[] arg2, int[] arg3) throws NullPointerException, IllegalArgumentException, ArrayIndexOutOfBoundsException, IllegalStateException {
+		for(GameState current: states)
+			current.exiting();
 		
-		return this;
+		state.entered(this);
+		states = new Stack<GameState>();
+		states.push(state);
 	}
 	
-	@Override
-	public LogWriter destroy(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
-		// TODO Auto-generated method stub
-		return this;
-	}
-	
-	@Override
-	public LogWriter addCustomHeaderData(String arg0) throws NullPointerException, ArrayIndexOutOfBoundsException {
+	public void addState(GameState state){
+		if(state == null) throw new NullPointerException();
 		
-		return this;
+		try{
+			GameState current = states.peek();
+			current.concealing();
+		}
+		catch(EmptyStackException e){}
+		
+		state.entered(this);
+		states.push(state);
+	}
+	
+	public GameState removeState(){
+		GameState current;
+		try{
+			current = states.pop();
+			current.exiting();
+		}
+		catch(EmptyStackException e){
+			throw e;
+		}
+		try{
+			states.peek().revealed();
+		}
+		catch(EmptyStackException e){}
+		
+		return current;
+	}
+	
+	public GameState currentState(){
+		try{
+			return states.peek();
+		}
+		catch(EmptyStackException e){
+			return null;
+		}
 	}
 	
 	@Override
-	public LogWriter notify(Entity arg0, int arg1, Key arg2, int arg3) throws NullPointerException, IllegalArgumentException, IllegalStateException {
+	public void start(Stage primaryStage) throws Exception {
+		stage = primaryStage;
+		stage.setTitle("Pirates of the Saaribean");
+		title.setId("title");
+		hoverText.setId("hover");
+		
+		GridPane bottom = new GridPane();
+		bottom.setAlignment(Pos.CENTER);
+		bottom.getChildren().add(hoverText);
+		
+		borderPane = new BorderPane();
+		borderPane.setTop(title);
+		BorderPane.setMargin(title, new Insets(25,25,25,25));
+		BorderPane.setAlignment(title, Pos.TOP_CENTER);
+		BorderPane.setAlignment(bottom, Pos.BOTTOM_CENTER);
+		borderPane.setBottom(bottom);
 
-		return this;
+		addState(new MainMenuState());
+		scene = new Scene(borderPane, 1280, 720);
+		stage.setScene(scene);
+		//primaryStage.setResizable(false);
+		stage.show();
+		
+		//setScreen(scene);
+		addResizeListener(scene);
+		//addKeyListener(scene);
 	}
 	
-	@Override
-	public void logStep() throws IllegalStateException, IOException {
+	public Text getTitleText(){
+		return title;
 	}
 	
-	@Override
-	public LogWriter fleetScore(int arg0, int arg1) throws IllegalArgumentException, IllegalStateException {
-		// TODO Auto-generated method stub
-		return this;
+	public Text getHoverText(){
+		return hoverText;
 	}
 	
-	@Override
-	public LogWriter addCell(Cell arg0, Integer arg1, int arg2, int arg3) throws NullPointerException, ArrayIndexOutOfBoundsException, IllegalArgumentException, IllegalStateException {
-		// TODO Auto-generated method stub
-		return this;
+	public BorderPane getRoot(){
+		return borderPane;
 	}
-
-
-
-	@Override
-	public Transaction beginTransaction(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
-		// TODO Auto-generated method stub
-		return null;
+		
+	public Configuration getConfiguration(){
+		return config;
 	}
+	
+	public Scene getScene(){
+		return scene;
+	}
+	
+	public Stage getStage(){
+		return stage;
+	}
+	
+	private void setScreen(Scene scene){		
+		int height = (int) scene.getHeight();
+		
+		scene.getStylesheets().clear();
+		scene.getStylesheets().add(getClass().getResource("common.css").toExternalForm());
+		
+		if(height < 680)
+			scene.getStylesheets().add(getClass().getResource("480p.css").toExternalForm());
+		else if(height < 1000)
+			scene.getStylesheets().add(getClass().getResource("720p.css").toExternalForm());
+		else
+			scene.getStylesheets().add(getClass().getResource("1080p.css").toExternalForm());
+	}
+	
+	public Resolution getResolution(){
+		return resolution;
+	}
+	
+	public void setResolution(Resolution resolution){
+		this.resolution = resolution;
+	}
+	
+	
+	private void addResizeListener(final Scene scene){
+		
+		scene.heightProperty().addListener(new ChangeListener<Number>() {
+			
+		    @Override 
+		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+		        setScreen(scene);
+		    }
+		});
+	}
+	
+	private void addKeyListener(final Scene scene){
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
 
-	@Override
-	public LogWriter commitTransaction(Transaction arg0) throws NullPointerException, IllegalArgumentException, IllegalStateException {
-		// TODO Auto-generated method stub
-		return null;
+			@Override
+			public void handle(KeyEvent arg0) {
+				if(arg0.getCode().equals(KeyCode.ESCAPE));
+					Platform.exit();	
+			}
+		});
 	}
 }
