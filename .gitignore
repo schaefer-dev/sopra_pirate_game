@@ -1,3 +1,4 @@
 *~
 .log
 /simulator/src/test/resources/*.log
+simulator/.classpath
