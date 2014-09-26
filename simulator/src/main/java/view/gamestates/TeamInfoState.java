@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.sun.scenario.effect.Effect;
 
@@ -36,14 +38,15 @@ public class TeamInfoState implements GameState {
 	public void entered(GUIController root) {
 		manager = root;
 		manager.getTitleText().setText("Team Info");
+		List<Text> texts = new LinkedList<Text>();
 		Text thanks = new Text("                                                        We also want to thank our tutor Maximilian Zöllner");
+		texts.add(thanks);
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		GridPane forText = new GridPane();
-		ScrollPane scroll = new ScrollPane();
 		forText.setAlignment(Pos.TOP_CENTER);
 		manager.getTitleText().setText("The Team");
 		Button back = new Button("< Back");
@@ -58,33 +61,17 @@ public class TeamInfoState implements GameState {
 				+ "We are proud to announce that we did not only manage to present you with the most silly pirate names and map creations.\n We also succeded in finding the most hidious designs for ships\n"
 				+ "But enough of talking: This is your amazing team of game developers: Group 5\n");
 		text.setFill(Color.RED);
-		text.setFont(Font.font("UglyQua", 18));
-		
-		thanks.setFont(Font.font("UglyQua", 18));
+		texts.add(text);
 		thanks.setTextAlignment(TextAlignment.CENTER);
 		thanks.setFill(Color.RED);
-		scroll.setContent(text);
-		scroll.setPrefSize(manager.getStage().getWidth()-50, manager.getStage().getHeight() - 250);
-
-		if(manager.getStage().getWidth() < 1280){
-			text.setFont(Font.font("UglyQua", 14));
-			thanks.setFont(Font.font("UglyQua", 14));
-		}
-		else
-		{
-			text.setFont(Font.font("UglyQua", 19));
-			thanks.setFont(Font.font("UglyQua", 19));
-		}
-			
 		InnerShadow innerShadow = new InnerShadow();
-		 innerShadow.setColor(Color.BLACK);
+		innerShadow.setColor(Color.BLACK);
 		text.setEffect(innerShadow);
 		grid.add(back, 0, 0);
-		forText.add(scroll, 0, 0);
+		forText.add(text, 0, 0);
 		forText.add(new Text(""), 0,2);
-		forText.add(new Text(""), 0,3);
 		forText.add(new Text(""), 0,1);
-		forText.add(thanks,0,4);
+		forText.add(thanks,0,3);
 		
 		int imageSize = 100;
 		if(manager.getStage().getHeight() < 720 /*resolution HD */)
@@ -111,42 +98,60 @@ public class TeamInfoState implements GameState {
 		text.setTextAlignment(TextAlignment.CENTER);
 		VBox one = new VBox(15);
 		Text janna = new Text();
+		texts.add(janna);
 		janna.setText("Janna Herrmann");
-		janna.setFont(Font.font("UglyQua", 20));
 		one.setAlignment(Pos.CENTER);
 		one.getChildren().add(janna);
 		one.getChildren().add(v1);
 		VBox two = new VBox(15);
 		Text rafael = new Text();
 		rafael.setText("Rafael Theis");
-		rafael.setFont(Font.font("UglyQua", 20));
+		rafael.setFont(Font.font("UglyQua", 18));
+		texts.add(rafael);
 		two.setAlignment(Pos.CENTER);
 		two.getChildren().add(rafael);
 		two.getChildren().add(v2);
 		VBox three = new VBox(15);
 		Text jan = new Text();
 		jan.setText("Jan Menz");
-		jan.setFont(Font.font("UglyQua", 20));
+		texts.add(jan);
 		three.setAlignment(Pos.CENTER);
 		three.getChildren().add(jan);
 		three.getChildren().add(v3);
 		VBox four = new VBox(15);
 		Text andreas = new Text();
 		andreas.setText("Andreas Meyer");
-		andreas.setFont(Font.font("UglyQua", 20));
+		texts.add(andreas);
 		four.setAlignment(Pos.CENTER);
 		four.getChildren().add(andreas);
 		four.getChildren().add(v4);
 		VBox five = new VBox(15);
 		Text daniel = new Text();
 		daniel.setText("Daniel Schäfer");
-		daniel.setFont(Font.font("UglyQua", 20));
+		texts.add(daniel);
 		five.setAlignment(Pos.CENTER);
 		five.getChildren().add(daniel);
 		five.getChildren().add(v5);
 		HBox pictures = new HBox(manager.getStage().getWidth()/15);
 		pictures.getChildren().addAll(one,two,three,four,five);
 		pictures.setAlignment(Pos.CENTER);
+		if(manager.getStage().getWidth() < 1280){
+			
+			for(Text akt: texts)
+			{
+				akt.setFont(Font.font("UglyQua", 13));
+	//			manager.getTitleText().setFont(Font.font("UglyQua", 46));
+			}
+		}
+		else
+		{
+			for(Text akt: texts)
+			{
+				akt.setFont(Font.font("UglyQua", 18));
+
+			}
+		}
+			
 		forText.add(pictures, 0, 1);
 		manager.getRoot().setBottom(grid);
 		manager.getRoot().setCenter(forText);

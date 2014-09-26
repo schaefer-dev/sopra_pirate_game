@@ -158,21 +158,21 @@ public class GUIController extends Application {
 	private void setScreen(Scene scene){		
 		int height = (int) scene.getHeight();
 		
-		File file = new File("src/main/resources/common.css");
+		File file = new File("src/main/ressources/common.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add(file.toURI().toString());
 		
 		if(height < 680){
-			file = new File("src/main/resources/480p.css");
+			file = new File("src/main/ressources/480p.css");
 			scene.getStylesheets().add(file.toURI().toString());
 		}	
 		else if(height < 1000){
-			file = new File("src/main/resources/720p.css");
+			file = new File("src/main/ressources/720p.css");
 			scene.getStylesheets().add(file.toURI().toString());
 			
 		}
 		else{
-			file = new File("src/main/resources/1080p.css");
+			file = new File("src/main/ressources/1080p.css");
 			scene.getStylesheets().add(file.toURI().toString());
 		}		
 	}
