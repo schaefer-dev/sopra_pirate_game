@@ -20,6 +20,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -119,6 +121,14 @@ public class GUIController extends Application {
 		setScreen(scene);
 		addResizeListener(scene);
 		//addKeyListener(scene);
+		
+		try{
+			File temp = new File("src/main/ressources/GUIMusik.mp3");
+			final Media media = new Media(temp.toURI().toString());
+			final MediaPlayer mediaPlayer = new MediaPlayer(media);
+			mediaPlayer.play();
+			}
+			catch(Exception e){}
 	}
 	
 	public Text getTitleText(){
@@ -148,21 +158,21 @@ public class GUIController extends Application {
 	private void setScreen(Scene scene){		
 		int height = (int) scene.getHeight();
 		
-		File file = new File("src/main/resources/common.css");
+		File file = new File("src/main/ressources/common.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add(file.toURI().toString());
 		
 		if(height < 680){
-			file = new File("src/main/resources/480p.css");
+			file = new File("src/main/ressources/480p.css");
 			scene.getStylesheets().add(file.toURI().toString());
 		}	
 		else if(height < 1000){
-			file = new File("src/main/resources/720p.css");
+			file = new File("src/main/ressources/720p.css");
 			scene.getStylesheets().add(file.toURI().toString());
 			
 		}
 		else{
-			file = new File("src/main/resources/1080p.css");
+			file = new File("src/main/ressources/1080p.css");
 			scene.getStylesheets().add(file.toURI().toString());
 		}		
 	}

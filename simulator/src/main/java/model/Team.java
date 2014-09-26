@@ -75,12 +75,13 @@ public class Team {
 			throw new NullPointerException ("tried to delete from an empty shiplist");
 		}
 		if (ship == null){
-			throw new NullPointerException ("tried to delete null to shiplist");
+			throw new NullPointerException ("tried to delete null from shiplist");
 		}
 		else {
 		if (ships.remove(ship)){
 		
-		shipCount = shipCount -1;}
+			shipCount = shipCount -1;
+		}
 		
 		}
 	}

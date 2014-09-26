@@ -165,7 +165,7 @@ public class Simulator {
 			int load = 0;
 			for(Ship ship: team.getShips())
 				load += ship.getSenseRegister(Register.ship_load);
-			if(same)
+			if(same || teams.size() == 1)
 				System.out.println(team.getScore() + "(" +  load + "," + team.getShipCount() + "," + team.getCommands().size() + ")");
 			else
 				System.out.println(team.getScore());
