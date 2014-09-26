@@ -56,6 +56,7 @@ public class TranslatorTest {
 		soll.add(move);
 		soll.add(sense2);
 		soll.add(sense0);
+		translator.setLabelized(true);
 		List<Command> erg = translator.run(in);
 		/*for (Command expected: soll)
 			System.out.println("soll: " + expected);
@@ -66,6 +67,7 @@ public class TranslatorTest {
 				System.out.println("mo:" + mo.getPC());
  			}			
 		}*/
+		translator.setLabelized(false);
 		assertEquals("Labels haben nicht funktioniert", soll, erg);
 	}
 	

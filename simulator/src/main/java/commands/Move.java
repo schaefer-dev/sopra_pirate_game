@@ -40,7 +40,6 @@ public class Move implements Command {
 	 */
 	@Override
 	public void execute(Ship ship) {
-		// TODO Auto-generated method stub
 		Field shipField = ship.getPosition();
 		Field targetField = shipField.getNeigbour(ship.getShipDirection());
 		int load = ship.getLoad();
@@ -186,28 +185,26 @@ public class Move implements Command {
 		int shipLoad = ship.getLoad();
 		int targetLoad = targetShip.getLoad();
 		
-		if (targetCondition == 1){
-			int spareRoom = 4-shipLoad;
-			int loadLater = shipLoad;
-			while ((spareRoom > 0)&&(targetLoad > 0)){
-				targetLoad -= 1;
-				spareRoom -= 1;
-				loadLater += 1;
-			}
-			if (loadLater > 4)	//Debugging
-				throw new IllegalStateException("you should not be here... go away!");
+		int spareRoom = 4-shipLoad;
+		int loadLater = shipLoad;
+		while ((spareRoom > 0)&&(targetLoad > 0)){
+			targetLoad -= 1;
+			spareRoom -= 1;
+			loadLater += 1;
+		}
+		if (loadLater > 4)	//Debugging
+			throw new IllegalStateException("you should not be here... go away!");
+		ship.setLoad(loadLater);
+		if ((targetShip.getLoad() - (loadLater-shipLoad)) > 0)
+			targetShip.getPosition().exchangeTreasure(targetShip.getLoad() - (loadLater-shipLoad)); // drop additional value to ground
+		Field savedShipPosition = targetShip.getPosition();
+		targetShip.changeMoral(-1);
+		targetShip.changeCondition(-1);
+		if(targetCondition == 1){
 			calcAndSetShipPause(ship);
-			ship.setLoad(loadLater);
-			if ((targetShip.getLoad() - (loadLater-shipLoad)) > 0)
-				targetShip.getPosition().exchangeTreasure(targetShip.getLoad() - (loadLater-shipLoad)); // drop additional value to ground
-			Field savedShipPosition = targetShip.getPosition();
-			targetShip.changeMoral(-1);
-			targetShip.changeCondition(-1);
 			ship.getPosition().moveShip(savedShipPosition);
 		}
 		else{
-			targetShip.changeMoral(-1);
-			targetShip.changeCondition(-1);
 			ship.setPC(elsePC);
 		}
 		
@@ -229,29 +226,24 @@ public class Move implements Command {
 		int shipLoad = ship.getLoad();
 		int targetLoad = targetShip.getLoad();
 		
-		if (shipCondition == 1){
-			int spareRoom = 4-targetLoad;
-			int loadLater = targetLoad;
-			while ((spareRoom > 0)&&(shipLoad > 0)){
-				shipLoad -= 1;
-				spareRoom -= 1;
-				loadLater += 1;
-			}
-			if (loadLater > 4)	//Debugging
-				throw new IllegalStateException("you should not be here... go away!");
-			targetShip.setLoad(loadLater);
-			if ((shipLoad - loadLater) > 0)
-				ship.getPosition().exchangeTreasure(shipLoad - loadLater); // drop additional value to ground
-			ship.changeMoral(-1);
-			ship.changeCondition(-1);
+
+		int spareRoom = 4-targetLoad;
+		int loadLater = targetLoad;
+		while ((spareRoom > 0)&&(shipLoad > 0)){
+			shipLoad -= 1;
+			spareRoom -= 1;
+			loadLater += 1;
 		}
-		else{
-			ship.changeMoral(-1);
-			ship.changeCondition(-1);
+		if (loadLater > 4)	//Debugging
+			throw new IllegalStateException("you should not be here... go away!");
+		targetShip.setLoad(loadLater);
+		if (shipLoad  > 0)
+			ship.getPosition().exchangeTreasure(shipLoad); // drop additional value to ground
+		ship.changeMoral(-1);
+		ship.changeCondition(-1);
+		if(shipCondition != 0)
 			ship.setPC(elsePC);
-		}
-		
-	}
+}
 	
 	@Override
 	public boolean equals (Object o)
