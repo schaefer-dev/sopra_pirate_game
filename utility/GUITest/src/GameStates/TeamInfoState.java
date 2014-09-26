@@ -4,10 +4,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import com.sun.scenario.effect.Effect;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -30,7 +33,7 @@ public class TeamInfoState implements GameState {
 	public void Entered(GUIController root) throws FileNotFoundException {
 		manager = root;
 		manager.getTitleText().setText("Team Info");
-		Label thanks = new Label("                                   We also want to thank our tutor Maximilian Zöllner");
+		Label thanks = new Label("                                                        We also want to thank our tutor Maximilian Zöllner");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -45,22 +48,25 @@ public class TeamInfoState implements GameState {
 		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		back.setOnAction(new SwitchState(manager, new MainMenuState()));
 		
-		Text text = new Text();
+		Label text = new Label();
 		text.setText("Pirates of the S-aarrrr-ibean is a game developed by Group 5 during the 2014 \"Softwarepraktikum\" at Saarland University Germany\n"
 				+ "Group 5 consists of 5 people who are keen to present you the very best of Pirate adventures.\n"
 				+ "We are proud to announce that we did not only manage to present you with the most silly pirate names and map creations.\n We also succeded in finding the most hidious designs for ships\n"
 				+ "But enough of talking: This is your amazing team of game developers: Group 5\n");
-	//	Text thanks = new Text();
-	//	thanks.setText("We also want to thank our tutor Maximilian Zöllner");
 		thanks.setFont(Font.font("UglyQua", 20));
 		thanks.setTextAlignment(TextAlignment.CENTER);
 		thanks.setAlignment(Pos.CENTER);
 		thanks.setTextFill(Color.RED);
-		thanks.autosize();
+		InnerShadow innerShadow = new InnerShadow();
+		 innerShadow.setColor(Color.BLACK);
+		text.setEffect(innerShadow);
 		grid.add(back, 0, 0);
 		forText.add(text, 0, 0);
-		forText.add(thanks,0,2);
-		text.setFill(Color.RED);
+		forText.add(new Text(""), 0,2);
+		forText.add(new Text(""), 0,3);
+		forText.add(new Text(""), 0,1);
+		forText.add(thanks,0,4);
+		text.setTextFill(Color.RED);
 		text.setFont(Font.font("UglyQua", 20));
 		ImageView v1 = new ImageView();
 		Image picture1 = new Image("file:bildJan.jpg",100,100,true,true);
@@ -114,6 +120,13 @@ public class TeamInfoState implements GameState {
 		five.getChildren().add(daniel);
 		five.getChildren().add(v5);
 		HBox pictures = new HBox(140);
+		if(manager.getScene().getWidth() - 200 < forText.getWidth())
+		{
+			text.setText("Pirates of the S-aarrrr-ibean is a game developed by Group 5\nduring the 2014 \"Softwarepraktikum\" at Saarland University Germany\n"
+					+ "Group 5 consists of 5 people who are keen to present you the\nvery best of Pirate adventures.\n"
+					+ "We are proud to announce that we did not only manage to present\nyou with the most silly pirate names and map creations.\n We also succeded in finding the most hidious designs for ships\n"
+					+ "But enough of talking:\nThis is your amazing team of game developers: Group 5\n");
+		}
 		pictures.getChildren().addAll(one,two,three,four,five);
 		forText.add(pictures, 0, 1);
 		manager.getRoot().setBottom(grid);
@@ -128,7 +141,7 @@ public class TeamInfoState implements GameState {
 
 	@Override
 	public void Concealing() {
-		// TODO Auto-generated method stub
+		this.Exiting();
 		
 	}
 
