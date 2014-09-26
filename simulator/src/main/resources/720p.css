@@ -1,0 +1,21 @@
+#hover {
+    -fx-font-size: 25px;
+}
+
+.label {
+    -fx-font-size: 22px;
+}
+
+.menubutton {
+	-fx-font-size: 37px;
+}
+
+.vbox {
+    -fx-padding: 40 0 40 0;
+    -fx-spacing: 20;
+}
+
+.scroll-pane {
+    -fx-padding: 40 120 40 120;
+
+}
