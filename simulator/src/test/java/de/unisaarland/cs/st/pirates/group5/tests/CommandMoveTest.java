@@ -458,6 +458,7 @@ public class CommandMoveTest {
 		shipme.changeDirection(false);
 		shipme.changeDirection(false);
 		shipenemy.changeMoral(4);
+		
 		shipme.changeMoral(-4);
 		shipme.changeCondition(-1);
 		shipme.setLoad(4);
@@ -470,8 +471,8 @@ public class CommandMoveTest {
 		assertTrue ("move must not be succesfull, ship must not changed fieds",shipme.getPosition().equals(waterme));
 		assertTrue("move must not be succesfull, ship must not changed fieds",waterme.getShip().equals(shipme));
 		assertTrue("move must not be succesfull, ship must not changed fieds",waterenemy.getShip().equals(shipenemy));
-		assertTrue ("winner ship must not changed condition",shipenemy.getCondition() == mecondition);
-		assertTrue ("winner ship must not changed condition",shipme.getCondition() == (mecondition -1));
+		assertEquals("winner ship must not changed condition",3,shipenemy.getCondition());
+		assertEquals ("looser ship must  changed condition",1,shipme.getCondition());
 		assertTrue("pc  in else case",shipme.getPC() == 13);
 		assertEquals ("pause must be 0", 0, shipme.getPause());
 		assertTrue ("Treasure must be on mewater", waterme.getTreasure() != null );
