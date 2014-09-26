@@ -146,12 +146,29 @@ public class Simulator {
 		endGame = true;
 		if(logWriter != null)
 			logWriter.close();
-
+		int maxScore = -1;
+		boolean same = false;
+		for(Team team: teams)
+		{
+			if(team.getScore() == maxScore)
+				same = true;
+			else
+			{
+				if(team.getScore() > maxScore)
+				{
+					maxScore = team.getScore();
+					same = false;
+				}
+			}
+		}
 		for(Team team: teams){
 			int load = 0;
 			for(Ship ship: team.getShips())
 				load += ship.getSenseRegister(Register.ship_load);
-			System.out.println(team.getScore() + "(" +  load + "," + team.getShipCount() + "," + team.getCommands().size() + ")");
+			if(same)
+				System.out.println(team.getScore() + "(" +  load + "," + team.getShipCount() + "," + team.getCommands().size() + ")");
+			else
+				System.out.println(team.getScore());
 		}
 	}
 }
