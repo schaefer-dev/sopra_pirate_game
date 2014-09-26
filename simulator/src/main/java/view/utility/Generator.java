@@ -144,8 +144,7 @@ public class Generator {
 	
 	public void setKraken(double krakenCount){
 		if(krakenCount > countFieldType(water)) throw new IllegalArgumentException("There can't be more kraken than water fields");
-		
-		
+		//TODO: implement this
 	}
 	
 	public void setBases(double baseChance){

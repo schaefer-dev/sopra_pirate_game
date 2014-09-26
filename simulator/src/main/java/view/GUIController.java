@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import view.gamestates.InGameState;
 import view.gamestates.MainMenuState;
 import view.utility.Configuration;
 import view.utility.GameState;
@@ -112,11 +113,12 @@ public class GUIController extends Application {
 		BorderPane.setAlignment(bottom, Pos.BOTTOM_CENTER);
 		borderPane.setBottom(bottom);
 
-		addState(new MainMenuState());
+
 		scene = new Scene(borderPane, 1280, 720);
 		stage.setScene(scene);
 		//primaryStage.setResizable(false);
 		stage.show();
+		addState(new InGameState());
 		
 		setScreen(scene);
 		addResizeListener(scene);
