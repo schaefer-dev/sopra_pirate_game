@@ -15,7 +15,7 @@ public class Map {
 	
 	
 	public Map(char[][] map, Camera cam){
-		if(map == null) throw new NullPointerException();
+		if(map == null || cam == null) throw new NullPointerException();
 		
 		this.cam = cam;
 		this.map = map;
