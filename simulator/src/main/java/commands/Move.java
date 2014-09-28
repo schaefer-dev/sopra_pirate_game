@@ -131,27 +131,29 @@ public class Move implements Command {
 		case Island: 
 			//Island targetIsland=(Island)targetField;
 			ship.changeMoral(-1);
-			ship.changeCondition(-1);
-			ship.setPC(elsePC);
 			if (load >= 1){
-				if (ship.getPosition()!=null){		//case for ship already destroyed
+			//	if (ship.getPosition()!=null){		//case for ship already destroyed
 					ship.setLoad(load-1);
 					shipField.exchangeTreasure(+1);
-				}
+		//		}
 			}		
+			ship.changeCondition(-1);
+			ship.setPC(elsePC);
+			
 			break;
 			
 		case ProvisionIsland:
 			//ProvisionIsland targetProvIsland=(ProvisionIsland)targetField;
 			ship.changeMoral(-1);
-			ship.changeCondition(-1);
-			ship.setPC(elsePC);
 			if (load >= 1){
-				if (ship.getPosition()!=null){			//case for ship already destroyed
+			//	if (ship.getPosition()!=null){			//case for ship already destroyed
 					ship.setLoad(load-1);
 					shipField.exchangeTreasure(+1);
-				}
+		//		}
 			}		
+			ship.changeCondition(-1);
+			ship.setPC(elsePC);
+		
 			break;		
 		}
 	}
