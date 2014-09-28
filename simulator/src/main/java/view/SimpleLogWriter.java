@@ -14,7 +14,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
  * the init(..) method
  * 
  * 
- * @author Rafael THeis
+ * @author Rafael Theis
  *
  */
 public class SimpleLogWriter implements LogWriter {

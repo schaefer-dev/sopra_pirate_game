@@ -21,12 +21,12 @@ public class SelectionFile extends SelectionWindow {
 		root.getStyleClass().add("preview");
 		
 		final FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MAP", "*.map"));	//TODO: change to *.map
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MAP", "*.map"));
 		final Button openFile = new Button("-> File Explorer");
 		openFile.getStyleClass().add("openbutton");
         openFile.setOnAction(new EventHandler<ActionEvent>(){
         	
-                    @Override
+            @Override
             public void handle(final ActionEvent e) {
                     	
                 mapFile = fileChooser.showOpenDialog(control.getStage());
@@ -37,12 +37,13 @@ public class SelectionFile extends SelectionWindow {
         
         root.getChildren().add(openFile);
 	}
+	
 	@Override
 	public void draw(GraphicsContext gc) {
 		try{
 			MapPreview preview = new MapPreview(mapFile);
 			preview.draw(gc);
-		}
+			}
 		catch(Exception e){
 			control.getHoverText().setText("Invalid map. Please try another file.");
 		}

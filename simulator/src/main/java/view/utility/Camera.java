@@ -11,20 +11,27 @@ public class Camera {
 
 	public int a, b, c, d;	
 	
+	private boolean scrollable;
+	
 	public Camera(Canvas canvas){
 		minX = a = 0;
 		minY = c = 0;
 		maxX = b = (int) canvas.getWidth();
 		maxY = d = (int) canvas.getHeight();
+		scrollable = true;
 	}
 	
-	public Camera(char[][] map){
+	public Camera(Field[][] map){
 		minX = a = 0;
 		minY = c = 0;
 		maxX = b = (int) map.length;
 		maxY = d = (int) map[0].length;
+		scrollable = true;
 	}
 	
+	public void setScollable(boolean scollable){
+		this.scrollable = scollable;
+	}
 	
 	public void setMid(int x, int y){
 		int width  = b - a;
@@ -35,18 +42,26 @@ public class Camera {
 		int cTemp = y - height/2;
 		int dTemp = y + height/2;
 		
-		if(aTemp >= minX && bTemp <= maxX){
+		if(!scrollable){
+			if(aTemp >= minX && bTemp <= maxX){
+				a = aTemp;
+				b = bTemp;
+			}
+			if(cTemp >= minY && dTemp <= maxY){
+				c = cTemp;
+				d = dTemp;
+			}	
+		}
+		else{
 			a = aTemp;
 			b = bTemp;
-		}
-		if(cTemp >= minY && dTemp <= maxY){
 			c = cTemp;
 			d = dTemp;
 		}
 	}
 	
 	public void moveUp(int factor){
-		if(c - factor <= minY){
+		if(!scrollable && c - factor <= minY){
 			d = minY + (d - c);
 			c = minY;
 		}
@@ -57,7 +72,7 @@ public class Camera {
 	}
 	
 	public void moveDown(int factor){
-		if(d + factor >= maxY){
+		if(!scrollable && d + factor >= maxY){
 			c = maxY - (d - c);
 			d = maxY;
 		}
@@ -68,7 +83,7 @@ public class Camera {
 	}
 	
 	public void moveLeft(int factor){
-		if(a - factor <= minX){
+		if(!scrollable && a - factor <= minX){
 			b = minX + (b - a);
 			a = minX;
 		}
@@ -78,8 +93,8 @@ public class Camera {
 		}
 	}
 	
-	public void moveRight(int factor){
-		if(b + factor >= maxX){
+	public void moveRight(int factor){		
+		if(!scrollable && b + factor >= maxX){
 			a = maxX - (b - a);
 			b = maxX;
 		}
@@ -89,21 +104,36 @@ public class Camera {
 		}
 	}
 	
-	public void zoomIn(int factor){
-		if(a + factor < b){
+	public void zoomIn(int factor){	
+		if(scrollable || a + factor < b){
 			a += factor;
 			b -= factor;
 		}
-		if(c + factor < d){
+		if(scrollable || c + factor < d){
 			c += factor;
 			d -= factor;
 		}
 	}
 	
 	public void zoomOut(int factor){
-		a = (a - factor <= minX) ? minX : a - factor;
-		b = (b + factor >= maxX) ? maxX : b + factor;
-		c = (c - factor <= minY) ? minY : c - factor;
-		d = (d + factor >= maxY) ? maxY : d + factor;
+		if(scrollable){
+			a -= factor;
+			b += factor;
+			c -= factor;
+			d += factor;
+		}
+		else{
+			a = (a - factor <= minX) ? minX : a - factor;
+			b = (b + factor >= maxX) ? maxX : b + factor;
+			c = (c - factor <= minY) ? minY : c - factor;
+			d = (d + factor >= maxY) ? maxY : d + factor;
+		}
+	}
+	
+	public boolean intersects(int x, int y){
+		if(x >= minX && x < maxX && y >= minY && y < maxY)
+			return true;
+		//TODO: broken
+		return false;
 	}
 }

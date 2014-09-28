@@ -3,6 +3,11 @@ package commands;
 import model.Ship;
 import controller.Command;
 
+/***
+ * This class implements the command interface and is responsible for executing the goto command.
+ * @author Rafael Theis
+ *
+ */
 public class Goto implements Command {
 
 	private int pc;
