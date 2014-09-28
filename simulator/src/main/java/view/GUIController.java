@@ -32,7 +32,7 @@ public class GUIController extends Application {
 	
 	private Stage stage;
 	private Scene scene;
-	
+	private MediaPlayer player;
 	private Configuration config = new Configuration();
 	private Text title = new Text();
 	private Text hoverText = new Text();
@@ -128,7 +128,9 @@ public class GUIController extends Application {
 			File temp = new File("src/main/ressources/GUIMusik.mp3");
 			final Media media = new Media(temp.toURI().toString());
 			final MediaPlayer mediaPlayer = new MediaPlayer(media);
+			player = mediaPlayer;
 			mediaPlayer.play();
+			mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 			}
 			catch(Exception e){}
 	}
@@ -207,5 +209,10 @@ public class GUIController extends Application {
 					Platform.exit();	
 			}
 		});
+	}
+	
+	public MediaPlayer getPlayer()
+	{
+		return player;
 	}
 }

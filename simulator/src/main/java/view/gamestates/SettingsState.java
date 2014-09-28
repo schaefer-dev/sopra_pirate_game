@@ -7,11 +7,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.events.HoverEvent;
+import view.events.MusicSliderListener;
+import view.events.SliderListener;
 import view.events.SwitchState;
+import view.utility.Configuration;
 import view.utility.GameState;
 import view.utility.Resolution;
 import view.GUIController;
@@ -43,12 +47,23 @@ public class SettingsState implements GameState {
 		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		back.setOnAction(new SwitchState(manager));
-
-		
+		Slider volume = new Slider(0, 100, manager.getPlayer().getVolume());
+		volume.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Average size of the islands"));
+		volume.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		volume.setMaxWidth(100);
+		volume.setMajorTickUnit(2);
+		volume.setSnapToTicks(true);
+		Label volumeLabel = new Label(String.format("%.0f", manager.getPlayer().getVolume()*100));
+		volume.setValue(Integer.parseInt(volumeLabel.getText()));
+		Label volumeText = new Label("Volume");
+		SliderListener volumeListener = new MusicSliderListener(volume, volumeLabel, manager.getPlayer());
 		root = new GridPane();
 		root.getStyleClass().add("grid");
-		root.add(resolutionLabel, 0, 0);
-		root.add(resolutionBox, 1, 0);
+		root.add(resolutionLabel, 0, 1);
+		root.add(resolutionBox, 1, 1);
+		root.add(volumeText, 0, 0);
+		root.add(volume, 1, 0);
+		root.add(volumeLabel, 2, 0);
 		root.add(back, 0, 2);
 		
 		manager.getRoot().setCenter(root);
