@@ -1,0 +1,151 @@
+#title {
+    -fx-font-size: 60px;
+  	-fx-font-family: "UglyQua";
+   	-fx-fill: #818181;
+	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#hover {
+    -fx-font-family: "UglyQua";
+}
+
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+.label {
+    -fx-font-family: "UglyQua";
+}
+
+.menubutton {
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
+}
+
+.selectionbutton {
+    -fx-font-size: 12px;
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+}
+
+.openbutton {
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
+    -fx-font-size: 30px;
+}
+
+.deletebutton {
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    -fx-text-fill: #A62E2E;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+}
+
+
+.button:hover {
+	-fx-text-fill: #A62E2E;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+}
+
+.slider .track {
+    -fx-base: derive(goldenrod, 50%);
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+    -fx-padding: 2;
+}
+
+.slider .thumb {
+    -fx-shape: "M 50,5 L 37,40 5,40 30,60 20,95 50,75 80,95 70,60 95,40 63,40 Z";
+    -fx-background-color: derive(goldenrod, -50%), goldenrod;
+    -fx-background-radius: 0, 0;
+    -fx-background-insets: 0, 2;
+    -fx-padding: 10;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+    /*-fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);*/
+}
+
+
+.combo-box {
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    /*-fx-background-image: url("storm.jpg");*/
+    -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);
+    -fx-background-size: stretch;
+}
+
+.combo-box .arrow{
+}
+
+.combo-box .arrow-button{
+   -fx-background-color: transparent;
+}
+
+.color-picker{
+    -fx-color-label-visible: false; /*Doesn't work for unknown reason*/
+    -fx-background-color: transparent;
+}
+
+.color-picker .arrow{
+    -fx-background-color: transparent;
+}
+
+.vbox {
+    /*-fx-border-color: #2e8b57;
+    -fx-border-width: 2px;*/
+    -fx-alignment: TOP_CENTER;
+}
+
+.grid{
+    -fx-alignment: CENTER;
+    -fx-padding: 25 0 25 0;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-image: url("scroll.png");
+    -fx-background-size: stretch;
+}
+
+
+.maplist-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0 400 0 250;
+}
+
+
+.maplist-view .list-cell {
+    -fx-font-family: "UglyQua";
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-background-color: transparent;
+    -fx-opacity: 1;
+    -fx-font-size: 19px;
+}
+
+.maplist-view .list-cell:filled:hover {
+    /*-fx-background-color: #0093ff;*/
+    -fx-text-fill: #B9B437;
+    -fx-font-weight: bold;
+}
+
+.maplist-view .list-cell:selected {
+    -fx-text-fill: #799235;
+    -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);
+}
+
+.preview {
+    -fx-font-family: "UglyQua";
+    -fx-font-style: italic;
+    -fx-font-size: 19px;
+    -fx-padding: 0 200 0 0;
+    -fx-alignment: CENTER;
+}
+
+.root {
+    -fx-background: #f4f4f4;
+    -fx-background-image: url("storm.jpg");
+    -fx-background-size: stretch;
+}
+
