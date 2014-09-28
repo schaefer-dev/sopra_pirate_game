@@ -3,3 +3,4 @@
 /simulator/src/test/resources/*.log
 /simulator/bin/src/main/java/view/utility/*.class
 *.class
+*.prefs
