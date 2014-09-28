@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.unisaarland.cs.st</groupId>
+	<artifactId>pirates14-sim-group5</artifactId>
+	<name>Pirates '14 Simulator</name>
+	<version>0.1</version>
+	<description>Group 5 Implementation of Pirates '14</description>
+	<url>http://sopra.st.cs.uni-saarland.de/</url>
+	<inceptionYear>2014</inceptionYear>
+	<developers>
+<developer>
+<id>theis</id>
+<name>Rafael Theis</name>
+<email>s9rathei@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
+<id>meyer</id>
+<name>Andreas Meyer</name>
+<email>s9anmey2@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
+<id>schaefer</id>
+<name>Daniel Schaefer</name>
+<email>schaefer.dev@gmail.com</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
+<id>menz</id>
+<name>Jan Christian Menz</name>
+<email>s9jamenz@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer><developer>
+<id>herrmann</id>
+<name>Janna Herrmann</name>
+<email>s9jnherr@stud.uni-saarland.de</email>
+<roles>
+<role>Developer</role>
+</roles>
+<timezone>2</timezone>
+</developer>
+	</developers>
+        <profiles>
+                <profile>
+                        <id>antilint</id>
+                        <activation>
+                                <jdk>1.8</jdk>
+                        </activation>
+                        <properties>
+                                <disablelint>-Xdoclint:none</disablelint>
+                        </properties>
+                </profile>
+                <profile>
+                        <id>integration</id>
+                        <dependencies>
+                                <dependency>
+                                        <groupId>de.unisaarland.cs.st.pirates</groupId>
+                                        <artifactId>logger-binary</artifactId>
+                                        <version>0.1-SNAPSHOT</version>
+                                </dependency>
+                        </dependencies>
+                </profile>
+        </profiles>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>de.unisaarland.cs.st.pirates.group5.main.Main</mainClass>
+						</manifest>
+					</archive>
+					<outputDirectory>${basedir}/target/assembly/</outputDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<includes>
+						<include>**/*.class</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+                <repository>
+                        <id>st-nexus</id>
+                        <name>Software Engineering Chair Nexus</name>
+                        <url>http://nexus.st.cs.uni-saarland.de:8081/content/groups/sopra2014/</url>
+                </repository>
+        </repositories>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+			<scope>test</scope>
+		</dependency>
+                <dependency>
+                        <groupId>de.unisaarland.cs.st.pirates</groupId>
+                        <artifactId>logger-core</artifactId>
+                        <version>0.1-SNAPSHOT</version>
+                </dependency>
+		<dependency>
+			<groupId>de.unisaarland.cs.st.pirates</groupId>
+			<artifactId>logger-bypass</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>cim</report>
+							<report>dependencies</report>
+							<report>license</report>
+							<report>index</report>
+							<report>summary</report>
+							<report>scm</report>
+							<report>project-team</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.12.1</version>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<minmemory>128m</minmemory>
+					<maxmemory>512m</maxmemory>
+					<additionalparam>${disablelint}</additionalparam>
+				</configuration>
+				<version>2.9.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.17</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<linkXref>true</linkXref>
+					<targetJdk>1.7</targetJdk>
+				</configuration>
+				<version>3.1</version>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>
+
