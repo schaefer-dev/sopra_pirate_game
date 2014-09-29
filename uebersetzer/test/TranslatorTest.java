@@ -437,8 +437,8 @@ public class TranslatorTest {
 		sollErg.add(commands.get(12)); // Dies ist ein turn-right
 		sollErg.add(commands.get(7));
 		InputStream in = stringToStream(tactic);
-
-		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
+		List<Command> erg = translator.run(in); 
+		assertEquals("Kommentare sollten ignoriert werden", sollErg, erg);
 	}
 	@Test
 	public void testIgnoreComments2()

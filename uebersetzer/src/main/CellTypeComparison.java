@@ -46,5 +46,15 @@ public class CellTypeComparison implements Comparison {
 	public String toString(){
 			return "sense_celltype" + opr.toString() + type.toString();
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof CellTypeComparison){
+			CellTypeComparison other = (CellTypeComparison) o;
+			if(other.opr == opr && other.register == register && other.type == type)
+				return true;
+		}
+		return false;	
+	}
 
 }

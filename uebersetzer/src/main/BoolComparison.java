@@ -55,5 +55,15 @@ public class BoolComparison implements Comparison {
 		else
 			return register.toString();
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof BoolComparison){
+			BoolComparison other = (BoolComparison) o;
+			if(other.register == register && other.invert == invert)
+				return true;
+		}
+		return false;	
+	}
 
 }

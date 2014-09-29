@@ -18,4 +18,14 @@ public class Sense implements Command {
 	public String toString(){
 		return "sense " + String.valueOf(direction);
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Sense){
+			Sense other = (Sense) o;
+			if(other.direction == direction)
+				return true;
+		}
+		return false;	
+	}
 }

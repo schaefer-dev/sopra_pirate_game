@@ -42,4 +42,16 @@ public class ShipTypeComparison implements Comparison {
 		return register.toString() + opr.toString() + type.toString();
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof ShipTypeComparison){
+			ShipTypeComparison other = (ShipTypeComparison) o;
+			if(other.opr == opr && other.register == register && other.type == type)
+				return true;
+		}
+		return false;	
+	}
+	
+	
+
 }

@@ -27,5 +27,15 @@ public class Mark implements Command {
 	public String toString(){
 		return "mark " + String.valueOf(type); 
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Mark){
+			Mark other = (Mark) o;
+			if(other.type == type)
+				return true;
+		}
+		return false;	
+	}
 
 }

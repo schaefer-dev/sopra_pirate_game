@@ -31,5 +31,15 @@ public class Pickup implements Command {
 	public String toString(){
 		return "pickup " + String.valueOf(direction) + " else " + String.valueOf(elsePC);
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Pickup){
+			Pickup other = (Pickup) o;
+			if(other.direction == direction && other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
 
 }

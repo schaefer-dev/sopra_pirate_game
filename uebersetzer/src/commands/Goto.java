@@ -14,4 +14,13 @@ public class Goto implements Command{
 			String res = "goto " + String.valueOf(pc);
 			return res;
 		}
+		@Override
+		public boolean equals(Object o){
+			if(o instanceof Goto){
+				Goto other = (Goto) o;
+				if(other.pc == pc)
+					return true;
+			}
+			return false;	
+		}
 }
