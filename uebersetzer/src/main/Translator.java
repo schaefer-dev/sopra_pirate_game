@@ -1,4 +1,4 @@
-package main;
+package src.main;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,21 +9,21 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-import commands.Drop;
-import commands.Flipzero;
-import commands.Goto;
-import commands.If;
-import commands.IfAll;
-import commands.IfAny;
-import commands.Mark;
-import commands.Move;
-import commands.Pickup;
-import commands.Refresh;
-import commands.Repair;
-import commands.Sense;
-import commands.Turn;
-import commands.Unmark;
-import enums.CommandWords;
+import src.commands.Drop;
+import src.commands.Flipzero;
+import src.commands.Goto;
+import src.commands.If;
+import src.commands.IfAll;
+import src.commands.IfAny;
+import src.commands.Mark;
+import src.commands.Move;
+import src.commands.Pickup;
+import src.commands.Refresh;
+import src.commands.Repair;
+import src.commands.Sense;
+import src.commands.Turn;
+import src.commands.Unmark;
+import src.enums.CommandWords;
 
 /**
  * A single instance of this class is invoked by the simulator.

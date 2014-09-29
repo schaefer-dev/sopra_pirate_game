@@ -1,4 +1,4 @@
-package enums;
+package src.enums;
 
 public enum CommandWords {
 	TURN, MARK, UNMARK, MOVE, PICKUP, DROP, FLIPZERO, GOTO, SENSE,

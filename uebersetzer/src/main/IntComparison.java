@@ -1,7 +1,7 @@
-package main;
+package src.main;
 
-import enums.Operator;
-import enums.Register;
+import src.enums.Operator;
+import src.enums.Register;
 /**
  * Implements the interface <code>Comparison</code>. An <code>IntComparison</code> is a comparison consisting of one
  * either two int-registers or one int register and an int constant.

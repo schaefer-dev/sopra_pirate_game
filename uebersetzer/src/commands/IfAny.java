@@ -1,9 +1,9 @@
-package commands;
+package src.commands;
 
 import java.util.List;
 
-import main.Command;
-import main.Comparison;
+import src. main.Command;
+import src.main.Comparison;
 /**
  * The <code>IfAny</code> class:
  * 

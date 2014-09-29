@@ -1,7 +1,7 @@
-package commands;
+package src.commands;
 
 
-import main.Command;
+import src.main.Command;
 
 /**
  * The Unmark class
