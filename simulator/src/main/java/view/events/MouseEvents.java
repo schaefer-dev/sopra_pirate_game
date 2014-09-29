@@ -92,7 +92,9 @@ public class MouseEvents {
 		        		
 		    			double midX = (cam.width()/gc.getCanvas().getWidth())*newX + cam.a;
 		    			double midY = (cam.height()/gc.getCanvas().getHeight())*newY + cam.c;
-		    			//midY += midY*(gc.getCanvas().getWidth()/cam.width()/4);
+		    			double stepY = mod(midY, map.getMap()[0].length)*(gc.getCanvas().getWidth()/cam.width()/4);
+		    			midY = stepY;
+
 							
 		    			if(event.getClickCount() == 1){
 		    				Field[][] fields = map.getMap();

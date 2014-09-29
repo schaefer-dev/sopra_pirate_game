@@ -17,6 +17,7 @@ import view.utility.Field;
 import view.utility.GameState;
 import view.utility.Generator;
 import view.utility.Map;
+import view.utility.Ressources;
 import view.utility.Ship;
 
 public class InGameState implements GameState, LogWriter {
@@ -47,7 +48,7 @@ public class InGameState implements GameState, LogWriter {
  
         Generator gen = new Generator(198, 198, 40, 4);
 		char[][] fields = gen.generateMap();
-		Map map = new Map(gc);
+		Map map = new Map(gc, new Ressources());
 		
 		this.fields = new Field[fields.length][fields[0].length];
 		for(int y = 0; y < fields[0].length; y++){

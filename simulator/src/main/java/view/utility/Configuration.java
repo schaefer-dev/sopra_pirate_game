@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Configuration {
 
-	public char[][] map;
-	
 	public final static int MAP_SIZE_MIN = 10;
 	public final static int MAP_SIZE_MAX = 198;
 	public final static int ISLAND_COUNT_MIN = 0;
@@ -41,28 +39,53 @@ public class Configuration {
 	public final static int SHIP_COUNT_MAX = 20;
 	public int shipCount = SHIP_COUNT_MIN;
 	
+	private List<String> tactics = new LinkedList<String>();	//list.toArray(new String[list.size()]);
 	private List<String>  captainNames = new LinkedList<String>(Arrays.asList(
-			"Captain Blaub�r", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "St�rtebeker", "Guybrush Threepwood", "Captain Hook", 
+			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Guybrush Threepwood", "Captain Hook", 
 			"Monkey D. Ruffy", "LeChuck"));
 	
-	public final static List<String> mapNames = Arrays.asList("Somalia");
-	
-	private List<String> tactics = new LinkedList<String>();	//list.toArray(new String[list.size()]);
 	
 	
+	private char[][] map;
+	private Generator generator;
+	
+	private boolean builtMap = false;
+	private boolean placedObjects = false;
 		
 	
-	public char[][] buildMap(){
-		if(map == null) throw new IllegalStateException("Map foundation hasn't been generated yet");
+	public void setMap(char[][] map, boolean smooth){
+		generator = new Generator(map);
 		
-		//TODO: do it
-		return null;
+		if(smooth)
+			generator.smoothIslands(5);
+		
+		builtMap = true;
+		this.map = map;
+	}
+	
+	public char[][] generateMap(Integer height, Integer width, int isCount, int isSize){
+		generator = new Generator(height, width, isCount, isSize);
+		map = generator.generateMap();
+		builtMap = true;
+		
+		return map;
+	}
+	
+	public void removeMap(){
+		builtMap = false;
+		placedObjects = false;
+		generator = null;
+		map = null;
+	}
+	
+	public char[][] getMap(){
+		return map;
 	}
 	
 	public int getTreasureCount(){
 		return treasureCount;
 	}
-	
+		
 	public void setTreasureCount(int treasureCount){
 		if(treasureCount < TREASURE_COUNT_MIN || treasureCount > TREASURE_COUNT_MAX)
 			throw new IllegalArgumentException();

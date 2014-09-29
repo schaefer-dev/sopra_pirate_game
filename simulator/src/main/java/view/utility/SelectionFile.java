@@ -43,7 +43,8 @@ public class SelectionFile extends SelectionWindow {
 		try{
 			MapPreview preview = new MapPreview(mapFile);
 			preview.draw(gc);
-			}
+			control.getConfiguration().setMap(preview.getMap(), false);
+		}
 		catch(Exception e){
 			control.getHoverText().setText("Invalid map. Please try another file.");
 		}

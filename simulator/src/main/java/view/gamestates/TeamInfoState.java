@@ -53,7 +53,7 @@ public class TeamInfoState implements GameState {
 		back.setAlignment(Pos.BOTTOM_LEFT);
 		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
-		back.setOnAction(new SwitchState(manager, new MainMenuState()));
+		back.setOnAction(new SwitchState(manager));
 		back.getStyleClass().add("menubutton");
 		Text text = new Text();
 		text.setText("Pirates of the S-aarrrr-ibean is a game developed by Group 5 during the 2014 \"Softwarepraktikum\" at Saarland University Germany\n"
