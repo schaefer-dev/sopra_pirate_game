@@ -1,5 +1,13 @@
 package model;
 
+/***
+ * This class represents a base on the map and holds information about it's affiliation, position as well as ships that are currently
+ * located on it. It provides game functionality that is directly linked to bases like dropping treasures. 
+ * It extends the abstract class Water
+ * 
+ * @author Rafael Theis
+ * @see Field, Water
+ */
 public class Base extends Water {
 
 	private Team team;
@@ -18,7 +26,7 @@ public class Base extends Water {
 	/**
 	 * Drops Treasure onto base -> gives points to team
 	 * 
-	 * @param value 	the amout of treasure to drop
+	 * @param value the amout of treasure to drop
 	 * @returns	true
 	 * @Autor Daniel
 	 */
@@ -41,10 +49,6 @@ public class Base extends Water {
 		
 		return true;
 	}
-	
-	
-
-	
 	@Override
 	public boolean setKraken(Kraken kraken){
 		return false;
@@ -57,18 +61,6 @@ public class Base extends Water {
 		
 		return false;
 	}
-	/* 
-	 * no override because its allowed?
-	@Override
-	public boolean placeBuoy(int type, Team team){
-		return false;
-	}
-	
-	@Override
-	public void deleteBuoy(Team team, int value){
-		return;
-	}
-	*/
 	
 	@Override
 	public FieldType getFieldType() {
