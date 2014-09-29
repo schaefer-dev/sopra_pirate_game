@@ -3,6 +3,7 @@ package view.utility;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.scene.image.Image;
 import view.SimpleEntity;
 import model.FieldType;
 
@@ -16,7 +17,7 @@ public class Field {
 	private Ship ship;
 	private Integer affiliation;
 	private FieldType type;
-	
+	private Image image;
 	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
@@ -24,6 +25,11 @@ public class Field {
 		this.map = map;
 		this.type = type;
 		buoys = new LinkedList<SimpleEntity>();
+		
+		if(type == FieldType.Water)
+			image = map.getRessources().getWaterImage();
+		else
+			image = map.getRessources().getIslandImage();
 	}
 	
 	
@@ -33,7 +39,7 @@ public class Field {
 		this.map = map;
 		this.type = FieldType.Base;
 		this.affiliation = affiliation;
-		buoys = new LinkedList<SimpleEntity>();
+		this.buoys = new LinkedList<SimpleEntity>();
 	}
 	
 	
@@ -49,6 +55,10 @@ public class Field {
 	
 	public int getY(){
 		return y;
+	}
+	
+	public Image getImage(){
+		return image;
 	}
 
 	public Integer getAffiliation() {

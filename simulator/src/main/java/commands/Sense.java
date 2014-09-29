@@ -27,7 +27,7 @@ public class Sense implements Command {
 	 * The method executes a single sense command. Therefore it will inspect all of the properties of the field that is located in the
 	 * viewing direction of the committed ship. First of all, the method will call the getNeigbour()-method of it's current field to
 	 * get access to the desired location. Then the method will call the respecting getters to inspect field type, ships, treasures 
-	 * and buoys that are located on the map. In case of present ship, the method will also inspect it's direction, condition and type.
+	 * and buoys that are located on the field. In case of present ship, the method will also inspect it's direction, condition and type.
 	 * Either way, it will fill the sense registers of the committed ship with the resulting outcomes.
 	 * 
 	 * @throws NullPointerException if ship is null

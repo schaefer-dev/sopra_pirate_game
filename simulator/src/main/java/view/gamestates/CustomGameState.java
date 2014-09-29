@@ -22,19 +22,19 @@ public class CustomGameState implements GameState {
 		mapSelection.getStyleClass().add("menubutton");
 		mapSelection.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Play on one of our preset maps"));
 		mapSelection.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		mapSelection.setOnAction(new SwitchState(manager, new MapSelectionState()));
+		mapSelection.setOnAction(new SwitchState(manager, new MapSelectionState(), false));
 
 		Button mapGenerator = new Button("Map Generator");
 		mapGenerator.getStyleClass().add("menubutton");
 		mapGenerator.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Generate and play on your own map"));
 		mapGenerator.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		mapGenerator.setOnAction(new SwitchState(manager, new GeneratorState()));
+		mapGenerator.setOnAction(new SwitchState(manager, new GeneratorState(), false));
 		
 		Button googleMaps = new Button("Google Maps");
 		googleMaps.getStyleClass().add("menubutton");
 		googleMaps.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Start a new game with custom settings"));
 		googleMaps.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		googleMaps.setOnAction(new SwitchState(manager, new GoogleMapsState()));
+		googleMaps.setOnAction(new SwitchState(manager, new GoogleMapsState(), false));
 		
 		Button back = new Button("< Back");
 		back.getStyleClass().add("menubutton");

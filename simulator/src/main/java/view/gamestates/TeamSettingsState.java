@@ -82,7 +82,7 @@ public class TeamSettingsState implements GameState {
 		next.getStyleClass().add("menubutton");
 		next.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Start the game"));
 		next.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		next.setOnAction(new SwitchState(manager, new LoadingState()));
+		next.setOnAction(new SwitchState(manager, new LoadingState(), false));
 		
 		GridPane selection = new GridPane();
 		selection.getStyleClass().add("grid");
