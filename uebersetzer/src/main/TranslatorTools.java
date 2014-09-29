@@ -1,9 +1,9 @@
-package controller;
+package main;
 
-import model.CellType;
-import model.Register;
-import model.ShipType;
-import controller.Operator;
+import enums.CellType;
+import enums.Register;
+import enums.ShipType;
+import enums.Operator;
 
 public class TranslatorTools {
 	
@@ -37,7 +37,7 @@ public class TranslatorTools {
 				}	
 			}else if(condition.contains("<")){
 				String comp = condition.substring(0, condition.indexOf("<"));
-				if(isInteger(comp) || comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
+				if(isInteger(comp)|| comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
 				|| comp.equalsIgnoreCase("home") || comp.equalsIgnoreCase("enemyhome") || comp.equalsIgnoreCase("island") || comp.equalsIgnoreCase("empty")){					
 					operand2  = condition.substring(0, condition.indexOf("<"));
 					condition = condition.substring(condition.indexOf("<") +1);
@@ -50,7 +50,7 @@ public class TranslatorTools {
 			}else if(condition.contains("==")){
 				String comp = condition.substring(0, condition.indexOf("="));
 				operator = Operator.Equal;
-				if(isInteger(comp) || comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
+				if(isInteger(comp)|| comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
 				|| comp.equalsIgnoreCase("home") || comp.equalsIgnoreCase("enemyhome") || comp.equalsIgnoreCase("island") || comp.equalsIgnoreCase("empty")){					
 					operand2  = condition.substring(0, condition.indexOf("="));
 					condition = condition.substring(condition.lastIndexOf("=") +1);
@@ -61,7 +61,7 @@ public class TranslatorTools {
 			}else if(condition.contains("!=")){
 				String comp = condition.substring(0, condition.indexOf("!"));
 				operator = Operator.Unequal;
-				if(isInteger(comp) || comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
+				if(isInteger(comp)|| comp.equalsIgnoreCase("enemy") || comp.equalsIgnoreCase("friend") 
 				|| comp.equalsIgnoreCase("home") || comp.equalsIgnoreCase("enemyhome") || comp.equalsIgnoreCase("island") || comp.equalsIgnoreCase("empty")){					
 					operand2  = condition.substring(0, condition.indexOf("!"));
 					condition = condition.substring(condition.lastIndexOf("=") +1);

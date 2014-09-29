@@ -1,8 +1,8 @@
-package controller;
+package main;
 
-import model.Register;
-import model.Ship;
-import model.ShipType;
+import enums.Operator;
+import enums.Register;
+import enums.ShipType;
 /**
  * Implements the interface <code>Comparison</code>. A <code>ShipTypeComparison</code> is a comparison consisting of one
  * CellTypeRegister register (should only be sense_shiptype) a <code>ShipType</code> and an <code>Operator</code>.
@@ -36,39 +36,10 @@ public class ShipTypeComparison implements Comparison {
 		this.register = register;
 		this.type = type;
 	}
-	/**
-	 * Overrides the eval method in Comparison.
-	 * Evaluates the comparison: If the registers value is undefined the result is false. Otherwise the register is compared with the specified type depending on the operator.
-	 * @param ship the ship with the register to be tested.
-	 * @return a boolean, the result of the comparison
-	 */
+	
 	@Override
-	public boolean eval(Ship ship) {
-		int temp = ship.getSenseRegister(register);
-		if(temp == ShipType.Undefined.ordinal())
-		{
-			return false;
-		}
-		if(opr == Operator.Equal)
-			return (temp == type.ordinal());
-		else
-			return (temp != type.ordinal());
-	}
-	/**
-	 * Overrides the equals method of Object. Two <code>ShipTypeComparisons</code> are equal if register, type and opr of both <code>ShipTypeComparison</code>s are identical.
-	 * @param o the Object to be tested for equality.
-	 * @result Returns whether the object equals this <code>ShipTypeComparison</code>
-	 */
-	@Override
-	public boolean equals (Object o)
-	{
-		if(o instanceof ShipTypeComparison)
-		{
-			ShipTypeComparison other = (ShipTypeComparison) o;
-			if(register == other.register && type == other.type && opr == other.opr)
-				return true;
-		}
-		return false;
+	public String toString(){
+		return register.toString() + opr.toString() + type.toString();
 	}
 
 }
