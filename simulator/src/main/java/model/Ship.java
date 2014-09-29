@@ -53,7 +53,10 @@ public class Ship {
 
 
 	/**
-	 * Constructor for Ship.class
+	 * Constructor for Ship.class, sets all register to their default values (4 for moral, 3 for condition, 0 for direction,
+	 * load to zero at registers[Register.(enumValue).ordinal()]. Pause, pc and nopositiveactioncounter are set = 0
+	 * nextship is set to null. Also sets param values and if it has previousship it sets the previousships nextship to this
+	 * if field != null it also sets hasLogWriter to field.provideLogger() != null. 
 	 *
 	 * @param team
 	 * @param field
@@ -97,8 +100,16 @@ public class Ship {
 	}
 
 	/**
-	 * Executes the next command in the commandList at index pc
-	 * logs PC changing in the end if he changed (compared to oldpc)
+	 * Executes the next command in the commandList at index pc:
+	 * if pause != 0 it reduces its pause (and increase noPositiveActionCounter like always with the afterwards check if
+	 * ==40, to reduce moral by 1 and setting the counter to zero again.
+	 * 
+	 * if pc is 0 it checks if its already out of the allowed pc area (taktiksize), if yes the ship gets destroyed.
+	 * if the pc is valid he is increased before performing the command at index oldpc(saved value of pc before increasing)
+	 * if ship has not sunk (can be checked with (this.field!=null) it has to be checked if the noPositiveActionCounter which
+	 * could be increased in the command execution is equal to zero. If yes changeMoral(-1) and noPositiveActionCounter 
+	 * again = 0
+	 * logs PC changing in the end if he really changed (compared to oldpc)
 	 *
 	 */
 	public void act(){
@@ -203,7 +214,7 @@ public class Ship {
 
 
 	/**
-	 * simple fetter for the next Command
+	 * simple getter for the next Command
 	 *
 	 * @return	the next Command, so just the command at index pc of the commandList
 	 */
@@ -211,14 +222,30 @@ public class Ship {
 		return team.getCommands().get(pc);
 	}
 
+	/**
+	 * simple getter for ID
+	 *
+	 * @return	the ID
+	 */
 	public int getID(){
 		return this.id;
 	}
 
+	/**
+	 * simple getter for shipDirection
+	 *
+	 * @return	the Shipdirection out of register at index [Register.ship_direction-ordinal()]
+	 */
 	public int getShipDirection(){
 		return registers[Register.ship_direction.ordinal()];
 	}
 
+	/**
+	 * just changes direction of the ship one left or one right and implements all special cases, for example
+	 * if direction = 0 and turn left direction is 5 afterwards
+	 * 
+	 * @param left	true if turn left, false if turn right
+	 */
 	public void changeDirection(boolean left){
 		int dir = registers[Register.ship_direction.ordinal()];
 		if (left){
