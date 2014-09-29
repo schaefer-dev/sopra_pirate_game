@@ -23,7 +23,7 @@ public class Map {
 		this.gc = gc;
 		
     	try{
-	    	File file = new File("src/main/ressources/hexagon.png");
+	    	File file = new File("src/main/ressources/hexe2.png");
 	    	InputStream stream = new FileInputStream(file);
 	    	image = new Image(stream);
 	    	stream.close();

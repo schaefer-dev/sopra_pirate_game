@@ -1,5 +1,13 @@
 package model;
 
+/***
+ * This class represents a island on the map and holds information about it's position as well as all the entities that are currently
+ * located on it. It provides game functionality that is directly linked to islands. 
+ * It extends the abstract class Field
+ * 
+ * @author Rafael Theis
+ * @see {@link Field}
+ */
 public class Island extends Field {
 
 	public Island(Map map, int x, int y, Treasure treasure) {
@@ -21,11 +29,17 @@ public class Island extends Field {
 
 	@Override
 	public boolean placeBuoy(int type, Team team) {
+		if(team == null) throw new NullPointerException();
+		if(type < 0 || type > 6) throw new IllegalArgumentException();
+		
 		return false;
 	}
 	
 	@Override
 	public void deleteBuoy(Team team, int value){
+		if(team == null) throw new NullPointerException();
+		if(value < 0 || value > 6) throw new IllegalArgumentException();
+		
 		return;
 	}
 

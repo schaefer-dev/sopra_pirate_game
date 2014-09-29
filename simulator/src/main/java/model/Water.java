@@ -5,6 +5,14 @@ import java.util.List;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
+/***
+ * This class represents a single water field on the map and holds information about it's position as well as all the entities that are currently
+ * located on it. It provides game functionality that is directly linked to water like placing buoys. 
+ * It extends the abstract class Field
+ * 
+ * @author Rafael Theis
+ * @see {@link Field}
+ */
 public class Water extends Field {
 
 	public Water(Map map, int x, int y, Kraken kraken) {
@@ -26,17 +34,14 @@ public class Water extends Field {
 		if (buoys.size() == 0) { contains = false;}
 		
 		else {
-			
-		for (Buoy curr : buoys){
-			if ((curr.getType() == type) && (curr.getTeam().equals(team))){
-				contains = true;
+			for (Buoy curr : buoys){
+				if ((curr.getType() == type) && (curr.getTeam().equals(team)))
+					contains = true;
 			}
 		}
-		}
 		
-		if (contains){
+		if (contains)
 			return false;
-		}
 		else {
 			Buoy newbuoy = new Buoy(this.getMap().giveNewEntityID(), team, type);
 			this.buoys.add(newbuoy);

@@ -12,7 +12,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
  * The class is used to implement those methods of the Log class that are dependent on transactions
  * 
  * @author Rafael Theis
- * @see de.uni-saarland.cs.st.pirates.logger
+ * @see {@link de.uni-saarland.cs.st.pirates.logger}
  */
 public class CompTransaction implements Transaction {
 

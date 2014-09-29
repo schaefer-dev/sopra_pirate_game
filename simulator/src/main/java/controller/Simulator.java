@@ -1,21 +1,15 @@
 package controller;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import de.unisaarland.cs.st.pirates.logger.LogProvider;
-import view.GUIController;
 import view.Log;
-import view.SimpleLogWriter;
 import model.Kraken;
 import model.Register;
 import model.Ship;
