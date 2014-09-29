@@ -22,5 +22,13 @@ public class Move implements Command {
 	public String toString(){
 		return "move " + " else "+ String.valueOf(elsePC);
 	}
-
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Move){
+			Move other = (Move) o;
+			if(other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
 }

@@ -21,6 +21,16 @@ public class Flipzero implements Command {
 		String res = "flipzero " + String.valueOf(p) + " else " + String.valueOf(elsePC);
 		return res;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Flipzero){
+			Flipzero other = (Flipzero) o;
+			if(other.p == p && other.elsePC == elsePC)
+				return true;
+		}
+		return false;
+	}
 		
 	
 }

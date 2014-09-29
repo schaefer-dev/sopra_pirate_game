@@ -1,6 +1,7 @@
 package src.main;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -20,7 +21,14 @@ public class CheckTactics {
 	
 	public CheckTactics(String inputFile, String outputFile, String errorProtocoll){
 		this.translator = new Translator();
-		this.in = getClass().getResourceAsStream(inputFile);
+
+		//this.in = getClass().getResourceAsStream(inputFile);
+		try{
+			this.in = new FileInputStream(inputFile);
+		} catch (FileNotFoundException e1) {
+			throw new IllegalArgumentException("inputFile not found!");
+		}
+
 		this.output = new File(outputFile);
 		this.protocoll = new File(errorProtocoll);
 		try {
@@ -61,9 +69,16 @@ public class CheckTactics {
 	public void printTactics(){
 		ArrayList<Command> toPrint = goOn();
 		String res = "";
-		for(Command line: toPrint)
-			res = res + line.toString() + "\n";
+		int i=0;
+		for(Command line: toPrint){
+			i++;
+			if(line == null)
+				System.out.println(i);
+			else
+				res = res + line.toString() + "\n";	
+		}
 		tactics.write(res);
+		tactics.close();
 		
 	}
 	
@@ -73,6 +88,6 @@ public class CheckTactics {
 		for(String line: toPrint)
 			res = res + line.toString() + "\n";
 		mistakes.write(res);
-		
+		mistakes.close();
 	}
 }

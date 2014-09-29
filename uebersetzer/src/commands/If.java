@@ -48,5 +48,14 @@ public class If implements Command {
 	public String toString(){
 		return "if " + comparison.toString() + " else " + String.valueOf(elsePC);
 	}
-
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof If){
+			If other = (If) o;
+			if(other.comparison == comparison && other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
+	
 }

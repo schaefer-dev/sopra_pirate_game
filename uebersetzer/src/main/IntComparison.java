@@ -81,4 +81,14 @@ public class IntComparison implements Comparison {
 			return left.toString() + opr.toString() + String.valueOf(constant);
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof IntComparison){
+			IntComparison other = (IntComparison) o;
+			if(other.opr == opr && other.left == left && other.right == right && other.constant == constant)
+				return true;
+		}
+		return false;	
+	}
+	
 }

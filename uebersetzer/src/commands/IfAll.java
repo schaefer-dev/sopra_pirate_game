@@ -49,5 +49,13 @@ public class IfAll implements Command {
 			res = res + clause.toString() + " ";
 		return res + " else " + String.valueOf(elsePC);
 	}
-
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof IfAll){
+			IfAll other = (IfAll) o;
+			if(other.clauses == clauses && other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
 }

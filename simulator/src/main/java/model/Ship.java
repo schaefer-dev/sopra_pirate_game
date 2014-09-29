@@ -102,14 +102,16 @@ public class Ship {
 	 *
 	 */
 	public void act(){
-		if (pc+1 > this.getTeam().getCommands().size())
-			this.destroy();
-		else{
-			if (pause == 0){
+		
+		if (pause == 0){
+			if (pc+1 > this.getTeam().getCommands().size())
+				this.destroy();
+			else
+			{
 				int oldpc= pc++;
 				noPositivActionCounter+=1;
 				team.getCommands().get(oldpc).execute(this);
-				if (this.field!=null){
+				if (this.field!=null){ // Test whether ship has sunk
 					if (noPositivActionCounter==40){
 						this.changeMoral(-1);
 						noPositivActionCounter=0;
@@ -120,16 +122,17 @@ public class Ship {
 					}
 				}
 			}
-			else{
-				changePause(-1);
-				noPositivActionCounter+=1;
-				if (noPositivActionCounter==40){
-					this.changeMoral(-1);
-					noPositivActionCounter=0;
-				}
+		}
+		else{
+			changePause(-1);
+			noPositivActionCounter+=1;
+			if (noPositivActionCounter==40){
+				this.changeMoral(-1);
+				noPositivActionCounter=0;
 			}
 		}
 	}
+
 
 
 	/**

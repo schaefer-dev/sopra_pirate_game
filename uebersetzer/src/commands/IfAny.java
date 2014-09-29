@@ -44,5 +44,15 @@ public class IfAny implements Command {
 			res = res + clause.toString() + " ";
 		return res + " else " + String.valueOf(elsePC);
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof IfAny){
+			IfAny other = (IfAny) o;
+			if(other.clauses == clauses && other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
 
 }

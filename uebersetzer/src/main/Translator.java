@@ -125,7 +125,12 @@ public class Translator {
 		line = line.replaceAll("	"," ");
 		columns = line.length();
 		makeSplits(line.trim());
-
+		try{
+			CommandWords.valueOf(currentElement.toUpperCase());
+		}
+		catch(Exception e){
+			System.out.println(String.valueOf(row));
+		}
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
 			case DROP:
@@ -483,9 +488,9 @@ public class Translator {
 							if(currentLine == null)
 								break;
 							if(labelized){
-									if(currentLine.startsWith("*")){
-										makeSplits(currentLine);
-										tactic.add(translate(appendix));
+									makeSplits(currentLine.replaceAll("	", " "));
+									if(currentElement.startsWith("*")){
+										tactic.add(translate(appendix.replaceAll("	", " ")));
 									}else
 										tactic.add(translate(currentLine.replaceAll("	", " ")));
 							}else 	
@@ -505,10 +510,10 @@ public class Translator {
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}
-		if(tooLong)
-			throw new IllegalArgumentException("Tactics file too long.");
-		if (errors.size() > 0)
-			throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n");//(errors.get(0));
+		//if(tooLong)
+			//throw new IllegalArgumentException("Tactics file too long.");
+		//if (errors.size() > 0)
+			//throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n");//(errors.get(0));
 		return tactic;
 	}
 	

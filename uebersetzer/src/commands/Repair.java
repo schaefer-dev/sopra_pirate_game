@@ -29,5 +29,15 @@ public class Repair implements Command {
 	public String toString(){
 		return "repair" + " else " + String.valueOf(elsePC);
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Repair){
+			Repair other = (Repair) o;
+			if(other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
 
 }

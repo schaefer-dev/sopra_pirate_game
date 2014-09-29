@@ -19,4 +19,14 @@ public class Refresh implements Command {
 	public String toString(){
 		return "refresh " + String.valueOf(direction) + " else " + String.valueOf(elsePC);
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Refresh){
+			Refresh other = (Refresh) o;
+			if(other.direction == direction && other.elsePC == elsePC)
+				return true;
+		}
+		return false;	
+	}
 }
