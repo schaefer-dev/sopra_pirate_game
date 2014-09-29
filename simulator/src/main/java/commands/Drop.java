@@ -7,7 +7,7 @@ import model.Water;
 import controller.Command;
 
 /**
- * Dop-Command class, no attributes, only for execute method
+ * Drop-Command class, no attributes, only for execute method
  * @author danielschaefer
  *
  */
