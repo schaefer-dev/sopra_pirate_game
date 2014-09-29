@@ -13,7 +13,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
  * However, it is only an abstract super class which is extended by all the concrete field classes. 
  * 
  * @author Rafael Theis
- * @see Water, Island, ProvisionalIsland, Base
+ * @see {@link Water}, {@link Island}, {@link ProvisionIsland}, {@link Base}
  */
 public abstract class Field {
 

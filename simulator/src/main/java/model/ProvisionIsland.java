@@ -6,7 +6,7 @@ package model;
  * It extends the class Island
  * 
  * @author Rafael Theis
- * @see Field, Island
+ * @see {@link Field}, {@link Island}
  */
 public class ProvisionIsland extends Island {
 

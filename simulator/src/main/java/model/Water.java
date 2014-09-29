@@ -11,7 +11,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
  * It extends the abstract class Field
  * 
  * @author Rafael Theis
- * @see Field
+ * @see {@link Field}
  */
 public class Water extends Field {
 

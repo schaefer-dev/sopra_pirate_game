@@ -6,7 +6,7 @@ package model;
  * It extends the abstract class Water
  * 
  * @author Rafael Theis
- * @see Field, Water
+ * @see {@link Field}, {@link Water}
  */
 public class Base extends Water {
 
