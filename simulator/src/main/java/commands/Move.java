@@ -187,6 +187,8 @@ public class Move implements Command {
 	 * 
 	 * @param ship	the ship which moves
 	 * @param targetShip	the ship on which ship tries to move
+	 * @throws IllegalArgumentException		if the iteration which calculated treasure exchange between the ships
+	 *  gets a value >4 which should be loaded into the winning ship
 	 */
 	private void executeShipWins(Ship ship, Ship targetShip){
 		int shipLoad = ship.getLoad();
@@ -230,6 +232,8 @@ public class Move implements Command {
 	 * 
 	 * @param ship	the ship which moves
 	 * @param targetShip	the ship on which ship tries to move
+	 * @throws IllegalArgumentException		if the iteration which calculated treasure exchange between the ships
+	 *  gets a value >4 which should be loaded into the winning ship
 	 */
 	private void executeTargetShipWins(Ship ship, Ship targetShip){
 		int shipLoad = ship.getLoad();
