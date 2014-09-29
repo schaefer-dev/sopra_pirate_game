@@ -74,7 +74,7 @@ public class GeneratorState implements GameState {
 		generate.getStyleClass().add("menubutton");
 		generate.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Generate a map with given values"));
 		generate.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		generate.setOnAction(new GenerateEvent(msListener, icListener, isListener, gc));
+		generate.setOnAction(new GenerateEvent(manager.getConfiguration(), msListener, icListener, isListener, gc));
 
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
@@ -103,7 +103,7 @@ public class GeneratorState implements GameState {
 		next.getStyleClass().add("menubutton");
 		next.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go to game settings"));
 		next.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		next.setOnAction(new SwitchState(manager, new GameSettingsState()));
+		next.setOnAction(new SwitchState(manager, new GameSettingsState(), true));
         		
 		GridPane selection = new GridPane();
 		selection.getStyleClass().add("grid");
@@ -121,6 +121,7 @@ public class GeneratorState implements GameState {
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
+		manager.getConfiguration().removeMap();
 	}
 
 	@Override

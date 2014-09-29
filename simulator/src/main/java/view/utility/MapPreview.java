@@ -32,6 +32,10 @@ public class MapPreview {
 		this.map = map;
 	}
 	
+	public char[][] getMap(){
+		return map;
+	}
+	
 	public void draw(GraphicsContext gc){
 		if(map == null) throw new NullPointerException();
 		

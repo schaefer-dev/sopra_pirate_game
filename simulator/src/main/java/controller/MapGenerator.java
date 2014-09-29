@@ -34,7 +34,7 @@ import model.Water;
 import view.Log;
 /**
  * The <code>MapGenerator</code> class is only used to generate an instance of the <code>Map</code> class from a map file via a call of the createMap method. 
- * @author Jan
+ * @author Rafael & Jan
  *
  */
 public class MapGenerator {

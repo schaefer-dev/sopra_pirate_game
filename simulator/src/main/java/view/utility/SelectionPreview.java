@@ -14,8 +14,9 @@ public class SelectionPreview extends SelectionWindow {
 	private Text mapSize;
 	private Text teamCount;
 	private Text description;
+	private Configuration config;
 	
-	public SelectionPreview(String name, String mapSize, String teamCount, String description, File mapFile) throws IOException{
+	public SelectionPreview(Configuration config, String name, String mapSize, String teamCount, String description, File mapFile) throws IOException{
 		root = new VBox(20);
 		root.getStyleClass().add("preview");
 				
@@ -26,6 +27,7 @@ public class SelectionPreview extends SelectionWindow {
 		else
 			this.preview = new MapPreview(mapFile);
 		
+		this.config = config;
 		this.name = name;
 		this.mapSize = new Text(mapSize);
 		this.teamCount = new Text(teamCount);
@@ -36,6 +38,7 @@ public class SelectionPreview extends SelectionWindow {
 	
 	@Override
 	public void draw(GraphicsContext gc) {
+		config.setMap(preview.getMap(), false);
 		preview.draw(gc);
 	}
 

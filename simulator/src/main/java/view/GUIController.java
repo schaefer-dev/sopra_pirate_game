@@ -118,7 +118,7 @@ public class GUIController extends Application {
 		stage.setScene(scene);
 		//primaryStage.setResizable(false);
 		stage.show();
-		addState(new InGameState());
+		addState(new MainMenuState());
 		
 		setScreen(scene);
 		addResizeListener(scene);

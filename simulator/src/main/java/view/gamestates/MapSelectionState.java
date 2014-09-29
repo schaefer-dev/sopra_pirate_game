@@ -67,7 +67,7 @@ public class MapSelectionState implements GameState {
 		next.getStyleClass().add("menubutton");
 		next.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go to team settings"));
 		next.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		next.setOnAction(new SwitchState(manager, new TeamSettingsState()));
+		next.setOnAction(new SwitchState(manager, new TeamSettingsState(), true));
 		
 		GridPane selection = new GridPane();
 		selection.getStyleClass().add("grid");
@@ -85,6 +85,7 @@ public class MapSelectionState implements GameState {
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
+		manager.getConfiguration().removeMap();
 	}
 
 	@Override
@@ -102,18 +103,18 @@ public class MapSelectionState implements GameState {
 		SelectionWindow ownMap, stormingSea, somalia, bermudaTri, deceivingT, riffNoRet, tortuga, eyeOfStorm, capeFear, goldenGoal, jerseyShore;
 		try{
 			ownMap		= new SelectionFile(manager, gc);
-			stormingSea = new SelectionPreview("Storming Sea", "200x200", "easy", "stuff", null);
-			somalia 	= new SelectionPreview("Somalia", "100x100", "semi easy", 
+			stormingSea = new SelectionPreview(manager.getConfiguration(), "Storming Sea", "200x200", "easy", "stuff", null);
+			somalia 	= new SelectionPreview(manager.getConfiguration(), "Somalia", "100x100", "semi easy", 
 					"'Piracy off the coast of Somalia \nhas been a threat to international \nshipping since the second phase \nof the Somali Civil Warn in the\n early 21st century'", null);
-			bermudaTri  = new SelectionPreview("Bermuda Triangle", "100x100", "semi easy", 
+			bermudaTri  = new SelectionPreview(manager.getConfiguration(), "Bermuda Triangle", "100x100", "semi easy", 
 					"'The Bermuda Triangle is a region \nin the North Atlantic Ocean, where \na number of aircraft and ships are \nsaid to have disappeared under \nmysterious circumstances'", null);
-			deceivingT  = new SelectionPreview("Deceiving Tides", "100x100", "hard", "stuff", null);
-			riffNoRet   = new SelectionPreview("Riff Of No Return", "100x100", "semi easy", "stuff", null);
-			tortuga     = new SelectionPreview("Tortuga", "50x50", "semi easy", "stuff", null);
-			eyeOfStorm  = new SelectionPreview("Eye Of The Storm", "150x150", "very hard", "stuff", null);
-			capeFear    = new SelectionPreview("Cape Fear", "100x100", "suicidially hard", "stuff", null);
-			goldenGoal  = new SelectionPreview("Golden Goal", "100x100", "normal", "stuff", null);
-			jerseyShore = new SelectionPreview("Jersey Shore", "100x100", "spoiled", "stuff", null);	
+			deceivingT  = new SelectionPreview(manager.getConfiguration(), "Deceiving Tides", "100x100", "hard", "stuff", null);
+			riffNoRet   = new SelectionPreview(manager.getConfiguration(), "Riff Of No Return", "100x100", "semi easy", "stuff", null);
+			tortuga     = new SelectionPreview(manager.getConfiguration(), "Tortuga", "50x50", "semi easy", "stuff", null);
+			eyeOfStorm  = new SelectionPreview(manager.getConfiguration(), "Eye Of The Storm", "150x150", "very hard", "stuff", null);
+			capeFear    = new SelectionPreview(manager.getConfiguration(), "Cape Fear", "100x100", "suicidially hard", "stuff", null);
+			goldenGoal  = new SelectionPreview(manager.getConfiguration(), "Golden Goal", "100x100", "normal", "stuff", null);
+			jerseyShore = new SelectionPreview(manager.getConfiguration(), "Jersey Shore", "100x100", "spoiled", "stuff", null);	
 		}
 		catch(Exception e){
 			ownMap = stormingSea = somalia = bermudaTri = deceivingT = riffNoRet = tortuga = eyeOfStorm = capeFear = goldenGoal = jerseyShore = null;
@@ -127,7 +128,7 @@ public class MapSelectionState implements GameState {
 	
 	private SelectionWindow giveEmptyElement(){
 		try{
-			return new SelectionPreview("Empty", "-", "-", "                                   ", null);
+			return new SelectionPreview(manager.getConfiguration(), "Empty", "-", "-", "                                   ", null);
 		}
 		catch(Exception e){
 			return null;
