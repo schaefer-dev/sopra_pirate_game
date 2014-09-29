@@ -78,6 +78,7 @@ public class CheckTactics {
 				res = res + line.toString() + "\n";	
 		}
 		tactics.write(res);
+		tactics.close();
 		
 	}
 	
@@ -87,6 +88,6 @@ public class CheckTactics {
 		for(String line: toPrint)
 			res = res + line.toString() + "\n";
 		mistakes.write(res);
-		
+		mistakes.close();
 	}
 }
