@@ -13,13 +13,11 @@ public class CheckTactics {
 	String input;
 	InputStream in; 
 	PrintWriter tactics;
-	PrintWriter mistakes;
 	File output; 
-	File protocoll;
 
 	
 	
-	public CheckTactics(String inputFile, String outputFile, String errorProtocoll){
+	public CheckTactics(String inputFile, String outputFile){
 		this.translator = new Translator();
 
 		//this.in = getClass().getResourceAsStream(inputFile);
@@ -30,16 +28,10 @@ public class CheckTactics {
 		}
 
 		this.output = new File(outputFile);
-		this.protocoll = new File(errorProtocoll);
 		try {
 			this.tactics = new PrintWriter(output);
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("outputfile not found");
-		}
-		try {
-			this.mistakes = new PrintWriter(protocoll);
-		} catch (FileNotFoundException e) {
-			throw new IllegalArgumentException("no file for errors found");
 		}
 
 		
@@ -54,27 +46,15 @@ public class CheckTactics {
 			return null;
 	}
 	
-	public ArrayList<String> seeErrors(){
-		List<String> errors = translator.getErrors();
-		if (errors.size() > 0){
-			if(errors instanceof ArrayList)
-				return (ArrayList<String>) errors;
-			else return null;
-		}else{
-			errors.add("es wurden keine fehler gefunden, was nicht heißt, dass es keine gibt");
-			return (ArrayList<String>) errors;
-		}
-	}
-	
 	public void printTactics(){
 		ArrayList<Command> toPrint = goOn();
 		String res = "";
 		int i=0;
 		for(Command line: toPrint){
-			i++;
-			if(line == null)
-				System.out.println(i);
-			else
+			if(line == null){
+				res = res + translator.getErrors().get(i);
+				i++;
+			}else
 				res = res + line.toString() + "\n";	
 		}
 		tactics.write(res);
@@ -83,11 +63,9 @@ public class CheckTactics {
 	}
 	
 	public void printErrors(){
-		ArrayList<String> toPrint = seeErrors();
-		String res = "";
-		for(String line: toPrint)
-			res = res + line.toString() + "\n";
-		mistakes.write(res);
-		mistakes.close();
+		if(translator.getErrors().size() > 0)
+			System.out.println("incorrect tactics.Visit the printed to file for details.");
+		else
+			System.out.println("no errors found");
 	}
 }
