@@ -52,7 +52,7 @@ public class CheckTactics {
 		int i=0;
 		for(Command line: toPrint){
 			if(line == null){
-				res = res + translator.getErrors().get(i);
+				res = res + translator.getErrors().get(i) + "\n";
 				i++;
 			}else
 				res = res + line.toString() + "\n";	
