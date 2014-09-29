@@ -6,7 +6,7 @@ package model;
  * It extends the abstract class Field
  * 
  * @author Rafael Theis
- * @see Field
+ * @see {@link Field}
  */
 public class Island extends Field {
 

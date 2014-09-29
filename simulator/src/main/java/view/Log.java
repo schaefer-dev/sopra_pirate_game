@@ -15,7 +15,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
  * The class itself has no logging functionality, this is completely done by its subordinates
  * 
  * @author Rafael Theis
- * @see de.uni-saarland.cs.st.pirates.logger
+ * @see {@link de.uni-saarland.cs.st.pirates.logger}
  */
 public class Log implements LogWriter {
 

@@ -15,7 +15,7 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
  * 
  * 
  * @author Rafael Theis
- *
+ * @see {@link de.uni-saarland.cs.st.pirates.logger}
  */
 public class SimpleLogWriter implements LogWriter {
 	
