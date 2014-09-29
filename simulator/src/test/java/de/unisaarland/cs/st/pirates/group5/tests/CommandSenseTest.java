@@ -141,6 +141,7 @@ public class CommandSenseTest {
 			shipAtNullNull.act();
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_celltype),CellType.Empty.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker5),BoolWert.True.ordinal());
+			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_marker3),BoolWert.False.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shiptype),ShipType.Enemy.ordinal());
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipdirection), 0);
 			assertEquals("",shipAtNullNull.getSenseRegister(Register.sense_shipcondition), 1);
