@@ -52,17 +52,12 @@ import commands.Unmark;
  * At the positions, where an jump address must occure, the method evaluateAddress will be invoke, 
  * to return a valid integer or -1 for invalid input.
  * 
- * 	Maybe, there could be created a class Reports which includes team names, the input tactic, the 
- *  translated tactic and the error list. Before a game starts, the players could be easily informed
- *  about mistakes in there tactics. 
- * 
  * @author Andreas
  *
  */
 public class Translator {
 	
 	Map<String, Integer> labels;
-	Map<Character, List<String>> reports;
 	List<String> errors;
 	boolean labelized;
 	String currentElement = null;
@@ -70,13 +65,11 @@ public class Translator {
 	int row;
 	int columns;
 	TranslatorTools toolBox;
-	int invokes = -1;
 	String input = ""; 
 	String delabeledTactics;
 	
 	public Translator(){
 		this.errors = new ArrayList<String>();
-		this.reports = new HashMap<Character, List<String>>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
 		this.labelized = false;
@@ -91,7 +84,6 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		//if (!line.startsWith("*"))
 			line.trim();
 		splits = line.split(" ");
 		String res = "";
@@ -138,8 +130,6 @@ public class Translator {
 		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 			line = line.substring(0, line.indexOf(";"));
 		}
-		/*if(line.contains("	"))
-			System.out.println("contains tab");*/
 		line = line.replaceAll("	"," ");
 		columns = line.length();
 		makeSplits(line.trim());
@@ -289,7 +279,7 @@ public class Translator {
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
 						if(0 <= type && type <= 6){
-							addDelabeled(type + " ");
+							addDelabeled(String.valueOf(type));
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								addDelabeled("else");
@@ -324,7 +314,7 @@ public class Translator {
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
 						if(0 <= type && type <= 6){
-							addDelabeled(type + " ");
+							addDelabeled(String.valueOf(type));
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								addDelabeled("else");
@@ -356,7 +346,7 @@ public class Translator {
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
 						if(type > 1){
-							addDelabeled(type + "");
+							addDelabeled(String.valueOf(type));
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								addDelabeled("else");
@@ -536,7 +526,6 @@ public class Translator {
 		input = "";
 		List<Command> tactic = new ArrayList<Command>();
 		errors = new ArrayList<String>();
-		invokes += 1;
 					try {
 /*************HIER WERDEN DIE LABELS AUSGELESEN*****************************/
 				if(labelized){
@@ -571,15 +560,12 @@ public class Translator {
 				
 						while(true){
 							String currentLine = tacticsdoc.readLine();
-						//	currentLine = currentLine.replaceAll("	", " ");
 							if(row >= 2001){
 								tooLong = true;
 								break;
 							}
-							if(currentLine == null || currentLine.isEmpty())
+							if(currentLine == null)
 								break;
-								/*if(row >= 139)
-						input = row + " " + input + currentLine + "\n";*/
 							if(labelized){
 									if(currentLine.startsWith("*")){
 										makeSplits(currentLine);
@@ -588,7 +574,6 @@ public class Translator {
 										tactic.add(translate(currentLine.replaceAll("	", " ")));
 							}else 	
 								tactic.add(translate(currentLine.replaceAll("	", " ")));	
-							reports.put(((char)( 'a' + invokes)), errors);
 							row++;
 					}
 					if(labelized){
@@ -597,14 +582,15 @@ public class Translator {
 					out.write(delabeledTactics);
 					out.close();
 				}	
-				
-				if (errors.size() > 0){
-					int error = 0;
-					while(error < errors.size()){
-						System.out.println("Error:" + (error+1) + errors.get(error));
-						error++;
+				if(labelized){
+					if (errors.size() > 0){
+						int error = 0;
+						while(error < errors.size()){
+							System.out.println("Error:" + (error+1) + errors.get(error));
+							error++;
+						}
 					}
-				}
+				}	
 			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}

@@ -1,5 +1,6 @@
 *~
 .log
+/simulator/target/
 .DS_Store
 *.class
 .classpath
