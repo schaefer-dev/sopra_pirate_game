@@ -13,8 +13,8 @@ public class TranslatingUnit {
 
 	@Test
 	public void test() {
-		translator.setLabelized(false);
-		InputStream in = getClass().getResourceAsStream("/dereferenzierteTaktik.log");
+		translator.setLabelized(true);
+		InputStream in = getClass().getResourceAsStream("/shortRange.ship");
 		translator.run(in);
 	}
 

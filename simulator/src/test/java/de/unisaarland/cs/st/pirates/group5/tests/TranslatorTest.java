@@ -334,6 +334,21 @@ public class TranslatorTest {
 		assertEquals("Translation of Refresh does not give correct result", sollErg, erg);
 		
 	}
+	
+	@Test
+	public void testEmptyLine()
+	{
+		String badTactic = lines.get(17);
+		badTactic += "\n";
+		badTactic += lines.get(0);
+		
+		InputStream in = stringToStream(badTactic);
+		try{
+		translator.run(in);
+		fail("No empty lines are allowed");
+		}
+		catch(IllegalArgumentException e){}
+	}
 	@Test
 	public void testNoNewLine()
 	{

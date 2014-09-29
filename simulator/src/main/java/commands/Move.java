@@ -204,6 +204,8 @@ public class Move implements Command {
 		if(targetShip.getCondition() == 0){
 			calcAndSetShipPause(ship);
 			ship.getPosition().moveShip(savedShipPosition);
+			if (savedShipPosition.getKraken()!=null)
+				ship.changeCondition(-1);	
 		}
 		else{
 			ship.setPC(elsePC);
