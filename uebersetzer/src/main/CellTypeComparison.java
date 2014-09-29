@@ -1,8 +1,8 @@
-package main;
+package src.main;
 
-import enums.Operator;
-import enums.CellType;
-import enums.Register;
+import src.enums.Operator;
+import src.enums.CellType;
+import src.enums.Register;
 /**
  * Implements the interface <code>Comparison</code>. A <code>CellTypeComparison</code> is a comparison consisting of one
  * CellTypeRegister register (should only be sense_celltype) a <code>CellType</code> and an <code>Operator</code>.

@@ -1,6 +1,6 @@
-package commands;
+package src.commands;
 
-import main.Command;
+import src.main.Command;
 
 /**
  * An instance of this class will perform a single try to pickup a treasure.

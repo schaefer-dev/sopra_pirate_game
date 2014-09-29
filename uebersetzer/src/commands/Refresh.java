@@ -1,6 +1,6 @@
-package commands;
+package src.commands;
 
-import main.Command;
+import src.main.Command;
 
 public class Refresh implements Command {
 

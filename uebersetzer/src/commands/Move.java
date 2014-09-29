@@ -1,6 +1,6 @@
-package commands;
+package src.commands;
 
-import main.Command;
+import src.main.Command;
 
 /**
  * move Class implements the Move Command which is used in tactics. The class holds all functionality which

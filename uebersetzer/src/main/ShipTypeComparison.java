@@ -1,8 +1,8 @@
-package main;
+package src.main;
 
-import enums.Operator;
-import enums.Register;
-import enums.ShipType;
+import src.enums.Operator;
+import src.enums.Register;
+import src.enums.ShipType;
 /**
  * Implements the interface <code>Comparison</code>. A <code>ShipTypeComparison</code> is a comparison consisting of one
  * CellTypeRegister register (should only be sense_shiptype) a <code>ShipType</code> and an <code>Operator</code>.
