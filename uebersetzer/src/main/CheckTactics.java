@@ -69,8 +69,14 @@ public class CheckTactics {
 	public void printTactics(){
 		ArrayList<Command> toPrint = goOn();
 		String res = "";
-		for(Command line: toPrint)
-			res = res + line.toString() + "\n";	
+		int i=0;
+		for(Command line: toPrint){
+			i++;
+			if(line == null)
+				System.out.println(i);
+			else
+				res = res + line.toString() + "\n";	
+		}
 		tactics.write(res);
 		
 	}
