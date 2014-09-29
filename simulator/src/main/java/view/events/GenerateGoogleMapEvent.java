@@ -1,6 +1,6 @@
 package view.events;
 
-import view.utility.Generator;
+import view.utility.Configuration;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -21,9 +21,11 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 	private SliderListener mapSizeSlider, zoomSlider;
 	private GraphicsContext gc;
 	private Text errorText;
+	private Configuration config;
 	
 	
-	public GenerateGoogleMapEvent(TextField location, SliderListener mapSize, SliderListener zoom, GraphicsContext gc, Text errorField) {
+	public GenerateGoogleMapEvent(Configuration config, TextField location, SliderListener mapSize, SliderListener zoom, GraphicsContext gc, Text errorField) {
+		this.config = config;
 		this.locationField = location;
 		this.mapSizeSlider = mapSize;
 		this.zoomSlider = zoom;
@@ -75,10 +77,8 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 				
 		}
 		
-		Generator gen = new Generator(map);
-		gen.smoothIslands(5);
-		
-		MapPreview preview = new MapPreview(gen.getMap());
+		config.setMap(map, true);
+		MapPreview preview = new MapPreview(config.getMap());
 		preview.draw(gc);
 	}
 

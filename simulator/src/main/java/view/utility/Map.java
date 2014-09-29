@@ -1,9 +1,5 @@
 package view.utility;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 import model.FieldType;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,23 +13,12 @@ public class Map {
 	private GraphicsContext gc;
 	private Field[][] map;
 	
-	private Image image, image2;
+	public Image image, image2;
+	private Ressources ressources;
 	
-	public Map(GraphicsContext gc){
+	public Map(GraphicsContext gc, Ressources ressources){
 		this.gc = gc;
-		
-    	try{
-	    	File file = new File("src/main/ressources/hexe2.png");
-	    	InputStream stream = new FileInputStream(file);
-	    	image = new Image(stream);
-	    	stream.close();
-	    	
-	    	File file2 = new File("src/main/ressources/hexagon2.png");
-	    	InputStream stream2 = new FileInputStream(file2);
-	    	image2 = new Image(stream2);
-	    	stream2.close();
-    	}
-    	catch(Exception e){}
+		this.ressources = ressources;
 	}
 	
 	public void initMap(Field[][] map, Camera cam){
@@ -46,6 +31,10 @@ public class Map {
 	
 	public Field[][] getMap(){
 		return map;
+	}
+	
+	public Ressources getRessources(){
+		return ressources;
 	}
 	
 	public void drawMap(){		
@@ -109,10 +98,7 @@ public class Map {
 		if(field.getY() == 0 && x%2 != 0)
 			top = true;
 		
-		if(field.getFieldType() == FieldType.Island)
-			drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, image, left, top);
-		else
-			drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, image2, left, top);
+		drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, field.getImage(), left, top);
 	}
 	
 	public void markField(Field field){		
