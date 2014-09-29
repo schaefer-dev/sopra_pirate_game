@@ -6,12 +6,25 @@ import model.Ship;
 import model.Water;
 import controller.Command;
 
+/**
+ * Dop-Command class, no attributes, only for execute method
+ * @author danielschaefer
+ *
+ */
 public class Drop implements Command {
 	
 	public Drop(){
 		
 	}
-	
+	/**
+	 * sets shipload to zero and calls dropzero method in field, which does the rest except moral setting
+	 * which has do be done here: Moral changes if value was actually dropped and when it was NOT dropped
+	 * onto a base field (must be its own base if the ship is standing on a base field)
+	 * 
+	 * @throws IllegalStateException if ship is not on a water field
+	 * @param ship	the ship which executed the drop
+	 * 
+	 */
 	@Override
 	public void execute(Ship ship) {
 		Field field = ship.getPosition();
