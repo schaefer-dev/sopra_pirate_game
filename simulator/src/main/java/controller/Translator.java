@@ -279,7 +279,7 @@ public class Translator {
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
 						if(0 <= type && type <= 6){
-							addDelabeled(type + " ");
+							addDelabeled(String.valueOf(type));
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								addDelabeled("else");
@@ -314,7 +314,7 @@ public class Translator {
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
 						if(0 <= type && type <= 6){
-							addDelabeled(type + " ");
+							addDelabeled(String.valueOf(type));
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								addDelabeled("else");
@@ -346,7 +346,7 @@ public class Translator {
 				if(toolBox.isInteger(currentElement) || appendix != null){
 					type = toolBox.toInt(currentElement);
 						if(type > 1){
-							addDelabeled(type + "");
+							addDelabeled(String.valueOf(type));
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								addDelabeled("else");
