@@ -414,11 +414,46 @@ public class CommandMoveTest {
 		assertTrue ("Treasure must be on enemywater", waterenemy.getTreasure() != null );
 		assertEquals ("new treasure must have value 4",4,  waterenemy.getTreasure().getValue());
 		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-1) == FreeId);
-		assertEquals ("", 4, shipme.getLoad());
 		assertEquals ("enemywater must have treasure 4",4, waterenemy.getTreasure().getValue());
 		
 		
 	}
+	
+	@Test
+	public void testMoveShipFightKraken(){
+		shipme.changePause(-8);
+		waterenemy.exchangeTreasure(2);
+		shipme.changeDirection(false);
+		shipme.changeDirection(false);
+		shipme.changeMoral(4);
+		shipenemy.changeMoral(-4);
+		shipenemy.changeCondition(-2);
+		shipenemy.setLoad(4);
+		shipme.setLoad(2);
+		shipenemy.getPosition().setKraken(new Kraken(0, shipenemy.getPosition()));
+		int FreeId = shipenemy.getPosition().getMap().giveNewEntityID();
+		
+		moveit.execute(shipme);
+		
+		assertTrue("wrong x or y coordinate",((shipme.getPosition().getX()==waterenemy.getX())&&(shipme.getPosition().getY()==waterenemy.getY())));
+		assertTrue ("move must be succesfull, ship must changed fieds",shipme.getPosition().equals(waterenemy));
+		assertNull("move must be succesfull, ship must changed fieds",waterme.getShip());
+		assertTrue("move must be succesfull, ship must changed fieds",waterenemy.getShip().equals(shipme));
+		assertTrue("pc not in else case",shipme.getPC() != 13);
+		assertEquals ("pause must be 4", 6, shipme.getPause());
+		assertTrue ("Treasure must be on enemywater", waterenemy.getTreasure() != null );
+		assertEquals ("new treasure must have value 4",4,  waterenemy.getTreasure().getValue());
+		assertTrue ("wrong id", (shipme.getPosition().getMap().giveNewEntityID()-1) == FreeId);
+		assertEquals ("", 4, shipme.getLoad());
+		assertEquals ("Ship most likely lost no condition because of kraken on field", 2, shipme.getCondition());
+		assertEquals ("enemywater must have treasure 4",4, waterenemy.getTreasure().getValue());
+		
+		
+	}
+	
+	
+	
+	
 	
 	@Test
 	public void testMoveShipFightTreasureOldsurvive(){
