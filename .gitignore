@@ -1,5 +1,6 @@
 *~
 .log
+.ship
 /simulator/target/
 .DS_Store
 *.class
