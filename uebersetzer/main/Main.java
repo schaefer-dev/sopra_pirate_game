@@ -8,7 +8,7 @@ import src.main.CheckTactics;
 public class Main {
 
 	public static void main(String[] args) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException{
-		CheckTactics parsed = new CheckTactics("shortRange.ship", args[1], args[2]);
+		CheckTactics parsed = new CheckTactics("shortRange.ship", args[0], args[1]);
 		parsed.printTactics();
 		parsed.printErrors();
 	}	
