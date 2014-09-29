@@ -17,7 +17,7 @@ public class SimulatorSenseMoveTest {
 	int rounds;
 	@Before
 	public void setUp(){
-		map = "/map4x4sensemove1.txt";
+		map = "/map2x2sensemove1.ship";
 		logfile = "/log.log";
 		rounds = 200;
 	}
