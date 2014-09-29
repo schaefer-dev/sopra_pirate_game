@@ -16,8 +16,6 @@ public class Map {
 	private Camera cam;
 	private GraphicsContext gc;
 	private Field[][] map;
-	private int width;
-	private int height;
 	
 	private Image image, image2;
 	
@@ -43,8 +41,6 @@ public class Map {
 		
 		this.cam = cam;
 		this.map = map;
-		width = map.length;
-		height = map[0].length;
 	}
 	
 	
@@ -52,15 +48,12 @@ public class Map {
 		return map;
 	}
 	
-	public void drawMap(){
-		width  = Math.abs(cam.b - cam.a);
-		height = Math.abs(cam.d - cam.c);
-		
+	public void drawMap(){		
     	gc.setFill(Color.web("76A6A6"));
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
-    	for(int y = 0; y < height; y++){
-        	for(int x = 0; x < width; x++){
+    	for(int y = 0; y < cam.height(); y++){
+        	for(int x = 0; x < cam.width(); x++){
         		int xx = mod(x+cam.a, map.length);
         		int yy = mod(y+cam.c, map[0].length);
         		drawField(map[xx][yy], x, y);
@@ -70,9 +63,7 @@ public class Map {
 	
 	
 	private void drawFieldSimple(Field field, int x, int y){
-		width  = Math.abs(cam.b - cam.a);
-		height = Math.abs(cam.d - cam.c);
-    	double scale = gc.getCanvas().getWidth()/width;
+    	double scale = gc.getCanvas().getWidth()/cam.width();
     	
 		Color color = null;
 		switch(field.getFieldType()){
@@ -106,11 +97,8 @@ public class Map {
 	}
 	
 	
-	private void drawField(Field field, int x, int y){
-		width  = Math.abs(cam.b - cam.a);
-		height = Math.abs(cam.d - cam.c);
-		
-    	double radius = gc.getCanvas().getWidth()/width/2;
+	private void drawField(Field field, int x, int y){		
+    	double radius = gc.getCanvas().getWidth()/cam.width()/2;
 		double stepX = ((y+cam.c)%2 == 0) ? radius : 0;
 		double stepY = y*(radius/2);
 		
@@ -125,6 +113,17 @@ public class Map {
 			drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, image, left, top);
 		else
 			drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, image2, left, top);
+	}
+	
+	public void markField(Field field){		
+		int x = mod(field.getX() - cam.a, map.length);
+    	int y = mod(field.getY() - cam.c, map[0].length);
+    	double radius = gc.getCanvas().getWidth()/cam.width()/2;
+		double stepX = ((y+cam.c)%2 == 0) ? radius : 0;
+		double stepY = y*(radius/2);
+		
+		drawMap();
+		markHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius);
 	}
 	
 	
@@ -143,7 +142,6 @@ public class Map {
 	}
 	
 	private void drawHex(Point2D mid, double radius, Image image, boolean left, boolean top){
-		
 		Point2D up = new Point2D(mid.getX(), mid.getY() - radius);
 		gc.drawImage(image, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		
@@ -161,13 +159,28 @@ public class Map {
 		}
 	}
 	
+	private void markHex(Point2D mid, double radius){
+		Point2D up = new Point2D(mid.getX(), mid.getY() - radius);
+		Point2D down = new Point2D(mid.getX(), mid.getY() + radius);
+		Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
+		Point2D upR = new Point2D(mid.getX() + radius, mid.getY() - radius/2);
+		Point2D downL = new Point2D(mid.getX() - radius, mid.getY() + radius/2);
+		Point2D downR = new Point2D(mid.getX() + radius, mid.getY() + radius/2);
+		
+		gc.setStroke(Color.web("B2E097"));
+		gc.setLineWidth(1);
+		gc.strokeLine(up.getX(), up.getY(), upR.getX(), upR.getY());
+		gc.strokeLine(up.getX(), up.getY(), upL.getX(), upL.getY());
+		gc.strokeLine(upL.getX(), upL.getY(), downL.getX(), downL.getY());
+		gc.strokeLine(upR.getX(), upR.getY(), downR.getX(), downR.getY());
+		gc.strokeLine(downL.getX(), downL.getY(), down.getX(), down.getY());
+		gc.strokeLine(downR.getX(), downR.getY(), down.getX(), down.getY());
+	}
 	
-	public void drawMapPixelwise(){
-		width  = Math.abs(cam.b - cam.a);
-		height = Math.abs(cam.d - cam.c);
-    	
-    	double scaleW = gc.getCanvas().getWidth()/width;
-    	double scaleH = gc.getCanvas().getHeight()/height;
+	
+	public void drawMapPixelwise(){    	
+    	double scaleW = gc.getCanvas().getWidth()/cam.width();
+    	double scaleH = gc.getCanvas().getHeight()/cam.height();
     	double scaleX = gc.getCanvas().getWidth()/map.length;
     	double scaleY = gc.getCanvas().getHeight()/map[0].length;
     	
@@ -175,8 +188,8 @@ public class Map {
     	gc.setFill(Color.web("76A6A6"));
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
-    	for(double y = 0; y < height; y += scaleH){
-        	for(double x = 0; x < width; x += scaleW){
+    	for(double y = 0; y < cam.height(); y += scaleH){
+        	for(double x = 0; x < cam.width(); x += scaleW){
         		
         		double xx = x + cam.a;
         		double yy = y + cam.c;

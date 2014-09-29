@@ -7,6 +7,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import view.utility.Camera;
+import view.utility.Field;
 import view.utility.Map;
 
 public class MouseEvents {
@@ -75,7 +76,6 @@ public class MouseEvents {
 					cam.zoomOut(4);
 				
 				map.drawMap();
-				
 			}
 		});
 	}
@@ -86,20 +86,28 @@ public class MouseEvents {
 			@Override
 			public void handle(MouseEvent event) {
 				if(event.getButton().equals(MouseButton.PRIMARY)){
-		            if(event.getClickCount() == 2){
+					if(event.getClickCount() > 0){
 		        		double newX = event.getX();
 		        		double newY = event.getY();
 		        		
-		    			double midX = (map.getMap().length/gc.getCanvas().getWidth())*newX;
-		    			double midY = (map.getMap()[0].length/gc.getCanvas().getHeight())*newY;
-		    			
-		    			cam.setMid((int) midX, (int) midY);
-		    			
-		    			map.drawMap();
-		            }
+		    			double midX = (cam.width()/gc.getCanvas().getWidth())*newX + cam.a;
+		    			double midY = (cam.height()/gc.getCanvas().getHeight())*newY + cam.c;
+							
+		    			if(event.getClickCount() == 1){
+		    				Field field = map.getMap()[(int) mod(midX, 198)][(int) mod(midY, 198)];
+							map.markField(field);
+		    			}
+						else if(event.getClickCount() == 2){			    			
+			    			cam.setMid((int) midX, (int) midY);
+			    			map.drawMap();
+			            }
+					}
 		        }
 			}
 		});
 	}
 	
+	private double mod(double a, double b){
+		return (a%b + b) % b;
+	}
 }

@@ -33,6 +33,14 @@ public class Camera {
 		this.scrollable = scollable;
 	}
 	
+	public int width(){
+		return Math.abs(b-a);
+	}
+	
+	public int height(){
+		return Math.abs(d-c);
+	}
+	
 	public void setMid(int x, int y){
 		int width  = b - a;
 		int height = d - c;
