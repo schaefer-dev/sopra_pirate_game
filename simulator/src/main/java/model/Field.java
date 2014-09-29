@@ -7,12 +7,20 @@ import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 
+/***
+ * This class represents a single field on the map and holds information about it's position as well as all the entities that are currently
+ * located on it. It provides game functionality that is directly linked to game fields like moving entities or placing buoys on it. 
+ * However, it is only an abstract super class which is extended by all the concrete field classes. 
+ * 
+ * @author Rafael Theis
+ * @see Water, Island, ProvisionalIsland, Base
+ */
 public abstract class Field {
 
 	protected Treasure treasure;
 	protected Ship ship;
 	protected Kraken kraken;
-	protected List<Buoy> buoys = new LinkedList<Buoy>();
+	protected List<Buoy> buoys;
 	protected Map map;
 	protected int x;
 	protected int y;
@@ -26,6 +34,7 @@ public abstract class Field {
 		this.y = y;
 		this.map = map;
 		this.ship = ship;
+		this.buoys = new LinkedList<Buoy>();
 		hasLogWriter = provideLogger() != null;
 	}
 	
@@ -34,6 +43,7 @@ public abstract class Field {
 		return treasure;
 	}
 
+	
 	public boolean exchangeTreasure(int value){
 		if(value < -4 || value > 4) throw new IllegalArgumentException("You can only change the treasure value by |4|");
 		

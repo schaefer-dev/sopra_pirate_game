@@ -8,6 +8,8 @@ import model.FieldType;
 
 public class Field {
 
+	private int x, y;
+	private Map map;
 	private List<SimpleEntity> buoys;
 	private SimpleEntity treasure;
 	private SimpleEntity kraken;
@@ -16,18 +18,42 @@ public class Field {
 	private FieldType type;
 	
 	
-	public Field(FieldType type){
+	public Field(Map map, int x, int y, FieldType type){
+		this.x = x;
+		this.y = y;
+		this.map = map;
 		this.type = type;
 		buoys = new LinkedList<SimpleEntity>();
 	}
 	
 	
-	public Field(Integer affiliation){
+	public Field(Map map, int x, int y, Integer affiliation){
+		this.x = x;
+		this.y = y;
+		this.map = map;
 		this.type = FieldType.Base;
 		this.affiliation = affiliation;
 		buoys = new LinkedList<SimpleEntity>();
 	}
 	
+	
+	private void redraw(){
+		if(map.isVisible(this))
+			map.drawField(this);
+	}
+	
+	
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
+	}
+
+	public Integer getAffiliation() {
+		return affiliation;
+	}
 	
 	
 	public FieldType getFieldType(){
@@ -40,6 +66,7 @@ public class Field {
 	
 	public void setShip(Ship ship){
 		this.ship = ship;
+		redraw();
 	}
 	
 	public SimpleEntity getTreasure(){
@@ -48,6 +75,7 @@ public class Field {
 	
 	public void setTreasure(SimpleEntity treasure){
 		this.treasure = treasure;
+		redraw();
 	}
 	
 	public List<SimpleEntity> getBuoys(){
@@ -56,10 +84,12 @@ public class Field {
 	
 	public void addBuoy(SimpleEntity buoy){
 		buoys.add(buoy);
+		redraw();
 	}
 	
 	public void deleteBuiy(SimpleEntity buoy){
 		buoys.remove(buoy);
+		redraw();
 	}
 
 
@@ -67,14 +97,8 @@ public class Field {
 		return kraken;
 	}
 
-
 	public void setKraken(SimpleEntity kraken) {
 		this.kraken = kraken;
-	}
-
-
-	public Integer getAffiliation() {
-		return affiliation;
+		redraw();
 	}	
-	
 }

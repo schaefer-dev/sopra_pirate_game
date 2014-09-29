@@ -11,8 +11,7 @@ import model.FieldType;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.GUIController;
 import view.SimpleEntity;
-import view.events.MouseDragEvent;
-import view.events.MouseScrollEvent;
+import view.events.MouseEvents;
 import view.utility.Camera;
 import view.utility.Field;
 import view.utility.GameState;
@@ -24,6 +23,8 @@ public class InGameState implements GameState, LogWriter {
 
 	private GUIController manager;
 	
+	private Map map;
+	private Camera cam;
 	private List<Ship> ships;
 	private List<SimpleEntity> entities;
 	private Field[][] fields;
@@ -41,39 +42,52 @@ public class InGameState implements GameState, LogWriter {
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		
-        final Canvas canvas = new Canvas(800, 800);
+        final Canvas canvas = new Canvas(1000, 600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-       
  
         Generator gen = new Generator(198, 198, 40, 4);
 		char[][] fields = gen.generateMap();
+		Map map = new Map(gc);
 		
-        Camera cam = new Camera(fields);
-        Map map = new Map(fields, cam);
-        map.draw(gc);
+		this.fields = new Field[fields.length][fields[0].length];
+		for(int y = 0; y < fields[0].length; y++){
+        	for(int x = 0; x < fields.length; x++){
+
+        		char field = fields[x][y];
+        		
+        		if(field == '.')
+        			this.fields[x][y] = new Field(map, x, y, FieldType.Water);
+        		else
+        			this.fields[x][y] = new Field(map, x, y, FieldType.Island);
+        	}		
+    	}
+		
+        cam = new Camera(this.fields);
+        map.initMap(this.fields, cam);
+        map.drawMap();
         
-        manager.getScene().setOnMouseDragged(new MouseDragEvent(cam, map, gc));
-        manager.getScene().setOnScroll(new MouseScrollEvent(cam, map, gc));
+        MouseEvents events = new MouseEvents(cam, map, gc);
+        events.addMouseDragEvent(canvas, true);
+        events.addMouseScrollEvent(canvas);
+        events.addMouseClickEvent(canvas);
 
         manager.getRoot().setCenter(canvas);
 	}
 
 	@Override
 	public void exiting() {
-		// TODO Auto-generated method stub
-
+		 manager.getRoot().setCenter(null);
 	}
 
 	@Override
 	public void concealing() {
-		// TODO Auto-generated method stub
-
+		manager.getRoot().setCenter(null);
 	}
 
 	@Override
 	public void revealed() {
+		manager.getTitleText().setText("");
 		// TODO Auto-generated method stub
-
 	}
 	
 	
@@ -132,9 +146,9 @@ public class InGameState implements GameState, LogWriter {
 		}
 		
 		if(arg1 == null)
-			fields[arg2][arg3] = new Field(type);
+			fields[arg2][arg3] = new Field(map, arg2, arg3, type);
 		else
-			fields[arg2][arg3] = new Field(arg1);
+			fields[arg2][arg3] = new Field(map, arg2, arg3, arg1);
 		
 		return this;
 	}
