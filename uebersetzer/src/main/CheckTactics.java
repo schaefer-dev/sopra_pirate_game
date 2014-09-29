@@ -21,12 +21,14 @@ public class CheckTactics {
 	
 	public CheckTactics(String inputFile, String outputFile, String errorProtocoll){
 		this.translator = new Translator();
-		try {
+
+		//this.in = getClass().getResourceAsStream(inputFile);
+		try{
 			this.in = new FileInputStream(inputFile);
 		} catch (FileNotFoundException e1) {
-			throw new IllegalArgumentException("inputfile not found");
-
+			throw new IllegalArgumentException("inputFile not found!");
 		}
+
 		this.output = new File(outputFile);
 		this.protocoll = new File(errorProtocoll);
 		try {
