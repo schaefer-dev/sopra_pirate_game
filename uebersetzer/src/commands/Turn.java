@@ -1,6 +1,6 @@
-package commands;
+package src.commands;
 
-import main.Command;
+import src.main.Command;
 /**
  * The Turn class
  *This class implements Command and describes the action of a ship turning left or right.

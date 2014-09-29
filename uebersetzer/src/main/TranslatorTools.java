@@ -1,9 +1,9 @@
-package main;
+package src.main;
 
-import enums.CellType;
-import enums.Register;
-import enums.ShipType;
-import enums.Operator;
+import src.enums.CellType;
+import src.enums.Register;
+import src.enums.ShipType;
+import src.enums.Operator;
 
 public class TranslatorTools {
 	

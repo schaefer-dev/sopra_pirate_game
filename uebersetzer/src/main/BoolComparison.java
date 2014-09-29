@@ -1,7 +1,6 @@
-package main;
+package src.main;
 
-import enums.BoolWert;
-import enums.Register;
+import src.enums.Register;
 /**
  * Implements the interface <code>Comparison</code>. A <code>BoolComparison</code> is a comparison consisting of one
  * bool register and a boolean value that specifies whether there is a not operator in front of bool register.

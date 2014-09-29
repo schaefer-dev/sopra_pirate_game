@@ -1,3 +1,5 @@
+package test;
+
 
 
 import java.util.ArrayList;
@@ -5,23 +7,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import enums.CellType;
-import enums.Register;
-import commands.Drop;
-import commands.Flipzero;
-import commands.Goto;
-import commands.If;
-import commands.IfAll;
-import commands.Move;
-import commands.Pickup;
-import commands.Sense;
-import commands.Turn;
-import main.BoolComparison;
-import main.CellTypeComparison;
-import main.Command;
-import main.Comparison;
-import main.IntComparison;
-import enums.Operator;
+import src.enums.CellType;
+import src.enums.Register;
+import src.commands.Drop;
+import src.commands.Flipzero;
+import src.commands.Goto;
+import src.commands.If;
+import src.commands.IfAll;
+import src.commands.Move;
+import src.commands.Pickup;
+import src.commands.Sense;
+import src.commands.Turn;
+import src.main.BoolComparison;
+import src.main.CellTypeComparison;
+import src.main.Command;
+import src.main.Comparison;
+import src.main.IntComparison;
+import src.enums.Operator;
  
 
 public class ObjectConstructorTest {

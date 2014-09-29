@@ -7,8 +7,11 @@ import model.Water;
 import controller.Command;
 
 /**
- * move Class implements the Move Command which is used in tactics. The class holds all functionality which
- * is done by that command. Its called in the act() of a ship during a step() in the simulator class
+ * The move Class 
+ * 
+ * implements the Move Command which is used in tactics. The class holds all functionality which
+ * is done by the move-command. Its execute method is called in the act() of a ship during a step()
+ * of the simulator class.
  * 
  * 
  * @author danielschaefer
@@ -160,6 +163,8 @@ public class Move implements Command {
 
 	/**
 	 * private helpmethod to calculate and set the ships new pause, depending on its moral and load.
+	 * Moral equal to zero is 2 additional break, and load on the ship is 2 more additional break, so
+	 * its up to 8 steps pause possible because of an basic pause value of 4 after a successful move
 	 * 
 	 * @param ship
 	 */
@@ -174,13 +179,14 @@ public class Move implements Command {
 	
 	/**
 	 * private helpmethod to do all the stuff when the ship which moves wins the fight. It checks if ships
-	 * are actually destroyed if new treasures are created, if the ship gets any additional treasure and how
+	 * are actually destroyed, if new treasures are created, if the ship gets any additional treasure and how
 	 * much falls on the ground of the field. targetShip.destroy will delete the ship afterwards if its out
 	 * of condition (also out of his team, map ,maybe firstShip in map and the linkedList implemented via 
-	 * firstShip pointer in map.
+	 * firstShip pointer in map). If the targetShip gets destroyed you have to check again for kraken on the
+	 * new field, which might destroy your ship even after winning the fight itself
 	 * 
-	 * @param ship
-	 * @param targetShip
+	 * @param ship	the ship which moves
+	 * @param targetShip	the ship on which ship tries to move
 	 */
 	private void executeShipWins(Ship ship, Ship targetShip){
 		int shipLoad = ship.getLoad();
@@ -222,11 +228,10 @@ public class Move implements Command {
 	 * of condition (also out of his team, map ,maybe firstShip in map and the linkedList implemented via 
 	 * firstShip pointer in map.
 	 * 
-	 * @param ship
-	 * @param targetShip
+	 * @param ship	the ship which moves
+	 * @param targetShip	the ship on which ship tries to move
 	 */
 	private void executeTargetShipWins(Ship ship, Ship targetShip){
-		int shipCondition = ship.getCondition();
 		int shipLoad = ship.getLoad();
 		int targetLoad = targetShip.getLoad();
 		
