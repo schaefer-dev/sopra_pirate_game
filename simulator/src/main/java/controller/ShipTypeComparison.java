@@ -50,9 +50,9 @@ public class ShipTypeComparison implements Comparison {
 			return false;
 		}
 		if(opr == Operator.Equal)
-			return temp == type.ordinal();
+			return (temp == type.ordinal());
 		else
-			return temp != type.ordinal();
+			return (temp != type.ordinal());
 	}
 	/**
 	 * Overrides the equals method of Object. Two <code>ShipTypeComparisons</code> are equal if register, type and opr of both <code>ShipTypeComparison</code>s are identical.
