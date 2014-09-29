@@ -1,4 +1,4 @@
-package main;
+package src.main;
 
 /**
  * A <code>Comparison</code> can be used in any of the Classes <code>If</code>, <code>IfAll</code> and <code>IfAny</code>.

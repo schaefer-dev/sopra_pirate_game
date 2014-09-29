@@ -1,7 +1,7 @@
-package commands;
+package src.commands;
 
-import main.Command;
-import main.Comparison;
+import src.main.Command;
+import src.main.Comparison;
 /**
  * 
  * The <code>If</code> class:

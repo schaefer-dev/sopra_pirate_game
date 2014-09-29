@@ -1,3 +1,4 @@
+package test;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -5,32 +6,32 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import commands.Goto;
-import commands.If;
-import commands.IfAll;
-import commands.IfAny;
-import commands.Mark;
-import commands.Move;
-import commands.Pickup;
-import commands.Refresh;
-import commands.Repair;
-import commands.Sense;
-import commands.Turn;
-import commands.Unmark;
-import main.BoolComparison;
-import main.CellTypeComparison;
-import main.Command;
-import main.Comparison;
-import main.IntComparison;
-import main.Translator;
+import src.commands.Goto;
+import src.commands.If;
+import src.commands.IfAll;
+import src.commands.IfAny;
+import src.commands.Mark;
+import src.commands.Move;
+import src.commands.Pickup;
+import src.commands.Refresh;
+import src.commands.Repair;
+import src.commands.Sense;
+import src.commands.Turn;
+import src.commands.Unmark;
+import src.main.BoolComparison;
+import src.main.CellTypeComparison;
+import src.main.Command;
+import src.main.Comparison;
+import src.main.IntComparison;
+import src.main.Translator;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 //import controller.*;
-import enums.CellType;
-import enums.Register;
-import enums.Operator;
+import src.enums.CellType;
+import src.enums.Register;
+import src.enums.Operator;
 
 
 public class TranslatorTest {
@@ -436,6 +437,7 @@ public class TranslatorTest {
 		sollErg.add(commands.get(12)); // Dies ist ein turn-right
 		sollErg.add(commands.get(7));
 		InputStream in = stringToStream(tactic);
+
 		assertEquals("Kommentare sollten ignoriert werden", sollErg, translator.run(in));
 	}
 	@Test
