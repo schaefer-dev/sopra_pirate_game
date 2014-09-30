@@ -1,15 +1,11 @@
 package controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 import commands.Drop;
 import commands.Flipzero;
@@ -117,7 +113,7 @@ public class Translator {
 		Comparison comparison = null;
 		int type = -1;
 		columns = line.length();
-		makeSplits(line.trim());
+		makeSplits(line);
 		try{
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
