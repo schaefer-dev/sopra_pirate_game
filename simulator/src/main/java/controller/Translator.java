@@ -57,23 +57,17 @@ import commands.Unmark;
  */
 public class Translator {
 	
-	Map<String, Integer> labels;
 	List<String> errors;
-	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row;
 	int columns;
 	TranslatorTools toolBox;
-	String input = ""; 
-	String delabeledTactics;
 	
 	public Translator(){
 		this.errors = new ArrayList<String>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
-		this.labelized = false;
-		this.labels = new HashMap<String, Integer>();
 	}
 	
 	/** @Specs: splits the given line in a and saves the first word in currentElements and the rest 
@@ -84,7 +78,7 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-			line.trim();
+		line.trim();
 		splits = line.split(" ");
 		String res = "";
 		if (splits.length == 1){
@@ -113,12 +107,7 @@ public class Translator {
 	 * 
 	 *  @Return: Command.
 	 * 
-	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/
-	private void addDelabeled(String toAdd){
-		if(toAdd.equalsIgnoreCase("error"))
-			delabeledTactics = delabeledTactics + "INVALID: " + currentElement + "\n";
-		else
-			delabeledTactics = delabeledTactics + " " + toAdd;						
+	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/					
 
 	}
 	private Command translate(String line){
@@ -133,13 +122,12 @@ public class Translator {
 		line = line.replaceAll("	"," ");
 		columns = line.length();
 		makeSplits(line.trim());
-
+		try{
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
 			case DROP:
 				line = appendix;
 				overloadTest();
-				addDelabeled("drop\n");
 				return new Drop();
 			
 			case TURN:
@@ -489,8 +477,12 @@ public class Translator {
 				errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
 				break;															
 			}
+		
 			
 		return null;
+		}catch(Exception e){
+			errors.add("");
+		}
 	}
 	
 /** @Specs: returns the index of the invalid expressions first char within the initial line.**/
