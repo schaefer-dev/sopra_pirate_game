@@ -44,7 +44,7 @@ public class CellTypeComparison implements Comparison {
 	
 	@Override
 	public String toString(){
-			return "sense_celltype" + opr.toString() + type.toString();
+			return register.toString() + opr.toString() + type.toString();
 	}
 	
 	@Override

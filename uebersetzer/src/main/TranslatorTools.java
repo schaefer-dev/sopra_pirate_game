@@ -71,6 +71,8 @@ public class TranslatorTools {
 				}
 			}	
 		}
+		System.out.println(condition);
+
 		try{
 			Register.valueOf(condition);
 

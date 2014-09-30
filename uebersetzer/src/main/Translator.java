@@ -314,6 +314,8 @@ public class Translator {
 				break;
 				
 			case IF:
+				System.out.println(row);
+
 				makeSplits(appendix);
 				comparison = toolBox.buildComparison(currentElement);
 				if(comparison != null && appendix != null){
@@ -336,6 +338,8 @@ public class Translator {
 				}
 			
 			case IFALL:
+				System.out.println(row);
+
 				conditions.clear();
 				bools.clear();
 				comparison = null;
@@ -372,6 +376,8 @@ public class Translator {
 				
 			
 			case IFANY:
+				System.out.println(row);
+
 				conditions.clear();
 				bools.clear();
 				comparison = null;

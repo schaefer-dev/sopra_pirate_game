@@ -20,7 +20,7 @@ public class Move implements Command {
 	
 	@Override
 	public String toString(){
-		return "move " + " else "+ String.valueOf(elsePC);
+		return "move" + " else "+ String.valueOf(elsePC);
 	}
 	@Override
 	public boolean equals(Object o){

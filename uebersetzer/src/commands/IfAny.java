@@ -42,7 +42,7 @@ public class IfAny implements Command {
 		String res = "ifany ";
 		for (Comparison clause: clauses)
 			res = res + clause.toString() + " ";
-		return res + " else " + String.valueOf(elsePC);
+		return res + "else " + String.valueOf(elsePC);
 	}
 	
 	@Override
