@@ -69,17 +69,18 @@ public class TeamInfoState implements GameState {
 		button.setAlignment(Pos.BOTTOM_CENTER);
 		forText.add(button, 0, 5);
 		
-		int imageSize = 100;
+		int imageSize = 150;
 		if(manager.getStage().getHeight() < 720 /*resolution HD */)
 		{
-			imageSize = 50;
+			imageSize = 80;
 		
 		}
 		ImageView v1 = new ImageView();
-		File temp = new File("src/main/ressources/bildJan.jpg");
+		File temp = new File("src/main/ressources/bildJanna.jpg");
 		Image picture1 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		v1.setImage(picture1);
 		ImageView v2 = new ImageView();
+		temp = new File("src/main/ressources/bildJan.jpg");
 		Image picture2 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v3 = new ImageView();
 		Image picture3 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
