@@ -3,6 +3,7 @@ package view.events;
 import view.utility.Configuration;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
@@ -44,9 +45,15 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 		Integer zoom  = zoomSlider.get();
 		
 		BufferedImage image = null;
+		
 		try{
-			image = ImageIO.read(new URL(
+			BufferedImage googleImage = ImageIO.read(new URL(
 					"http://maps.googleapis.com/maps/api/staticmap?center="+location+"+&zoom="+zoom.toString()+"&scale=false&size=600x600&maptype=terrain&sensor=false&format=png&visual_refresh=true"));
+		
+	        image = new BufferedImage(width, height, googleImage.getType());
+	        Graphics2D g2d = image.createGraphics();
+	        g2d.drawImage(googleImage, 0, 0, width, height, null);
+	        g2d.dispose();
 		} 
 		catch(Exception e) {
 			errorText.setText("Invalid Input. Please try another location.");

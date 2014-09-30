@@ -4,7 +4,6 @@ import model.FieldType;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 
 public class Map {
@@ -13,7 +12,6 @@ public class Map {
 	private GraphicsContext gc;
 	private Field[][] map;
 	
-	public Image image, image2;
 	private Ressources ressources;
 	
 	public Map(GraphicsContext gc, Ressources ressources){
@@ -39,6 +37,7 @@ public class Map {
 	
 	public void drawMap(){		
     	gc.setFill(Color.web("76A6A6"));
+    	//gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
     	for(int y = 0; y < cam.height(); y++){
@@ -51,7 +50,7 @@ public class Map {
 	}
 	
 	
-	private void drawFieldSimple(Field field, int x, int y){
+	public void drawFieldSimple(Field field, int x, int y){
     	double scale = gc.getCanvas().getWidth()/cam.width();
     	
 		Color color = null;
@@ -98,7 +97,7 @@ public class Map {
 		if(field.getY() == 0 && x%2 != 0)
 			top = true;
 		
-		drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, field.getImage(), left, top);
+		drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, field, left, top);
 	}
 	
 	public void markField(Field field){		
@@ -122,14 +121,17 @@ public class Map {
 	public boolean isVisible(Field field){
 		return cam.intersects(field.getX(), field.getY());
 	}
-	
-	private int mod(int a, int b){
-		return (a%b + b) % b;
-	}
-	
-	private void drawHex(Point2D mid, double radius, Image image, boolean left, boolean top){
+
+	private void drawHex(Point2D mid, double radius, Field field, boolean left, boolean top){
 		Point2D up = new Point2D(mid.getX(), mid.getY() - radius);
-		gc.drawImage(image, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		Image image = field.getImage();
+		
+		if(field.getFieldType() == FieldType.Water){
+			if(cam.zoomLevel() < 2)
+				gc.drawImage(image, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		}
+		else
+			gc.drawImage(image, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		
 		if(left){
 			Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
@@ -163,36 +165,7 @@ public class Map {
 		gc.strokeLine(downR.getX(), downR.getY(), down.getX(), down.getY());
 	}
 	
-	
-	public void drawMapPixelwise(){    	
-    	double scaleW = gc.getCanvas().getWidth()/cam.width();
-    	double scaleH = gc.getCanvas().getHeight()/cam.height();
-    	double scaleX = gc.getCanvas().getWidth()/map.length;
-    	double scaleY = gc.getCanvas().getHeight()/map[0].length;
-    	
-    	PixelWriter pixi = gc.getPixelWriter();
-    	gc.setFill(Color.web("76A6A6"));
-    	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-    	
-    	for(double y = 0; y < cam.height(); y += scaleH){
-        	for(double x = 0; x < cam.width(); x += scaleW){
-        		
-        		double xx = x + cam.a;
-        		double yy = y + cam.c;
-        		
-        		int getX = (int)(xx/scaleX);
-        		int getY = (int)(yy/scaleY);
-        		
-        		Field field = map[getX][getY];
-        		double step = ((y + cam.c) % 2 != 0) ? scaleW/2 : 0;
-        		
-        		if(field.getFieldType() == FieldType.Island){	
-            		int textX = (int)(scaleW*x + step);
-            		int textY = (int)(scaleH*y);
-            		
-            		pixi.setColor(textX, textY, Color.web("FCDA69"));
-        		}
-        	}		
-    	}
+	private int mod(int a, int b){
+		return (a%b + b) % b;
 	}
 }

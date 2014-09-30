@@ -46,7 +46,7 @@ public class SelectionFile extends SelectionWindow {
 			control.getConfiguration().setMap(preview.getMap(), false);
 		}
 		catch(Exception e){
-			control.getHoverText().setText("Invalid map. Please try another file.");
+			control.getHoverText().setText("Please try select a valid file");
 		}
 	}
 

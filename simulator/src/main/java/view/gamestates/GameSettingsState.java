@@ -17,7 +17,7 @@ public class GameSettingsState implements GameState {
 	private GUIController manager;
 	private String title = "Game Settings";
 	private BorderPane root;
-	private SliderListener tcListener, tdListener, scListener, kListener;
+	private SliderListener tcListener, tdListener, scListener, kListener, sListener;
 
 	@Override
 	public void entered(GUIController control) {
@@ -69,6 +69,17 @@ public class GameSettingsState implements GameState {
 		Label krakenLabel = new Label(String.format("%.0f", krakenSlider.getValue()));
 		kListener = new SliderListener(krakenSlider, krakenLabel);
 		
+		Label ships = new Label("Ships");
+		Slider shipsSlider = new Slider(Configuration.SHIP_COUNT_MIN, Configuration.SHIP_COUNT_MAX, map.getShipCount());
+		shipsSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of ships per team"));
+		shipsSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		shipsSlider.setMaxWidth(200);
+		shipsSlider.setMajorTickUnit(4);
+		shipsSlider.setMinorTickCount(2);
+		shipsSlider.setSnapToTicks(true);
+		Label shipsLabel = new Label(String.format("%.0f", shipsSlider.getValue()));
+		sListener = new SliderListener(shipsSlider, shipsLabel);
+		
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
 		grid.add(treasureCount, 1, 0);
@@ -83,6 +94,9 @@ public class GameSettingsState implements GameState {
 		grid.add(kraken, 1, 3);
 		grid.add(krakenSlider, 2, 3);
 		grid.add(krakenLabel, 3, 3);
+		grid.add(ships, 1, 4);
+		grid.add(shipsSlider, 2, 4);
+		grid.add(shipsLabel, 3, 4);
 		
 		
 		Button back = new Button("< Map Settings");
@@ -118,6 +132,7 @@ public class GameSettingsState implements GameState {
 			map.setTreasureDensity(tdListener.get());
 			map.setSupplyDensity(scListener.get());
 			map.setKrakenCount(kListener.get());
+			map.setShipCount(sListener.get());
 		}
 		catch(Exception e){
 			throw new IllegalStateException("You have to call Entered() before Existing");
@@ -128,7 +143,7 @@ public class GameSettingsState implements GameState {
 
 	@Override
 	public void concealing() {
-		manager.getRoot().setCenter(null);
+		exiting();
 	}
 
 	@Override
