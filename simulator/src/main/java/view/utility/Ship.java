@@ -9,6 +9,8 @@ public class Ship {
 	private int moral;
 	private int condition;
 	private int fleet;
+	private int x;
+	private int y;
 	
 	
 	public int getDirection() {
@@ -65,5 +67,21 @@ public class Ship {
 
 	public void setResting(int resting) {
 		this.resting = resting;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 }

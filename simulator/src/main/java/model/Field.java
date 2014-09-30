@@ -6,6 +6,7 @@ import java.util.List;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
+import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
 
 /***
  * This class represents a single field on the map and holds information about it's position as well as all the entities that are currently
@@ -150,10 +151,13 @@ public abstract class Field {
 		if(ship == null) throw new IllegalStateException();
 		
 		if(destination.setShip(ship)){
+			Transaction trans = provideLogger().beginTransaction(Entity.SHIP, ship.getID());
 			if(x != destination.getX() && hasLogWriter)
-				provideLogger().notify(Entity.SHIP, ship.getID(), Key.X_COORD, destination.getX());
+				trans.set(Key.X_COORD, destination.getX());
 			if(y != destination.getY() && hasLogWriter)
-				provideLogger().notify(Entity.SHIP, ship.getID(), Key.Y_COORD, destination.getY());
+				trans.set(Key.Y_COORD, destination.getY());
+			
+			provideLogger().commitTransaction(trans);
 			
 			ship = null;
 			return true;
@@ -201,10 +205,13 @@ public abstract class Field {
 		if(kraken == null) throw new IllegalStateException();
 		
 		if(destination.setKraken(kraken)){
+			Transaction trans = provideLogger().beginTransaction(Entity.KRAKEN, kraken.getId());
 			if(x != destination.getX() && hasLogWriter)
-				provideLogger().notify(Entity.KRAKEN, kraken.getId(), Key.X_COORD, destination.getX());
+				trans.set(Key.X_COORD, destination.getX());
 			if(y != destination.getY() && hasLogWriter)
-				provideLogger().notify(Entity.KRAKEN, kraken.getId(), Key.Y_COORD, destination.getY());
+				trans.set(Key.Y_COORD, destination.getY());
+			
+			provideLogger().commitTransaction(trans);
 			
 			kraken = null;
 			return true;
