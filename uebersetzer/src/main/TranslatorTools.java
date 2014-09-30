@@ -71,8 +71,15 @@ public class TranslatorTools {
 				}
 			}	
 		}
+		System.out.println(condition.toLowerCase());
 
-		switch (Register.valueOf(condition)){
+		try{
+			Register.valueOf(condition.toLowerCase());
+
+		}catch(Exception e){
+			System.out.println(condition.toLowerCase());
+		}		
+		switch (Register.valueOf(condition.toLowerCase())){
 		
 		case sense_shiploaded: //bool
 			if(operand2 != null)

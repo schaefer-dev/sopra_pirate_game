@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.Log;
+import view.SimpleLogWriter;
 import model.Kraken;
 import model.Register;
 import model.Ship;
@@ -94,13 +95,10 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		if(logFile != null || guiController != null)
-		{
+		if(logFile != null || guiController != null){
 			logWriter = new Log();
 			if(guiController != null)
 				logWriter.addLogger(guiController);
-		//	logWriter.addLogger(new SimpleLogWriter());		//TODO log enable/disable here
-			// Please do not include the adding of the of the logWriters again, since this is done in MapGenerator now.
 		}
 
 		MapGenerator generator = new MapGenerator();

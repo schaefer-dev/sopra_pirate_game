@@ -1,21 +1,21 @@
 *luckypunch0		pickup 0 else 0blocked?
 			drop 
-			goto luckypunch
+			goto luckypunch0
 *0blocked?		sense 0
-			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			ifall sense_celltype!=island sense_celltype!=enemyhome sense_shiptype!=enemy sense_shiptype!=friend else alterDir
 *alterDir		flipzero 2 else down
 			flipzero 2 else doubleup
 *luckypunch5		pickup 5 else 5blocked?
 			drop 
 			goto luckypunch5
-5blocked?		sense 5 
-			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+*5blocked?		sense 5 
+			ifall sense_celltype!=island sense_celltype!=enemyhome sense_shiptype!=enemy sense_shiptype!=friend else alterDir
 			goto initoneleft
 *doubleup		pickup 4 else 4blocked?
 			drop 
 			goto doubleup
 *4blocked?		sense 4
-			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			ifall sense_celltype!=island sense_celltype!=enemyhome sense_shiptype!=enemy sense_shiptype!=friend else alterDir
 			turn left
 *initoneleft		turn left
 			goto routine
@@ -24,17 +24,16 @@
 			drop 
 			goto luckypunch1
 *1blocked?		sense 1
-			ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			ifall sense_celltype!=island sense_celltype!=enemyhome sense_shiptype!=enemy sense_shiptype!=friend else alterDir
 			goto initoneright
 *doubledown		pickup 2 else 2blocked?
 			drop 
 			goto doubleup
 *2blocked?		sense 2
-                	ifall sense_celltype!=island sense_celltype!=enemy sense_shiptype!=enemy sense ship_shiptype!=friend else alterDir
+			ifall sense_celltype!=island sense_celltype!=enemyhome sense_shiptype!=enemy sense_shiptype!=friend else alterDir
 			turn right
 *initoneright		turn right 
-*routine		sense 6
-			flipzero 2 else deepSeaInit					; deepSea <> longRange := single turn l||r
+*routine		flipzero 2 else deepSeaInit					; deepSea <> longRange := single turn l||r
 			goto shortRangeInit						; shortRange := (doppel turn) l||r	
 *deepSeaInit		flipzero 3 else	DSleft						; wuerfeln: rechts, links oder geradeaus
 			flipzero 2 else DSright						
@@ -47,7 +46,7 @@
 *DSright		turn right							; wenn er von rechts kommt nur links abbiegen
 			ifall ship_direction!=5 ship_direction!=4 else deepSeaLongAheadInit ; fate: longAhead, (s||l)Left, 
 			goto deepSeaShortRightInit					; fate: shortAhead, longLeft
-*deepSeaShortAhead	if shipcondition>1 else return0
+*deepSeaShortAhead	if ship_condition>1 else return0
 			sense 0 
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m1dSsA
 			pickup 0 else fzdSsA				; wenns nicht weitergeht und kein Schatz gefunden, werden Richtung
@@ -116,7 +115,7 @@
 *DSSAmarkR5		sense 6 		
 			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSA
 *bouySA5a		mark 5								; markiere range 5
-			goto bouySA3
+			goto bouySA3a
 *DSSAmarkR1		sense 6
 			ifall sense_marker5 sense_marker4 sense_marker3 else fastChoiceSA
 *bouySA3a		mark 3								; markiere range 1
@@ -156,11 +155,11 @@
 			pickup 0 else fzdSsLL
 			goto return0
 *m1dSsLL		move else m1dSsLL
-			pickup 1 else s41LL
+			pickup 1 else s41L
 			goto turn1
-*s41L			pickup 5 else deepSeaShortLeftInitL
+*s41L			pickup 5 else deepSeaShortLeftInit
 			goto turn1
-*deepSeaShortLeftInitL	sense 0
+*deepSeaShortLeftInit	sense 0
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m2dSsLL
 			pickup 0 else DSSLmarkR1L
 			goto turn1
@@ -285,7 +284,7 @@
 			pickup 0 else DSSRmarkR3
 			goto turn3
 *m4dSsR2		move else DSSRmarkR3						; move 4 else still 3
-			pickup 1 else s44L
+			pickup 1 else s44R
 			goto turn4
 *s44R			pickup 5 else m5dSsR
 			goto turn4
@@ -322,11 +321,11 @@
 			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSR 
 			mark 5								; markiere range 5
 			goto nexBouy1
-*DSSRmarkR1		sense6
+*DSSRmarkR1		sense 6
 			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSR 
 *nexBouy1		mark 3								; markiere range 1
 			goto fzdSsR
-*DSSRmarkR3		sense6
+*DSSRmarkR3		sense 6
 			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSR 
 			mark 3								; markiere range 3
 			goto nexBouy2
@@ -335,15 +334,15 @@
 *nexBouy2		mark 4								; markiere range 2
 			goto fzdSsR
 *DSSRmarkR7		sense 6
-			ifall !sense_marker6 !sense_marker4 !sense_marker3 else fastChoiceSR
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSR
 			mark 3								; markiere range 7 (3+4+5)
 			goto nexBouy3
 *DSSRmarkR6		sense 6
-			ifall !sense_marker6 !sense_marker4 !sense_marker3 else fastChoiceSR
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSR
 *nexBouy3		mark 4								; markiere range 6  (4+5)
 			goto nexBouy4
 *DSSRmarkR4		sense 6
-			ifall !sense_marker6 !sense_marker4 !sense_marker3 else fastChoiceSR
+			ifall !sense_marker5 !sense_marker4 !sense_marker3 else fastChoiceSR
 *nexBouy4		mark 5								; markiere range 4	
 *fzdSsR			if ship_direction==5 else DSRdirEQ4				; leaving deepSeaShortRight
 			mark 2
@@ -353,8 +352,7 @@
 			goto DSRdirEQ4
 *fastChoiceSR		if ship_direction==5 else DSRdirEQ4
 *DSRdirEQ5		goto deepSeaShortLeft						; kein turn right:das waere insgesamt ein 													doppelturn right und
-*DSRdirEQ4		goto deepSeaLongLeft 						; new dir==3, 
- 											fuer den Fall gibt es die shortRange Routine
+*DSRdirEQ4		goto deepSeaLongLeft 						; new dir==3, fuer den Fall gibt es die shortRange Routine
 *deepSeaLongAhead	if ship_condition>1 else return0			; begin DeepSeaLongAhead
 			sense 0							; Legende: mx3994 nachdem ich jetzt für geschaetzt jede vierte Zeile neue labels und Befehle einfuegen durfte, weil die herren der meinung waren, dass "dagegen fahren" kein gutes Mittel ist, um herauszufinden ob eine Insel im Weg ist oder nicht, habe ich darauf verzichtet die kuerzel zu erlaeutern, damit die herrschaften eine idee davon bekommen, wieviel spass es macht in einem 1000zeilen langen assemblercode artigen taktik file alle x<10 Zeilen minimale, aber fundamentale aenderungen vorzunehmen, die die ganze taktik scheitern lassen koennen. HF!
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m1dSaA
@@ -661,10 +659,10 @@
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m10dSlRRR2
 			pickup 0 else DSSRRmarkR9
 			goto turn9
-*m10dSlRRR		move else DSSRRmarkR9					; move 10 else still 9
+*m10dSlRRR2		move else DSSRRmarkR9					; move 10 else still 9
 			pickup 1 else s40RRR
 			goto turn10
-*s40RRR			pickup 5 else *m11dSlRRR
+*s40RRR			pickup 5 else m11dSlRRR
 			goto turn10
 *m11dSlRRR		sense 0
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m11dSlRRR2
@@ -673,7 +671,7 @@
 *m11dSlRRR2		move else DSSRRmarkR10					; move 11 else still 10
 			pickup 1 else s41RRR
 			goto turn11
-*s41RRR			pickup 5 else *m12dSlRRR
+*s41RRR			pickup 5 else m12dSlRRR
 			goto turn11
 *m12dSlRRR		sense 0
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m12dSlRRR2
@@ -711,7 +709,7 @@
 			goto turn15
 *s445RRR		pickup 1 else s45RRR
 			goto turn15
-*s45RRR			pickup 5 else DSSRmarkRR15
+*s45RRR			pickup 5 else DSSRRmarkR15
 			goto turn15
 *DSSRRmarkR7		sense 6 
 			ifall !sense_marker5 !sense_marker4 !sense_marker3 !sense_marker2 else fastChoiceLL				
@@ -789,7 +787,7 @@
 			goto doubleLong
 *RRrightEQ4		goto deepSeaShortRight
 *doubleLong		goto deepSeaLongRight
-*deepSeaLongRight	if ship_condition!=1 else return 0 			; begin deepSeaLongRight
+*deepSeaLongRight	if ship_condition!=1 else return0 			; begin deepSeaLongRight
 			turn right
 			sense 0
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m1dSlLLL
@@ -879,7 +877,7 @@
 *m10dSlLLL2		move else DSSLmarkR9					; move 10 else still 9
 			pickup 1 else s40LLL
 			goto turn10
-*s40LLL			pickup 5 else *m11dSlLLL
+*s40LLL			pickup 5 else m11dSlLLL
 			goto turn10
 *m11dSlLLL		sense 0
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m11dSlLLL2
@@ -888,7 +886,7 @@
 *m11dSlLLL2		move else DSSLmarkR10					; move 11 else still 10
 			pickup 1 else s41LLL
 			goto turn11
-*s41LLL			pickup 5 else *m12dSlLLL
+*s41LLL			pickup 5 else m12dSlLLL
 			goto turn11
 *m12dSlLLL		sense 0
 			ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy else m12dSlLLL2
@@ -928,7 +926,6 @@
 			goto turn15
 *s45LLL			pickup 5 else DSSLmarkR15
 			goto turn15
-------------------------------hier----------------------------------------------------------------------------------------
 *DSSLmarkR7		sense 6
 			ifall !sense_marker5 !sense_marker4 !sense_marker3 !sense_marker2 else fastChoiceRR				
 			mark 4							; markiere range 7
@@ -1072,7 +1069,7 @@
 *return12		move else friendorfoe12
 *return11		move else friendorfoe11
 *return10		move else friendorfoe10
-*return9		move else friendorfor9
+*return9		move else friendorfoe9
 *return8		move else friendorfoe8
 *return7		move else friendorfoe7
 *return6		move else friendorfoe6
@@ -1081,16 +1078,16 @@
 *return3		move else friendorfoe3
 *return2		move else friendorfoe2
 *return1		move else friendorfoe1
-*return0		sense6
-			if cell_type==home else scan
+*return0		sense 6
+			if sense_celltype==home else scan
 			drop
-			if ship_condition<3 else init
-			repair else init
-			goto init
+			if ship_condition<3 else initoneleft
+			repair else initoneleft
+			goto initoneleft
 *scan			if sense_marker0 else notNull		 
 			if !sense_marker1 else markEQ3		; marks dir == 1 else dir == 3
 			goto markEQ1
-*notNull		if sense_marker1  else notOne		; marks dir == 2 else jump to check if marker2
+*notNull		if sense_marker1 else notOne		; marks dir == 2 else jump to check if marker2
 			goto markEQ2
 *notOne			if !sense_marker2 else markEQ5
 			goto markEQ4 
@@ -1104,7 +1101,7 @@
 *m5dirGT2		if ship_direction>2 else m5dirEQ2
 			if ship_direction>3 else m5dirEQ3
 			if ship_direction>4 else m5dirEQ4
-			got getShort					; dir == 5
+			goto getShort					; dir == 5
 *m5dirEQ2		turn right
 			turn right
 			turn right
@@ -1139,7 +1136,7 @@
 			turn right
 			turn right
 			goto getLong
-*m2dirEQ1		goto turn right
+*m2dirEQ1		turn right
 			goto getLong
 *m2dirGT2 		if ship_direction>2 else m2dirEQ2
 			if ship_direction>3 else m2dirEQ3
@@ -1154,11 +1151,11 @@
 *m2dirEQ4		turn left
 			turn left
 			goto getLong
-*markEQ3		if sense_direction<2 else m3dirGT2		; jump to getLong //min 5, max 6 Zuege//20 Instructions
-			if sense_direction<1 else m3dirEQ1
+*markEQ3		if ship_direction<2 else m3dirGT2		; jump to getLong //min 5, max 6 Zuege//20 Instructions
+			if ship_direction<1 else m3dirEQ1
 			turn right
 			turn right
-			turn rigt
+			turn right
 			goto getLong
 *m3dirEQ1		turn right
 			turn right
@@ -1204,9 +1201,9 @@
 			if !sense_marker5 else return6
 			goto return2
 *norFour		goto return4
-*getLong		if sense_marker5  else notFive		; getLong: mindestens 4 Zuege, maximal 5	//22Instructions
-			if sense_marker4  else butNotFour	 
-			if sense_marker3  else butNotThree	
+*getLong		if sense_marker5 else notFive		; getLong: mindestens 4 Zuege, maximal 5	//22Instructions
+			if sense_marker4 else butNotFour	 
+			if sense_marker3 else butNotThree	
 			if !sense_marker2 else return15		 
 			goto return14				 
 *notFive		if sense_marker4 else norFour		 
@@ -1228,47 +1225,46 @@
 			goto return12	
 *friendorfoe1 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return1
-			goto friendorfoe 
+			goto friendorfoe1 
 *friendorfoe2 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return2
-			goto friendorfoe 
+			goto friendorfoe2 
 *friendorfoe3		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return3
-			goto friendorfoe  
+			goto friendorfoe3  
 *friendorfoe4 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return4
-			goto friendorfoe 
+			goto friendorfoe4 
 *friendorfoe5 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return5
-			goto friendorfoe  
+			goto friendorfoe5  
 *friendorfoe6 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return6
-			goto friendorfoe 
+			goto friendorfoe6 
 *friendorfoe7 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return7
-			goto friendorfoe  
+			goto friendorfoe7  
 *friendorfoe8 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return8
-			goto friendorfoe  
+			goto friendorfoe8  
 *friendorfoe9 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return9
-			goto friendorfoe  
+			goto friendorfoe9  
 *friendorfoe10 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return10
-			goto friendorfoe  
+			goto friendorfoe10  
 *friendorfoe11 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return11
-			goto friendorfoe 
+			goto friendorfoe11
 *friendorfoe12 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return12
-			goto friendorfoe  
+			goto friendorfoe12  
 *friendorfoe13 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return13
-			goto friendorfoe  
+			goto friendorfoe13  
 *friendorfoe14 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return14
-			goto friendorfoe  
+			goto friendorfoe14  
 *friendorfoe15 		sense 0 
 	 		ifany sense_shiptype==enemy sense_shiptype==friend else return15
-			goto friendorfoe  
-
+			goto friendorfoe15  

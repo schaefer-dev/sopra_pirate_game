@@ -76,7 +76,7 @@ public class SettingsState implements GameState {
 	
 	@Override
 	public void concealing() {
-		manager.getRoot().setCenter(null);
+		exiting();
 	}
 
 	@Override

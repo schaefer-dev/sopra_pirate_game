@@ -17,7 +17,7 @@ public class Unmark implements Command {
 	
 	/** Constructor
 	 * Creates a new object of this class.
-	 * @param type	the type of the guoy which should be deleted (between 0 and 5).
+	 * @param type	the type of the buoy which should be deleted (between 0 and 5).
 	 */
 	public Unmark(int type){
 		this.type = type;
@@ -25,7 +25,7 @@ public class Unmark implements Command {
 	
 	/**
 	 * Executes the command by calling the method "deleteBuoy(Team team, Type type)" in the class field.
-	 * The check if the buoy is on this field and can be deleted happens in the method in field.
+	 * The check if the buoy is on this field and can be deleted happens in this method in field.
 	 * @param ship 	The ship which should delete a buoy.
 	 */
 	@Override

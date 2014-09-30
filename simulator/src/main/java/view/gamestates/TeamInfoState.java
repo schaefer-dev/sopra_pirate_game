@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,16 +42,11 @@ public class TeamInfoState implements GameState {
 		List<Text> texts = new LinkedList<Text>();
 		Text thanks = new Text("                                                        We also want to thank our tutor Maximilian Zöllner");
 		texts.add(thanks);
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
 		GridPane forText = new GridPane();
 		forText.setAlignment(Pos.TOP_CENTER);
 		manager.getTitleText().setText("The Team");
 		Button back = new Button("< Back");
-		back.setAlignment(Pos.BOTTOM_LEFT);
+		back.setAlignment(Pos.BOTTOM_CENTER);
 		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		back.setOnAction(new SwitchState(manager));
@@ -64,23 +60,27 @@ public class TeamInfoState implements GameState {
 		texts.add(text);
 		thanks.setTextAlignment(TextAlignment.CENTER);
 		thanks.setFill(Color.RED);
-		grid.add(back, 0, 0);
 		forText.add(text, 0, 0);
 		forText.add(new Text(""), 0,2);
 		forText.add(new Text(""), 0,1);
 		forText.add(thanks,0,3);
+		HBox button = new HBox();
+		button.getChildren().add(back);
+		button.setAlignment(Pos.BOTTOM_CENTER);
+		forText.add(button, 0, 5);
 		
-		int imageSize = 100;
+		int imageSize = 150;
 		if(manager.getStage().getHeight() < 720 /*resolution HD */)
 		{
-			imageSize = 50;
+			imageSize = 80;
 		
 		}
 		ImageView v1 = new ImageView();
-		File temp = new File("src/main/ressources/bildJan.jpg");
+		File temp = new File("src/main/ressources/bildJanna.jpg");
 		Image picture1 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		v1.setImage(picture1);
 		ImageView v2 = new ImageView();
+		temp = new File("src/main/ressources/bildJan.jpg");
 		Image picture2 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v3 = new ImageView();
 		Image picture3 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
@@ -100,6 +100,8 @@ public class TeamInfoState implements GameState {
 		one.setAlignment(Pos.CENTER);
 		one.getChildren().add(janna);
 		one.getChildren().add(v1);
+		one.setOnMouseEntered(new HoverEvent(root.getHoverText(), "The creator of our beautiful kraken"));
+		one.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		VBox two = new VBox(15);
 		Text rafael = new Text();
 		rafael.setText("Rafael Theis");
@@ -108,6 +110,8 @@ public class TeamInfoState implements GameState {
 		two.setAlignment(Pos.CENTER);
 		two.getChildren().add(rafael);
 		two.getChildren().add(v2);
+		two.setOnMouseEntered(new HoverEvent(root.getHoverText(), "The mastermind behind this magnificent GUI"));
+		two.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		VBox three = new VBox(15);
 		Text jan = new Text();
 		jan.setText("Jan Menz");
@@ -115,6 +119,8 @@ public class TeamInfoState implements GameState {
 		three.setAlignment(Pos.CENTER);
 		three.getChildren().add(jan);
 		three.getChildren().add(v3);
+		three.setOnMouseEntered(new HoverEvent(root.getHoverText(), "The creator of this informative Team page"));
+		three.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		VBox four = new VBox(15);
 		Text andreas = new Text();
 		andreas.setText("Andreas Meyer");
@@ -122,6 +128,8 @@ public class TeamInfoState implements GameState {
 		four.setAlignment(Pos.CENTER);
 		four.getChildren().add(andreas);
 		four.getChildren().add(v4);
+		four.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Without his translator your tactic files would merely be gibberish"));
+		four.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		VBox five = new VBox(15);
 		Text daniel = new Text();
 		daniel.setText("Daniel Schäfer");
@@ -129,6 +137,8 @@ public class TeamInfoState implements GameState {
 		five.setAlignment(Pos.CENTER);
 		five.getChildren().add(daniel);
 		five.getChildren().add(v5);
+		five.setOnMouseEntered(new HoverEvent(root.getHoverText(), "His ship drawings are matched by no other"));
+		five.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));
 		HBox pictures = new HBox(manager.getStage().getWidth()/15);
 		pictures.getChildren().addAll(one,two,three,four,five);
 		pictures.setAlignment(Pos.CENTER);
@@ -151,16 +161,13 @@ public class TeamInfoState implements GameState {
 
 			}
 		}
-			
-		forText.add(pictures, 0, 1);
-		manager.getRoot().setBottom(grid);
+		forText.add(pictures, 0, 1);		
 		manager.getRoot().setCenter(forText);
 	}
 
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
-		manager.getRoot().setBottom(null);
 		if(prevWid != 0)
 			manager.getStage().setWidth(prevWid);
 	}

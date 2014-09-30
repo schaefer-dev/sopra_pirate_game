@@ -149,7 +149,7 @@ public class Translator {
 					return new Turn(false);
 				
 				}else 
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction: " + currentElement);
 					break;
 					   
 			case GOTO:
@@ -157,10 +157,9 @@ public class Translator {
 				if(evaluateAddress(currentElement) != -1){
 					overloadTest();
 					return new Goto(evaluateAddress(currentElement));	
-				}else{
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+				}else
 					break;
-				}
+				
 				
 			case MARK: 
 				makeSplits(appendix);
@@ -170,11 +169,11 @@ public class Translator {
 						overloadTest();
 						return new Mark(type);
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type: " + currentElement);
 				break;
 	
 			case UNMARK:
@@ -185,11 +184,11 @@ public class Translator {
 						overloadTest();
 						return new Unmark(type);
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type: " + currentElement);
 				break;
 				
 			case SENSE: 
@@ -200,11 +199,11 @@ public class Translator {
 						overloadTest();
 						return new Sense(type);
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid sense direction.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid sense direction: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction: " + currentElement);
 				break;
 				
 			case MOVE:
@@ -216,11 +215,11 @@ public class Translator {
 						overloadTest();
 						return new Move(type);	
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 				break;											     
 			
 			case REPAIR: 
@@ -232,11 +231,11 @@ public class Translator {
 						overloadTest();
 						return new Repair(type);					
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 				break;
 				
 			case PICKUP: 
@@ -250,20 +249,18 @@ public class Translator {
 								if(evaluateAddress(currentElement) != -1){
 									overloadTest();
 									return new Pickup(type,evaluateAddress(currentElement));	
-								}else{
-									errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+								}else
 									break;
-								}
 							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 								break;
 							}
 						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
+							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction: " + currentElement);
 							break;
 						}				
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction: " + currentElement);
 				break;
 							
 			case REFRESH:
@@ -280,15 +277,15 @@ public class Translator {
 								}else
 									break;
 							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 								break;
 							}
 						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
+							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction: " + currentElement);
 							break;
 						}				
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction: " + currentElement);
 				break;
 			
 			case FLIPZERO:
@@ -305,18 +302,20 @@ public class Translator {
 								}else
 									break;
 							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 								break;
 							}
 						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Value must be greater than 1.");
+							errors.add(" l: " + row + " ,p: " + indexOfError() + "Value must be greater than 1: " + currentElement);
 							break;
 						}				
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing value.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing value: " + currentElement);
 				break;
 				
 			case IF:
+				System.out.println(row);
+
 				makeSplits(appendix);
 				comparison = toolBox.buildComparison(currentElement);
 				if(comparison != null && appendix != null){
@@ -330,15 +329,17 @@ public class Translator {
 						}else
 							break;
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 						break;					
 					}
 				}else{
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing condition.");
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing condition: " + currentElement);
 					break;
 				}
 			
 			case IFALL:
+				System.out.println(row);
+
 				conditions.clear();
 				bools.clear();
 				comparison = null;
@@ -348,19 +349,19 @@ public class Translator {
 					makeSplits(appendix);
 				}
 				if(appendix == null){
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else or address.");
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else or address: " + currentElement);
 					break;
 				}
 				for(String condition: conditions){
 					comparison = toolBox.buildComparison(condition);
 					if(comparison == null){
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions: " + currentElement);
 						break;
 					}
 					bools.add(comparison);
 				}
 				if(bools.size() < conditions.size()){
-					errors.add("l: " + row + "invalid conditions");
+					errors.add("l: " + row + "invalid conditions: " + currentElement);
 					break;
 				}else{
 					makeSplits(appendix);
@@ -375,6 +376,8 @@ public class Translator {
 				
 			
 			case IFANY:
+				System.out.println(row);
+
 				conditions.clear();
 				bools.clear();
 				comparison = null;
@@ -463,8 +466,12 @@ public class Translator {
 							labeledLine = labeledLine.replaceAll("	", " ");
 							makeSplits(labeledLine);
 							if(currentElement.startsWith("*")){
-								labels.put(currentElement.substring(1).toLowerCase(), row);
-								row++;
+								if (labels.containsValue(currentElement.substring(1).toLowerCase()))
+									errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
+								else{
+									labels.put(currentElement.substring(1).toLowerCase(), row);
+									row++;
+								}	
 							}else{ 
 								row++;
 								continue;
@@ -490,7 +497,11 @@ public class Translator {
 							if(labelized){
 									makeSplits(currentLine.replaceAll("	", " "));
 									if(currentElement.startsWith("*")){
-										tactic.add(translate(appendix.replaceAll("	", " ")));
+										try{
+											tactic.add(translate(appendix.replaceAll("	", " ")));
+										}catch(Exception e){
+											errors.add("l: " + row + "leere Zeile");
+										}
 									}else
 										tactic.add(translate(currentLine.replaceAll("	", " ")));
 							}else 	
@@ -529,11 +540,11 @@ public class Translator {
 				if(labels.containsKey(currentElement.toLowerCase()))
 				    	return (int) labels.get(currentElement.toLowerCase());
 				else{
-					   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid label.");
+					   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid label: " + currentElement);
 					   return -1;
 				   }
 		}else{
-			   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid jump address.");
+			   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid jump address: " + currentElement);
 			   return -1;
 			   }
 	}

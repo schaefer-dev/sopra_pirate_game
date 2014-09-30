@@ -47,7 +47,7 @@ public class IfAll implements Command {
 		String res = "ifall ";
 		for (Comparison clause: clauses)
 			res = res + clause.toString() + " ";
-		return res + " else " + String.valueOf(elsePC);
+		return res + "else " + String.valueOf(elsePC);
 	}
 	@Override
 	public boolean equals(Object o){
