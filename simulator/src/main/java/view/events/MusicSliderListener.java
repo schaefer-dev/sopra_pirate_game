@@ -9,7 +9,7 @@ import javafx.scene.media.MediaPlayer;
 public class MusicSliderListener extends SliderListener {
 
 	public MusicSliderListener(Slider slider, Label label, final MediaPlayer player) {
-		super(slider, label);
+		super(slider, label, false);
 		slider.valueProperty().addListener(new ChangeListener<Number>(){
 
 			@Override

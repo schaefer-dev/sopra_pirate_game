@@ -55,21 +55,20 @@ public class InGameState implements GameState, LogWriter {
         if(fieldChars == null){
             Generator gen = new Generator(198, 198, 40, 4);
     		fieldChars = gen.generateMap();
+    		fields = new Field[fieldChars.length][fieldChars[0].length];
+    		for(int y = 0; y < fieldChars[0].length; y++){
+            	for(int x = 0; x < fieldChars.length; x++){
+
+            		char field = fieldChars[x][y];
+            		
+            		if(field == '.')
+            			this.fields[x][y] = new Field(map, x, y, FieldType.Water);
+            		else
+            			this.fields[x][y] = new Field(map, x, y, FieldType.Island);
+            	}		
+        	}
         }
         
-		this.fields = new Field[fieldChars.length][fieldChars[0].length];
-		for(int y = 0; y < fieldChars[0].length; y++){
-        	for(int x = 0; x < fieldChars.length; x++){
-
-        		char field = fieldChars[x][y];
-        		
-        		if(field == '.')
-        			this.fields[x][y] = new Field(map, x, y, FieldType.Water);
-        		else
-        			this.fields[x][y] = new Field(map, x, y, FieldType.Island);
-        	}		
-    	}
-		
         cam = new Camera(this.fields);
         map.initMap(this.fields, cam);
         map.drawMap();
@@ -155,7 +154,6 @@ public class InGameState implements GameState, LogWriter {
 			fields[arg2][arg3] = new Field(map, arg2, arg3, type);
 		else{
 			fields[arg2][arg3] = new Field(map, arg2, arg3, arg1);
-			System.out.println(arg1.toString() + 'a');
 		}
 		
 		return this;

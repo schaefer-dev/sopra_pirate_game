@@ -10,7 +10,8 @@ public class Ressources {
 
 	private Image water;
 	private Image island;
-	
+	private Image base;
+	private Image provision;
 	
 	
 	public Ressources(){
@@ -24,6 +25,16 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	water = new Image(stream);
 	    	stream.close();
+	    	
+	    	file = new File("src/main/ressources/provision.png");
+	    	stream = new FileInputStream(file);
+	    	provision = new Image(stream);
+	    	stream.close();
+	    	
+	    	file = new File("src/main/ressources/red.png");
+	    	stream = new FileInputStream(file);
+	    	base = new Image(stream);
+	    	stream.close();
     	}
     	catch(Exception e){}
 	}
@@ -36,6 +47,12 @@ public class Ressources {
 		return island;
 	}
 	
+	public Image getBaseImage(){
+		return base;
+	}
 	
+	public Image getProvisionImage(){
+		return provision;
+	}
 	
 }

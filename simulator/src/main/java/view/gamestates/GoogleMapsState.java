@@ -62,7 +62,7 @@ public class GoogleMapsState implements GameState {
 		mapSizeSlider.setMinorTickCount(2);
 		mapSizeSlider.setSnapToTicks(true);
 		Label mapSizeLabel = new Label(String.format("%.0f", mapSizeSlider.getValue()));
-		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel);
+		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel, true);
 		
 		Button generate = new Button("Generate");
 		generate.getStyleClass().add("menubutton");
