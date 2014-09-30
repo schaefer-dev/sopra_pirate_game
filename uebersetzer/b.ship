@@ -1,0 +1,145 @@
+turn left
+move  else 109
+l: 2 ,p: 16Invalid label.goto 8
+ l: 2 ,p: 16Invalid address or label.goto 8
+pickup 5 else 1
+goto 8
+ifall !sense_marker5 !sense_marker1  else 23
+turn right
+turn right
+turn right
+sense 0
+ifall sense_celltype==home sense_shiptype!=friend  else 17
+move  else 12
+drop
+l: 4 ,p: 16Invalid label.ifall sense_celltype!=home sense_shiptype!=friend  else 12
+if sense_shiptype!=enemy else 21
+move  else 19
+goto 12
+sense 0
+goto 18
+if sense_marker2 else 33
+ l: 4 ,p: 16Invalid address or label.turn right
+sense 6
+if sense_celltype==home else 41
+goto 15
+turn left
+sense 6
+if sense_celltype==home else 41
+goto 15
+if sense_marker1 else 37
+turn right
+turn right
+goto 41
+turn left
+turn left
+goto 41
+move  else 40
+sense 0
+ifall sense_celltype==home sense_shiptype!=friend  else 44
+move  else 12
+ifall sense_celltype!=home sense_shiptype!=friend  else 12
+ifany sense_celltype==island sense_celltype==enemyhome sense_shiptype==enemy  else 40
+if sense_shiptype!=enemy else 40
+sense 5
+l: 16 ,p: 9Invalid label.turn left
+ l: 16 ,p: 9Invalid address or label.goto 57
+sense 1
+l: 24 ,p: 28Invalid label.turn right
+ l: 48 ,p: 75Invalid conditions.goto 65
+turn right
+turn right
+move  else 73
+sense 1
+if sense_celltype==home else 59
+turn right
+move  else 63
+goto 15
+turn left
+turn left
+move  else 73
+sense 5
+if sense_celltype==home else 67
+turn left
+move  else 71
+goto 15
+turn right
+turn right
+turn right
+move  else 73
+move  else 73
+turn right
+turn right
+move  else 73
+move  else 73
+turn right
+move  else 73
+move  else 73
+move  else 73
+move  else 86
+sense 0
+if sense_celltype==home else 91
+move  else 89
+goto 15
+sense 1
+if sense_celltype==home else 94
+goto 89
+sense 2
+if sense_celltype==home else 97
+goto 89
+sense 3
+if sense_celltype==home else 100
+goto 89
+sense 4
+if sense_celltype==home else 103
+goto 89
+sense 5
+if sense_celltype==home else 106
+goto 89
+sense 6
+if sense_celltype==home else 86
+goto 89
+ifany sense_marker5 sense_marker1  else 111
+goto 1
+sense 6
+if sense_marker5 else 131
+if sense_marker2 else 120
+l: 48invalid conditionsunmark 1
+sense 6
+mark 1
+turn left
+goto 1
+mark 2
+if sense_marker1 else 127
+unmark 1
+sense 6
+mark 1
+turn left
+goto 1
+sense 6
+unmark 2
+turn left
+goto 1
+if sense_marker1 else 141
+if !sense_marker2 else 138
+mark 2
+sense 6
+unmark 2
+turn right
+goto 1
+sense 6
+turn right
+goto 1
+flipzero 2 else 148
+mark 1
+mark 2
+sense 6
+unmark 1
+unmark 2
+goto 139
+mark 5
+mark 2
+sense 6
+unmark 5
+unmark 2
+goto 118

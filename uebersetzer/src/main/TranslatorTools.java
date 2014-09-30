@@ -71,7 +71,12 @@ public class TranslatorTools {
 				}
 			}	
 		}
+		try{
+			Register.valueOf(condition);
 
+		}catch(Exception e){
+			System.out.println(condition);
+		}		
 		switch (Register.valueOf(condition)){
 		
 		case sense_shiploaded: //bool
