@@ -1,12 +1,10 @@
-package controller;
+package main;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +23,7 @@ import commands.Repair;
 import commands.Sense;
 import commands.Turn;
 import commands.Unmark;
+import enums.CommandWords;
 
 /**
  * A single instance of this class is invoked by the simulator.
@@ -57,7 +56,9 @@ import commands.Unmark;
  */
 public class Translator {
 	
+	Map<String, Integer> labels;
 	List<String> errors;
+	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row;
@@ -65,9 +66,11 @@ public class Translator {
 	TranslatorTools toolBox;
 	
 	public Translator(){
-		this.errors = new LinkedList<String>();
+		this.errors = new ArrayList<String>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
+		this.labelized = false;
+		this.labels = new HashMap<String, Integer>();
 	}
 	
 	/** @Specs: splits the given line in a and saves the first word in currentElements and the rest 
@@ -78,7 +81,7 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		line.trim();
+			line.trim();
 		splits = line.split(" ");
 		String res = "";
 		if (splits.length == 1){
@@ -107,18 +110,27 @@ public class Translator {
 	 * 
 	 *  @Return: Command.
 	 * 
-	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/					
+	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/
+						
 
-	
 	private Command translate(String line){
 
-		List<String> conditions = new LinkedList<String>();
-		List<Comparison> bools = new LinkedList<Comparison>();
+		List<String> conditions = new ArrayList<String>();
+		List<Comparison> bools = new ArrayList<Comparison>();
 		Comparison comparison = null;
 		int type = -1;
+		if(line.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
+			line = line.substring(0, line.indexOf(";"));
+		}
+		line = line.replaceAll("	"," ");
 		columns = line.length();
 		makeSplits(line.trim());
 		try{
+			CommandWords.valueOf(currentElement.toUpperCase());
+		}
+		catch(Exception e){
+			System.out.println(String.valueOf(row));
+		}
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
 			case DROP:
@@ -137,7 +149,7 @@ public class Translator {
 					return new Turn(false);
 				
 				}else 
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction: " + currentElement);
 					break;
 					   
 			case GOTO:
@@ -145,10 +157,9 @@ public class Translator {
 				if(evaluateAddress(currentElement) != -1){
 					overloadTest();
 					return new Goto(evaluateAddress(currentElement));	
-				}else{
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+				}else
 					break;
-				}
+				
 				
 			case MARK: 
 				makeSplits(appendix);
@@ -158,11 +169,11 @@ public class Translator {
 						overloadTest();
 						return new Mark(type);
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type: " + currentElement);
 				break;
 	
 			case UNMARK:
@@ -173,11 +184,11 @@ public class Translator {
 						overloadTest();
 						return new Unmark(type);
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type: " + currentElement);
 				break;
 				
 			case SENSE: 
@@ -188,11 +199,11 @@ public class Translator {
 						overloadTest();
 						return new Sense(type);
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid sense direction.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid sense direction: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction: " + currentElement);
 				break;
 				
 			case MOVE:
@@ -204,11 +215,11 @@ public class Translator {
 						overloadTest();
 						return new Move(type);	
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 				break;											     
 			
 			case REPAIR: 
@@ -220,11 +231,11 @@ public class Translator {
 						overloadTest();
 						return new Repair(type);					
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label: " + currentElement);
 						break;
 					}
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 				break;
 				
 			case PICKUP: 
@@ -238,20 +249,18 @@ public class Translator {
 								if(evaluateAddress(currentElement) != -1){
 									overloadTest();
 									return new Pickup(type,evaluateAddress(currentElement));	
-								}else{
-									errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+								}else
 									break;
-								}
 							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 								break;
 							}
 						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
+							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction: " + currentElement);
 							break;
 						}				
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction: " + currentElement);
 				break;
 							
 			case REFRESH:
@@ -268,15 +277,15 @@ public class Translator {
 								}else
 									break;
 							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 								break;
 							}
 						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
+							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction: " + currentElement);
 							break;
 						}				
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction: " + currentElement);
 				break;
 			
 			case FLIPZERO:
@@ -293,18 +302,20 @@ public class Translator {
 								}else
 									break;
 							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 								break;
 							}
 						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Value must be greater than 1.");
+							errors.add(" l: " + row + " ,p: " + indexOfError() + "Value must be greater than 1: " + currentElement);
 							break;
 						}				
 				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing value.");
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing value: " + currentElement);
 				break;
 				
 			case IF:
+				System.out.println(row);
+
 				makeSplits(appendix);
 				comparison = toolBox.buildComparison(currentElement);
 				if(comparison != null && appendix != null){
@@ -318,15 +329,17 @@ public class Translator {
 						}else
 							break;
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else: " + currentElement);
 						break;					
 					}
 				}else{
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing condition.");
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing condition: " + currentElement);
 					break;
 				}
 			
 			case IFALL:
+				System.out.println(row);
+
 				conditions.clear();
 				bools.clear();
 				comparison = null;
@@ -336,19 +349,19 @@ public class Translator {
 					makeSplits(appendix);
 				}
 				if(appendix == null){
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else or address.");
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else or address: " + currentElement);
 					break;
 				}
 				for(String condition: conditions){
 					comparison = toolBox.buildComparison(condition);
 					if(comparison == null){
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions: " + currentElement);
 						break;
 					}
 					bools.add(comparison);
 				}
 				if(bools.size() < conditions.size()){
-					errors.add("l: " + row + "invalid conditions");
+					errors.add("l: " + row + "invalid conditions: " + currentElement);
 					break;
 				}else{
 					makeSplits(appendix);
@@ -363,6 +376,8 @@ public class Translator {
 				
 			
 			case IFANY:
+				System.out.println(row);
+
 				conditions.clear();
 				bools.clear();
 				comparison = null;
@@ -401,13 +416,8 @@ public class Translator {
 				errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
 				break;															
 			}
-		
 			
 		return null;
-		}catch(Exception e){
-			errors.add("l:" + row + "not a valid command: " + currentElement);
-			return null;
-		}
 	}
 	
 /** @Specs: returns the index of the invalid expressions first char within the initial line.**/
@@ -437,30 +447,84 @@ public class Translator {
 	
 	public List<Command> run(InputStream tacticsFile){
 		BufferedReader tacticsdoc = new BufferedReader(new InputStreamReader(tacticsFile));
+		boolean tooLong = false;
 		row = 0;
-		List<Command> tactic = new LinkedList<Command>();
-		errors = new LinkedList<String>();
-			try {
-				while(true){
-					String currentLine = tacticsdoc.readLine();
-					if(row >= 2001){
-						break;
+		List<Command> tactic = new ArrayList<Command>();
+		errors = new ArrayList<String>();
+					try {
+/*************HIER WERDEN DIE LABELS AUSGELESEN*****************************/
+				if(labelized){
+					tacticsdoc.mark(140*2000);
+						while(true){
+							String labeledLine = tacticsdoc.readLine();
+							if(row >= 2001){
+								tooLong = true;
+								break;
+							}
+							if(labeledLine == null)
+								break;
+							labeledLine = labeledLine.replaceAll("	", " ");
+							makeSplits(labeledLine);
+							if(currentElement.startsWith("*")){
+								if (labels.containsValue(currentElement.substring(1).toLowerCase()))
+									errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
+								else{
+									labels.put(currentElement.substring(1).toLowerCase(), row);
+									row++;
+								}	
+							}else{ 
+								row++;
+								continue;
+							}
+						}
+/*************DER STREAM WIRD RESETTET*****************************************/
+
+				if(tacticsdoc.markSupported())
+					tacticsdoc.reset();
+				else throw new IllegalStateException("mark not supported!");
+				row = 0;
+				}
+/******************HIER BEGINNT DAS PARSEN*****************************/
+				
+						while(true){
+							String currentLine = tacticsdoc.readLine();
+							if(row >= 2001){
+								tooLong = true;
+								break;
+							}
+							if(currentLine == null)
+								break;
+							if(labelized){
+									makeSplits(currentLine.replaceAll("	", " "));
+									if(currentElement.startsWith("*")){
+										try{
+											tactic.add(translate(appendix.replaceAll("	", " ")));
+										}catch(Exception e){
+											errors.add("l: " + row + "leere Zeile");
+										}
+									}else
+										tactic.add(translate(currentLine.replaceAll("	", " ")));
+							}else 	
+								tactic.add(translate(currentLine.replaceAll("	", " ")));	
+							row++;
 					}
-					if(currentLine == null)
-						break;
-					if(currentLine.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
-						currentLine = currentLine.substring(0, currentLine.indexOf(";"));
+				
+				if(labelized){
+					if (errors.size() > 0){
+						int error = 0;
+						while(error < errors.size()){
+							System.out.println("Error:" + (error+1) + errors.get(error));
+							error++;
+						}
 					}
-					tactic.add(translate(currentLine.replaceAll("	", " ")));	
-					row++;
-					}					
-			}catch (IOException e) {
+				}	
+			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}
-		if(row>=2001)
-			throw new IllegalArgumentException("Tactics file too long.");
-		if (errors.size() > 0)
-			throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n");//(errors.get(0));
+		//if(tooLong)
+			//throw new IllegalArgumentException("Tactics file too long.");
+		//if (errors.size() > 0)
+			//throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n");//(errors.get(0));
 		return tactic;
 	}
 	
@@ -471,14 +535,26 @@ public class Translator {
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
 			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
-			    	return toolBox.toInt(currentElement);
-			    else
-			    	return -1;
+			    		return toolBox.toInt(currentElement);
+		}if(labelized){
+				if(labels.containsKey(currentElement.toLowerCase()))
+				    	return (int) labels.get(currentElement.toLowerCase());
+				else{
+					   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid label: " + currentElement);
+					   return -1;
+				   }
 		}else{
-			   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid jump address.");
+			   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid jump address: " + currentElement);
 			   return -1;
 			   }
 	}
 	
+	public List<String> getErrors(){
+		return errors;
+	}
 	
+	public void setLabelized(boolean what)
+	{
+		labelized = what;
+	}
 }

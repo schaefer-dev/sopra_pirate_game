@@ -42,34 +42,6 @@ public class TranslatorTest {
 		commands = constr.getCommandList();
 	}
 	
-	@Test 
-	public void testLabels(){
-		List<Command> soll = new LinkedList<Command>();
-		String labeledTactics = "move else hierhin\n"
-				+"sense 2\n"
-				+"*hierhin sense 0\n";
-				
-		InputStream in = stringToStream(labeledTactics);
-		Move move = new Move(2);
-		Sense sense2= new Sense(2); 
-		Sense sense0 = new Sense(0);
-		soll.add(move);
-		soll.add(sense2);
-		soll.add(sense0);
-		translator.setLabelized(true);
-		List<Command> erg = translator.run(in);
-		/*for (Command expected: soll)
-			System.out.println("soll: " + expected);
-		for (Command build: erg){
-			System.out.println("erg:" + build);
-			if(build instanceof Move){
-				Move mo = (Move) build;
-				System.out.println("mo:" + mo.getPC());
- 			}			
-		}*/
-		translator.setLabelized(false);
-		assertEquals("Labels haben nicht funktioniert", soll, erg);
-	}
 	
 	@Test
 	public void testExampleTactic(){
@@ -117,26 +89,7 @@ public class TranslatorTest {
 		
 		
 	}
-	@Test
-	public void testJumpMarks()
-	{
-		translator.setLabelized(true);
-		String tactic = 
-		"*start move else dreh\n"
-		+"sense 0;\n"
-		+"*dreh turn left\n"
-		+"goto start";
-		
-		InputStream in = stringToStream(tactic);
-		List<Command> sollErg = new LinkedList<Command>();
-		sollErg.add(new Move(2));
-		sollErg.add(new Sense(0));
-		sollErg.add(new Turn(true));
-		sollErg.add(new Goto(0));
-		
-		List<Command> erg = translator.run(in);
-		assertEquals("Jump marks were not resolved correctly. Should have been " + sollErg + " but is " + erg, sollErg, erg);
-	}
+
 	@Test
 	public void testCapitalLetters()
 	{

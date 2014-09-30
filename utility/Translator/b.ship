@@ -1,0 +1,247 @@
+flipzero 2 else 75
+turn left
+flipzero 2 else 26
+pickup 5 else 6
+drop
+goto 3
+pickup 1 else 9
+drop
+goto 3
+sense 0
+ifall !sense_treasure sense_celltype!=island else 150
+move else 22
+mark 2
+pickup 5 else 15
+goto 159
+pickup 1 else 17
+goto 159
+sense 0
+ifany sense_treasure sense_celltype==island else 11
+pickup 0 else 21
+goto 159
+flipzero 2 else 24
+turn left
+goto 38
+turn right
+goto 137
+turn left
+flipzero 2 else 51
+pickup 5 else 31
+drop
+goto 28
+pickup 1 else 34
+drop
+goto 28
+sense 0
+ifall !sense_treasure sense_celltype!=island else 150
+move else 49
+mark 1
+pickup 5 else 40
+goto 159
+pickup 1 else 42
+goto 159
+sense 0
+ifany sense_treasure sense_celltype==island else 36
+pickup 0 else 46
+goto 159
+flipzero 2 else 49
+turn left
+goto 62
+turn right
+goto 13
+turn left
+pickup 5 else 55
+drop
+goto 52
+pickup 1 else 58
+drop
+goto 52
+sense 0
+ifall !sense_treasure sense_celltype!=island else 150
+move else 71
+mark 0
+pickup 5 else 64
+goto 159
+pickup 1 else 66
+goto 159
+sense 0
+ifany sense_treasure sense_celltype==island else 60
+pickup 0 else 70
+goto 159
+flipzero 2 else 73
+turn left
+goto 112
+turn right
+goto 38
+turn right
+flipzero 2 else 100
+pickup 5 else 80
+drop
+goto 77
+pickup 1 else 83
+drop
+goto 77
+sense 0
+ifall !sense_treasure sense_celltype!=island else 150
+move else 98
+mark 4
+pickup 5 else 89
+goto 159
+pickup 1 else 91
+goto 159
+sense 0
+ifany sense_treasure sense_celltype==island else 85
+pickup 0 else 95
+goto 159
+flipzero 2 else 98
+turn left
+goto 137
+turn right
+goto 112
+turn right
+flipzero 2 else 125
+pickup 5 else 105
+drop
+goto 102
+pickup 1 else 108
+drop
+goto 102
+sense 0
+ifall !sense_treasure sense_celltype!=island else 150
+move else 121
+mark 5
+pickup 5 else 114
+goto 159
+pickup 1 else 116
+goto 159
+sense 0
+ifany sense_treasure sense_celltype==island else 110
+pickup 0 else 120
+goto 159
+flipzero 2 else 123
+turn left
+goto 87
+turn right
+goto 62
+turn right
+goto 52
+pickup 5 else 130
+drop
+goto 127
+pickup 1 else 133
+drop
+goto 127
+sense 0
+ifall !sense_treasure sense_celltype!=island else 150
+move else 148
+mark 3
+pickup 5 else 139
+goto 159
+pickup 1 else 141
+goto 159
+sense 0
+ifany sense_treasure sense_celltype==island else 135
+pickup 0 else 145
+goto 159
+flipzero 2 else 148
+turn left
+goto 13
+turn right
+goto 87
+pickup 0 else 153
+drop
+goto 153
+if ship_direction==0 else 156
+sense 0
+if sense_celltype==island else 127
+turn left
+goto 153
+goto 0
+sense 6
+if sense_celltype==home else 164
+drop
+if ship_condition!=3 else 153
+repair else 153
+if !sense_marker0 else 194
+if !sense_marker1 else 189
+if !sense_marker2 else 184
+if !sense_marker3 else 179
+if !sense_marker4 else 174
+if ship_direction==5 else 172
+move else 159
+goto 239
+turn right
+goto 169
+if ship_direction==4 else 177
+move else 159
+goto 231
+turn right
+goto 174
+if ship_direction==3 else 182
+move else 159
+goto 223
+turn right
+goto 179
+if ship_direction==2 else 187
+move else 159
+goto 215
+turn right
+goto 184
+if ship_direction==1 else 192
+move else 159
+goto 207
+turn right
+goto 189
+if ship_direction==0 else 197
+move else 159
+goto 199
+turn right
+goto 194
+sense 6
+if sense_celltype==home else 204
+drop
+if ship_condition!=3 else 153
+repair else 153
+ifall ship_direction==0 sense_marker0 else 164
+move else 159
+goto 199
+sense 6
+if sense_celltype==home else 212
+drop
+if ship_condition!=3 else 153
+repair else 153
+ifall ship_direction==1 sense_marker1 else 164
+move else 159
+goto 207
+sense 6
+if sense_celltype==home else 220
+drop
+if ship_condition!=3 else 153
+repair else 153
+ifall ship_direction==2 sense_marker2 else 164
+move else 159
+goto 215
+sense 6
+if sense_celltype==home else 228
+drop
+if ship_condition!=3 else 153
+repair else 153
+ifall ship_direction==3 sense_marker3 else 164
+move else 159
+goto 223
+sense 6
+if sense_celltype==home else 236
+drop
+if ship_condition!=3 else 153
+repair else 153
+ifall ship_direction==4 sense_marker4 else 164
+move else 159
+goto 231
+sense 6
+if sense_celltype==home else 244
+drop
+if ship_condition!=3 else 153
+repair else 153
+ifall ship_direction==5 sense_marker5 else 164
+move else 159
+goto 239
