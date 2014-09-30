@@ -19,6 +19,7 @@ public class Field {
 	private FieldType type;
 	private Image image;
 	
+	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
 		this.y = y;
@@ -26,10 +27,20 @@ public class Field {
 		this.type = type;
 		buoys = new LinkedList<SimpleEntity>();
 		
-		if(type == FieldType.Water)
-			image = map.getRessources().getWaterImage();
-		else
-			image = map.getRessources().getIslandImage();
+		switch(type){
+			case Base:
+				image = map.getRessources().getBaseImage();
+				break;
+			case Water:
+				image = map.getRessources().getWaterImage();
+				break;
+			case Island:
+				image = map.getRessources().getIslandImage();
+				break;
+			case ProvisionIsland:
+				image = map.getRessources().getProvisionImage();
+				break;
+		}
 	}
 	
 	
@@ -40,12 +51,13 @@ public class Field {
 		this.type = FieldType.Base;
 		this.affiliation = affiliation;
 		this.buoys = new LinkedList<SimpleEntity>();
+		image = map.getRessources().getBaseImage();
 	}
 	
 	
 	private void redraw(){
-		//if(map.isVisible(this))
-		//	map.drawField(this);
+		if(map.isVisible(this))
+			map.drawField(this);
 	}
 	
 	

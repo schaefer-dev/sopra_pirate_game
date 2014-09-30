@@ -33,7 +33,7 @@ public class Configuration {
 	
 	public final static int TEAM_COUNT_MIN = 1;
 	private int teamCountMax = 26;
-	private int teamCount = TEAM_COUNT_MIN;
+	private int teamCount = 0;
 	
 	public final static int SHIP_COUNT_MIN = 1;
 	public final static int SHIP_COUNT_MAX = 100;
@@ -144,7 +144,12 @@ public class Configuration {
 	}
 	
 	public void removeTeam(){
-		--teamCount;
+		if(teamCount > 0)
+			--teamCount;
+	}
+	
+	public void removeAllTeams(){
+		teamCount = TEAM_COUNT_MIN;
 	}
 	
 	public int getTeamCountMax(){

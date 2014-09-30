@@ -11,8 +11,9 @@ public class Map {
 	private Camera cam;
 	private GraphicsContext gc;
 	private Field[][] map;
-	
 	private Ressources ressources;
+	
+	private boolean init = false;
 	
 	public Map(GraphicsContext gc, Ressources ressources){
 		this.gc = gc;
@@ -22,6 +23,7 @@ public class Map {
 	public void initMap(Field[][] map, Camera cam){
 		if(map == null || cam == null) throw new NullPointerException();
 		
+		init = true;
 		this.cam = cam;
 		this.map = map;
 	}
@@ -37,7 +39,6 @@ public class Map {
 	
 	public void drawMap(){		
     	gc.setFill(Color.web("76A6A6"));
-    	//gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
     	for(int y = 0; y < cam.height(); y++){
@@ -119,6 +120,9 @@ public class Map {
 	}
 	
 	public boolean isVisible(Field field){
+		if(!init)
+			return false;
+		
 		return cam.intersects(field.getX(), field.getY());
 	}
 

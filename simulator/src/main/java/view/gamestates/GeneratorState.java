@@ -48,7 +48,7 @@ public class GeneratorState implements GameState {
 		mapSizeSlider.setMinorTickCount(2);
 		mapSizeSlider.setSnapToTicks(true);
 		Label mapSizeLabel = new Label(String.format("%.0f", mapSizeSlider.getValue()));
-		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel);
+		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel, true);
 		
 		Label islandCount = new Label("Island Count");
 		Slider islandCountSlider = new Slider(Configuration.ISLAND_COUNT_MIN, Configuration.ISLAND_COUNT_MAX, Configuration.ISLAND_COUNT_MIN);
