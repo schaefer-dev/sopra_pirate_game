@@ -10,7 +10,7 @@ public class SliderListener {
 	private String value;
 	private int defaultValue;
 	
-	public SliderListener(Slider slider, final Label label){
+	public SliderListener(Slider slider, final Label label, final boolean even){
 		this.defaultValue = (int) slider.getValue();
 		
 		slider.valueProperty().addListener(new ChangeListener<Number>(){
@@ -18,6 +18,13 @@ public class SliderListener {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0,	Number oldV, Number newV) {
 				value = String.format("%.0f", newV);
+				Integer i = Integer.parseInt(value);
+				if(even){
+					if(i % 2 != 0)
+						i++;
+				}
+				value = i.toString();
+				
 				if(value.length() == 1)
 					label.setText(value + "  ");
 				else if(value.length() == 2)
@@ -26,6 +33,10 @@ public class SliderListener {
 					label.setText(value);
 			}
 		});
+	}
+	
+	public SliderListener(Slider slider, final Label label){
+		this(slider, label, false);
 	}
 	
 	public int get(){

@@ -17,7 +17,9 @@ public class Field {
 	private Ship ship;
 	private Integer affiliation;
 	private FieldType type;
-	private Image image;
+	
+	private Image fieldImage;
+	private Image shipImage;
 	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
@@ -26,10 +28,20 @@ public class Field {
 		this.type = type;
 		buoys = new LinkedList<SimpleEntity>();
 		
-		if(type == FieldType.Water)
-			image = map.getRessources().getWaterImage();
-		else
-			image = map.getRessources().getIslandImage();
+		switch(type){
+			case Base:
+				fieldImage = map.getRessources().getBaseImage();
+				break;
+			case Water:
+				fieldImage = map.getRessources().getWaterImage();
+				break;
+			case Island:
+				fieldImage = map.getRessources().getIslandImage();
+				break;
+			case ProvisionIsland:
+				fieldImage = map.getRessources().getProvisionImage();
+				break;
+		}
 	}
 	
 	
@@ -40,12 +52,25 @@ public class Field {
 		this.type = FieldType.Base;
 		this.affiliation = affiliation;
 		this.buoys = new LinkedList<SimpleEntity>();
+		fieldImage = map.getRessources().getBaseImage();
 	}
 	
 	
 	private void redraw(){
-		//if(map.isVisible(this))
-		//	map.drawField(this);
+		if(map.isVisible(this))
+			map.drawField(this);
+	}
+	
+	public List<Image> getImages(){
+		List<Image> images = new LinkedList<Image>();
+		images.add(fieldImage);
+		
+		if(shipImage != null){
+			System.out.print(ship.getX() + ", " + ship.getY());
+			images.add(shipImage);
+		}	
+		
+		return images;
 	}
 	
 	
@@ -58,7 +83,7 @@ public class Field {
 	}
 	
 	public Image getImage(){
-		return image;
+		return fieldImage;
 	}
 
 	public Integer getAffiliation() {
@@ -75,6 +100,7 @@ public class Field {
 	}
 	
 	public void setShip(Ship ship){
+		this.shipImage = (ship == null) ? null : map.getRessources().getBaseImage();
 		this.ship = ship;
 		redraw();
 	}

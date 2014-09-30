@@ -61,6 +61,7 @@ public class TeamSettingsState implements GameState {
 				public void handle(ActionEvent arg0) {
 					ObservableList<Node> teams = teamSelection.getChildren();
 					teams.add(teams.size() - 1, giveNewTeamNode(true));
+					manager.getConfiguration().addTeam();
 					
 					if(teamSelection.getChildren().size() > manager.getConfiguration().getTeamCountMax())
 						newTeam.setVisible(false);
@@ -109,6 +110,7 @@ public class TeamSettingsState implements GameState {
 	public void exiting() {
 		manager.getRoot().setCenter(null);
 		manager.getConfiguration().getTactics().clear();
+		manager.getConfiguration().removeAllTeams();
 	}
 	
 	@Override
@@ -185,6 +187,7 @@ public class TeamSettingsState implements GameState {
 				public void handle(ActionEvent arg0){
 					teamSelection.getChildren().remove(box);
 					Node child = box.getChildren().get(1);
+					manager.getConfiguration().removeTeam();
 					
 					if(child instanceof ComboBox<?>){
 						ComboBox<?> cBox = (ComboBox<?>) child;

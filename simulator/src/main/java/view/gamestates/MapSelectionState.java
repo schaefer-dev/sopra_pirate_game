@@ -39,7 +39,6 @@ public class MapSelectionState implements GameState {
 		final VBox preview = new VBox(20);
 		preview.getChildren().add(mapPreview);
 		
-		
 		SelectionWindow empty = giveEmptyElement();
 		preview.getChildren().add(empty.get());
 		empty.draw(gc);
@@ -51,7 +50,6 @@ public class MapSelectionState implements GameState {
 			public void changed(ObservableValue<? extends SelectionWindow> arg0, SelectionWindow arg1, SelectionWindow arg2) {
 				if(preview.getChildren().size() > 1)
 					preview.getChildren().remove(preview.getChildren().size()-1);
-				
 				
 				preview.getChildren().add(arg2.get());
 				arg2.draw(gc);

@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import view.gamestates.InGameState;
 import view.gamestates.MainMenuState;
 import view.utility.Configuration;
 import view.utility.GameState;
 import view.utility.Resolution;
+import view.utility.Ressources;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +33,8 @@ public class GUIController extends Application {
 	private Stage stage;
 	private Scene scene;
 	private MediaPlayer player;
-	private Configuration config = new Configuration();
+	private Ressources res = new Ressources();
+	private Configuration config = res.getDefaultConfig();
 	private Text title = new Text();
 	private Text hoverText = new Text();
 	private BorderPane borderPane;
@@ -149,6 +150,10 @@ public class GUIController extends Application {
 		
 	public Configuration getConfiguration(){
 		return config;
+	}
+	
+	public Ressources getRessources(){
+		return res;
 	}
 	
 	public Scene getScene(){
