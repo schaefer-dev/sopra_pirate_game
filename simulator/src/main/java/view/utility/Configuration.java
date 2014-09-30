@@ -36,46 +36,48 @@ public class Configuration {
 	private int teamCount = TEAM_COUNT_MIN;
 	
 	public final static int SHIP_COUNT_MIN = 1;
-	public final static int SHIP_COUNT_MAX = 20;
+	public final static int SHIP_COUNT_MAX = 100;
 	public int shipCount = SHIP_COUNT_MIN;
 	
 	private List<String> tactics = new LinkedList<String>();	//list.toArray(new String[list.size()]);
 	private List<String>  captainNames = new LinkedList<String>(Arrays.asList(
 			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Guybrush Threepwood", "Captain Hook", 
 			"Monkey D. Ruffy", "LeChuck"));
-	
-	
-	
+
 	private char[][] map;
 	private Generator generator;
 	
-	private boolean builtMap = false;
-	private boolean placedObjects = false;
-		
 	
 	public void setMap(char[][] map, boolean smooth){
+		this.map = map;
 		generator = new Generator(map);
 		
 		if(smooth)
 			generator.smoothIslands(5);
-		
-		builtMap = true;
-		this.map = map;
 	}
 	
 	public char[][] generateMap(Integer height, Integer width, int isCount, int isSize){
 		generator = new Generator(height, width, isCount, isSize);
 		map = generator.generateMap();
-		builtMap = true;
 		
 		return map;
 	}
 	
 	public void removeMap(){
-		builtMap = false;
-		placedObjects = false;
 		generator = null;
 		map = null;
+	}
+	
+	public void placeObjectsOnMap(){
+		generator.setProvision(0.1 * supplyDensity);
+		generator.setTreasure(0.1 * treasureDensity);
+		//TODO: add treasure count
+		generator.setKraken(krakenCount);
+	}
+	
+	public void addTeamsToMap(){
+		generator.addTeamInformation(teamCount, shipCount);
+		generator.setBases();
 	}
 	
 	public char[][] getMap(){
@@ -137,6 +139,14 @@ public class Configuration {
 		this.teamCount = teamCount;
 	}
 	
+	public void addTeam(){
+		++teamCount;
+	}
+	
+	public void removeTeam(){
+		--teamCount;
+	}
+	
 	public int getTeamCountMax(){
 		return teamCountMax;
 	}
@@ -166,6 +176,4 @@ public class Configuration {
 	public List<String> getTactics(){
 		return tactics;
 	}
-	
-
 }

@@ -19,7 +19,7 @@ public class Camera {
 		minY = c = 0;
 		maxX = b = (int) canvas.getWidth();
 		maxY = d = (int) canvas.getHeight();
-		maxZoom = maxX/3;
+		maxZoom = maxX/2;
 		scrollable = true;
 	}
 	
@@ -28,7 +28,7 @@ public class Camera {
 		minY = c = 0;
 		maxX = b = (int) map.length;
 		maxY = d = (int) map[0].length;
-		maxZoom = maxX/3;
+		maxZoom = maxX/2;
 		scrollable = true;
 	}
 	
@@ -126,6 +126,23 @@ public class Camera {
 				d -= factor;
 			}
 		}
+	}
+	
+	public int zoomLevel(){
+		int zoom = maxX - (b-a);
+		if(zoom < 0)
+			return 5;
+		if(zoom < maxX/5d)
+			return 4;
+		if(zoom < maxX/3d)
+			return 3;
+		if(zoom < maxX/2d)
+			return 2;
+		if(zoom < maxX/1d)
+			return 1;
+		if(zoom >= maxX)
+			return 0;
+		return 0;
 	}
 	
 	public void zoomOut(int factor){

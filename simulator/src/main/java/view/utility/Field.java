@@ -44,8 +44,8 @@ public class Field {
 	
 	
 	private void redraw(){
-		if(map.isVisible(this))
-			map.drawField(this);
+		//if(map.isVisible(this))
+		//	map.drawField(this);
 	}
 	
 	

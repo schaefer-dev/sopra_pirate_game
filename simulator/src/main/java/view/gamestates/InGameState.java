@@ -23,16 +23,25 @@ import view.utility.Ship;
 public class InGameState implements GameState, LogWriter {
 
 	private GUIController manager;
+	private final Canvas canvas;
+	private GraphicsContext gc;
 	
 	private Map map;
 	private Camera cam;
 	private List<Ship> ships;
 	private List<SimpleEntity> entities;
+	private char[][] fieldChars;
 	private Field[][] fields;
 	private boolean init;
 	
-	public InGameState() {
+	public InGameState(char[][] fieldChars, Ressources res) {
+		this.fieldChars = fieldChars;
 		ships = new ArrayList<Ship>();
+		
+		canvas = new Canvas(1280, 768);
+        canvas.getStyleClass().add("canvas");
+        gc = canvas.getGraphicsContext2D();
+        map = new Map(gc, res);
 	}
 	
 	@Override
@@ -42,19 +51,17 @@ public class InGameState implements GameState, LogWriter {
 		
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
-		
-        final Canvas canvas = new Canvas(1000, 600);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
- 
-        Generator gen = new Generator(198, 198, 40, 4);
-		char[][] fields = gen.generateMap();
-		Map map = new Map(gc, new Ressources());
-		
-		this.fields = new Field[fields.length][fields[0].length];
-		for(int y = 0; y < fields[0].length; y++){
-        	for(int x = 0; x < fields.length; x++){
+		        
+        if(fieldChars == null){
+            Generator gen = new Generator(198, 198, 40, 4);
+    		fieldChars = gen.generateMap();
+        }
+        
+		this.fields = new Field[fieldChars.length][fieldChars[0].length];
+		for(int y = 0; y < fieldChars[0].length; y++){
+        	for(int x = 0; x < fieldChars.length; x++){
 
-        		char field = fields[x][y];
+        		char field = fieldChars[x][y];
         		
         		if(field == '.')
         			this.fields[x][y] = new Field(map, x, y, FieldType.Water);
@@ -66,7 +73,7 @@ public class InGameState implements GameState, LogWriter {
         cam = new Camera(this.fields);
         map.initMap(this.fields, cam);
         map.drawMap();
-        
+
         MouseEvents events = new MouseEvents(cam, map, gc);
         events.addMouseDragEvent(canvas, true);
         events.addMouseScrollEvent(canvas);
@@ -88,13 +95,11 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public void revealed() {
 		manager.getTitleText().setText("");
-		// TODO Auto-generated method stub
 	}
 	
 	
 	@Override
 	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
-		
 		int i = arg1.indexOf('\n');
 		String x = arg1.substring(0, i);
 		String rest = arg1.substring(i);
@@ -148,8 +153,10 @@ public class InGameState implements GameState, LogWriter {
 		
 		if(arg1 == null)
 			fields[arg2][arg3] = new Field(map, arg2, arg3, type);
-		else
+		else{
 			fields[arg2][arg3] = new Field(map, arg2, arg3, arg1);
+			System.out.println(arg1.toString() + 'a');
+		}
 		
 		return this;
 	}

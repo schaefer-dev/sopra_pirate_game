@@ -135,6 +135,11 @@
     -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);
 }
 
+.canvas {
+	-fx-border-color: #2e8b57;
+    -fx-border-width: 2px;
+}
+
 .preview {
     -fx-font-family: "UglyQua";
     -fx-font-style: italic;

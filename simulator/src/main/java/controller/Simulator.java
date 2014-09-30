@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.Log;
 import model.Kraken;
 import model.Register;
@@ -47,7 +48,7 @@ public class Simulator {
 	 * @throws URISyntaxException
 	 * @throws IllegalArgumentException if the number of shipFiles or turns is invalid. (ShipFiles < 1 or > 26, turns <1 or > 10000).
 	 */
-	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException, IllegalArgumentException {
+	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns, LogWriter guiController) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException, IllegalArgumentException {
 		if(shipFiles == null || mapFile == null) throw new NullPointerException("No shipFiles or MapFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 10000 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
 		endGame = false;
@@ -93,9 +94,11 @@ public class Simulator {
 		while(scanner.hasNextLine())
 			mapString += scanner.nextLine() + "\n";
 		scanner.close();
-		if(logFile != null)
+		if(logFile != null || guiController != null)
 		{
 			logWriter = new Log();
+			if(guiController != null)
+				logWriter.addLogger(guiController);
 		//	logWriter.addLogger(new SimpleLogWriter());		//TODO log enable/disable here
 			// Please do not include the adding of the of the logWriters again, since this is done in MapGenerator now.
 		}
@@ -111,6 +114,10 @@ public class Simulator {
 
 		roundCounter = 1;
 		roundMax = turns + 1;
+	}
+	
+	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns) throws ArrayIndexOutOfBoundsException, NullPointerException, IllegalArgumentException, IOException, URISyntaxException{
+		this(shipFiles, mapFile, seed, logFile, turns, null);
 	}
 
 	/**
