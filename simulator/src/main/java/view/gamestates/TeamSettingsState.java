@@ -108,6 +108,7 @@ public class TeamSettingsState implements GameState {
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
+		manager.getConfiguration().getTactics().clear();
 	}
 	
 	@Override
@@ -163,7 +164,7 @@ public class TeamSettingsState implements GameState {
 		openFile.setStyle("-fx-font-size: 15px;");
         openFile.setOnAction(new EventHandler<ActionEvent>(){
         	
-                    @Override
+            @Override
             public void handle(final ActionEvent e) {
                 File file = fileChooser.showOpenDialog(manager.getStage());
                 if(file != null){

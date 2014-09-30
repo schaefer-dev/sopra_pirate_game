@@ -51,7 +51,8 @@ public class MapSelectionState implements GameState {
 			public void changed(ObservableValue<? extends SelectionWindow> arg0, SelectionWindow arg1, SelectionWindow arg2) {
 				if(preview.getChildren().size() > 1)
 					preview.getChildren().remove(preview.getChildren().size()-1);
-					
+				
+				
 				preview.getChildren().add(arg2.get());
 				arg2.draw(gc);
 			}

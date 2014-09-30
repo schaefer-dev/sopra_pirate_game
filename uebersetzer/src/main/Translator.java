@@ -497,7 +497,11 @@ public class Translator {
 							if(labelized){
 									makeSplits(currentLine.replaceAll("	", " "));
 									if(currentElement.startsWith("*")){
-										tactic.add(translate(appendix.replaceAll("	", " ")));
+										try{
+											tactic.add(translate(appendix.replaceAll("	", " ")));
+										}catch(Exception e){
+											errors.add("l: " + row + "leere Zeile");
+										}
 									}else
 										tactic.add(translate(currentLine.replaceAll("	", " ")));
 							}else 	

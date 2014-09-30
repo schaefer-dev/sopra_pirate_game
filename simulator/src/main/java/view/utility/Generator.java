@@ -63,7 +63,7 @@ public class Generator {
 	
 	public void addTeamInformation(Integer teamsPerMap, Integer boatsPerTeam){
 		this.boatsPerTeam = boatsPerTeam;
-		this.bases = new int[boatsPerTeam];
+		this.bases = new int[teamsPerMap];
 	}
 	
 	
@@ -147,7 +147,7 @@ public class Generator {
 		//TODO: implement this
 	}
 	
-	public void setBases(double baseChance){
+	public void setBases(){
 		this.baseChance = baseChance;
 		Random gen = new Random();
 		
