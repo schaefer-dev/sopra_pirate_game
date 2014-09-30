@@ -1,4 +1,4 @@
-package main;
+package src.main;
 
 import enums.CellType;
 import enums.Register;
