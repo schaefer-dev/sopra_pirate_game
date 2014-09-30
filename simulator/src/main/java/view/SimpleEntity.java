@@ -15,6 +15,10 @@ public class SimpleEntity {
 		return id;
 	}
 	
+	public void update(){
+		
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}

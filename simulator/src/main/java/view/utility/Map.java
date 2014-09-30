@@ -128,14 +128,18 @@ public class Map {
 
 	private void drawHex(Point2D mid, double radius, Field field, boolean left, boolean top){
 		Point2D up = new Point2D(mid.getX(), mid.getY() - radius);
-		Image image = field.getImage();
+		//Image image = field.getImage();
 		
 		if(field.getFieldType() == FieldType.Water){
-			if(cam.zoomLevel() < 2)
-				gc.drawImage(image, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			if(cam.zoomLevel() < 2){
+				for(Image img: field.getImages())
+					gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			}	
 		}
-		else
-			gc.drawImage(image, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		else{
+			for(Image img: field.getImages())
+				gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		}
 		
 		if(left){
 			Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
