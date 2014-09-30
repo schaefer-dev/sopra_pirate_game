@@ -32,7 +32,7 @@ public class CustomGameState implements GameState {
 		
 		Button googleMaps = new Button("Google Maps");
 		googleMaps.getStyleClass().add("menubutton");
-		googleMaps.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Start a new game with custom settings"));
+		googleMaps.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Play on a real world map"));
 		googleMaps.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		googleMaps.setOnAction(new SwitchState(manager, new GoogleMapsState(), false));
 		
