@@ -9,7 +9,7 @@ drop
 goto start5
 *look5geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal5 move
+*normal5 move else findback
 mark 2
 *test5 pickup 5 else look5rechts
 goto findback
@@ -35,7 +35,7 @@ drop
 goto start4
 *look4geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal4 move
+*normal4 move else findback
 mark 1
 *test4 pickup 5 else look4rechts
 goto findback
@@ -60,7 +60,7 @@ drop
 goto start3
 *look3geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal3 move
+*normal3 move else findback
 mark 0
 *test3 pickup 5 else look3rechts
 goto findback
@@ -86,7 +86,7 @@ drop
 goto start1
 *look1geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal1 move
+*normal1 move else findback
 mark 4
 *test1 pickup 5 else look1rechts
 goto findback
@@ -112,7 +112,7 @@ drop
 goto start2
 *look2geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal2 move
+*normal2 move else findback
 mark 5
 *test2 pickup 5 else look2rechts
 goto findback
@@ -138,7 +138,7 @@ drop
 goto start0
 *look0geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal0 move
+*normal0 move else findback
 mark 3
 *test0 pickup 5 else look0rechts
 goto findback
@@ -175,35 +175,35 @@ if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2
 if !sense_marker3 else drehTo3
 if !sense_marker4 else drehTo4
-*drehTo5 if ship_direction==5 else
-move
+*drehTo5 if ship_direction==5 else turnTo5
+move else findback
 goto findback5
-turn right
+*turnTo5 turn right
 goto drehTo5
-*drehTo4 if ship_direction==4 else
-move
+*drehTo4 if ship_direction==4 else turnTo4
+move else findback
 goto findback4
-turn right
+*turnTo4 turn right
 goto drehTo4
-*drehTo3 if ship_direction==3 else
-move
+*drehTo3 if ship_direction==3 else turnTo3
+move else findback
 goto findback3
-turn right
+turnTo3 turn right
 goto drehTo3
-*drehTo2 if ship_direction==2 else
-move
+*drehTo2 if ship_direction==2 else turnTo2
+move else findback
 goto findback2
-turn right
+turnTo2 turn right
 goto drehTo2
-*drehTo1 if ship_direction==1 else
-move
+*drehTo1 if ship_direction==1 else turnTo1
+move else findback
 goto findback1
-turn right
+turnTo1 turn right
 goto drehTo1
-*drehTo0 if ship_direction==0 else
-move
+*drehTo0 if ship_direction==0 else turnTo0
+move else findback
 goto findback0
-turn right
+turnTo0 turn right
 goto drehTo0
 *findback0 sense 6
 if sense_celltype==home else findpath0
@@ -211,7 +211,7 @@ drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
 *findpath0 ifall ship_direction==0 sense_marker0 else findpath
-move
+move else findback
 goto findback0
 *findback1 sense 6
 if sense_celltype==home else findpath1
@@ -219,7 +219,7 @@ drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
 *findpath1 ifall ship_direction==1 sense_marker1 else findpath
-move
+move else findback
 goto findback1
 *findback2 sense 6
 if sense_celltype==home else findpath2
@@ -227,7 +227,7 @@ drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
 *findpath2 ifall ship_direction==2 sense_marker2 else findpath
-move
+move else findback
 goto findback2
 *findback3 sense 6
 if sense_celltype==home else findpath3
@@ -235,7 +235,7 @@ drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
 *findpath3 ifall ship_direction==3 sense_marker3 else findpath
-move
+move else findback
 goto findback3
 *findback4 sense 6
 if sense_celltype==home else findpath4
@@ -243,7 +243,7 @@ drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
 *findpath4 ifall ship_direction==4 sense_marker4 else findpath
-move
+move else findback
 goto findback4
 *findback5 sense 6
 if sense_celltype==home else findpath5
@@ -251,5 +251,5 @@ drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
 *findpath0 ifall ship_direction==5 sense_marker5 else findpath
-move
+move else findback
 goto findback5
