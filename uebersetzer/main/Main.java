@@ -3,7 +3,7 @@ package main;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import main.CheckTactics;
+import src.main.CheckTactics;
 
 public class Main {
 
