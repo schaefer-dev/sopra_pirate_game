@@ -11,13 +11,13 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 150
 move else 20
 pickup 5 else 14
-goto 159
+goto 157
 pickup 1 else 16
-goto 159
+goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 11
 pickup 0 else 20
-goto 159
+goto 157
 mark 2
 flipzero 2 else 24
 turn left
@@ -36,13 +36,13 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 150
 move else 45
 pickup 5 else 39
-goto 159
+goto 157
 pickup 1 else 41
-goto 159
+goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 36
 pickup 0 else 45
-goto 159
+goto 157
 mark 1
 flipzero 2 else 49
 turn left
@@ -60,13 +60,13 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 150
 move else 69
 pickup 5 else 63
-goto 159
+goto 157
 pickup 1 else 65
-goto 159
+goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 60
 pickup 0 else 69
-goto 159
+goto 157
 mark 0
 flipzero 2 else 73
 turn left
@@ -85,13 +85,13 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 150
 move else 94
 pickup 5 else 88
-goto 159
+goto 157
 pickup 1 else 90
-goto 159
+goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 85
 pickup 0 else 94
-goto 159
+goto 157
 mark 4
 flipzero 2 else 98
 turn left
@@ -110,13 +110,13 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 150
 move else 119
 pickup 5 else 113
-goto 159
+goto 157
 pickup 1 else 115
-goto 159
+goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 110
 pickup 0 else 119
-goto 159
+goto 157
 mark 5
 flipzero 2 else 123
 turn left
@@ -135,13 +135,13 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 150
 move else 144
 pickup 5 else 138
-goto 159
+goto 157
 pickup 1 else 140
-goto 159
+goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 135
 pickup 0 else 144
-goto 159
+goto 157
 mark 3
 flipzero 2 else 148
 turn left
@@ -151,46 +151,45 @@ goto 86
 pickup 0 else 153
 drop
 goto 153
-if ship_direction==0 else 156
-sense 0
-if sense_celltype==island else 127
+if ship_direction==0 else 155
+goto 127
 turn left
 goto 153
-goto 0
 sense 6
-if sense_celltype==home else 164
+if sense_celltype==home else 163
 drop
 if ship_condition!=3 else 153
 repair else 153
-if !sense_marker0 else 193
-if !sense_marker1 else 190
-if !sense_marker2 else 187
-if !sense_marker3 else 184
-if !sense_marker4 else 181
-if !sense_marker5 else 178
+goto 153
+if !sense_marker0 else 192
+if !sense_marker1 else 189
+if !sense_marker2 else 186
+if !sense_marker3 else 183
+if !sense_marker4 else 180
+if !sense_marker5 else 177
 turn left
 turn left
 turn left
-move else 173
+move else 172
 sense 6
-ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else 160
-move else 173
-goto 173
-if ship_direction!=5 else 173
+ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else 158
+move else 172
+goto 172
+if ship_direction!=5 else 172
 turn right
-goto 178
-if ship_direction!=4 else 173
+goto 177
+if ship_direction!=4 else 172
 turn right
-goto 181
-if ship_direction!=3 else 173
+goto 180
+if ship_direction!=3 else 172
 turn right
-goto 184
-if ship_direction!=2 else 173
+goto 183
+if ship_direction!=2 else 172
 turn right
-goto 187
-if ship_direction!=1 else 173
+goto 186
+if ship_direction!=1 else 172
 turn right
-goto 190
-if ship_direction!=0 else 173
+goto 189
+if ship_direction!=0 else 172
 turn right
-goto 193
+goto 192
