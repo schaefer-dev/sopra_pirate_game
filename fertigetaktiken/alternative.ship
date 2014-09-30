@@ -9,7 +9,7 @@ drop
 goto 3
 sense 0
 ifall !sense_treasure sense_celltype!=island else 156
-move else 165
+move else 21
 mark 2
 pickup 5 else 15
 goto 165
@@ -35,7 +35,7 @@ drop
 goto 29
 sense 0
 ifall !sense_treasure sense_celltype!=island else 156
-move else 165
+move else 49
 mark 1
 pickup 5 else 41
 goto 165
@@ -60,7 +60,7 @@ drop
 goto 54
 sense 0
 ifall !sense_treasure sense_celltype!=island else 156
-move else 165
+move else 72
 mark 0
 pickup 5 else 66
 goto 165
@@ -86,7 +86,7 @@ drop
 goto 80
 sense 0
 ifall !sense_treasure sense_celltype!=island else 156
-move else 165
+move else 100
 mark 4
 pickup 5 else 92
 goto 165
@@ -112,7 +112,7 @@ drop
 goto 106
 sense 0
 ifall !sense_treasure sense_celltype!=island else 156
-move else 165
+move else 124
 mark 5
 pickup 5 else 118
 goto 165
@@ -138,7 +138,7 @@ drop
 goto 132
 sense 0
 ifall !sense_treasure sense_celltype!=island else 156
-move else 165
+move else 152
 mark 3
 pickup 5 else 144
 goto 165
