@@ -253,7 +253,7 @@ public class SimpleLogWriter implements LogWriter {
 	public LogWriter commitTransaction(Transaction arg0) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		if(arg0 == null) throw new NullPointerException();
 		if(arg0.toString().length() == 0) throw new IllegalArgumentException();
-		if(round == 0) throw new IllegalStateException();
+		//if(round == 0) throw new IllegalStateException();
 		
 		SimpleTransaction trans = (SimpleTransaction) arg0;
 		write(LogType.Update, trans.getIntro(), "", "", true);

@@ -14,6 +14,10 @@ public class Ressources {
 	private Image base;
 	private Image provision;
 	private Image ship;
+	private Image treasureWaterImage;
+	private Image treasureIslandImage;
+	private Image buoyImage;
+	private Image krakenImage;
 	
 	private Configuration defaultConfiguration;
 	
@@ -35,7 +39,7 @@ public class Ressources {
 	    	provision = new Image(stream);
 	    	stream.close();
 	    	
-	    	file = new File("src/main/ressources/red.png");
+	    	file = new File("src/main/ressources/base.png");
 	    	stream = new FileInputStream(file);
 	    	base = new Image(stream);
 	    	stream.close();
@@ -73,6 +77,23 @@ public class Ressources {
 		return ship;
 	}
 	
+	public Image getWaterTreasureImage(){
+		return treasureWaterImage;
+	}
+	
+	public Image getIslandTreasureImage(){
+		return treasureIslandImage;
+	}
+	
+	public Image getBuoyImage(){
+		return buoyImage;
+	}
+	
+	public Image getKrakenImage(){
+		return krakenImage;
+	}
+	
+	
 	public Configuration getDefaultConfig(){
 		return defaultConfiguration;
 	}
@@ -83,8 +104,8 @@ public class Ressources {
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(10);
-		defaultConfiguration.setTeamCount(1);
-		defaultConfiguration.setShipCount(5);
+		defaultConfiguration.setTeamCount(2);
+		defaultConfiguration.setShipCount(10);
 		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
 		
 		File file = new File("src/main/ressources/default.map");
