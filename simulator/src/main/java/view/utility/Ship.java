@@ -11,7 +11,6 @@ public class Ship {
 	private int fleet;
 	private int x;
 	private int y;
-	private int id;
 	
 	
 	public int getDirection() {
@@ -84,13 +83,5 @@ public class Ship {
 
 	public void setY(int y) {
 		this.y = y;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 }

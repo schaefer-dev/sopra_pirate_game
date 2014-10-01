@@ -103,8 +103,7 @@ public class InGameState implements GameState, LogWriter {
         HBox box = new HBox(20);
         box.getChildren().addAll(next, play);
         box.getStyleClass().add("hbox");		
-        
-        
+         
         root = new BorderPane();
 		root.setCenter(canvas);
 		BorderPane.setAlignment(box, Pos.BOTTOM_CENTER);
@@ -305,16 +304,8 @@ public class InGameState implements GameState, LogWriter {
 						break;
 				}
 			}
-			ship.setId(arg1);
 			fields[x][y].setShip(ship);
 			ships.add(ship);
-			
-			try{
-				System.out.println(ships.get(arg1).getId());
-			}
-			catch(Exception e){
-				System.out.println("Failed at: " + arg1);
-			}
 		}
 		else{
 			SimpleEntity entity = new SimpleEntity();
@@ -389,8 +380,7 @@ public class InGameState implements GameState, LogWriter {
 			
 			entities.set(arg1, null);
 		}
-			
-		System.out.println(arg0.toString() + "(" + arg1 + ")");
+		
 		return this;
 	}
 	
