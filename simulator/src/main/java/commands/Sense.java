@@ -117,5 +117,12 @@ public class Sense implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return direction;
+	}
+
 
 }

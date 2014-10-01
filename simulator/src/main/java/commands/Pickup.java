@@ -64,5 +64,12 @@ public class Pickup implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
+
 
 }

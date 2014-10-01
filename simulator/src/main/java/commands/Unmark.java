@@ -47,5 +47,12 @@ public class Unmark implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return type;
+	}
+
 
 }

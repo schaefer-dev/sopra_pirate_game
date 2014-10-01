@@ -273,5 +273,12 @@ public class Move implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
+
 
 }

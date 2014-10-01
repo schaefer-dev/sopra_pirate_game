@@ -136,4 +136,10 @@ public class Team {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return name;
+	}
 }

@@ -70,5 +70,11 @@ public class ShipTypeComparison implements Comparison {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return type.ordinal();
+	}
 
 }

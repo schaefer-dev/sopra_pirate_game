@@ -73,5 +73,11 @@ public class CellTypeComparison implements Comparison {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return type.ordinal();
+	}
 
 }

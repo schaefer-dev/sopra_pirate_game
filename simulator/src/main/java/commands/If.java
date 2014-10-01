@@ -71,5 +71,9 @@ public class If implements Command {
 		}
 		return false;
 	}
+	public int hashCode()
+	{
+		return elsePC;
+	}
 
 }
