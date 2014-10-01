@@ -171,7 +171,7 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public void close() throws IllegalStateException, IOException {
 		closed = true;
-		exiting();
+		//exiting();
 	}
 	
 	@Override
@@ -359,13 +359,32 @@ public class InGameState implements GameState, LogWriter {
 	public LogWriter destroy(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		if(arg0 == null) throw new NullPointerException();
 		
-		if(arg0.equals(Entity.SHIP))
+		if(arg0.equals(Entity.SHIP)){
+			Ship ship = ships.get(arg1);
+			fields[ship.getX()][ship.getY()].setShip(null);
 			ships.set(arg1, null);
-		else
-			entities.set(arg1, null);
-		
-		System.out.println(arg1);
+		}
+		else{
+			SimpleEntity entity = entities.get(arg1);
 			
+			switch(entity.getEntityType()){
+				case BUOY:
+					fields[entity.getX()][entity.getY()].deleteBuoy(entity);
+					break;
+				case KRAKEN:
+					fields[entity.getX()][entity.getY()].setKraken(null);
+					break;
+				case TREASURE:
+					fields[entity.getX()][entity.getY()].setTreasure(null);
+					break;
+				default:
+					break;
+			}
+			
+			entities.set(arg1, null);
+		}
+			
+		System.out.println(arg0.toString() + "(" + arg1 + ")");
 		return this;
 	}
 	

@@ -24,7 +24,8 @@ public class PlayPauseEvent implements EventHandler<ActionEvent> {
 	
 	
 	public void close(){
-		timer.cancel();
+		if(timer != null)
+			timer.cancel();
 	}
 
 }

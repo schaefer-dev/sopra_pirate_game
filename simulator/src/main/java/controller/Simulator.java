@@ -88,6 +88,7 @@ public class Simulator {
 			scanner.close();
 			shipFiles[i] = shipString;
 		}
+		
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
 			mapStream= new FileInputStream(mapFile);

@@ -26,7 +26,7 @@ public class Run extends TimerTask {
 				timer.cancel();
 			
 			
-			System.out.println(state.getRound());
+			//System.out.println(state.getRound());
 			
 		}
 		catch(Exception e){
