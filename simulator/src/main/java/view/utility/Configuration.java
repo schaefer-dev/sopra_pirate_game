@@ -39,7 +39,7 @@ public class Configuration {
 	public final static int SHIP_COUNT_MAX = 100;
 	public int shipCount = SHIP_COUNT_MIN;
 	
-	private List<String> tactics = new LinkedList<String>();	//list.toArray(new String[list.size()]);
+	private List<String> tactics = new LinkedList<String>();
 	private List<String>  captainNames = new LinkedList<String>(Arrays.asList(
 			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Guybrush Threepwood", "Captain Hook", 
 			"Monkey D. Ruffy", "LeChuck"));

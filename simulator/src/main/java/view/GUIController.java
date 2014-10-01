@@ -34,7 +34,7 @@ public class GUIController extends Application {
 	private Scene scene;
 	private MediaPlayer player;
 	private Ressources res = new Ressources();
-	private Configuration config = res.getDefaultConfig();
+	private Configuration config;
 	private Text title = new Text();
 	private Text hoverText = new Text();
 	private BorderPane borderPane;
@@ -150,6 +150,10 @@ public class GUIController extends Application {
 		
 	public Configuration getConfiguration(){
 		return config;
+	}
+	
+	public void setConfiguration(Configuration config){
+		this.config = config;
 	}
 	
 	public Ressources getRessources(){

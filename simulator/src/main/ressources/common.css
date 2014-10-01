@@ -96,6 +96,10 @@
     -fx-alignment: TOP_CENTER;
 }
 
+.hbox{
+    -fx-alignment: BOTTOM_CENTER;
+}
+
 .grid{
     -fx-alignment: CENTER;
     -fx-padding: 25 0 25 0;

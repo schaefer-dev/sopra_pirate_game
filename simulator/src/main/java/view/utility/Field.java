@@ -66,10 +66,9 @@ public class Field {
 		images.add(fieldImage);
 		
 		if(shipImage != null){
-			System.out.print(ship.getX() + ", " + ship.getY());
 			images.add(shipImage);
 		}	
-		
+
 		return images;
 	}
 	
@@ -100,7 +99,7 @@ public class Field {
 	}
 	
 	public void setShip(Ship ship){
-		this.shipImage = (ship == null) ? null : map.getRessources().getBaseImage();
+		this.shipImage = (ship == null) ? null : map.getRessources().getShipImage();
 		this.ship = ship;
 		redraw();
 	}

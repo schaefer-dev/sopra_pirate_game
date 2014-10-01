@@ -13,6 +13,7 @@ public class Ressources {
 	private Image island;
 	private Image base;
 	private Image provision;
+	private Image ship;
 	
 	private Configuration defaultConfiguration;
 	
@@ -24,7 +25,7 @@ public class Ressources {
 	    	island = new Image(stream);
 	    	stream.close();
 	    	
-	    	file = new File("src/main/ressources/hexagon2.png");
+	    	file = new File("src/main/ressources/water.png");
 	    	stream = new FileInputStream(file);
 	    	water = new Image(stream);
 	    	stream.close();
@@ -38,6 +39,12 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	base = new Image(stream);
 	    	stream.close();
+	    	
+	    	file = new File("src/main/ressources/ship.png");
+	    	stream = new FileInputStream(file);
+	    	ship = new Image(stream);
+	    	stream.close();
+	    	
 	    	
 	    	createDefaultConfig();
     	}
@@ -60,6 +67,10 @@ public class Ressources {
 	
 	public Image getProvisionImage(){
 		return provision;
+	}
+	
+	public Image getShipImage(){
+		return ship;
 	}
 	
 	public Configuration getDefaultConfig(){

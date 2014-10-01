@@ -2,6 +2,7 @@ package view.gamestates;
 
 import view.events.HoverEvent;
 import view.events.SwitchState;
+import view.utility.Configuration;
 import view.utility.GameState;
 import view.GUIController;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ public class CustomGameState implements GameState {
 	public void entered(GUIController control) {
 		manager = control;
 		manager.getTitleText().setText(title);
+		manager.setConfiguration(new Configuration());
 
 		Button mapSelection = new Button("Map Selection");
 		mapSelection.getStyleClass().add("menubutton");
@@ -63,5 +65,6 @@ public class CustomGameState implements GameState {
 	public void revealed() {
 		manager.getTitleText().setText(title);
 		manager.getRoot().setCenter(root);	
+		manager.setConfiguration(new Configuration());
 	}
 }
