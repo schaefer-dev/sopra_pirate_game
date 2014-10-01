@@ -1,0 +1,18 @@
+sense 0									;0 (Blick zur Insel,sense)
+if sense_supply else 100				;1
+turn right								;2 Dreh dich, beweg dich zur leeren Kachel
+turn right								;3
+move else 0								;4
+turn left								;5 dreh dich zum Gegner
+turn left								;6
+sense 0									;7
+if sense_shiptype==enemy else 100		;8 ist es Gegner? sense_shiptype==enemy
+turn left								;9
+move else 0								;10 zurueck nach Hause
+sense 6									;11 ueberpruefe mich
+ifall sense_celltype==home ship_load==0 ship_moral==4 else 100		;12
+turn right 								;13 zurueck zur leeren Kachel
+turn right 								;14
+turn right								;15
+sense 1									;16
+move else 0								;17

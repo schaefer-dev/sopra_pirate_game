@@ -1,11 +1,8 @@
 *~
 .log
-.ship
 /simulator/target/
 /uebersetzer/errors.log
 /uebersetzer/error.log
-/uebersetzer/fertig.ship
-/uebersetzer/b.ship
 .DS_Store
 *.class
 .classpath

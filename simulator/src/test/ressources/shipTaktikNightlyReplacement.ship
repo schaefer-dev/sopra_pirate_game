@@ -1,0 +1,10 @@
+sense 6								;0
+if sense_shipdirection==0 else 100	;1
+if ship_direction==0 else 100		;2
+if !sense_shiploaded else 100		;3
+if ship_load==0 else 100			;4
+if sense_shipcondition==3 else 100	;5
+if ship_condition==3 else 100		;6
+if sense_shiptype==friend else 100	;7
+move else 0							;8
+goto 9								;9
