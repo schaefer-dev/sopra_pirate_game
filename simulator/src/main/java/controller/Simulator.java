@@ -98,6 +98,7 @@ public class Simulator {
 		scanner.close();
 		if(logFile != null || guiController != null){
 			logWriter = new Log();
+			logWriter.addLogger(new SimpleLogWriter());
 			if(guiController != null)
 				logWriter.addLogger(guiController);
 		}

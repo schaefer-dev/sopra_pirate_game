@@ -152,16 +152,15 @@ goto test1
 drop
 goto drehTo0Start
 *drehTo0Start if ship_direction==0 else turnLeftGoto0
-sense 0
-if sense_cellType==island else start0
+goto start0
 *turnLeftGoto0 turn left
 goto drehTo0Start
-goto start
 *findback sense 6
 *findbackDirect if sense_celltype==home else findpath
 drop
 if ship_condition!=3 else drehTo0Start
 repair else drehTo0Start
+goto drehTo0Start
 *findpath if !sense_marker0 else drehTo0
 if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2
