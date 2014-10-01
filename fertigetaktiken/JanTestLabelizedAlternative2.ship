@@ -1,67 +1,67 @@
-*start flipzero 2 else drehrechts
-*drehlinks turn left
-flipzero 2 else drehweiterLinks
-*start5 pickup 5 else look5rechtsStart
-drop
-goto start5
-*look5rechtsStart pickup 1 else look5geradeausStart
-drop
-goto start5
-*look5geradeausStart sense 0
-ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal5 move else turnlinks5
-mark 2
-*test5 pickup 5 else look5rechts
-goto findback
-*look5rechts pickup 1 else look5geradeaus
-goto findback
-*look5geradeaus sense 0
-ifany sense_treasure sense_celltype==island else normal5
-*pickupGeradeaus5 pickup 0 else inselavoid5
-goto findback
-*inselavoid5 flipzero 2 else turnrechts5
-*turnlinks5 turn left
-goto test4
-*turnrechts5 turn right	
-goto test0	
-*drehweiterLinks turn left
-flipzero 2 else drehnochweiterLinks
-*start4 pickup 5 else look4rechtsStart
-drop
-goto start4
-*look4rechtsStart pickup 1 else look4geradeausStart
-drop
-goto start4
-*look4geradeausStart sense 0
-ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal4 move else turnrechts4
-mark 1
-*test4 pickup 5 else look4rechts
-goto findback
-*look4rechts pickup 1 else look4geradeaus
-goto findback
-*look4geradeaus sense 0
-ifany sense_treasure sense_celltype==island else normal4
-*pickupGeradeaus4 pickup 0 else avoidIsland4
-goto findback
-*avoidIsland4 flipzero 2 else turnrechts4
-*turnlinks4 turn left
-goto test3
-*turnrechts4 turn right
-goto test5
-*drehnochweiterLinks turn left
-*start3 pickup 5 else look3rechtsStart
-drop
-goto start3
-*look3rechtsStart pickup 1 else look3geradeausStart
-drop
-goto start3
-*look3geradeausStart sense 0
-ifall !sense_treasure sense_celltype!=island else testWhatStart
-*normal3 move else turnlinks3
-mark 0
-*test3 pickup 5 else look3rechts
-goto findback
+*start flipzero 2 else drehrechts; 									Hälfte dreht sich nach links, andere nach rechts
+*drehlinks turn left; 												Drehung in Richtung 5
+flipzero 2 else drehweiterLinks; 									Hälfte dreht sich weiter, andere Hälfte nicht
+*start5 pickup 5 else look5rechtsStart; 							Gucken ob links vorne Schatz ist, sonst rechts gucken
+drop; 																Schatz abgeben
+goto start5; 														wieder starten
+*look5rechtsStart pickup 1 else look5geradeausStart; 				gucken ob rechts schatz ist, sonst vorne gucken
+drop; 																Schatz abgeben
+goto start5; 														wieder starten
+*look5geradeausStart sense 0; 										Vorne sensen
+ifall !sense_treasure sense_celltype!=island else testWhatStart; 	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
+*normal5 move else turnlinks5; 										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
+mark 2; 															Boje setzten, dass in Richhtung 2 die Basis ist.
+*test5 pickup 5 else look5rechts; 									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
+goto findback; 														Da Schatz gefunden nach Hause zurückfahren
+*look5rechts pickup 1 else look5geradeaus; 							rechtsvorne nach Schatz gucken, wenn keiner da geradeaus gucken.
+goto findback; 														Da Schatz gefunden nach Hause zurückfahren
+*look5geradeaus sense 0; 											nach vorne sensen
+ifany sense_treasure sense_celltype==island else normal5; 			Wenn vorne kein Schatz oder Insel weiterfahren, sonst
+*pickupGeradeaus5 pickup 0 else inselavoid5; 						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurückfahren.
+goto findback; 														Nach Hause fahren, da Schatz gefunden
+*inselavoid5 flipzero 2 else turnrechts5;							Um nicht auf Insel zu fahren entweder links oder rechts abbiegen.
+*turnlinks5 turn left;												links abbiegen
+goto test4;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
+*turnrechts5 turn right;											rechts abbiegen
+goto test0;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
+*drehweiterLinks turn left;											Noch weiter nach links drehen in Richtung 4
+flipzero 2 else drehnochweiterLinks;								So bleiben oder volle 180° Drehung
+*start4 pickup 5 else look4rechtsStart;								Gucken ob links vorne Schatz ist, sonst rechts gucken
+drop;																Schatz abgeben
+goto start4;														Wieder anfangen zu suchen
+*look4rechtsStart pickup 1 else look4geradeausStart;				gucken ob rechts schatz ist, sonst vorne gucken
+drop;																Schatz abgeben
+goto start4;														Wieder anfangen zu suchen
+*look4geradeausStart sense 0;										Vorne sensen
+ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
+*normal4 move else turnrechts4;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
+mark 1;																Boje setzten, dass in Richhtung 1 die Basis ist.
+*test4 pickup 5 else look4rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
+goto findback;														Da Schatz gefunden nach Hause zurückfahren
+*look4rechts pickup 1 else look4geradeaus;							rechtsvorne nach Schatz gucken, wenn keiner da geradeaus gucken.
+goto findback;														Da Schatz gefunden nach Hause zurückfahren
+*look4geradeaus sense 0;											nach vorne sensen
+ifany sense_treasure sense_celltype==island else normal4;			Wenn vorne kein Schatz oder Insel weiterfahren, sonst
+*pickupGeradeaus4 pickup 0 else avoidIsland4;						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurückfahren.
+goto findback;														Da Schatz gefunden nach Hause zurückfahren
+*avoidIsland4 flipzero 2 else turnrechts4;							Um nicht auf Insel zu fahren entweder links oder rechts abbiegen.
+*turnlinks4 turn left;												Links abbiegen
+goto test3;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
+*turnrechts4 turn right;											rechts abbiegen
+goto test5;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
+*drehnochweiterLinks turn left;										In Richtung 3 drehen.
+*start3 pickup 5 else look3rechtsStart;								Gucken ob links vorne Schatz ist, sonst rechts gucken
+drop;																Schatz abgeben
+goto start3;														Schatzsuche erneut starten
+*look3rechtsStart pickup 1 else look3geradeausStart;                gucken ob rechts schatz ist, sonst vorne gucken
+drop;																Schatz abgeben
+goto start3;														Schatzsuche erneut starten
+*look3geradeausStart sense 0;										Vorne sensen
+ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
+*normal3 move else turnlinks3;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
+mark 0;																Boje setzten, dass in Richhtung 1 die Basis ist.
+*test3 pickup 5 else look3rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
+goto findback;														Da Schatz gefunden nach Hause zurückfahren.
 *look3rechts pickup 1 else look3geradeaus
 goto findback
 *look3geradeaus sense 0
