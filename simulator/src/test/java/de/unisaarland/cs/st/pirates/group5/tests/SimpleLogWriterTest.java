@@ -19,8 +19,7 @@ public class SimpleLogWriterTest {
 	
 	@Test
 	public void LogWriterTest() throws ArrayIndexOutOfBoundsException, NullPointerException, IOException{
-		
-		File file = new File("src/test/resources/log.log");
+		File file = new File("log.log");
 		FileOutputStream stream = new FileOutputStream(file);
 		Log log = new Log();
 		log.addLogger(new SimpleLogWriter());
