@@ -13,6 +13,11 @@ public class Ressources {
 	private Image island;
 	private Image base;
 	private Image provision;
+	private Image ship;
+	private Image treasureWaterImage;
+	private Image treasureIslandImage;
+	private Image buoyImage;
+	private Image krakenImage;
 	
 	private Configuration defaultConfiguration;
 	
@@ -24,7 +29,7 @@ public class Ressources {
 	    	island = new Image(stream);
 	    	stream.close();
 	    	
-	    	file = new File("src/main/ressources/hexagon2.png");
+	    	file = new File("src/main/ressources/water.png");
 	    	stream = new FileInputStream(file);
 	    	water = new Image(stream);
 	    	stream.close();
@@ -34,10 +39,16 @@ public class Ressources {
 	    	provision = new Image(stream);
 	    	stream.close();
 	    	
-	    	file = new File("src/main/ressources/red.png");
+	    	file = new File("src/main/ressources/base.png");
 	    	stream = new FileInputStream(file);
 	    	base = new Image(stream);
 	    	stream.close();
+	    	
+	    	file = new File("src/main/ressources/ship.png");
+	    	stream = new FileInputStream(file);
+	    	ship = new Image(stream);
+	    	stream.close();
+	    	
 	    	
 	    	createDefaultConfig();
     	}
@@ -61,6 +72,27 @@ public class Ressources {
 	public Image getProvisionImage(){
 		return provision;
 	}
+	
+	public Image getShipImage(){
+		return ship;
+	}
+	
+	public Image getWaterTreasureImage(){
+		return treasureWaterImage;
+	}
+	
+	public Image getIslandTreasureImage(){
+		return treasureIslandImage;
+	}
+	
+	public Image getBuoyImage(){
+		return buoyImage;
+	}
+	
+	public Image getKrakenImage(){
+		return krakenImage;
+	}
+	
 	
 	public Configuration getDefaultConfig(){
 		return defaultConfiguration;

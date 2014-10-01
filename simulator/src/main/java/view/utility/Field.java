@@ -20,6 +20,9 @@ public class Field {
 	
 	private Image fieldImage;
 	private Image shipImage;
+	private Image treasureImage;
+	private Image buoysImage;
+	private Image krakenImage;
 	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
@@ -65,10 +68,14 @@ public class Field {
 		List<Image> images = new LinkedList<Image>();
 		images.add(fieldImage);
 		
-		if(shipImage != null){
-			System.out.print(ship.getX() + ", " + ship.getY());
+		if(buoysImage != null)
+			images.add(buoysImage);
+		if(krakenImage != null)
+			images.add(krakenImage);
+		if(treasureImage != null)
+			images.add(treasureImage);
+		if(shipImage != null)
 			images.add(shipImage);
-		}	
 		
 		return images;
 	}
@@ -82,10 +89,6 @@ public class Field {
 		return y;
 	}
 	
-	public Image getImage(){
-		return fieldImage;
-	}
-
 	public Integer getAffiliation() {
 		return affiliation;
 	}
@@ -100,7 +103,7 @@ public class Field {
 	}
 	
 	public void setShip(Ship ship){
-		this.shipImage = (ship == null) ? null : map.getRessources().getBaseImage();
+		this.shipImage = (ship == null) ? null : map.getRessources().getShipImage();
 		this.ship = ship;
 		redraw();
 	}
@@ -110,6 +113,11 @@ public class Field {
 	}
 	
 	public void setTreasure(SimpleEntity treasure){
+		if(type == FieldType.Water)
+			treasureImage = (treasure == null) ? null : map.getRessources().getWaterTreasureImage();
+		else if(type == FieldType.Island)
+			treasureImage = (treasure == null) ? null : map.getRessources().getIslandTreasureImage();
+		
 		this.treasure = treasure;
 		redraw();
 	}
@@ -119,21 +127,30 @@ public class Field {
 	}
 	
 	public void addBuoy(SimpleEntity buoy){
+		if(buoys.size() == 0){
+			buoysImage = map.getRessources().getBuoyImage();
+			redraw();
+		}
+		
 		buoys.add(buoy);
-		redraw();
 	}
 	
-	public void deleteBuiy(SimpleEntity buoy){
+	public void deleteBuoy(SimpleEntity buoy){
 		buoys.remove(buoy);
-		redraw();
+		
+		if(buoys.size() == 0){
+			buoysImage = null;
+			redraw();
+		}	
 	}
-
 
 	public SimpleEntity getKraken() {
 		return kraken;
 	}
 
 	public void setKraken(SimpleEntity kraken) {
+		krakenImage = (kraken == null) ? null : map.getRessources().getKrakenImage();
+		
 		this.kraken = kraken;
 		redraw();
 	}	

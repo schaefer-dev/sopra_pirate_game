@@ -28,10 +28,11 @@ public class LoadingState implements GameState {
 		Random random = new Random();
 		List<String> shipFileList = manager.getConfiguration().getTactics();
 		String[] shipFiles = shipFileList.toArray(new String[shipFileList.size()]);
-		InGameState game = new InGameState(map, manager.getRessources());
+		Integer turns = 1000;	//TODO: make this variable
+		InGameState game = new InGameState(map, manager.getRessources(), turns);
 		
 		try{
-			Simulator sim = new Simulator(shipFiles, mapFile, random.nextInt(Integer.MAX_VALUE), null, 100, game);
+			Simulator sim = new Simulator(shipFiles, mapFile, random.nextInt(Integer.MAX_VALUE), null, turns, game);
 			game.setSimulator(sim);
 		}
 		catch(Exception e){	

@@ -15,7 +15,6 @@ import view.events.HoverEvent;
 import view.events.MusicSliderListener;
 import view.events.SliderListener;
 import view.events.SwitchState;
-import view.utility.Configuration;
 import view.utility.GameState;
 import view.utility.Resolution;
 import view.GUIController;
@@ -57,6 +56,7 @@ public class SettingsState implements GameState {
 		volume.setValue(Integer.parseInt(volumeLabel.getText()));
 		Label volumeText = new Label("Volume");
 		SliderListener volumeListener = new MusicSliderListener(volume, volumeLabel, manager.getPlayer());
+		
 		root = new GridPane();
 		root.getStyleClass().add("grid");
 		root.add(resolutionLabel, 0, 1);

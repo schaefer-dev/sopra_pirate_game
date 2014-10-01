@@ -111,7 +111,7 @@ public class Translator {
 		List<String> conditions = new LinkedList<String>();
 		List<Comparison> bools = new LinkedList<Comparison>();
 		Comparison comparison = null;
-		int type = -1;
+		int value = -1;
 		columns = line.length();
 		makeSplits(line);
 		try{
@@ -148,57 +148,47 @@ public class Translator {
 				
 			case MARK: 
 				makeSplits(appendix);
-				if(toolBox.isInteger(currentElement)){
-					type = toolBox.toInt(currentElement);
-					if(0 <= type && type <= 5){
+				value = evaluateAddress(currentElement);
+					if(0 <= value && value <= 5){
 						overloadTest();
-						return new Mark(type);
+						return new Mark(value);
 					}else{
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
 						break;
 					}
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type.");
-				break;
+				
 	
 			case UNMARK:
 				makeSplits(appendix);
-				if(toolBox.isInteger(currentElement)){
-					type = toolBox.toInt(currentElement);
-					if(0 <= type && type <= 5){
+				value = evaluateAddress(currentElement);
+					if(0 <= value && value <= 5){
 						overloadTest();
-						return new Unmark(type);
+						return new Unmark(value);
 					}else{
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
 						break;
 					}
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing buoy type.");
-				break;
+				
 				
 			case SENSE: 
 				makeSplits(appendix);
-				if(toolBox.isInteger(currentElement)){
-					type = toolBox.toInt(currentElement);
-					if(0 <= type && type <= 6){
+				value = evaluateAddress(currentElement);
+					if(0 <= value && value <= 6){
 						overloadTest();
-						return new Sense(type);
+						return new Sense(value);
 					}else{
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid sense direction.");
 						break;
 					}
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
-				break;
 				
 			case MOVE:
 				makeSplits(appendix);
 				if(currentElement.equalsIgnoreCase("else") && appendix != null){
 					makeSplits(appendix);
-					type = evaluateAddress(currentElement);
-					if(type != -1){
+					value = evaluateAddress(currentElement);
+					if(value != -1){
 						overloadTest();
-						return new Move(type);	
+						return new Move(value);	
 					}else{
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
 						break;
@@ -211,10 +201,10 @@ public class Translator {
 				makeSplits(appendix);
 				if(currentElement.equalsIgnoreCase("else") && appendix != null){
 					makeSplits(appendix);
-					type = evaluateAddress(currentElement);
-					if(type != -1){
+					value = evaluateAddress(currentElement);
+					if(value != -1){
 						overloadTest();
-						return new Repair(type);					
+						return new Repair(value);					
 					}else{
 						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
 						break;
@@ -225,15 +215,14 @@ public class Translator {
 				
 			case PICKUP: 
 				makeSplits(appendix);
-				if(toolBox.isInteger(currentElement) || appendix != null){
-					type = toolBox.toInt(currentElement);
-						if(0 <= type && type <= 6){
+				value = evaluateAddress(currentElement);
+				if(0 <= value && value <= 6){
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									overloadTest();
-									return new Pickup(type,evaluateAddress(currentElement));	
+									return new Pickup(value,evaluateAddress(currentElement));	
 								}else{
 									errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
 									break;
@@ -246,21 +235,17 @@ public class Translator {
 							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
 							break;
 						}				
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
-				break;
-							
+										
 			case REFRESH:
 				makeSplits(appendix);
-				if(toolBox.isInteger(currentElement) || appendix != null){
-					type = toolBox.toInt(currentElement);
-						if(0 <= type && type <= 6){
+				value = evaluateAddress(currentElement);
+						if(0 <= value && value <= 6){
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									overloadTest();
-									return new Refresh(type,evaluateAddress(currentElement));
+									return new Refresh(value,evaluateAddress(currentElement));
 								}else
 									break;
 							}else{
@@ -271,21 +256,18 @@ public class Translator {
 							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
 							break;
 						}				
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing sense direction.");
-				break;
+	
 			
 			case FLIPZERO:
 				makeSplits(appendix);
-				if(toolBox.isInteger(currentElement) || appendix != null){
-					type = toolBox.toInt(currentElement);
-						if(type > 1){
+				value = evaluateAddress(currentElement);
+						if(value > 1){
 							makeSplits(appendix);
 							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
 								makeSplits(appendix);
 								if(evaluateAddress(currentElement) != -1){
 									overloadTest();
-									return new Flipzero(type,evaluateAddress(currentElement));
+									return new Flipzero(value,evaluateAddress(currentElement));
 								}else
 									break;
 							}else{
@@ -296,9 +278,6 @@ public class Translator {
 							errors.add(" l: " + row + " ,p: " + indexOfError() + "Value must be greater than 1.");
 							break;
 						}				
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing value.");
-				break;
 				
 			case IF:
 				makeSplits(appendix);
@@ -307,10 +286,10 @@ public class Translator {
 					makeSplits(appendix);
 					if(appendix != null && currentElement.equalsIgnoreCase("else")){
 						makeSplits(appendix);
-						type = evaluateAddress(currentElement);
-						if(type != -1){
+						value = evaluateAddress(currentElement);
+						if(value != -1){
 							overloadTest();
-								return new If(comparison, type);
+								return new If(comparison, value);
 						}else
 							break;
 					}else{
@@ -323,8 +302,6 @@ public class Translator {
 				}
 			
 			case IFALL:
-				conditions.clear();
-				bools.clear();
 				comparison = null;
 				makeSplits(appendix);
 				while(!currentElement.equalsIgnoreCase("else") && appendix != null){
@@ -343,15 +320,15 @@ public class Translator {
 					}
 					bools.add(comparison);
 				}
-				if(bools.size() < conditions.size()){
+				if(bools.size() != conditions.size()){
 					errors.add("l: " + row + "invalid conditions");
 					break;
 				}else{
 					makeSplits(appendix);
-					type = evaluateAddress(currentElement);
-					if(type != -1){
+					value = evaluateAddress(currentElement);
+					if(value != -1){
 						overloadTest();
-						return new IfAll(bools, type);
+						return new IfAll(bools, value);
 					}else{
 							break;
 					}
@@ -359,8 +336,6 @@ public class Translator {
 				
 			
 			case IFANY:
-				conditions.clear();
-				bools.clear();
 				comparison = null;
 				makeSplits(appendix);
 				while(!currentElement.equalsIgnoreCase("else") && appendix != null){
@@ -384,10 +359,10 @@ public class Translator {
 					break;
 				}else{
 					makeSplits(appendix);
-					type = evaluateAddress(currentElement);
-					if(type != -1){
+					value = evaluateAddress(currentElement);
+					if(value != -1){
 						overloadTest();
-						return new IfAny(bools, type);
+						return new IfAny(bools, value);
 					}else{
 							break;
 					}			
@@ -475,6 +450,7 @@ public class Translator {
 			   return -1;
 			   }
 	}
+	
 	
 	
 }
