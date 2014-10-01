@@ -163,9 +163,13 @@ public class Camera {
 	}
 	
 	public boolean intersects(int x, int y){
-		if(x >= minX && x < maxX && y >= minY && y < maxY)
+		if(mod(x, maxX) >= minX && mod(x, maxX) < maxX && mod(y, maxY) >= minY && mod(y, maxY) < maxY)
 			return true;
-		//TODO: broken
+	
 		return false;
+	}
+	
+	private int mod(int a, int b){
+		return (a%b + b) % b;
 	}
 }

@@ -37,7 +37,11 @@ public class Configuration {
 	
 	public final static int SHIP_COUNT_MIN = 1;
 	public final static int SHIP_COUNT_MAX = 100;
-	public int shipCount = SHIP_COUNT_MIN;
+	private int shipCount = SHIP_COUNT_MIN;
+	
+	public final static int ROUNDS_MIN = 1;
+	public final static int ROUNDS_MAX = 10000;
+	private int rounds = ROUNDS_MIN;
 	
 	private List<String> tactics = new LinkedList<String>();
 	private List<String>  captainNames = new LinkedList<String>(Arrays.asList(
@@ -180,5 +184,16 @@ public class Configuration {
 
 	public List<String> getTactics(){
 		return tactics;
+	}
+
+	public int getRounds() {
+		return rounds;
+	}
+
+	public void setRounds(int rounds) {
+		if(rounds < ROUNDS_MIN || rounds > ROUNDS_MAX)
+			throw new IllegalArgumentException();
+		
+		this.rounds = rounds;
 	}
 }

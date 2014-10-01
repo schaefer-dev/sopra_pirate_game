@@ -44,7 +44,7 @@ public class Ressources {
 	    	base = new Image(stream);
 	    	stream.close();
 	    	
-	    	file = new File("src/main/ressources/ship.png");
+	    	file = new File("src/main/ressources/ship100px.png");
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
 	    	stream.close();
@@ -106,6 +106,7 @@ public class Ressources {
 		defaultConfiguration.setKrakenCount(10);
 		defaultConfiguration.setTeamCount(2);
 		defaultConfiguration.setShipCount(10);
+		defaultConfiguration.setRounds(1000);
 		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
 		
 		File file = new File("src/main/ressources/default.map");

@@ -123,8 +123,7 @@ public class Map {
 		if(!init)
 			return false;
 		
-		return true;
-		//return cam.intersects(field.getX(), field.getY());
+		return cam.intersects(field.getX(), field.getY());
 	}
 
 	private void drawHex(Point2D mid, double radius, Field field, boolean left, boolean top){
