@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import commands.Flipzero;
 import commands.Goto;
 import commands.If;
 import commands.IfAll;
@@ -41,7 +42,6 @@ public class TranslatorTest {
 		lines = constr.getStringList();
 		commands = constr.getCommandList();
 	}
-	
 	
 	@Test
 	public void testExampleTactic(){

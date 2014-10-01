@@ -54,6 +54,7 @@ import commands.Unmark;
 public class Translator {
 	
 	List<String> errors;
+	int address = -1;
 	String currentElement = null;
 	String appendix = null;
 	int row;
@@ -107,18 +108,15 @@ public class Translator {
 
 	
 	private Command translate(String line){
-
-		List<String> conditions = new LinkedList<String>();
-		List<Comparison> bools = new LinkedList<Comparison>();
-		Comparison comparison = null;
+		
 		int value = -1;
+		int elsepc = -1;
 		columns = line.length();
 		makeSplits(line);
 		try{
 			switch (CommandWords.valueOf(currentElement.toUpperCase())){
 			
 			case DROP:
-				line = appendix;
 				overloadTest();
 				return new Drop();
 			
@@ -137,236 +135,112 @@ public class Translator {
 					break;
 					   
 			case GOTO:
-				makeSplits(appendix);
-				if(evaluateAddress(currentElement) != -1){
-					overloadTest();
-					return new Goto(evaluateAddress(currentElement));	
-				}else{
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
-					break;
-				}
+				value = evaluateValues(false,false);
+				if(value != -1)
+					return new Goto(value);
+				break;
 				
 			case MARK: 
-				makeSplits(appendix);
-				value = evaluateAddress(currentElement);
-					if(0 <= value && value <= 5){
-						overloadTest();
-						return new Mark(value);
-					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
-						break;
-					}
+				value = evaluateValues(false,false);
+				if(0 <= value && value <= 5)
+					return new Mark(value);
+				errors.add("invalid direction: " + value);
+				break;
 				
 	
 			case UNMARK:
-				makeSplits(appendix);
-				value = evaluateAddress(currentElement);
-					if(0 <= value && value <= 5){
-						overloadTest();
-						return new Unmark(value);
-					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid buoy type.");
-						break;
-					}
-				
-				
+				value = evaluateValues(false,false);
+				if(0 <= value && value <= 5)
+					return new Unmark(value);
+				errors.add("invalid direction: " + value);
+				break;
+							
 			case SENSE: 
-				makeSplits(appendix);
-				value = evaluateAddress(currentElement);
-					if(0 <= value && value <= 6){
-						overloadTest();
+				value = evaluateValues(false,false);
+					if(0 <= value && value <= 6)
 						return new Sense(value);
-					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid sense direction.");
-						break;
-					}
+					errors.add("invalid direction: " + value);
+					break;
 				
 			case MOVE:
-				makeSplits(appendix);
-				if(currentElement.equalsIgnoreCase("else") && appendix != null){
-					makeSplits(appendix);
-					value = evaluateAddress(currentElement);
-					if(value != -1){
-						overloadTest();
-						return new Move(value);	
-					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
-						break;
-					}
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
-				break;											     
+				value = evaluateValues(true,false);
+				if(value == -1)
+					break;
+				return new Move(value);										     
 			
 			case REPAIR: 
-				makeSplits(appendix);
-				if(currentElement.equalsIgnoreCase("else") && appendix != null){
-					makeSplits(appendix);
-					value = evaluateAddress(currentElement);
-					if(value != -1){
-						overloadTest();
-						return new Repair(value);					
-					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
-						break;
-					}
-				}
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
-				break;
+				value = evaluateValues(true,false);
+				if(value == -1)
+					break;
+				return new Repair(value);
 				
 			case PICKUP: 
-				makeSplits(appendix);
-				value = evaluateAddress(currentElement);
-				if(0 <= value && value <= 6){
-							makeSplits(appendix);
-							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
-								makeSplits(appendix);
-								if(evaluateAddress(currentElement) != -1){
-									overloadTest();
-									return new Pickup(value,evaluateAddress(currentElement));	
-								}else{
-									errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+				value = evaluateValues(false,true);
+					if(0 <= value && value <= 6){
+						elsepc = evaluateValues(true,true);
+						if(elsepc != -1){
+									return new Pickup(value,elsepc);	
+								}else
 									break;
-								}
-							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
-								break;
-							}
-						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
-							break;
-						}				
+								
+					}else{
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "value to low: " + value);
+						break;
+					}
+									
 										
 			case REFRESH:
-				makeSplits(appendix);
-				value = evaluateAddress(currentElement);
-						if(0 <= value && value <= 6){
-							makeSplits(appendix);
-							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
-								makeSplits(appendix);
-								if(evaluateAddress(currentElement) != -1){
-									overloadTest();
-									return new Refresh(value,evaluateAddress(currentElement));
-								}else
-									break;
-							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+				value = evaluateValues(false,true);
+					if(0 <= value && value <= 6){
+						elsepc = evaluateValues(true,true);
+						if(elsepc != -1){
+								return new Refresh(value,elsepc);
+							}else
 								break;
-							}
-						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid direction.");
-							break;
-						}				
-	
+					}else{
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "value to low: " + value);
+						break;
+					}				
 			
 			case FLIPZERO:
-				makeSplits(appendix);
-				value = evaluateAddress(currentElement);
-						if(value > 1){
-							makeSplits(appendix);
-							if(currentElement.equalsIgnoreCase("else")|| appendix != null){
-								makeSplits(appendix);
-								if(evaluateAddress(currentElement) != -1){
-									overloadTest();
-									return new Flipzero(value,evaluateAddress(currentElement));
-								}else
-									break;
-							}else{
-								errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
-								break;
-							}
-						}else{
-							errors.add(" l: " + row + " ,p: " + indexOfError() + "Value must be greater than 1.");
-							break;
-						}				
-				
-			case IF:
-				makeSplits(appendix);
-				comparison = toolBox.buildComparison(currentElement);
-				if(comparison != null && appendix != null){
-					makeSplits(appendix);
-					if(appendix != null && currentElement.equalsIgnoreCase("else")){
-						makeSplits(appendix);
-						value = evaluateAddress(currentElement);
-						if(value != -1){
-							overloadTest();
-								return new If(comparison, value);
+				value = evaluateValues(false,true);
+					if(value > 1){
+						elsepc = evaluateValues(true,true);
+						if(elsepc != -1){
+							return new Flipzero(value,elsepc);
 						}else
 							break;
 					}else{
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
-						break;					
-					}
-				}else{
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing condition.");
-					break;
-				}
-			
-			case IFALL:
-				comparison = null;
-				makeSplits(appendix);
-				while(!currentElement.equalsIgnoreCase("else") && appendix != null){
-					conditions.add(currentElement);
-					makeSplits(appendix);
-				}
-				if(appendix == null){
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else or address.");
-					break;
-				}
-				for(String condition: conditions){
-					comparison = toolBox.buildComparison(condition);
-					if(comparison == null){
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
+						errors.add(" l: " + row + " ,p: " + indexOfError() + "value to low: " + value);
 						break;
 					}
-					bools.add(comparison);
-				}
-				if(bools.size() != conditions.size()){
-					errors.add("l: " + row + "invalid conditions");
-					break;
-				}else{
-					makeSplits(appendix);
-					value = evaluateAddress(currentElement);
+				
+			case IF:
+				makeSplits(appendix);
+				Comparison comparison = toolBox.buildComparison(currentElement);
+				if(comparison != null && appendix != null){
+					value = evaluateValues(true,false);
 					if(value != -1){
-						overloadTest();
-						return new IfAll(bools, value);
-					}else{
-							break;
-					}
-				}
+						return new If(comparison, value);
+					}else
+						break;
+				}else{
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+					break;					
+				}		
+			
+			case IFALL:
+				IfAll ifAll = (IfAll) buildIfX(true);
+				if(ifAll == null)
+					break;
+				return ifAll;
 				
 			
 			case IFANY:
-				comparison = null;
-				makeSplits(appendix);
-				while(!currentElement.equalsIgnoreCase("else") && appendix != null){
-					conditions.add(currentElement);
-					makeSplits(appendix);
-				}
-				if(appendix == null){
-					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else or address.");
+				IfAny ifAny = (IfAny) buildIfX(false);
+				if(ifAny == null)
 					break;
-				}
-				for(String condition: conditions){
-					comparison = toolBox.buildComparison(condition);
-					if(comparison == null){
-						errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
-						break;
-					}
-					bools.add(comparison);
-				}
-				if(bools.size() < conditions.size()){
-					errors.add("l: " + row + "invalid conditions");
-					break;
-				}else{
-					makeSplits(appendix);
-					value = evaluateAddress(currentElement);
-					if(value != -1){
-						overloadTest();
-						return new IfAny(bools, value);
-					}else{
-							break;
-					}			
-				}
+				return ifAny;
 			
 			default:
 				errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
@@ -451,6 +325,79 @@ public class Translator {
 			   }
 	}
 	
+/** Looks, if the current Element equals else and if there are any following elements.
+ * 
+ *  @return true or false
+ */
 	
+	private boolean isElse(){
+		return appendix != null && currentElement.equalsIgnoreCase("else");
+	}
+/**
+ * Evaluates the necessary integers to build any command except drop and turn
+ * 
+ * @return int
+ */
+	private int evaluateValues(boolean withElse, boolean twoValues){
+			makeSplits(appendix);
+			if(withElse){
+				if(isElse())
+					makeSplits(appendix);
+				else{
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+				return -1;
+				}
+		}address = evaluateAddress(currentElement);
+			if(address != -1){
+				if(!twoValues)
+					overloadTest();
+				else if(twoValues && withElse)
+					overloadTest();
+				return address;					
+			}else{
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+				return -1;
+			}
+		
+	}
+	
+/** Builds IfAny, IfAll Commands.
+ * 
+ *  @param all
+ *  @return all = true : return ifAll; all = false : return ifAny
+ */
+	private Command buildIfX(boolean all){
+		int elsePC;
+		List<String> conditions = new LinkedList<String>();
+		List<Comparison> bools = new LinkedList<Comparison>();
+		Comparison comparison = null;
+		makeSplits(appendix);
+		while(!isElse()){
+			conditions.add(currentElement);
+			makeSplits(appendix);
+		}
+		for(String condition: conditions){
+			comparison = toolBox.buildComparison(condition);
+		if(comparison == null){
+			errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
+			break;
+		}
+		bools.add(comparison);
+		}
+		if(bools.size() != conditions.size()){
+			errors.add("l: " + row + "invalid conditions");
+			return null;
+		}else{
+			elsePC = evaluateValues(false, false);
+			if(elsePC != -1){
+				if(all)
+					return new IfAll(bools, elsePC);
+				else
+					return new IfAny(bools, elsePC);
+		}else{
+				return null;
+		}
+	}
+	}
 	
 }
