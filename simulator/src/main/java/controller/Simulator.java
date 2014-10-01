@@ -35,7 +35,7 @@ public class Simulator {
 	private boolean endGame;
 
 	/**
-	 * Initialises the game. Starts the <code>Translator</code> which translates the ship's tactics files to a list of commands. Creates the <code>Team</code>s. Creates an instance of the <code>Log</code> class without calling init or adding the external logger.
+	 * Initializes the game. Starts the <code>Translator</code> which translates the ship's tactics files to a list of commands. Creates the <code>Team</code>s. Creates an instance of the <code>Log</code> class without calling init or adding the external logger.
 	 * Calls createMap from a map Generator and saves the map in map. Saves the list of kraken in kraken and calls logStep in the <code>LogWriter</code> for the first time after the creation of the map.
 	 *  
 	 * @param shipFiles A String array containing the paths to the .ship files. They are overwritten after the creation of the Teams with the content of the file as a String.
@@ -52,6 +52,7 @@ public class Simulator {
 	public Simulator(String[] shipFiles, String mapFile, int seed, String logFile, int turns, LogWriter guiController) throws ArrayIndexOutOfBoundsException, NullPointerException, IOException, URISyntaxException, IllegalArgumentException {
 		if(shipFiles == null || mapFile == null) throw new NullPointerException("No shipFiles or MapFile specified");
 		if(shipFiles.length < 1 || shipFiles.length > 26 || turns > 10000 || turns <1) throw new IllegalArgumentException("To few or to many shipFiles or illegal Number of rounds");
+		
 		endGame = false;
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();

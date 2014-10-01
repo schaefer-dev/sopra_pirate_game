@@ -17,6 +17,7 @@ public class MainMenuState implements GameState {
 	public void entered(GUIController control) {
 		manager = control;
 		manager.getTitleText().setText(title);
+		manager.setConfiguration(manager.getRessources().getDefaultConfig());
 	
 		Button quickGame = new Button(" Quick Game ");
 		quickGame.getStyleClass().add("menubutton");
@@ -61,6 +62,7 @@ public class MainMenuState implements GameState {
 	public void revealed() {
 		manager.getTitleText().setText(title);
 		manager.getRoot().setCenter(root);
+		manager.setConfiguration(manager.getRessources().getDefaultConfig());
 	}
 
 }

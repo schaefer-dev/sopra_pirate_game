@@ -88,7 +88,7 @@ public class Map {
 	
 	private void drawField(Field field, int x, int y){		
     	double radius = gc.getCanvas().getWidth()/cam.width()/2;
-		double stepX = ((y+cam.c)%2 == 0) ? radius : 0;
+		double stepX = ((y+cam.c)%2 == 0) ? 0 : radius;
 		double stepY = y*(radius/2);
 		
 		boolean left = false;
@@ -123,12 +123,12 @@ public class Map {
 		if(!init)
 			return false;
 		
-		return cam.intersects(field.getX(), field.getY());
+		return true;
+		//return cam.intersects(field.getX(), field.getY());
 	}
 
 	private void drawHex(Point2D mid, double radius, Field field, boolean left, boolean top){
 		Point2D up = new Point2D(mid.getX(), mid.getY() - radius);
-		//Image image = field.getImage();
 		
 		if(field.getFieldType() == FieldType.Water){
 			if(cam.zoomLevel() < 2){
