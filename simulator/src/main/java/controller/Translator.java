@@ -393,10 +393,10 @@ public class Translator {
 					return new IfAll(bools, elsePC);
 				else
 					return new IfAny(bools, elsePC);
-		}else{
+			}else{
 				return null;
+			}
 		}
-	}
 	}
 	
 }

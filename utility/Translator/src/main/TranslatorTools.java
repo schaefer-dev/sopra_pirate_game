@@ -72,8 +72,6 @@ public class TranslatorTools {
 				}
 			}	
 		}
-		System.out.println(condition.toLowerCase());
-
 		try{
 			Register.valueOf(condition.toLowerCase());
 
