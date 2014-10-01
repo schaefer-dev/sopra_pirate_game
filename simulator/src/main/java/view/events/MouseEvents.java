@@ -95,13 +95,14 @@ public class MouseEvents {
 		    			//double stepY = mod(midY, map.getMap()[0].length)*(gc.getCanvas().getWidth()/cam.width()/4);
 		    			//midY = stepY;
 
-							
+						/*
 		    			if(event.getClickCount() == 1){
 		    				Field[][] fields = map.getMap();
 		    				Field field = fields[(int) mod(midX, fields.length)][(int) mod(midY, fields[0].length)];
 							map.markField(field);
 		    			}
-						else if(event.getClickCount() == 2){			    			
+		    			*/
+						if(event.getClickCount() == 2){			    			
 			    			cam.setMid((int) midX, (int) midY);
 			    			map.drawMap();
 			            }
