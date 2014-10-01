@@ -218,9 +218,9 @@ public class MapGenerator {
 					}
 				}
 			}
-			for(Field[] row: fields)
+			for(Field[] column: fields)
 			{
-				for(Field field : row)
+				for(Field field : column)
 				{
 					if(field.getKraken() != null)
 					{

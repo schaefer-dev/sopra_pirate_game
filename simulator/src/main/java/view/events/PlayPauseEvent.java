@@ -9,17 +9,21 @@ import javafx.event.EventHandler;
 
 public class PlayPauseEvent implements EventHandler<ActionEvent> {
 
-	private InGameState state;
 	private Timer timer;
+	private Run run;
 	
-	public PlayPauseEvent(InGameState state) {
-		this.state = state;
+	public PlayPauseEvent(InGameState state, Timer timer) {
+		this.timer = timer;
+		this.run = new Run(state, timer);
 	}
 	
 	@Override
 	public void handle(ActionEvent arg0) {
-		timer = new Timer();
-        timer.schedule(new Run(state, timer), 1000, 100);
+		try{
+			timer.schedule(run, 1000, 100);
+		}
+		catch(Exception e){}
+        
 	}
 	
 	

@@ -28,7 +28,6 @@ import view.utility.Field;
 import view.utility.GameState;
 import view.utility.Map;
 import view.utility.Ressources;
-import view.utility.Run;
 import view.utility.Ship;
 
 public class InGameState implements GameState, LogWriter {
@@ -48,12 +47,15 @@ public class InGameState implements GameState, LogWriter {
 	private Label roundCounter;
 	private Simulator sim;
 	private PlayPauseEvent playPause;
+	private Timer timer;
+	
 	private boolean closed;
 	
 	public InGameState(char[][] fieldChars, Ressources res, Integer turns) {
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
+		timer = new Timer();
 		canvas = new Canvas(950, 550);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
@@ -95,14 +97,12 @@ public class InGameState implements GameState, LogWriter {
 		
         Button play = new Button("Play");
         play.getStyleClass().add("menubutton");
-        playPause = new PlayPauseEvent(this);
+        playPause = new PlayPauseEvent(this, timer);
 		play.setOnAction(playPause);
 
         HBox box = new HBox(20);
         box.getChildren().addAll(next, play);
         box.getStyleClass().add("hbox");		
-        
-        
         
         
         root = new BorderPane();
@@ -117,7 +117,7 @@ public class InGameState implements GameState, LogWriter {
 
 	@Override
 	public void exiting() {
-		 manager.getRoot().setCenter(null);
+		// manager.getRoot().setCenter(null);
 		 playPause.close();
 		 if(!closed){
 			 try{
@@ -170,7 +170,7 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public void close() throws IllegalStateException, IOException {
 		closed = true;
-		//exiting();
+		exiting();
 	}
 	
 	@Override
@@ -305,9 +305,16 @@ public class InGameState implements GameState, LogWriter {
 						break;
 				}
 			}
-			
+			ship.setId(arg1);
 			fields[x][y].setShip(ship);
 			ships.add(ship);
+			
+			try{
+				System.out.println(ships.get(arg1).getId());
+			}
+			catch(Exception e){
+				System.out.println("Failed at: " + arg1);
+			}
 		}
 		else{
 			SimpleEntity entity = new SimpleEntity();
