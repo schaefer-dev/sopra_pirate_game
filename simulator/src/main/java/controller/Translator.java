@@ -75,7 +75,6 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		line.trim();
 		splits = line.split(" ");
 		String res = "";
 		if (splits.length == 1){

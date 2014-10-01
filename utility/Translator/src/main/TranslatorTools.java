@@ -1,5 +1,6 @@
 package main;
 
+import main.Comparison;
 import enums.CellType;
 import enums.Register;
 import enums.ShipType;
