@@ -23,15 +23,10 @@ public class Run extends TimerTask {
 			if(state.getRound() < state.getMaxRounds())
 				sim.step();
 			else
-				timer.cancel();
-			
-			
-			System.out.println(state.getRound());
-			
+				timer.cancel();			
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-
 }

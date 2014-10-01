@@ -16,7 +16,6 @@ public class Main {
 			tactics[i-1] = args[i];
 	
 		String logFile = System.getProperty("log");
-
 		int turns;
 		int seed;
 		if(System.getProperty("turns") != null && System.getProperty("turns") != "")

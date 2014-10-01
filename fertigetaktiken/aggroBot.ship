@@ -1,0 +1,60 @@
+*flips flipzero 3 else rechts
+flipzero 2 else 2rechts
+flipzero 2 else links
+turn left
+*links turn left
+goto getReady
+*2rechts turn right
+*rechts	turn right
+*getReady sense 0 
+ifall sense_celltype==empty sense_shiptype!=friend else flips
+*go move else 
+sense 0
+if sense_celltype!=island else gorefresh0
+goto go
+move else alterdir
+goto go
+*gorefresh0 refresh 0 else alterdir
+*alterdir flipzero 2 else lefti
+if ship_direction<2 else dirGT2
+if ship_direction<1 else dirEQ1
+goto dirEQ0
+*dirGT2	if ship_direction>2 else dirEQ2
+if ship_direction>3 else dirEQ3
+if ship_direction>4 else dirEQ4
+goto dirEQ5
+*dirEQ0	mark 3	
+goto rechtsdrehen		
+*dirEQ1	mark 4
+goto rechtsdrehen		
+*dirEQ2	mark 5
+goto rechtsdrehen		
+*dirEQ3	mark 0
+goto rechtsdrehen		
+*dirEQ4	mark 1
+goto rechtsdrehen		
+*dirEQ5	mark 2
+goto rechtsdrehen		
+*rechtsdrehen turn right 
+goto go
+*lefti if ship_direction<2 else dir1GT2
+if ship_direction<1 else dir1EQ1
+goto dir1EQ0
+*dir1GT2 if ship_direction>2 else dir1EQ2
+if ship_direction>3 else dir1EQ3
+if ship_direction>4 else dir1EQ4
+goto dir1EQ5
+*dir1EQ0 mark 3	
+goto linksdrehen		
+*dir1EQ1 mark 4
+goto linksdrehen		
+*dir1EQ2 mark 5
+goto linksdrehen		
+*dir1EQ	mark 0
+goto linksdrehen		
+*dir1E4	mark 1
+goto linksdrehen		
+*dir1Q5	mark 2
+goto linksdrehen		
+*linksdrehen turn left 
+goto go

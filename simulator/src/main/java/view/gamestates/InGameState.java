@@ -28,7 +28,6 @@ import view.utility.Field;
 import view.utility.GameState;
 import view.utility.Map;
 import view.utility.Ressources;
-import view.utility.Run;
 import view.utility.Ship;
 
 public class InGameState implements GameState, LogWriter {
@@ -48,6 +47,7 @@ public class InGameState implements GameState, LogWriter {
 	private Label roundCounter;
 	private Simulator sim;
 	private PlayPauseEvent playPause;
+	private Timer timer;
 	
 	private boolean closed;
 	
@@ -55,6 +55,7 @@ public class InGameState implements GameState, LogWriter {
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
+		timer = new Timer();
 		canvas = new Canvas(950, 550);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
@@ -96,14 +97,12 @@ public class InGameState implements GameState, LogWriter {
 		
         Button play = new Button("Play");
         play.getStyleClass().add("menubutton");
-        playPause = new PlayPauseEvent(this);
+        playPause = new PlayPauseEvent(this, timer);
 		play.setOnAction(playPause);
 
         HBox box = new HBox(20);
         box.getChildren().addAll(next, play);
         box.getStyleClass().add("hbox");		
-        
-        
         
         
         root = new BorderPane();
@@ -118,7 +117,7 @@ public class InGameState implements GameState, LogWriter {
 
 	@Override
 	public void exiting() {
-		 manager.getRoot().setCenter(null);
+		// manager.getRoot().setCenter(null);
 		 playPause.close();
 		 if(!closed){
 			 try{
@@ -306,9 +305,16 @@ public class InGameState implements GameState, LogWriter {
 						break;
 				}
 			}
-			
+			ship.setId(arg1);
 			fields[x][y].setShip(ship);
 			ships.add(ship);
+			
+			try{
+				System.out.println(ships.get(arg1).getId());
+			}
+			catch(Exception e){
+				System.out.println("Failed at: " + arg1);
+			}
 		}
 		else{
 			SimpleEntity entity = new SimpleEntity();
@@ -359,13 +365,32 @@ public class InGameState implements GameState, LogWriter {
 	public LogWriter destroy(Entity arg0, int arg1) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		if(arg0 == null) throw new NullPointerException();
 		
-		if(arg0.equals(Entity.SHIP))
+		if(arg0.equals(Entity.SHIP)){
+			Ship ship = ships.get(arg1);
+			fields[ship.getX()][ship.getY()].setShip(null);
 			ships.set(arg1, null);
-		else
-			entities.set(arg1, null);
-		
-		System.out.println(arg1);
+		}
+		else{
+			SimpleEntity entity = entities.get(arg1);
 			
+			switch(entity.getEntityType()){
+				case BUOY:
+					fields[entity.getX()][entity.getY()].deleteBuoy(entity);
+					break;
+				case KRAKEN:
+					fields[entity.getX()][entity.getY()].setKraken(null);
+					break;
+				case TREASURE:
+					fields[entity.getX()][entity.getY()].setTreasure(null);
+					break;
+				default:
+					break;
+			}
+			
+			entities.set(arg1, null);
+		}
+			
+		System.out.println(arg0.toString() + "(" + arg1 + ")");
 		return this;
 	}
 	
