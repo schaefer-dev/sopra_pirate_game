@@ -28,7 +28,7 @@ public class LoadingState implements GameState {
 		Random random = new Random();
 		List<String> shipFileList = manager.getConfiguration().getTactics();
 		String[] shipFiles = shipFileList.toArray(new String[shipFileList.size()]);
-		Integer turns = 1000;	//TODO: make this variable
+		Integer turns = 10000;	//TODO: make this variable
 		InGameState game = new InGameState(map, manager.getRessources(), turns);
 		
 		try{

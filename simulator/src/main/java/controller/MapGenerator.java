@@ -194,9 +194,9 @@ public class MapGenerator {
 		//	LogProvider.register("BYPASS",SimpleLogWriter.class);				
 		//	((Log) log).addLogger(new GUIController());
 			log.init(logStream, mapString, shipFiles);
-			for(Field[] row : fields)
+			for(Field[] column : fields)
 			{
-				for(Field field : row)
+				for(Field field : column)
 				{
 					switch (field.getFieldType())
 					{

@@ -1,4 +1,0 @@
- move else 2
- sense 0
- turn left
- goto 0
