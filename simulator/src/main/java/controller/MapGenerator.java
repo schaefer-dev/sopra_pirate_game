@@ -218,10 +218,11 @@ public class MapGenerator {
 					}
 				}
 			}
-			for(Field[] column: fields)
+			for(int y = 0; y<height; y++)
 			{
-				for(Field field : column)
+				for(int x = 0; x<width; x++)
 				{
+					Field field = fields[x][y];
 					if(field.getKraken() != null)
 					{
 						Key[] keys = {Key.X_COORD, Key.Y_COORD};
