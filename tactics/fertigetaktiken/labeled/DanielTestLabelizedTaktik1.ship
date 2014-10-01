@@ -1,0 +1,195 @@
+*start 					flipzero 2 else drehrechts
+*drehlinks 				turn left
+						flipzero 2 else drehweiterLinks
+*start5 				pickup 5 else look5rechtsStart
+						drop
+						goto start5
+*look5rechtsStart 		pickup 1 else look5geradeausStart
+						drop
+						goto start5
+*look5geradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal5 				move else inselavoid5
+*test5 					pickup 5 else look5rechts
+						goto findback
+*look5rechts 			pickup 1 else look5geradeaus
+						goto findback
+*look5geradeaus 		sense 0
+						ifany sense_treasure sense_celltype==island else normal5
+*pickupGeradeaus5 		pickup 0 else inselavoid5
+						goto findback
+*inselavoid5 			mark 2
+						flipzero 2 else turnrechts5
+*turnlinks5 			turn left
+						goto test4
+*turnrechts5 			turn right	
+						goto test0	
+*drehweiterLinks 		turn left
+						flipzero 2 else drehnochweiterLinks
+*start4 				pickup 5 else look4rechtsStart
+						drop
+						goto start4
+*look4rechtsStart 		pickup 1 else look4geradeausStart
+						drop
+						goto start4
+*look4geradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal4 				move else avoidIsland4
+*test4 					pickup 5 else look4rechts
+						goto findback
+*look4rechts 			pickup 1 else look4geradeaus
+						goto findback
+*look4geradeaus 		sense 0
+						ifany sense_treasure sense_celltype==island else normal4
+*pickupGeradeaus4 		pickup 0 else avoidIsland4
+						goto findback
+*avoidIsland4 			mark 1
+						flipzero 2 else turnrechts4
+*turnlinks4 			turn left
+						goto test3
+*turnrechts4 			turn right
+						goto test5
+*drehnochweiterLinks 	turn left
+*start3 				pickup 5 else look3rechtsStart
+						drop
+						goto start3
+*look3rechtsStart 		pickup 1 else look3geradeausStart
+						drop
+						goto start3
+*look3geradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal3 				move else avoidIsland3
+*test3 					pickup 5 else look3rechts
+						goto findback
+*look3rechts 			pickup 1 else look3geradeaus
+						goto findback
+*look3geradeaus 		sense 0
+						ifany sense_treasure sense_celltype==island else normal3
+*pickupGeradeaus3 		pickup 0 else avoidIsland3
+						goto findback
+*avoidIsland3 			mark 0
+						flipzero 2 else turnrechts3
+*turnlinks3 			turn left
+						goto test2
+*turnrechts3 			turn right
+						goto test4
+*drehrechts 			turn right
+						flipzero 2 else drehweiterRechts
+*start1 				pickup 5 else look1rechtsStart
+						drop
+						goto start1
+*look1rechtsStart 		pickup 1 else look1geradeausStart
+						drop
+						goto start1
+*look1geradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal1 				move else avoidIsland1
+*test1 					pickup 5 else look1rechts
+						goto findback
+*look1rechts 			pickup 1 else look1geradeaus
+						goto findback
+*look1geradeaus 		sense 0
+						ifany sense_treasure sense_celltype==island else normal1
+*pickupGeradeaus1 		pickup 0 else avoidIsland1
+						goto findback
+*avoidIsland1 			mark 4
+						flipzero 2 else turnrechts1
+*turnlinks1 			turn left
+						goto test0
+*turnrechts1 			turn right
+						goto test2
+*drehweiterRechts 		turn right
+						flipzero 2 else drehnochweiterRechts
+*start2 				pickup 5 else look2rechtsStart
+						drop
+						goto start2
+*look2rechtsStart 		pickup 1 else look2geradeausStart
+						drop
+						goto start2
+*look2geradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal2 				move else avoidIsland2
+*test2 					pickup 5 else look2rechts
+						goto findback
+*look2rechts 			pickup 1 else look2geradeaus
+						goto findback
+*look2geradeaus 		sense 0
+						ifany sense_treasure sense_celltype==island else normal2
+*pickupGeradeaus2 		pickup 0 else avoidIsland2
+						goto findback
+*avoidIsland2 			mark 5
+						flipzero 2 else turnrechts2
+*turnlinks2 			turn left
+						goto test1
+*turnrechts2 			turn right
+						goto test3
+*drehnochweiterRechts 	turn right
+						goto start3
+*start0 				pickup 5 else look0rechtsStart
+						drop
+						goto start0
+*look0rechtsStart 		pickup 1 else look0geradeausStart
+						drop
+						goto start0
+*look0geradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal0 				move else avoidIsland0
+*test0 					pickup 5 else look0rechts
+						goto findback
+*look0rechts 			pickup 1 else look0geradeaus
+						goto findback
+*look0geradeaus			sense 0
+						ifany sense_treasure sense_celltype==island else normal0
+*pickupGeradeaus0 		pickup 0 else avoidIsland0
+						goto findback
+*avoidIsland0 			mark 3
+						flipzero 2 else turnrechts0
+*turnlinks0 			turn left
+						goto test5
+*turnrechts0 			turn right
+						goto test1
+*testWhatStart 			pickup 0 else drehTo0Start
+						drop
+						goto drehTo0Start
+*drehTo0Start 			if ship_direction==0 else turnLeftGoto0
+						goto start0
+*turnLeftGoto0 			turn left
+						goto drehTo0Start
+*findback 				sense 6
+*findbackDirect			if sense_celltype==home else findpath
+						drop
+						if ship_condition!=3 else drehTo0Start
+						repair else drehTo0Start
+						goto drehTo0Start
+*findpath 				if !sense_marker0 else drehTo0
+						if !sense_marker1 else drehTo1
+						if !sense_marker2 else drehTo2
+						if !sense_marker3 else drehTo3
+						if !sense_marker4 else drehTo4
+						if !sense_marker5 else drehTo5
+						turn left; turning around
+						turn left; turning around
+						turn left; turning around
+*goStraightBack 		move else goStraightBack
+						sense 6
+						ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_cellType!=home else findbackDirect
+						move else goStraightBack
+						goto goStraightBack
+*drehTo5 if ship_direction!=5 else goStraightBack
+						turn right
+						goto drehTo5
+*drehTo4 if ship_direction!=4 else goStraightBack
+						turn right
+						goto drehTo4
+*drehTo3 if ship_direction!=3 else goStraightBack
+						turn right
+						goto drehTo3
+*drehTo2 if ship_direction!=2 else goStraightBack
+						turn right
+						goto drehTo2
+*drehTo1 if ship_direction!=1 else goStraightBack
+						turn right
+						goto drehTo1
+*drehTo0 if ship_direction!=0 else goStraightBack
+						turn right
+						goto drehTo0
