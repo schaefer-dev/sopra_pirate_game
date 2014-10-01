@@ -4,25 +4,31 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import controller.Simulator;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import model.FieldType;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.GUIController;
 import view.GUITransaction;
 import view.SimpleEntity;
 import view.events.MouseEvents;
-import view.events.PlayEvents;
+import view.events.PlayPauseEvent;
 import view.utility.Camera;
 import view.utility.Field;
 import view.utility.GameState;
-import view.utility.Generator;
 import view.utility.Map;
 import view.utility.Ressources;
+import view.utility.Run;
 import view.utility.Ship;
 
 public class InGameState implements GameState, LogWriter {
@@ -34,20 +40,27 @@ public class InGameState implements GameState, LogWriter {
 	
 	private Map map;
 	private Camera cam;
-	private List<Ship> ships;				//TODO: maybe not needed
-	private List<SimpleEntity> entities;	//TODO: maybe not needed
+	private List<Ship> ships;				
+	private List<SimpleEntity> entities;
 	private Field[][] fields;
-	
+	private Integer rounds;
+	private Integer maxRounds;
+	private Label roundCounter;
 	private Simulator sim;
+	private PlayPauseEvent playPause;
 	
-	public InGameState(char[][] fieldChars, Ressources res) {
+	private boolean closed;
+	
+	public InGameState(char[][] fieldChars, Ressources res, Integer turns) {
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
-		
-		canvas = new Canvas(1000, 600);
+		maxRounds = turns;
+		canvas = new Canvas(950, 550);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
+        rounds = 0;
+        closed = false;
 	}
 	
 	@Override
@@ -63,22 +76,56 @@ public class InGameState implements GameState, LogWriter {
         events.addMouseDragEvent(canvas, true);
         events.addMouseScrollEvent(canvas);
         events.addMouseClickEvent(canvas);
-
         
+        roundCounter = new Label(rounds.toString());
+        
+        Button next = new Button("Next");
+		next.getStyleClass().add("menubutton");
+		next.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					sim.step();
+				} 
+				catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
         Button play = new Button("Play");
-		play.getStyleClass().add("menubutton");
-		PlayEvents events1 = new PlayEvents(play, sim);
+        play.getStyleClass().add("menubutton");
+        playPause = new PlayPauseEvent(this);
+		play.setOnAction(playPause);
+
+        HBox box = new HBox(20);
+        box.getChildren().addAll(next, play);
+        box.getStyleClass().add("hbox");		
+        
+        
+        
         
         root = new BorderPane();
 		root.setCenter(canvas);
-		root.setBottom(play);
+		BorderPane.setAlignment(box, Pos.BOTTOM_CENTER);
+		root.setBottom(box);
 		
+		BorderPane.setAlignment(roundCounter, Pos.TOP_CENTER);
+		manager.getRoot().setTop(roundCounter);
         manager.getRoot().setCenter(root);
 	}
 
 	@Override
 	public void exiting() {
 		 manager.getRoot().setCenter(null);
+		 playPause.close();
+		 if(!closed){
+			 try{
+				 close();
+			 }
+			 catch(Exception e){}
+		 }
 	}
 
 	@Override
@@ -89,6 +136,24 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public void revealed() {
 		manager.getTitleText().setText("");
+	}
+	
+	
+	
+	public Simulator getSimulator(){
+		return sim;
+	}
+	
+	public void setSimulator(Simulator sim){
+		this.sim = sim;
+	}
+		
+	public Integer getRound(){
+		return rounds;
+	}
+	
+	public Integer getMaxRounds(){
+		return maxRounds;
 	}
 	
 	
@@ -105,18 +170,8 @@ public class InGameState implements GameState, LogWriter {
 
 	@Override
 	public void close() throws IllegalStateException, IOException {
+		closed = true;
 		exiting();
-	}
-	
-	
-	public void step() throws IllegalStateException, IOException{
-		sim.step();
-		
-	}
-	
-	
-	public void setSimulator(Simulator sim){
-		this.sim = sim;
 	}
 	
 	@Override
@@ -180,8 +235,8 @@ public class InGameState implements GameState, LogWriter {
 
 	@Override
 	public void logStep() throws IllegalStateException, IOException {
-		// TODO Auto-generated method stub
-		
+		rounds++;
+		//roundCounter.setText(rounds.toString());
 	}
 	
 	@Override
@@ -243,9 +298,11 @@ public class InGameState implements GameState, LogWriter {
 						break;
 					case X_COORD:
 						x = arg3[i];
+						ship.setX(x);
 						break;
 					case Y_COORD:
 						y = arg3[i];
+						ship.setY(y);
 						break;
 				}
 			}
@@ -269,9 +326,11 @@ public class InGameState implements GameState, LogWriter {
 						break;
 					case X_COORD:
 						x = arg3[i];
+						entity.setX(x);
 						break;
 					case Y_COORD:
 						y = arg3[i];
+						entity.setY(y);
 						break;
 					default:
 						throw new IllegalArgumentException();
@@ -304,6 +363,8 @@ public class InGameState implements GameState, LogWriter {
 			ships.set(arg1, null);
 		else
 			entities.set(arg1, null);
+		
+		System.out.println(arg1);
 			
 		return this;
 	}
@@ -315,28 +376,31 @@ public class InGameState implements GameState, LogWriter {
 	
 	@Override
 	public LogWriter commitTransaction(Transaction arg0) throws NullPointerException, IllegalArgumentException, IllegalStateException {
-
 		GUITransaction trans = (GUITransaction) arg0;
 		Entity entity = trans.getEntity();
 		int id = trans.getID();
 		
 		if(entity == Entity.SHIP){
-			int x = (trans.getX() == null) ? ships.get(id).getX() : trans.getX();
-			int y = (trans.getY() == null) ? ships.get(id).getY() : trans.getY();
-			ships.get(id).setX(x);
-			ships.get(id).setY(y);
+			Ship ship = ships.get(id);
 			
-			fields[ships.get(id).getX()][ships.get(id).getY()].setShip(null);
-			fields[x][y].setShip(ships.get(id));
+			int x = (trans.getX() == null) ? ship.getX() : trans.getX();
+			int y = (trans.getY() == null) ? ship.getY() : trans.getY();
+			fields[ship.getX()][ship.getY()].setShip(null);
+			
+			ship.setX(x);
+			ship.setY(y);
+			fields[x][y].setShip(ship);
 		}
 		else if(entity == Entity.KRAKEN){
-			int x = (trans.getX() == null) ? entities.get(id).getX() : trans.getX();
-			int y = (trans.getY() == null) ? entities.get(id).getY() : trans.getY();
-			entities.get(id).setX(x);
-			entities.get(id).setY(y);
+			SimpleEntity kraken = entities.get(id);
 			
-			fields[entities.get(id).getX()][entities.get(id).getY()].setKraken(null);
-			fields[x][y].setKraken(entities.get(id));
+			int x = (trans.getX() == null) ? kraken.getX() : trans.getX();
+			int y = (trans.getY() == null) ? kraken.getY() : trans.getY();
+			fields[kraken.getX()][kraken.getY()].setKraken(null);
+			
+			kraken.setX(x);
+			kraken.setY(y);		
+			fields[x][y].setKraken(kraken);
 		}		
 		
 		return this;
