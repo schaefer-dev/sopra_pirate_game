@@ -2,6 +2,7 @@ package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
 import java.awt.List;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +46,8 @@ public class MapGeneratorTest {
 	public void setUp() throws FileNotFoundException {
 		
 		stream = getClass().getResourceAsStream("/map2x2.txt");
+		if(stream == null)
+			stream = new FileInputStream("/map2x2.txt");
 		mapgen = new MapGenerator();
 		team = new Team(a, null);
 		teamlist.add(team);
