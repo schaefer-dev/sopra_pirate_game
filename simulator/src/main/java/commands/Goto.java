@@ -44,5 +44,10 @@ public class Goto implements Command {
 		
 		return false;
 	}
+	@Override
+	public int hashCode()
+	{
+		return pc;
+	}
 
 }

@@ -75,5 +75,12 @@ public class IfAny implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
+
 
 }

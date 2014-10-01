@@ -48,5 +48,15 @@ public class Turn implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		if(left)
+			return 1;
+		else
+			return 2;
+	}
+
 
 }

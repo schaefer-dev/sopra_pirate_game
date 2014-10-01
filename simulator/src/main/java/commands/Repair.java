@@ -62,5 +62,12 @@ public class Repair implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
+
 
 }

@@ -123,7 +123,7 @@ public class GUIController extends Application {
 		
 		setScreen(scene);
 		addResizeListener(scene);
-		//addKeyListener(scene);
+		addKeyListener(scene);
 		
 		try{
 			File temp = new File("src/main/ressources/GUIMusik.mp3");
@@ -199,7 +199,6 @@ public class GUIController extends Application {
 	
 	
 	private void addResizeListener(final Scene scene){
-		
 		scene.heightProperty().addListener(new ChangeListener<Number>() {
 			
 		    @Override 
@@ -214,7 +213,7 @@ public class GUIController extends Application {
 
 			@Override
 			public void handle(KeyEvent arg0) {
-				if(arg0.getCode().equals(KeyCode.ESCAPE));
+				if(arg0.getCode().equals(KeyCode.ESCAPE))
 					Platform.exit();	
 			}
 		});

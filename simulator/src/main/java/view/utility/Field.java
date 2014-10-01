@@ -77,8 +77,6 @@ public class Field {
 		if(shipImage != null)
 			images.add(shipImage);
 		
-		//System.out.println(type);
-		
 		return images;
 	}
 	

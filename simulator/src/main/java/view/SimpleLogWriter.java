@@ -63,6 +63,7 @@ public class SimpleLogWriter implements LogWriter {
 		
 		teamScores = new int[teamCount];	
 		startTime = System.nanoTime();
+		
 		//Read map size
 		int i = arg1.indexOf('\n');
 		String first = arg1.substring(0, i);

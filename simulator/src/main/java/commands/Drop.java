@@ -43,5 +43,10 @@ public class Drop implements Command {
 	{
 		return o instanceof Drop;
 	}
+	@Override
+	public int hashCode()
+	{
+		return 1;
+	}
 
 }

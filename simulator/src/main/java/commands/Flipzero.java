@@ -58,4 +58,9 @@ public class Flipzero implements Command {
 		
 		return false;
 	}
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
 }

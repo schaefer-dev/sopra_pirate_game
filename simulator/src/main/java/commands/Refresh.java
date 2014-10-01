@@ -65,5 +65,12 @@ public class Refresh implements Command {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
+
 
 }

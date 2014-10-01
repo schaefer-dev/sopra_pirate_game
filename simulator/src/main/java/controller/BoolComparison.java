@@ -81,5 +81,10 @@ public class BoolComparison implements Comparison {
 		}
 		return false;
 	}
+	@Override
+	public int hashCode()
+	{
+		return register.ordinal();
+	}
 
 }

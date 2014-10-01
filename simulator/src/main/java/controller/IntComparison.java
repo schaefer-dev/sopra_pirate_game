@@ -161,5 +161,11 @@ public class IntComparison implements Comparison {
 			throw new IllegalArgumentException("You can only compare IntRegisters in an int-Comparison.");
 		}
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return opr.ordinal();
+	}
 
 }

@@ -69,4 +69,10 @@ public class Buoy extends Entity{
 		}
 		return false;
 	}
+	@Override
+	public int hashCode()
+	{
+		return type;
+	}
+	
 }

@@ -69,5 +69,10 @@ public class IfAll implements Command {
 		}
 		return false;
 	}
+	@Override
+	public int hashCode()
+	{
+		return elsePC;
+	}
 
 }
