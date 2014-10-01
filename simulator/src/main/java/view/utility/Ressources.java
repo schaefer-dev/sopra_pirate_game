@@ -49,6 +49,16 @@ public class Ressources {
 	    	ship = new Image(stream);
 	    	stream.close();
 	    	
+	    	file = new File("src/main/ressources/islandCoin.png");
+	    	stream = new FileInputStream(file);
+	    	treasureIslandImage = new Image(stream);
+	    	stream.close();
+	    	
+	    	file = new File("src/main/ressources/waterCoin.png");
+	    	stream = new FileInputStream(file);
+	    	treasureWaterImage = new Image(stream);
+	    	stream.close();
+	    	
 	    	
 	    	createDefaultConfig();
     	}
