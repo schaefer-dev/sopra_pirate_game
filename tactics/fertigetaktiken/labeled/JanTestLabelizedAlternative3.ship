@@ -19,11 +19,11 @@ ifany sense_treasure sense_celltype==island else normal5
 *pickupGeradeaus5 pickup 0 else inselavoid5
 goto findback
 *inselavoid5 mark 2
-flipzero 2 else turnrechts5
+*inselavoid5NoMark flipzero 2 else turnrechts5
 *turnlinks5 turn left
-goto test4
+goto test4Turned
 *turnrechts5 turn right	
-goto test0	
+goto test0Turned
 *drehweiterLinks turn left
 flipzero 2 else drehnochweiterLinks
 *start4 pickup 5 else look4rechtsStart
@@ -44,11 +44,11 @@ ifany sense_treasure sense_celltype==island else normal4
 *pickupGeradeaus4 pickup 0 else avoidIsland4
 goto findback
 *avoidIsland4 mark 1
-flipzero 2 else turnrechts4
+*inselavoid4NoMark flipzero 2 else turnrechts4
 *turnlinks4 turn left
-goto test3
+goto test3Turned
 *turnrechts4 turn right
-goto test5
+goto test5Turned
 *drehnochweiterLinks turn left
 *start3 pickup 5 else look3rechtsStart
 drop
@@ -68,11 +68,11 @@ ifany sense_treasure sense_celltype==island else normal3
 *pickupGeradeaus3 pickup 0 else avoidIsland3
 goto findback
 *avoidIsland3 mark 0
-flipzero 2 else turnrechts3
+*inselavoid3NoMark flipzero 2 else turnrechts3
 *turnlinks3 turn left
-goto test2
+goto test2Turned
 *turnrechts3 turn right
-goto test4
+goto test4Turned
 *drehrechts turn right
 flipzero 2 else drehweiterRechts
 *start1 pickup 5 else look1rechtsStart
@@ -93,11 +93,11 @@ ifany sense_treasure sense_celltype==island else normal1
 *pickupGeradeaus1 pickup 0 else avoidIsland1
 goto findback
 *avoidIsland1 mark 4
-flipzero 2 else turnrechts1
+*inselavoid1NoMark flipzero 2 else turnrechts1
 *turnlinks1 turn left
-goto test0
+goto test0Turned
 *turnrechts1 turn right
-goto test2
+goto test2Turned
 *drehweiterRechts turn right
 flipzero 2 else drehnochweiterRechts
 *start2 pickup 5 else look2rechtsStart
@@ -118,11 +118,11 @@ ifany sense_treasure sense_celltype==island else normal2
 *pickupGeradeaus2 pickup 0 else avoidIsland2
 goto findback
 *avoidIsland2 mark 5
-flipzero 2 else turnrechts2
+*inselavoid2NoMark flipzero 2 else turnrechts2
 *turnlinks2 turn left
-goto test1
+goto test1Turned
 *turnrechts2 turn right
-goto test3
+goto test3Turned
 *drehnochweiterRechts turn right
 goto start3
 *start0 pickup 5 else look0rechtsStart
@@ -143,11 +143,11 @@ ifany sense_treasure sense_celltype==island else normal0
 *pickupGeradeaus0 pickup 0 else avoidIsland0
 goto findback
 *avoidIsland0 mark 3
-flipzero 2 else turnrechts0
+*inselavoid0NoMark flipzero 2 else turnrechts0
 *turnlinks0 turn left
-goto test5
+goto test5Turned
 *turnrechts0 turn right
-goto test1
+goto test1Turned
 *testWhatStart pickup 0 else drehTo0Start
 drop
 goto drehTo0Start
@@ -193,3 +193,57 @@ goto drehTo1
 *drehTo0 if ship_direction!=0 else goStraightBack
 turn right
 goto drehTo0
+
+*test5Turned pickup 5 else look5rechtsTurned
+goto findback
+*look5rechtsTurned pickup 1 else look5geradeausTurned
+goto findback
+*look5geradeausTurned sense 0
+ifany sense_treasure sense_celltype==island else normal5
+*pickupGeradeaus5Turned pickup 0 else inselavoid5NoMark
+goto findback
+
+*test4Turned pickup 5 else look4rechtsTurned
+goto findback
+*look4rechtsTurned pickup 1 else look4geradeausTurned
+goto findback
+*look4geradeausTurned sense 0
+ifany sense_treasure sense_celltype==island else normal4
+*pickupGeradeaus4Turned pickup 0 else inselavoid4NoMark
+goto findback
+
+*test3Turned pickup 5 else look3rechtsTurned
+goto findback
+*look3rechtsTurned pickup 1 else look3geradeausTurned
+goto findback
+*look3geradeausTurned sense 0
+ifany sense_treasure sense_celltype==island else normal3
+*pickupGeradeaus3Turned pickup 0 else inselavoid3NoMark
+goto findback
+
+*test2Turned pickup 5 else look2rechtsTurned
+goto findback
+*look2rechtsTurned pickup 1 else look2geradeausTurned
+goto findback
+*look2geradeausTurned sense 0
+ifany sense_treasure sense_celltype==island else normal2
+*pickupGeradeaus2Turned pickup 0 else inselavoid2NoMark
+goto findback
+
+*test1Turned pickup 5 else look1rechtsTurned
+goto findback
+*look1rechtsTurned pickup 1 else look1geradeausTurned
+goto findback
+*look1geradeausTurned sense 0
+ifany sense_treasure sense_celltype==island else normal1
+*pickupGeradeaus1Turned pickup 0 else inselavoid1NoMark
+goto findback
+
+*test0Turned pickup 5 else look0rechtsTurned
+goto findback
+*look0rechtsTurned pickup 1 else look0geradeausTurned
+goto findback
+*look0geradeausTurned sense 0
+ifany sense_treasure sense_celltype==island else normal0wer
+*pickupGeradeaus0Turned pickup 0 else inselavoid0NoMark
+goto findback
