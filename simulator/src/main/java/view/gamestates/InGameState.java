@@ -48,7 +48,6 @@ public class InGameState implements GameState, LogWriter {
 	private Label roundCounter;
 	private Simulator sim;
 	private PlayPauseEvent playPause;
-	
 	private boolean closed;
 	
 	public InGameState(char[][] fieldChars, Ressources res, Integer turns) {
