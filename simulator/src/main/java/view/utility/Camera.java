@@ -152,7 +152,7 @@ public class Camera {
 		
 		if(zoom <= 25)
 			return 0;
-		if(zoom <= 35)
+		if(zoom <= 45)
 			return 1;
 		if(zoom <= 65)
 			return 2;

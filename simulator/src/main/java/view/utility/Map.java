@@ -130,7 +130,7 @@ public class Map {
 		for(Image img: field.getImages())
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		
-		if(cam.zoomLevelAbsolute() <= 1 && field.getFieldType() == FieldType.Water){
+		if(cam.zoomLevelAbsolute() < 1 && field.getFieldType() == FieldType.Water){
 		
 			markHex(mid, radius, Color.GRAY, true);
 		}

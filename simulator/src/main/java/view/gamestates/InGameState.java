@@ -9,14 +9,13 @@ import java.util.Timer;
 import controller.Simulator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import model.FieldType;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.GUIController;
@@ -35,7 +34,8 @@ public class InGameState implements GameState, LogWriter {
 
 	private GUIController manager;
 	private final Canvas canvas;
-	private BorderPane root;
+	private Group root;
+	private Rectangle tooltip;
 	private GraphicsContext gc;
 	
 	private Map map;
@@ -58,6 +58,10 @@ public class InGameState implements GameState, LogWriter {
 		maxRounds = turns;
 		timer = new Timer();
 		canvas = new Canvas(1280, 939);
+		tooltip = new Rectangle(20, 20, 200, 200);
+		tooltip.setStroke(Color.BLACK);
+		tooltip.setFill(Color.WHITE);
+		tooltip.setVisible(false);
 		//canvas = new Canvas(750, 550);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
@@ -75,14 +79,14 @@ public class InGameState implements GameState, LogWriter {
         map.initMap(fields, cam);
         map.addMapDetails();
         map.drawMap();
-
         
-        MouseEvents events = new MouseEvents(cam, map, gc);
+        MouseEvents events = new MouseEvents(cam, map, gc, tooltip);
         events.addMouseDragEvent(canvas, true);
         events.addMouseScrollEvent(canvas);
         events.addMouseClickEvent(canvas);
         
         roundCounter = new Label(rounds.toString());
+        roundCounter.setTranslateX(10);
         
         Button next = new Button("Next");
         next.setTranslateY(600);
@@ -107,25 +111,13 @@ public class InGameState implements GameState, LogWriter {
         playPause = new PlayPauseEvent(this, timer);
 		play.setOnAction(playPause);
 		
-        Group group = new Group();
-        group.getChildren().addAll(canvas, play, next);
-         
-       // root = new BorderPane();
-		//root.setCenter(canvas);
-		//BorderPane.setAlignment(box, Pos.BOTTOM_CENTER);
-		//root.setBottom(box);
-		
-        
-		manager.getScene().setRoot(group);
-	
-		BorderPane.setAlignment(roundCounter, Pos.TOP_CENTER);
-		manager.getRoot().setTop(roundCounter);
-        //manager.getRoot().setCenter(group);
+		root = new Group();
+		root.getChildren().addAll(canvas, roundCounter, play, next, tooltip);
+		manager.getScene().setRoot(root);
 	}
 
 	@Override
 	public void exiting() {
-		// manager.getRoot().setCenter(null);
 		 playPause.close();
 		 if(!closed){
 			 try{
@@ -133,7 +125,7 @@ public class InGameState implements GameState, LogWriter {
 			 }
 			 catch(Exception e){}
 		 }
-		 manager.getScene().setRoot(manager.getRoot());
+		// manager.getScene().setRoot(manager.getRoot());
 	}
 
 	@Override
@@ -162,6 +154,10 @@ public class InGameState implements GameState, LogWriter {
 	
 	public Integer getMaxRounds(){
 		return maxRounds;
+	}
+	
+	public Rectangle getTooltip(){
+		return tooltip;
 	}
 	
 	
