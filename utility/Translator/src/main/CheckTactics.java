@@ -49,8 +49,12 @@ public class CheckTactics {
 	public void printTactics(){
 		LinkedList<Command> toPrint = goOn();
 		String res = "";		
-		for(Command line: toPrint)
+		for(Command line: toPrint){
+			if(line!=null)
 				res = res + line.toString() + "\n";	
+			else
+				break;
+		}
 		tactics.write(res);
 		tactics.close();
 		
