@@ -117,7 +117,7 @@ public class Ressources {
 		defaultConfiguration.setTeamCount(2);
 		defaultConfiguration.setShipCount(10);
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/alternative3.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
 		
 		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);
