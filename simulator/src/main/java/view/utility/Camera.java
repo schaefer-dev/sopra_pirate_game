@@ -160,10 +160,8 @@ public class Camera {
 			return 3;
 		if(zoom <= 130)
 			return 4;
-		if(zoom <= 165)
+		else
 			return 5;
-		
-		return 0;
 	}
 	
 	public void zoomOut(int factor){

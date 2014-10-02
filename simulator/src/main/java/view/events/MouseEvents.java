@@ -70,10 +70,11 @@ public class MouseEvents {
 
 			@Override
 			public void handle(ScrollEvent event) {
+				int zoomMagnitude = cam.zoomLevelAbsolute() + 1;
 				if(event.getDeltaY() > 0)
-					cam.zoomIn(4);
+					cam.zoomIn(zoomMagnitude);
 				else
-					cam.zoomOut(4);
+					cam.zoomOut(zoomMagnitude);
 				
 				map.drawMap();
 			}
@@ -92,8 +93,7 @@ public class MouseEvents {
 		        		
 		        		double canvasWidth = gc.getCanvas().getWidth();
 		        		double canvasHeight = gc.getCanvas().getHeight();
-		        		double actualCamHeight = (cam.height()/canvasWidth)*canvasHeight;
-		        		
+		        		//double actualCamHeight = (cam.height()/canvasWidth)*canvasHeight;
 		        		
 		    			double midX = (cam.width()/canvasWidth)*newX + cam.a;
 		    			double midY = (cam.height()/canvasHeight)*(newY) + cam.c;
@@ -110,9 +110,6 @@ public class MouseEvents {
 		    				Field field = fields[(int)midX][(int)midY];
 							map.markField(field);
 		    			}
-		    			
-		    			
-
 					}
 		        }
 			}

@@ -4,8 +4,8 @@ import view.GUIController;
 
 public interface GameState {
 
-	public void entered(GUIController root);
-	public void exiting();
-	public void concealing();
-	public void revealed();
+	void entered(GUIController root);
+	void exiting();
+	void concealing();
+	void revealed();
 }

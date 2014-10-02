@@ -4,5 +4,5 @@ import model.Ship;
 
 public interface Command {
 
-	public void execute(Ship ship);
+	void execute(Ship ship);
 }

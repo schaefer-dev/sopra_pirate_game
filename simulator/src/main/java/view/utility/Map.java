@@ -127,17 +127,10 @@ public class Map {
 	private void drawHex(Point2D mid, double radius, Field field, boolean left, boolean top){
 		Point2D up = new Point2D(mid.getX(), mid.getY() - radius);
 		
-		if(field.getFieldType() == FieldType.Water){
-			if(cam.zoomLevelRelative() < 2){
-				for(Image img: field.getImages())
-					gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
-			}	
-		}
-		else{
-			for(Image img: field.getImages())
-				gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
-		}
-		if(cam.zoomLevelAbsolute() <= 1){
+		for(Image img: field.getImages())
+			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		
+		if(cam.zoomLevelAbsolute() <= 1 && field.getFieldType() == FieldType.Water){
 		
 			markHex(mid, radius, Color.GRAY, true);
 		}
@@ -145,12 +138,14 @@ public class Map {
 			Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
 			Point2D downL = new Point2D(mid.getX() - radius, mid.getY() + radius/2);
 			gc.setStroke(Color.web("EDE1C9"));
-			gc.setLineWidth(2);
+			gc.setLineWidth(3);
+			//gc.setLineWidth(Math.abs(cam.zoomLevelAbsolute() - 5) + 2);
 			gc.strokeLine(upL.getX(), upL.getY(), downL.getX(), downL.getY());
 		}
 		if(top){
 			gc.setStroke(Color.web("EDE1C9"));
-			gc.setLineWidth(2);
+			gc.setLineWidth(3);
+			//gc.setLineWidth(Math.abs(cam.zoomLevelAbsolute() - 5) + 2);
 			gc.strokeLine(up.getX() - radius/2, up.getY(), up.getX() + radius/2, up.getY());
 		}
 	}
@@ -198,6 +193,10 @@ public class Map {
 	
 	public Field[][] getMap(){
 		return map;
+	}
+	
+	public Camera getCam(){
+		return cam;
 	}
 	
 	public Ressources getRessources(){
