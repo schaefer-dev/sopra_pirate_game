@@ -37,9 +37,8 @@ public class Goto implements Command {
 	}
 	@Override
 	public boolean equals (Object o){
-		if(o instanceof Goto){
-			if(((Goto) o).pc == pc)
-				return true;
+		if(o instanceof Goto && ((Goto) o).pc == pc){
+			return true;
 		}
 		
 		return false;

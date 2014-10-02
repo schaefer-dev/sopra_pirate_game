@@ -151,13 +151,14 @@ public abstract class Field {
 		if(ship == null) throw new IllegalStateException();
 		
 		if(destination.setShip(ship)){
-			Transaction trans = provideLogger().beginTransaction(Entity.SHIP, ship.getID());
-			if(x != destination.getX() && hasLogWriter)
-				trans.set(Key.X_COORD, destination.getX());
-			if(y != destination.getY() && hasLogWriter)
-				trans.set(Key.Y_COORD, destination.getY());
-			
-			provideLogger().commitTransaction(trans);
+			if(hasLogWriter){
+				Transaction trans = provideLogger().beginTransaction(Entity.SHIP, ship.getID());
+				if(x != destination.getX())
+					trans.set(Key.X_COORD, destination.getX());
+				if(y != destination.getY())
+					trans.set(Key.Y_COORD, destination.getY());			
+				provideLogger().commitTransaction(trans);
+			}
 			
 			ship = null;
 			return true;

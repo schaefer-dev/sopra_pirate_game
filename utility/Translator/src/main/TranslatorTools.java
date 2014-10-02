@@ -1,5 +1,6 @@
 package main;
 
+import main.Comparison;
 import enums.CellType;
 import enums.Register;
 import enums.ShipType;
@@ -71,8 +72,6 @@ public class TranslatorTools {
 				}
 			}	
 		}
-		System.out.println(condition.toLowerCase());
-
 		try{
 			Register.valueOf(condition.toLowerCase());
 

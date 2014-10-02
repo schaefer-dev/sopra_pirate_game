@@ -1,0 +1,327 @@
+*0start			flipzero 2 else 1start						; muss boote gleichmäßig verteilen!
+				goto 0moveGoOn
+*1start			turn right
+				flipzero 2 else 2start
+				goto 1moveGoOn
+*2start			turn right
+				flipzero 2 else 3start
+				goto 2moveGoOn
+*3start			turn right
+				flipzero 2 else 4start
+				goto 3moveGoOn
+*4start			turn right
+				flipzero 2 else 5start
+				goto 4moveGoOn
+*5start			turn right
+				goto 5moveGoOn
+
+
+
+*0moveGoOn		sense 0
+				if sense_celltype==empty else 0moveIsland		;hier Richtung vom Sprung
+				move else 0moveGoOn								;hier Richtung vom Sprung hittet befreundetes Schiff, dann einfach weiterversuchen
+				goto 0moveGoOn									;hier Richtung vom Sprung
+*0moveIsland	refresh else 0moveIslandRepairNot
+*0moveIslandRepairNot 	pickup else 0moveTurn 					;hier Richtung vom Sprung, nur damit syntax stimmt
+				goto 0goHome
+*0moveTurn		mark 1 											;hier Richtung
+				sense 1
+				if sense_celltype==empty else 0moveTurnLeft 	;hier Richtung vom Sprung, wenn feld rechts frei dahin drehen sonst 1moveTurnLeft
+				turn right
+				move else brokenStatus
+				goto 1moveGoOn  								;hier Richtung vom Sprung+1
+*0moveTurnLeft	turn left
+				goto 5moveGoOn 									;hier Richtung vom Sprung-1
+*0goHome		turn left 										
+				turn left
+				turn left
+*3searchOn		sense 0 										;hier Richtung vom Sprung+3
+				ifall sense_celltype!=base !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 3goHomeFound 					;hier Richtung vom Sprung+3
+				move else brokenStatus
+				goto 3searchOn 									;hier Richtung vom Sprung+3
+*3goHomeFound	if sense_celltype==base else 3goHomeBuoyFound 	;hier Richtung vom Sprung+3
+				move else brokenStatus
+				drop
+				if ship_condition==1 else 3noRepair 			;hier Richtung vom Sprung+3
+				repair else brokenStatus
+*3noRepair		goto 0start										; Optimierung möglich!
+*3goHomeBuoyFound	if sense_marker0 else 3goHomeNoMark0		;Optimierung möglich da weniger drehungen wahrscheinlicher sind!
+					turn right									; hier ALLES anpassen!
+					turn right
+					turn right
+					goto 0searchOn								
+*3goHomeNoMark0		if sense_marker1 else 3goHomeNoMark1
+					turn left
+					turn left
+					goto 1searchOn								
+*3goHomeNoMark1		if sense_marker2 else 3goHomeNoMark2
+					turn left
+					goto 2searchOn								
+*3goHomeNoMark2		if sense_marker3 else 3goHomeNoMark3
+					goto 3searchOn								
+*3goHomeNoMark3		if sense_marker4 else 3goHomeNoMark4
+					turn right
+					goto 4searchOn								
+*3goHomeNoMark4		if sense_marker5 else brokenStatus
+					turn right
+					goto 5searchOn		
+
+*1moveGoOn		sense 0
+				if sense_celltype==empty else 1moveIsland		;hier Richtung vom Sprung
+				move else 1moveGoOn								; hittet befreundetes Schiff, dann einfach weiterversuchen
+				goto 1moveGoOn									;hier Richtung vom Sprung
+*1moveIsland	refresh else 1moveIslandRepairNot
+*1moveIslandRepairNot 	pickup else 1moveTurn 					;hier Richtung vom Sprung, nur damit syntax stimmt
+				goto 1goHome
+*1moveTurn		mark 1 											;hier Richtung
+				sense 1
+				if sense_celltype==empty else 1moveTurnLeft 	;hier Richtung vom Sprung, wenn feld rechts frei dahin drehen sonst 1moveTurnLeft
+				turn right
+				move else brokenStatus
+				goto 2moveGoOn  								;hier Richtung vom Sprung+1
+*1moveTurnLeft	turn left
+				goto 0moveGoOn 									;hier Richtung vom Sprung-1
+*1goHome		turn left 										;hier Richtung vom Sprung
+				turn left
+				turn left
+*4searchOn		sense 0 										;hier Richtung vom Sprung+3
+				ifall sense_celltype!=base !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 4goHomeFound 					;hier Richtung vom Sprung+3
+				move else brokenStatus
+				goto 4searchOn 									;hier Richtung vom Sprung+3
+*4goHomeFound	if sense_celltype==base else 4goHomeBuoyFound 	;hier Richtung vom Sprung+3
+				move else brokenStatus
+				drop
+				if ship_condition==1 else 4noRepair 			;hier Richtung vom Sprung+3
+				repair else brokenStatus
+*4noRepair		goto 0start
+*4goHomeBuoyFound	if sense_marker0 else 4goHomeNoMark0		;Optimierung möglich da weniger drehungen wahrscheinlicher sind!
+					turn right									; hier ALLES anpassen!
+					turn right
+					goto 0searchOn								
+*4goHomeNoMark0		if sense_marker1 else 4goHomeNoMark1
+					turn right
+					turn right
+					turn right
+					goto 1searchOn								
+*4goHomeNoMark1		if sense_marker2 else 4goHomeNoMark2
+					turn left
+					turn left
+					goto 2searchOn								
+*4goHomeNoMark2		if sense_marker3 else 4goHomeNoMark3
+					turn left
+					goto 3searchOn								
+*4goHomeNoMark3		if sense_marker4 else 4goHomeNoMark4
+					goto 4searchOn								
+*4goHomeNoMark4		if sense_marker5 else brokenStatus
+					turn right
+					goto 5searchOn		
+
+*2moveGoOn		sense 0
+				if sense_celltype==empty else 2moveIsland		;hier Richtung vom Sprung
+				move else 2moveGoOn								;hier Richtung vom Sprung hittet befreundetes Schiff, dann einfach weiterversuchen
+				goto 2moveGoOn									;hier Richtung vom Sprung
+*2moveIsland	refresh else 2moveIslandRepairNot				;hier Richtung vom Sprung
+*2moveIslandRepairNot 	pickup else 2moveTurn 					;hier Richtung vom Sprung, nur damit syntax stimmt
+				goto 2goHome 									;hier Richtung
+*2moveTurn		mark 1 											;hier Richtung
+				sense 1
+				if sense_celltype==empty else 2moveTurnLeft 	;hier Richtung vom Sprung, wenn feld rechts frei dahin drehen sonst 1moveTurnLeft
+				turn right
+				move else brokenStatus
+				goto 3moveGoOn  								;hier Richtung vom Sprung+1
+*2moveTurnLeft	turn left
+				goto 1moveGoOn 									;hier Richtung vom Sprung-1
+*2goHome		turn left 										
+				turn left
+				turn left
+*5searchOn		sense 0 										;hier Richtung vom Sprung+3
+				ifall sense_celltype!=base !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 5goHomeFound 					;hier Richtung vom Sprung+3
+				move else brokenStatus
+				goto 5searchOn 									;hier Richtung vom Sprung+3
+*5goHomeFound	if sense_celltype==base else 5goHomeBuoyFound 	;hier Richtung vom Sprung+3
+				move else brokenStatus
+				drop
+				if ship_condition==1 else 5noRepair 			;hier Richtung vom Sprung+3
+				repair else brokenStatus
+*5noRepair		goto 0start										;könnte man Löschen
+*5goHomeBuoyFound	if sense_marker0 else 5goHomeNoMark0		;Optimierung möglich da weniger drehungen wahrscheinlicher sind!
+					turn right									; hier ALLES anpassen!
+					goto 0searchOn								
+*5goHomeNoMark0		if sense_marker1 else 5goHomeNoMark1
+					turn right
+					turn right
+					goto 1searchOn								
+*5goHomeNoMark1		if sense_marker2 else 5goHomeNoMark2
+					turn left
+					turn left
+					turn left
+					goto 2searchOn								
+*5goHomeNoMark2		if sense_marker3 else 5goHomeNoMark3
+					turn left
+					turn left
+					goto 3searchOn								
+*5goHomeNoMark3		if sense_marker4 else 5goHomeNoMark4
+					turn left
+					goto 4searchOn								
+*5goHomeNoMark4		if sense_marker5 else brokenStatus
+					goto 5searchOn
+
+
+*3moveGoOn		sense 0
+				if sense_celltype==empty else 3moveIsland		;hier Richtung vom Sprung
+				move else 3moveGoOn								;hier Richtung, hittet befreundetes Schiff einfach weiterversuchen
+				goto 3moveGoOn									;hier Richtung vom Sprung
+*3moveIsland	refresh else 3moveIslandRepairNot				;hier Richtung vom Sprung
+*3moveIslandRepairNot 	pickup else 3moveTurn 					;hier Richtung vom Sprung, nur damit syntax stimmt
+				goto 3goHome 									;hier Richtung
+*3moveTurn		mark 1 											;hier Richtung
+				sense 1
+				if sense_celltype==empty else 3moveTurnLeft 	;hier Richtung vom Sprung, wenn feld rechts frei dahin drehen sonst 1moveTurnLeft
+				turn right
+				move else brokenStatus
+				goto 4moveGoOn  								;hier Richtung vom Sprung+1
+*3moveTurnLeft	turn left
+				goto 2moveGoOn 									;hier Richtung vom Sprung-1
+*3goHome		turn left 										
+				turn left
+				turn left
+*0searchOn		sense 0 										;hier Richtung vom Sprung+3
+				ifall sense_celltype!=base !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 0goHomeFound 					;hier Richtung vom Sprung+3
+				move else brokenStatus
+				goto 0searchOn 									;hier Richtung vom Sprung+3
+*0goHomeFound	if sense_celltype==base else 0goHomeBuoyFound 	;hier Richtung vom Sprung+3
+				move else brokenStatus
+				drop
+				if ship_condition==1 else 0noRepair 			;hier Richtung vom Sprung+3
+				repair else brokenStatus
+*0noRepair		goto 0start										;könnte man Löschen
+*0goHomeBuoyFound	if sense_marker0 else 0goHomeNoMark0		;Optimierung möglich da weniger drehungen wahrscheinlicher sind												+ hier ALLES anpassen!
+					goto 0searchOn								
+*0goHomeNoMark0		if sense_marker1 else 0goHomeNoMark1
+					turn right
+					goto 1searchOn								
+*0goHomeNoMark1		if sense_marker2 else 0goHomeNoMark2
+					turn right
+					turn right
+					goto 2searchOn								
+*0goHomeNoMark2		if sense_marker3 else 0goHomeNoMark3
+					turn left
+					turn left
+					turn left
+					goto 3searchOn								
+*0goHomeNoMark3		if sense_marker4 else 0goHomeNoMark4
+					turn left
+					turn left
+					goto 4searchOn								
+*0goHomeNoMark4		if sense_marker5 else brokenStatus
+					turn left
+					goto 5searchOn
+
+
+
+*4moveGoOn		sense 0
+				if sense_celltype==empty else 4moveIsland		;hier Richtung vom Sprung
+				move else 4moveGoOn								;hier Richtung, hittet befreundetes Schiff einfach weiterversuchen
+				goto 4moveGoOn									;hier Richtung vom Sprung
+*4moveIsland	refresh else 4moveIslandRepairNot				;hier Richtung vom Sprung
+*4moveIslandRepairNot 	pickup else 4moveTurn 					;hier Richtung vom Sprung, nur damit syntax stimmt
+				goto 4goHome 									;hier Richtung
+*4moveTurn		mark 1 											;hier Richtung
+				sense 1
+				if sense_celltype==empty else 4moveTurnLeft 	;hier Richtung vom Sprung, wenn feld rechts frei dahin drehen sonst 1moveTurnLeft
+				turn right
+				move else brokenStatus
+				goto 5moveGoOn  								;hier Richtung vom Sprung+1
+*4moveTurnLeft	turn left
+				goto 3moveGoOn 									;hier Richtung vom Sprung-1
+*4goHome		turn left 										
+				turn left
+				turn left
+*1searchOn		sense 0 										;hier Richtung vom Sprung+3
+				ifall sense_celltype!=base !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 1goHomeFound 					;hier Richtung vom Sprung+3
+				move else brokenStatus
+				goto 1searchOn 									;hier Richtung vom Sprung+3
+*1goHomeFound	if sense_celltype==base else 1goHomeBuoyFound 	;hier Richtung vom Sprung+3
+				move else brokenStatus
+				drop
+				if ship_condition==1 else 1noRepair 			;hier Richtung vom Sprung+3
+				repair else brokenStatus
+*1noRepair		goto 0start										;könnte man Löschen
+*1goHomeBuoyFound	if sense_marker0 else 1goHomeNoMark0		;Optimierung möglich da weniger drehungen wahrscheinlicher sind
+					turn left									+ hier ALLES anpassen!
+					goto 0searchOn								
+*1goHomeNoMark0		if sense_marker1 else 1goHomeNoMark1
+					goto 1searchOn								
+*1goHomeNoMark1		if sense_marker2 else 1goHomeNoMark2
+					turn right
+					goto 2searchOn								
+*1goHomeNoMark2		if sense_marker3 else 1goHomeNoMark3
+					turn right
+					turn right
+					goto 3searchOn								
+*1goHomeNoMark3		if sense_marker4 else 1goHomeNoMark4
+					turn left
+					turn left
+					turn left
+					goto 4searchOn								
+*1goHomeNoMark4		if sense_marker5 else brokenStatus
+					turn left
+					turn left
+					goto 5searchOn	
+
+
+*5moveGoOn		sense 0
+				if sense_celltype==empty else 5moveIsland		;hier Richtung vom Sprung
+				move else 5moveGoOn								;hier Richtung, hittet befreundetes Schiff einfach weiterversuchen
+				goto 5moveGoOn									;hier Richtung vom Sprung
+*5moveIsland	refresh else 5moveIslandRepairNot				;hier Richtung vom Sprung
+*5moveIslandRepairNot 	pickup else 5moveTurn 					;hier Richtung vom Sprung, nur damit syntax stimmt
+				goto 5goHome 									;hier Richtung
+*5moveTurn		mark 1 											;hier Richtung
+				sense 1
+				if sense_celltype==empty else 5moveTurnLeft 	;hier Richtung vom Sprung, wenn feld rechts frei dahin drehen sonst 1moveTurnLeft
+				turn right
+				move else brokenStatus
+				goto 0moveGoOn  								;hier Richtung vom Sprung+1
+*5moveTurnLeft	turn left
+				goto 4moveGoOn 									;hier Richtung vom Sprung-1
+*5goHome		turn left 										
+				turn left
+				turn left
+*2searchOn		sense 0 										;hier Richtung vom Sprung+3
+				ifall sense_celltype!=base !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 2goHomeFound 					;hier Richtung vom Sprung+3
+				move else brokenStatus
+				goto 2searchOn 									;hier Richtung vom Sprung+3
+*2goHomeFound	if sense_celltype==base else 2goHomeBuoyFound 	;hier Richtung vom Sprung+3
+				move else brokenStatus
+				drop
+				if ship_condition==1 else 2noRepair 			;hier Richtung vom Sprung+3
+				repair else brokenStatus
+*2noRepair		goto 0start										;könnte man Löschen
+*2goHomeBuoyFound	if sense_marker0 else 2goHomeNoMark0		;Optimierung möglich da weniger drehungen wahrscheinlicher sind
+					turn left									+ hier ALLES anpassen!
+					goto 0searchOn								
+*2goHomeNoMark0		if sense_marker1 else 2goHomeNoMark1
+					goto 1searchOn								
+*2goHomeNoMark1		if sense_marker2 else 2goHomeNoMark2
+					turn right
+					goto 2searchOn								
+*2goHomeNoMark2		if sense_marker3 else 2goHomeNoMark3
+					turn right
+					turn right
+					goto 3searchOn								
+*2goHomeNoMark3		if sense_marker4 else 2goHomeNoMark4
+					turn left
+					turn left
+					turn left
+					goto 4searchOn								
+*2goHomeNoMark4		if sense_marker5 else brokenStatus
+					turn left
+					turn left
+					goto 5searchOn				
+
+
+
+
+
+*brokenStatus	goto 999

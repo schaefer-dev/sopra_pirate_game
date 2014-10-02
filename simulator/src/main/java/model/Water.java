@@ -55,8 +55,8 @@ public class Water extends Field {
 			typearray[1] = this.y;
 			typearray[2] = newbuoy.getTeam().getName() - 'a';
 			typearray[3] = newbuoy.getType();
-			
-			provideLogger().create(Entity.BUOY, newbuoy.id, keyarray, typearray);
+			if(hasLogWriter)
+				provideLogger().create(Entity.BUOY, newbuoy.id, keyarray, typearray);
 			return true;
 		}
 	}

@@ -1,11 +1,14 @@
-package controller;
+package translator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import commands.Drop;
 import commands.Flipzero;
@@ -21,6 +24,7 @@ import commands.Repair;
 import commands.Sense;
 import commands.Turn;
 import commands.Unmark;
+import enums.CommandWords;
 
 /**
  * A single instance of this class is invoked by the simulator.
@@ -53,8 +57,9 @@ import commands.Unmark;
  */
 public class Translator {
 	
+	Map<String, Integer> labels;
 	List<String> errors;
-	int address = -1;
+	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row;
@@ -62,9 +67,11 @@ public class Translator {
 	TranslatorTools toolBox;
 	
 	public Translator(){
-		this.errors = new LinkedList<String>();
+		this.errors = new ArrayList<String>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
+		this.labelized = false;
+		this.labels = new HashMap<String, Integer>();
 	}
 	
 	/** @Specs: splits the given line in a and saves the first word in currentElements and the rest 
@@ -75,7 +82,7 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		splits = line.split(" ");
+		splits = line.trim().split(" ");
 		String res = "";
 		if (splits.length == 1){
 			currentElement = splits[0];
@@ -103,10 +110,10 @@ public class Translator {
 	 * 
 	 *  @Return: Command.
 	 * 
-	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/					
+	 *  @Exception: prints errors into List<String> errors. run() will handle the exceptions.**/
+						
 
-	
-	private Command translate(String line){
+private Command translate(String line){
 		
 		int value = -1;
 		int elsepc = -1;
@@ -282,29 +289,87 @@ public class Translator {
 	public List<Command> run(InputStream tacticsFile){
 		BufferedReader tacticsdoc = new BufferedReader(new InputStreamReader(tacticsFile));
 		row = 0;
-		List<Command> tactic = new LinkedList<Command>();
-		errors = new LinkedList<String>();
-			try {
-				while(true){
-					String currentLine = tacticsdoc.readLine();
-					if(row >= 2001){
-						break;
+		List<Command> tactic = new ArrayList<Command>();
+		errors = new ArrayList<String>();
+					try {
+/*************HIER WERDEN DIE LABELS AUSGELESEN*****************************/
+				if(labelized){
+					tacticsdoc.mark(140*2000);
+						while(true){
+							String labeledLine = tacticsdoc.readLine();
+							if(row >= 2001){
+								break;
+							}
+							if(labeledLine == null)
+								break;
+							labeledLine = labeledLine.replaceAll("	", " ");
+							makeSplits(labeledLine);
+							if(currentElement.startsWith("*")){
+								if (labels.containsValue(currentElement.substring(1).toLowerCase()))
+									errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
+								else{
+									labels.put(currentElement.substring(1).toLowerCase(), row);
+									row++;
+								}	
+							}else{ 
+								row++;
+								continue;
+							}
+						}
+/*************DER STREAM WIRD RESETTET*****************************************/
+
+				if(tacticsdoc.markSupported())
+					tacticsdoc.reset();
+				else throw new IllegalStateException("mark not supported!");
+				row = 0;
+				}
+/******************HIER BEGINNT DAS PARSEN*****************************/
+				
+						while(true){
+							String currentLine = tacticsdoc.readLine();
+							if(row >= 2001){
+								break;
+							}
+							if(currentLine == ""){
+								continue;
+							}
+							if(currentLine == null)
+								break;
+							if(currentLine.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
+								currentLine = currentLine.substring(0, currentLine.indexOf(";"));
+							}
+							if(labelized){
+									makeSplits(currentLine.replaceAll("	", " "));
+									if(currentElement.startsWith("*")){
+										try{
+											tactic.add(translate(appendix.replaceAll("	", " ")));
+										}catch(Exception e){
+											errors.add("l: " + row + "leere Zeile");
+										}
+									}else
+										tactic.add(translate(currentLine.replaceAll("	", " ")));
+							}else 	
+								tactic.add(translate(currentLine.replaceAll("	", " ")));	
+							row++;
+							System.out.println(row);
 					}
-					if(currentLine == null)
-						break;
-					if(currentLine.contains(";")){  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
-						currentLine = currentLine.substring(0, currentLine.indexOf(";"));
+				
+				if(labelized){
+					if (errors.size() > 0){
+						int error = 0;
+						while(error < errors.size()){
+							System.out.println("Error:" + (error+1) + errors.get(error));
+							error++;
+						}
 					}
-					tactic.add(translate(currentLine.replaceAll("	", " ")));	
-					row++;
-					}					
-			}catch (IOException e) {
+				}	
+			} catch (IOException e) {
 				throw new IllegalArgumentException("File not found");
 			}
-		if(row>=2001)
-			throw new IllegalArgumentException("Tactics file too long.");
-		if (errors.size() > 0)
-			throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n");//(errors.get(0));
+		//if(tooLong)
+			//throw new IllegalArgumentException("Tactics file too long.");
+		//if (errors.size() > 0)
+			//throw new IllegalArgumentException("Text: " + errors.get(0) +" laenge " +  errors.size()+"\n");//(errors.get(0));
 		return tactic;
 	}
 	
@@ -315,88 +380,102 @@ public class Translator {
 	private int evaluateAddress(String currentElement){
 		if(toolBox.isInteger(currentElement)){
 			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
-			    	return toolBox.toInt(currentElement);
-			    else
-			    	return -1;
+			    		return toolBox.toInt(currentElement);
+		}if(labelized){
+				if(labels.containsKey(currentElement.toLowerCase()))
+				    	return (int) labels.get(currentElement.toLowerCase());
+				else{
+					   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid label: " + currentElement);
+					   return -1;
+				   }
 		}else{
-			   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid jump address.");
+			   errors.add("l: " + row + " ,p: " + indexOfError() + "Invalid jump address: " + currentElement);
 			   return -1;
 			   }
 	}
 	
-/** Looks, if the current Element equals else and if there are any following elements.
- * 
- *  @return true or false
- */
-	
-	private boolean isElse(){
-		return appendix != null && currentElement.equalsIgnoreCase("else");
+	public List<String> getErrors(){
+		return errors;
 	}
-/**
- * Evaluates the necessary integers to build any command except drop and turn
- * 
- * @return int
- */
-	private int evaluateValues(boolean withElse, boolean twoValues){
-			makeSplits(appendix);
-			if(withElse){
-				if(isElse())
-					makeSplits(appendix);
-				else{
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
-				return -1;
-				}
-		}address = evaluateAddress(currentElement);
-			if(address != -1){
-				if(!twoValues)
-					overloadTest();
-				else if(twoValues && withElse)
-					overloadTest();
-				return address;					
-			}else{
-				errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
-				return -1;
-			}
+	
+	public void setLabelized(boolean what)
+	{
+		labelized = what;
+	}
+	
+	/** Looks, if the current Element equals else and if there are any following elements.
+	 * 
+	 *  @return true or false
+	 */
 		
-	}
-	
-/** Builds IfAny, IfAll Commands.
- * 
- *  @param all
- *  @return all = true : return ifAll; all = false : return ifAny
- */
-	private Command buildIfX(boolean all){
-		int elsePC;
-		List<String> conditions = new LinkedList<String>();
-		List<Comparison> bools = new LinkedList<Comparison>();
-		Comparison comparison = null;
-		makeSplits(appendix);
-		while(!isElse()){
-			conditions.add(currentElement);
+		private boolean isElse(){
+			return appendix != null && currentElement.equalsIgnoreCase("else");
+		}
+	/**
+	 * Evaluates the necessary integers to build any command except drop and turn
+	 * 
+	 * @return int
+	 */
+		private int evaluateValues(boolean withElse, boolean twoValues){
+				int address;
+				makeSplits(appendix);
+				if(withElse){
+					if(isElse())
+						makeSplits(appendix);
+					else{
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Missing else.");
+					return -1;
+					}
+			}address = evaluateAddress(currentElement);
+				if(address != -1){
+					if(!twoValues)
+						overloadTest();
+					else if(twoValues && withElse)
+						overloadTest();
+					return address;					
+				}else{
+					errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid address or label.");
+					return -1;
+				}
+			
+		}
+		
+	/** Builds IfAny, IfAll Commands.
+	 * 
+	 *  @param all
+	 *  @return all = true : return ifAll; all = false : return ifAny
+	 */
+		private Command buildIfX(boolean all){
+			int elsePC;
+			List<String> conditions = new LinkedList<String>();
+			List<Comparison> bools = new LinkedList<Comparison>();
+			Comparison comparison = null;
 			makeSplits(appendix);
-		}
-		for(String condition: conditions){
-			comparison = toolBox.buildComparison(condition);
-		if(comparison == null){
-			errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
-			break;
-		}
-		bools.add(comparison);
-		}
-		if(bools.size() != conditions.size()){
-			errors.add("l: " + row + "invalid conditions");
-			return null;
-		}else{
-			elsePC = evaluateValues(false, false);
-			if(elsePC != -1){
-				if(all)
-					return new IfAll(bools, elsePC);
-				else
-					return new IfAny(bools, elsePC);
-			}else{
+			while(!isElse()){
+				conditions.add(currentElement);
+				makeSplits(appendix);
+			}
+			for(String condition: conditions){
+				comparison = toolBox.buildComparison(condition);
+			if(comparison == null){
+				errors.add(" l: " + row + " ,p: " + indexOfError() + "Invalid conditions.");
+				break;
+			}
+			bools.add(comparison);
+			}
+			if(bools.size() != conditions.size()){
+				errors.add("l: " + row + "invalid conditions");
 				return null;
+			}else{
+				elsePC = evaluateValues(false, false);
+				if(elsePC != -1){
+					if(all)
+						return new IfAll(bools, elsePC);
+					else
+						return new IfAny(bools, elsePC);
+				}else{
+					return null;
+				}
 			}
 		}
-	}
-	
 }
