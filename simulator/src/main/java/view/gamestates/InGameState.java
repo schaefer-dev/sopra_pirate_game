@@ -3,6 +3,8 @@ package view.gamestates;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 
@@ -12,10 +14,14 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import model.FieldType;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.GUIController;
@@ -29,6 +35,7 @@ import view.utility.GameState;
 import view.utility.Map;
 import view.utility.Ressources;
 import view.utility.Ship;
+import view.utility.Team;
 
 public class InGameState implements GameState, LogWriter {
 
@@ -37,9 +44,13 @@ public class InGameState implements GameState, LogWriter {
 	private Group root;
 	private Rectangle tooltip;
 	private GraphicsContext gc;
+	private Accordion teamWindow;
+	private Button teamClosed;
+	private VBox teamOpened;
 	
 	private Map map;
 	private Camera cam;
+	private List<Team> teams;
 	private List<Ship> ships;				
 	private List<SimpleEntity> entities;
 	private Field[][] fields;
@@ -59,10 +70,9 @@ public class InGameState implements GameState, LogWriter {
 		timer = new Timer();
 		canvas = new Canvas(1280, 939);
 		tooltip = new Rectangle(20, 20, 200, 200);
-		tooltip.setStroke(Color.BLACK);
+		tooltip.setStroke(Color.GRAY);
 		tooltip.setFill(Color.WHITE);
 		tooltip.setVisible(false);
-		//canvas = new Canvas(750, 550);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
@@ -89,7 +99,7 @@ public class InGameState implements GameState, LogWriter {
         roundCounter.setTranslateX(10);
         
         Button next = new Button("Next");
-        next.setTranslateY(600);
+        next.setTranslateY(665);
         next.setTranslateX(75);
 		next.getStyleClass().add("canvasbutton");
 		next.setOnAction(new EventHandler<ActionEvent>() {
@@ -106,13 +116,48 @@ public class InGameState implements GameState, LogWriter {
 		});
 		
         Button play = new Button("Play");
-        play.setTranslateY(600);
+        play.setTranslateY(665);
         play.getStyleClass().add("canvasbutton");
         playPause = new PlayPauseEvent(this, timer);
 		play.setOnAction(playPause);
 		
+		Button teamClose = new Button("Close >");
+		teamClose.setVisible(true);
+		teamClose.getStyleClass().add("canvasbutton");
+		teamClose.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				teamOpened.setVisible(false);
+				teamClosed.setVisible(true);
+			}
+		});
+		
+		teams.removeAll(Collections.singleton(null));
+		teamWindow = new Accordion(); 
+		for(Team team: teams)
+			teamWindow.getPanes().add(new TitledPane(team.toString(), new Text(giveTeamText(team))));
+		
+		teamOpened = new VBox();
+		teamOpened.setVisible(false);
+		teamOpened.setTranslateX(1140);
+		teamOpened.getChildren().addAll(teamClose, teamWindow);
+		
+		teamClosed = new Button("< Teams");
+		teamClosed.setTranslateX(1140);
+		teamClosed.getStyleClass().add("canvasbutton");
+		teamClosed.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				teamOpened.setVisible(true);
+				teamClosed.setVisible(false);
+			}
+		});
+		
+		
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, next, tooltip);
+		root.getChildren().addAll(canvas, roundCounter, play, next, tooltip, teamClosed, teamOpened);
 		manager.getScene().setRoot(root);
 	}
 
@@ -139,7 +184,6 @@ public class InGameState implements GameState, LogWriter {
 	}
 	
 	
-	
 	public Simulator getSimulator(){
 		return sim;
 	}
@@ -160,6 +204,12 @@ public class InGameState implements GameState, LogWriter {
 		return tooltip;
 	}
 	
+	private String giveTeamText(Team team){
+		String score = "Score: " + team.getScore();
+		String ships = "Ships: " + team.getShipCount();
+		
+		return score + "\n" + ships;
+	}
 	
 	@Override
 	public void init(OutputStream arg0, String arg1, String... arg2) throws NullPointerException, IOException, ArrayIndexOutOfBoundsException {
@@ -170,6 +220,16 @@ public class InGameState implements GameState, LogWriter {
 		i = rest.indexOf('\n');
 		String y = rest.substring(0, i);
 		fields = new Field[Integer.parseInt(x)][Integer.parseInt(y)];
+		
+		teams = new ArrayList<Team>();
+		if(arg2.length == 1){
+			for(int j = 0; j < 26; j++)
+				teams.add(null);
+		}
+		else{
+			for(int j = 0; j < arg2.length; j++)
+				teams.add(null);	
+		}
 	}
 
 	@Override
@@ -233,8 +293,14 @@ public class InGameState implements GameState, LogWriter {
 	
 	@Override
 	public LogWriter fleetScore(int arg0, int arg1) throws IllegalArgumentException, IllegalStateException {
-		// TODO Auto-generated method stub
-		return null;
+		if(teams.get(arg0) == null)
+			teams.set(arg0, new Team(arg0));
+		teams.get(arg0).setScore(arg1);
+		
+		if(teamWindow != null)
+			teamWindow.getPanes().get(arg0).setContent(new Text(giveTeamText(teams.get(arg0))));
+		
+		return this;
 	}
 
 	@Override
@@ -287,6 +353,9 @@ public class InGameState implements GameState, LogWriter {
 						break;
 					case FLEET:
 						ship.setFleet(arg3[i]);
+						if(teams.get(arg3[i]) == null)
+							teams.set(arg3[i], new Team(arg3[i]));
+						teams.get(arg3[i]).addShip(ship);
 						break;
 					case MORAL:
 						ship.setMoral(arg3[i]);
