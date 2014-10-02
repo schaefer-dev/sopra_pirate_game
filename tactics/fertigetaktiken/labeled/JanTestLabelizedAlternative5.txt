@@ -321,11 +321,10 @@
 						turn right
 						turn right
 						sense 0
-*SkipIslandUhrzeigerMoveHitTryAgain		move else SkipIslandUhrzeigerMoveHitTryAgain
+*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitTryAgain
 						turn left
 						goto farmIslandStartUhrzeigerPickupTurnLeft
-*SkipfarmIslandUhrzeigerMoveHitBlocked
-						turn left
+*SkipfarmIslandUhrzeigerMoveHitBlocked turn left
 						turn left
 *SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove		move else SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove			; schiff zerstört sich selbst wenn hier Insel wäre. Könnte versuchen umzukehren und irgendwie den weg freizumachen. (später verbesserung einfügen)
 						turn right
