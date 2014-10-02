@@ -47,7 +47,7 @@ public class SimpleLogWriter implements LogWriter {
 		if(arg2.length == 0) throw new ArrayIndexOutOfBoundsException();
 		
 		if (arg0 == null){
-			File file = new File("src/test/resources/log.log");
+			File file = new File("src/test/ressources/log.log");
 			out = new PrintWriter(file);
 		}
 		else

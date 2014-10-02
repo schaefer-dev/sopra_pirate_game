@@ -56,7 +56,7 @@ public class InGameState implements GameState, LogWriter {
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
 		timer = new Timer();
-		canvas = new Canvas(950, 550);
+		canvas = new Canvas(1280, 939);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
@@ -71,8 +71,10 @@ public class InGameState implements GameState, LogWriter {
 		
         cam = new Camera(fields);
         map.initMap(fields, cam);
+        map.addMapDetails();
         map.drawMap();
 
+        
         MouseEvents events = new MouseEvents(cam, map, gc);
         events.addMouseDragEvent(canvas, true);
         events.addMouseScrollEvent(canvas);

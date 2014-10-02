@@ -90,22 +90,29 @@ public class MouseEvents {
 		        		double newX = event.getX();
 		        		double newY = event.getY();
 		        		
-		    			double midX = (cam.width()/gc.getCanvas().getWidth())*newX + cam.a;
-		    			double midY = (cam.height()/gc.getCanvas().getHeight())*newY + cam.c;
-		    			//double stepY = mod(midY, map.getMap()[0].length)*(gc.getCanvas().getWidth()/cam.width()/4);
-		    			//midY = stepY;
+		        		double canvasWidth = gc.getCanvas().getWidth();
+		        		double canvasHeight = gc.getCanvas().getHeight();
+		        		double actualCamHeight = (cam.height()/canvasWidth)*canvasHeight;
+		        		
+		        		
+		    			double midX = (cam.width()/canvasWidth)*newX + cam.a;
+		    			double midY = (cam.height()/canvasHeight)*(newY) + cam.c;
+		    				
+		    			midX = mod(midX, map.getWidth());
+		    			midY = mod(midY, map.getHeight());
 
-						/*
-		    			if(event.getClickCount() == 1){
-		    				Field[][] fields = map.getMap();
-		    				Field field = fields[(int) mod(midX, fields.length)][(int) mod(midY, fields[0].length)];
-							map.markField(field);
-		    			}
-		    			*/
 						if(event.getClickCount() == 2){			    			
 			    			cam.setMid((int) midX, (int) midY);
 			    			map.drawMap();
 			            }
+						else if(event.getClickCount() == 1){
+		    				Field[][] fields = map.getMap();
+		    				Field field = fields[(int)midX][(int)midY];
+							map.markField(field);
+		    			}
+		    			
+		    			
+
 					}
 		        }
 			}
