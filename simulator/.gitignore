@@ -1,6 +1,7 @@
 /target/
 
 *~
+map.map
 .log
 .DS_Store
 /bin/
