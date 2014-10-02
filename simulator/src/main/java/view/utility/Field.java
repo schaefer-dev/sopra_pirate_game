@@ -81,6 +81,10 @@ public class Field {
 	}
 	
 	
+	public void setFieldImage(Image fieldImage){
+		this.fieldImage = fieldImage;
+	}
+	
 	public int getX(){
 		return x;
 	}
@@ -113,7 +117,7 @@ public class Field {
 	}
 	
 	public void setTreasure(SimpleEntity treasure){
-		if(type == FieldType.Water)
+		if(type == FieldType.Water || type == FieldType.Base)
 			treasureImage = (treasure == null) ? null : map.getRessources().getWaterTreasureImage();
 		else if(type == FieldType.Island)
 			treasureImage = (treasure == null) ? null : map.getRessources().getIslandTreasureImage();
@@ -154,4 +158,6 @@ public class Field {
 		this.kraken = kraken;
 		redraw();
 	}	
+	
+	
 }
