@@ -32,11 +32,11 @@ public class Map {
 		this.mapHeight = map[0].length;
 	}
 	
-	
 
-	
 	public void drawMap(){		
-    	gc.setFill(Color.web("76A6A6"));
+    	//gc.setFill(Color.web("76A6A6"));
+		gc.setFill(Color.web("5fb8b8"));
+		
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
     	for(int y = 0; y < cam.height(); y++){
@@ -179,7 +179,9 @@ public class Map {
 							field.setFieldImage(ressources.getShoreWaterImage());
 						break;
 					case Island:
-						//TODO: do it
+						//if(hasNeigbor(field, FieldType.Water) || hasNeigbor(field, FieldType.Base))
+							//field.setFieldImage(ressources.getShoreIslandImage());
+						break;
 					default: 
 						break;
 				}
