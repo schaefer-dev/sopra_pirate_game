@@ -16,7 +16,7 @@
 						goto findback
 *look5geradeaus 		sense 0
 						ifany sense_treasure sense_celltype==island else normal5
-*pickupGeradeaus5 		pickup 0 else farmIslandStartUhrzeigerPickup
+*pickupGeradeaus5 		pickup 0 else farmIsland5
 						goto findback
 *inselavoid5			mark 2
 *inselavoid5NoMark 		flipzero 2 else turnrechts5
@@ -41,7 +41,7 @@
 						goto findback
 *look4geradeaus 		sense 0
 						ifany sense_treasure sense_celltype==island else normal4
-*pickupGeradeaus4 		pickup 0 else farmIslandStartUhrzeigerPickup
+*pickupGeradeaus4 		pickup 0 else farmIsland4
 						goto findback
 *avoidIsland4 			mark 1
 *inselavoid4NoMark 		flipzero 2 else turnrechts4
@@ -65,7 +65,7 @@
 						goto findback
 *look3geradeaus 		sense 0
 						ifany sense_treasure sense_celltype==island else normal3
-*pickupGeradeaus3 		pickup 0 else farmIslandStartUhrzeigerPickup
+*pickupGeradeaus3 		pickup 0 else farmIsland3
 						goto findback
 *avoidIsland3 			mark 0
 *inselavoid3NoMark 		flipzero 2 else turnrechts3
@@ -90,7 +90,7 @@
 						goto findback
 *look1geradeaus 		sense 0
 						ifany sense_treasure sense_celltype==island else normal1
-*pickupGeradeaus1 		pickup 0 else farmIslandStartUhrzeigerPickup
+*pickupGeradeaus1 		pickup 0 else farmIsland1
 						goto findback
 *avoidIsland1 			mark 4
 *inselavoid1NoMark 		flipzero 2 else turnrechts1
@@ -115,7 +115,7 @@
 						goto findback
 *look2geradeaus 		sense 0
 						ifany sense_treasure sense_celltype==island else normal2
-*pickupGeradeaus2 		pickup 0 else farmIslandStartUhrzeigerPickup
+*pickupGeradeaus2 		pickup 0 else farmIsland2
 						goto findback
 *avoidIsland2 			mark 5
 *inselavoid2NoMark 		flipzero 2 else turnrechts2
@@ -140,7 +140,7 @@
 						goto findback
 *look0geradeaus 		sense 0
 						ifany sense_treasure sense_celltype==island else normal0
-*pickupGeradeaus0		pickup 0 else farmIslandStartUhrzeigerPickup
+*pickupGeradeaus0		pickup 0 else farmIsland0
 						goto findback
 *avoidIsland0 			mark 3
 *inselavoid0NoMark 		flipzero 2 else turnrechts0
@@ -346,3 +346,16 @@
 						if sense_cellType==empty else doItAgain
 						turn left
 						goto checkLeft
+						
+*farmIsland5 mark 2
+goto farmIslandStartUhrzeigerPickup
+*farmIsland4 mark 1
+goto farmIslandStartUhrzeigerPickup
+*farmIsland3 mark 0
+goto farmIslandStartUhrzeigerPickup
+*farmIsland2 mark 5
+goto farmIslandStartUhrzeigerPickup
+*farmIsland1 mark 4
+goto farmIslandStartUhrzeigerPickup
+*farmIsland0 mark 3
+goto farmIslandStartUhrzeigerPickup
