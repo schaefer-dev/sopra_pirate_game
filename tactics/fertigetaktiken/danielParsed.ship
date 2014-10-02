@@ -1,0 +1,320 @@
+flipzero 6 else 2
+goto 16
+turn right
+flipzero 5 else 5
+goto 68
+turn right
+flipzero 4 else 8
+goto 119
+turn right
+flipzero 3 else 11
+goto 169
+turn right
+flipzero 2 else 14
+goto 218
+turn right
+goto 268
+sense 0
+if sense_celltype==empty else 20
+move else 16
+goto 16
+refresh 0 else 21
+pickup 0 else 23
+goto 31
+mark 1
+sense 1
+if sense_celltype==empty else 29
+turn right
+move else 68
+goto 68
+turn left
+goto 268
+turn left
+turn left
+turn left
+sense 0
+ifall sense_celltype!=home !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 38
+move else 34
+goto 34
+if sense_celltype==home else 47
+move else 38
+drop
+if ship_condition==1 else 43
+repair else 319
+turn left
+turn left
+turn left
+goto 0
+if sense_marker0 else 52
+turn right
+turn right
+turn right
+goto 187
+if sense_marker1 else 56
+turn left
+turn left
+goto 236
+if sense_marker2 else 59
+turn left
+goto 286
+if sense_marker3 else 61
+goto 34
+if sense_marker4 else 64
+turn right
+goto 86
+if sense_marker5 else 319
+turn right
+turn right
+goto 137
+sense 0
+if sense_celltype==empty else 72
+move else 68
+goto 68
+refresh 0 else 73
+pickup 0 else 75
+goto 83
+mark 1
+sense 1
+if sense_celltype==empty else 81
+turn right
+move else 119
+goto 119
+turn left
+goto 16
+turn left
+turn left
+turn left
+sense 0
+ifall sense_celltype!=home !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 90
+move else 86
+goto 86
+if sense_celltype==home else 98
+move else 90
+drop
+if ship_condition==1 else 95
+repair else 319
+turn right
+turn right
+goto 0
+if sense_marker0 else 102
+turn right
+turn right
+goto 187
+if sense_marker1 else 107
+turn right
+turn right
+turn right
+goto 236
+if sense_marker2 else 111
+turn left
+turn left
+goto 286
+if sense_marker3 else 114
+turn left
+goto 34
+if sense_marker4 else 116
+goto 86
+if sense_marker5 else 319
+turn right
+goto 137
+sense 0
+if sense_celltype==empty else 123
+move else 119
+goto 119
+refresh 0 else 124
+pickup 0 else 126
+goto 134
+mark 1
+sense 1
+if sense_celltype==empty else 132
+turn right
+move else 169
+goto 169
+turn left
+goto 68
+turn left
+turn left
+turn left
+sense 0
+ifall sense_celltype!=home !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 141
+move else 137
+goto 137
+if sense_celltype==home else 148
+move else 141
+drop
+if ship_condition==1 else 146
+repair else 319
+turn right
+goto 0
+if sense_marker0 else 151
+turn right
+goto 187
+if sense_marker1 else 155
+turn right
+turn right
+goto 236
+if sense_marker2 else 160
+turn left
+turn left
+turn left
+goto 286
+if sense_marker3 else 164
+turn left
+turn left
+goto 34
+if sense_marker4 else 167
+turn left
+goto 86
+if sense_marker5 else 319
+goto 137
+sense 0
+if sense_celltype==empty else 173
+move else 169
+goto 169
+refresh 0 else 174
+pickup 0 else 176
+goto 184
+mark 1
+sense 1
+if sense_celltype==empty else 182
+turn right
+move else 218
+goto 218
+turn left
+goto 119
+turn left
+turn left
+turn left
+sense 0
+ifall sense_celltype!=home !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 191
+move else 187
+goto 187
+if sense_celltype==home else 197
+move else 191
+drop
+if ship_condition==1 else 196
+repair else 319
+goto 0
+if sense_marker0 else 199
+goto 187
+if sense_marker1 else 202
+turn right
+goto 236
+if sense_marker2 else 206
+turn right
+turn right
+goto 286
+if sense_marker3 else 211
+turn left
+turn left
+turn left
+goto 34
+if sense_marker4 else 215
+turn left
+turn left
+goto 86
+if sense_marker5 else 319
+turn left
+goto 137
+sense 0
+if sense_celltype==empty else 222
+move else 218
+goto 218
+refresh 0 else 223
+pickup 0 else 225
+goto 233
+mark 1
+sense 1
+if sense_celltype==empty else 231
+turn right
+move else 268
+goto 268
+turn left
+goto 169
+turn left
+turn left
+turn left
+sense 0
+ifall sense_celltype!=home !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 240
+move else 236
+goto 236
+if sense_celltype==home else 247
+move else 240
+drop
+if ship_condition==1 else 245
+repair else 319
+turn left
+goto 0
+if sense_marker0 else 250
+turn left
+goto 187
+if sense_marker1 else 252
+goto 236
+if sense_marker2 else 255
+turn right
+goto 286
+if sense_marker3 else 259
+turn right
+turn right
+goto 34
+if sense_marker4 else 264
+turn left
+turn left
+turn left
+goto 86
+if sense_marker5 else 319
+turn left
+turn left
+goto 137
+sense 0
+if sense_celltype==empty else 272
+move else 268
+goto 268
+refresh 0 else 273
+pickup 0 else 275
+goto 283
+mark 1
+sense 1
+if sense_celltype==empty else 281
+turn right
+move else 16
+goto 16
+turn left
+goto 218
+turn left
+turn left
+turn left
+sense 0
+ifall sense_celltype!=home !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else 290
+move else 286
+goto 286
+if sense_celltype==home else 298
+move else 290
+drop
+if ship_condition==1 else 295
+repair else 319
+turn left
+turn left
+goto 0
+if sense_marker0 else 302
+turn left
+turn left
+goto 187
+if sense_marker1 else 305
+turn left
+goto 236
+if sense_marker2 else 307
+goto 286
+if sense_marker3 else 310
+turn right
+goto 34
+if sense_marker4 else 314
+turn right
+turn right
+goto 86
+if sense_marker5 else 319
+turn left
+turn left
+turn left
+goto 137
+goto 999
