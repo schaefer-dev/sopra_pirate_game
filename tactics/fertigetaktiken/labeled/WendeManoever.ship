@@ -6,17 +6,25 @@ goto goStraightBack						;5 Züge
 *0equals2 turn left 						;4 Züge	
 turn left							;5 Züge
 goto goStraightBack						;6 Züge
-*greaterThan2 if ship_direction>3 else 0equals3			;3 Züge
-if ship_direction>4 else 0equals4				;4 Züge
+*greaterThan2 if ship_direction>3 else 0equals3			;3 Züge 0equals3 ist eine sprungmarke an den turnbefehlen vor straightback
+if ship_direction>4 else 0equals4				;4 Züge fuer 0equals3 gilt dasselbe
 turn right							;5 Züge
 goto goStraightBack						;6 Züge
-*0equals4 turn right						;5 Züge
-turn right							;6 Züge
-goto goStraightBack				 		;7 Züge
-*0equals3 turn right						;4 Züge
-turn right							;5 Züge
-turn right							;6 Züge
-goto goStraightBack						;7 Züge
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
