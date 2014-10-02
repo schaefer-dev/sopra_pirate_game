@@ -6,6 +6,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.shape.Rectangle;
+import view.gamestates.InGameState;
 import view.utility.Camera;
 import view.utility.Field;
 import view.utility.Map;
@@ -15,14 +17,16 @@ public class MouseEvents {
 	private Camera cam;
 	private Map map;
 	private GraphicsContext gc;
+	private Rectangle tip;
 		
 	private double previousX = 0;
 	private double previousY = 0;
 	
-	public MouseEvents(Camera cam, Map map, GraphicsContext gc){
+	public MouseEvents(Camera cam, Map map, GraphicsContext gc, Rectangle tip){
 		this.cam = cam;
 		this.map = map;
 		this.gc = gc;
+		this.tip = tip;
 	}
 	
 	public void addMouseDragEvent(Node root, final boolean invert){
@@ -52,6 +56,7 @@ public class MouseEvents {
 				previousY = newY;
 				
 				map.drawMap();
+				tip.setVisible(false);
 			}
 		});
 		
@@ -70,12 +75,14 @@ public class MouseEvents {
 
 			@Override
 			public void handle(ScrollEvent event) {
+				int zoomMagnitude = cam.zoomLevelAbsolute() + 1;
 				if(event.getDeltaY() > 0)
-					cam.zoomIn(4);
+					cam.zoomIn(zoomMagnitude);
 				else
-					cam.zoomOut(4);
+					cam.zoomOut(zoomMagnitude);
 				
 				map.drawMap();
+				tip.setVisible(false);
 			}
 		});
 	}
@@ -92,8 +99,7 @@ public class MouseEvents {
 		        		
 		        		double canvasWidth = gc.getCanvas().getWidth();
 		        		double canvasHeight = gc.getCanvas().getHeight();
-		        		double actualCamHeight = (cam.height()/canvasWidth)*canvasHeight;
-		        		
+		        		//double actualCamHeight = (cam.height()/canvasWidth)*canvasHeight;
 		        		
 		    			double midX = (cam.width()/canvasWidth)*newX + cam.a;
 		    			double midY = (cam.height()/canvasHeight)*(newY) + cam.c;
@@ -101,18 +107,20 @@ public class MouseEvents {
 		    			midX = mod(midX, map.getWidth());
 		    			midY = mod(midY, map.getHeight());
 
-						if(event.getClickCount() == 2){			    			
+						if(event.getClickCount() == 2){		
 			    			cam.setMid((int) midX, (int) midY);
 			    			map.drawMap();
 			            }
-						else if(event.getClickCount() == 1){
+						else if(event.getClickCount() == 1 && event.isStillSincePress()){
 		    				Field[][] fields = map.getMap();
 		    				Field field = fields[(int)midX][(int)midY];
 							map.markField(field);
+							
+						
+							tip.setX(newX);
+							tip.setY(newY);
+							tip.setVisible(true);
 		    			}
-		    			
-		    			
-
 					}
 		        }
 			}

@@ -1,5 +1,6 @@
 *~
 .log
+/simulator/map.map
 /simulator/target/
 /uebersetzer/errors.log
 /uebersetzer/error.log

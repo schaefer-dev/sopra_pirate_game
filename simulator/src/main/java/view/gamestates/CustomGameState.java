@@ -40,7 +40,7 @@ public class CustomGameState implements GameState {
 		
 		Button back = new Button("< Back");
 		back.getStyleClass().add("menubutton");
-		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Start a new game with custom settings"));
+		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		back.setOnAction(new SwitchState(manager));
 		
