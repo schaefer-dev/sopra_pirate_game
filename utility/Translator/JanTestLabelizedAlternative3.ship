@@ -211,6 +211,8 @@ ifany sense_treasure sense_celltype==island else normal4
 goto findback
 *test3Turned pickup 5 else look3rechtsTurned
 goto findback
+
+
 *look3rechtsTurned pickup 1 else look3geradeausTurned
 goto findback
 *look3geradeausTurned sense 0
@@ -221,6 +223,11 @@ goto findback
 goto findback
 *look2rechtsTurned pickup 1 else look2geradeausTurned
 goto findback
+
+
+
+
+
 *look2geradeausTurned sense 0
 ifany sense_treasure sense_celltype==island else normal2
 *pickupGeradeaus2Turned pickup 0 else inselavoid2NoMark

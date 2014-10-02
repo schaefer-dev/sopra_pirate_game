@@ -23,7 +23,7 @@ flipzero 2 else 24
 turn left
 goto 203
 turn right
-goto 235
+goto 242
 turn left
 flipzero 2 else 51
 pickup 5 else 31
@@ -70,7 +70,7 @@ goto 157
 mark 0
 flipzero 2 else 73
 turn left
-goto 219
+goto 221
 turn right
 goto 203
 turn right
@@ -95,9 +95,9 @@ goto 157
 mark 4
 flipzero 2 else 98
 turn left
-goto 235
+goto 242
 turn right
-goto 219
+goto 221
 turn right
 flipzero 2 else 125
 pickup 5 else 105
@@ -120,7 +120,7 @@ goto 157
 mark 5
 flipzero 2 else 123
 turn left
-goto 227
+goto 234
 turn right
 goto 211
 turn right
@@ -147,7 +147,7 @@ flipzero 2 else 148
 turn left
 goto 195
 turn right
-goto 227
+goto 234
 pickup 0 else 153
 drop
 goto 153
@@ -209,33 +209,40 @@ sense 0
 ifany sense_treasure sense_celltype==island else 36
 pickup 0 else 46
 goto 157
-pickup 5 else 213
+pickup 5 else 215
 goto 157
-pickup 1 else 215
+l:213not a valid command: 
+l:214not a valid command: 
+pickup 1 else 217
 goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 60
 pickup 0 else 70
 goto 157
-pickup 5 else 221
+pickup 5 else 223
 goto 157
-pickup 1 else 223
+pickup 1 else 230
 goto 157
+l:225not a valid command: 
+l:226not a valid command: 
+l:227not a valid command: 
+l:228not a valid command: 
+l:229not a valid command: 
 sense 0
 ifany sense_treasure sense_celltype==island else 110
 pickup 0 else 120
 goto 157
-pickup 5 else 229
+pickup 5 else 236
 goto 157
-pickup 1 else 231
+pickup 1 else 238
 goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 85
 pickup 0 else 95
 goto 157
-pickup 5 else 237
+pickup 5 else 244
 goto 157
-pickup 1 else 239
+pickup 1 else 246
 goto 157
 sense 0
 ifany sense_treasure sense_celltype==island else 135

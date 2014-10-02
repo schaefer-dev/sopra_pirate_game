@@ -52,6 +52,8 @@ public class CheckTactics {
 		int i=0;
 		for(Command line: toPrint){
 			if(line == null){
+				if(translator.getErrors().get(i).equalsIgnoreCase("skip"))
+					continue;
 				res = res + translator.getErrors().get(i) + "\n";
 				i++;
 			}else
