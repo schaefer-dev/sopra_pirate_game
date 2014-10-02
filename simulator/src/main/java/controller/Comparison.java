@@ -14,7 +14,7 @@ public interface Comparison {
  * @param ship The ship which owns the compared Register(s).
  * @return a boolean representing the evaluation. Always returns false if a Registers value is undefined.
  */
-	public boolean eval(Ship ship);
+	boolean eval(Ship ship);
 }
 
 

@@ -23,6 +23,13 @@
     -fx-alignment: CENTER;
 }
 
+.canvasbutton {
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    -fx-alignment: BOTTOM_CENTER;
+    -fx-padding: 50;
+}
+
 .selectionbutton {
     -fx-font-size: 12px;
     -fx-font-family: "UglyQua";

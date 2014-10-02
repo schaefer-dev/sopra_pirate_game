@@ -65,21 +65,36 @@ public class Field {
 	}
 	
 	public List<Image> getImages(){
+		int zoom =  map.getCam().zoomLevelAbsolute();
 		List<Image> images = new LinkedList<Image>();
-		images.add(fieldImage);
 		
-		if(buoysImage != null)
+		if(type == FieldType.Water){
+			if(zoom < 2)
+				images.add(fieldImage);
+		}
+		else if(type == FieldType.Base){
+			if(zoom < 5)
+				images.add(fieldImage);
+		}
+		else 
+			images.add(fieldImage);
+		
+		if(buoysImage != null && zoom < 2)
 			images.add(buoysImage);
-		if(krakenImage != null)
+		if(krakenImage != null && zoom < 3)
 			images.add(krakenImage);
-		if(treasureImage != null)
+		if(treasureImage != null && zoom < 3)
 			images.add(treasureImage);
-		if(shipImage != null)
+		if(shipImage != null && zoom < 5)
 			images.add(shipImage);
 		
 		return images;
 	}
 	
+	
+	public void setFieldImage(Image fieldImage){
+		this.fieldImage = fieldImage;
+	}
 	
 	public int getX(){
 		return x;
@@ -113,7 +128,7 @@ public class Field {
 	}
 	
 	public void setTreasure(SimpleEntity treasure){
-		if(type == FieldType.Water)
+		if(type == FieldType.Water || type == FieldType.Base)
 			treasureImage = (treasure == null) ? null : map.getRessources().getWaterTreasureImage();
 		else if(type == FieldType.Island)
 			treasureImage = (treasure == null) ? null : map.getRessources().getIslandTreasureImage();
@@ -154,4 +169,6 @@ public class Field {
 		this.kraken = kraken;
 		redraw();
 	}	
+	
+	
 }

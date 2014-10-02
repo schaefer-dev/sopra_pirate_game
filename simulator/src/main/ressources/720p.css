@@ -10,6 +10,10 @@
 	-fx-font-size: 37px;
 }
 
+.canvasbutton {
+	-fx-font-size: 30px;
+}
+
 .vbox {
     -fx-padding: 40 0 40 0;
     -fx-spacing: 20;

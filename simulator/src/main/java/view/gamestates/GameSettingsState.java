@@ -17,7 +17,7 @@ public class GameSettingsState implements GameState {
 	private GUIController manager;
 	private String title = "Game Settings";
 	private BorderPane root;
-	private SliderListener tcListener, tdListener, scListener, kListener, sListener;
+	private SliderListener tcListener, tdListener, scListener, kListener, sListener, rListener;
 
 	@Override
 	public void entered(GUIController control) {
@@ -80,6 +80,17 @@ public class GameSettingsState implements GameState {
 		Label shipsLabel = new Label(String.format("%.0f", shipsSlider.getValue()));
 		sListener = new SliderListener(shipsSlider, shipsLabel);
 		
+		Label rounds = new Label("Rounds");
+		Slider roundSlider = new Slider(Configuration.ROUNDS_MIN, Configuration.ROUNDS_MAX, map.getShipCount());
+		roundSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of ships per team"));
+		roundSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
+		roundSlider.setMaxWidth(200);
+		roundSlider.setMajorTickUnit(4);
+		roundSlider.setMinorTickCount(2);
+		roundSlider.setSnapToTicks(true);
+		Label roundsLabel = new Label(String.format("%.0f", shipsSlider.getValue()));
+		rListener = new SliderListener(roundSlider, roundsLabel);
+		
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
 		grid.add(treasureCount, 1, 0);
@@ -97,6 +108,9 @@ public class GameSettingsState implements GameState {
 		grid.add(ships, 1, 4);
 		grid.add(shipsSlider, 2, 4);
 		grid.add(shipsLabel, 3, 4);
+		grid.add(rounds, 1, 5);
+		grid.add(roundSlider, 2, 5);
+		grid.add(roundsLabel, 3, 5);
 		
 		
 		Button back = new Button("< Map Settings");
@@ -133,6 +147,7 @@ public class GameSettingsState implements GameState {
 			map.setSupplyDensity(scListener.get());
 			map.setKrakenCount(kListener.get());
 			map.setShipCount(sListener.get());
+			map.setRounds(rListener.get());
 		}
 		catch(Exception e){
 			throw new IllegalStateException("You have to call Entered() before Existing");
