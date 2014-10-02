@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.scene.control.ComboBox;
+
 public class Configuration {
 
 	public final static int MAP_SIZE_MIN = 10;
@@ -47,6 +49,9 @@ public class Configuration {
 	private List<String>  captainNames = new LinkedList<String>(Arrays.asList(
 			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Guybrush Threepwood", "Captain Hook", 
 			"Monkey D. Ruffy", "LeChuck"));
+	
+	private List<String> currentNames = new LinkedList<String>();
+	private List<ComboBox<String>> teamConfigs = new LinkedList<ComboBox<String>>();
 
 	private char[][] map;
 	private Generator generator;
@@ -178,8 +183,17 @@ public class Configuration {
 		this.shipCount = shipCount;
 	}
 	
+	public List<ComboBox<String>> getTeamConfigurations(){
+		return teamConfigs;
+	}
+	
 	public List<String> getCaptainNames(){
 		return captainNames;
+	}
+	
+	public void reserveCaptainName(String name){
+		
+		
 	}
 
 	public List<String> getTactics(){

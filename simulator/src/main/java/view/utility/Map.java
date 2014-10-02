@@ -130,22 +130,18 @@ public class Map {
 		for(Image img: field.getImages())
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		
-		if(cam.zoomLevelAbsolute() < 1 && field.getFieldType() == FieldType.Water){
-		
+		if(cam.zoomLevelAbsolute() < 1 && field.getFieldType() == FieldType.Water)
 			markHex(mid, radius, Color.GRAY, true);
-		}
 		if(left){
 			Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
 			Point2D downL = new Point2D(mid.getX() - radius, mid.getY() + radius/2);
 			gc.setStroke(Color.web("EDE1C9"));
-			gc.setLineWidth(3);
-			//gc.setLineWidth(Math.abs(cam.zoomLevelAbsolute() - 5) + 2);
+			gc.setLineWidth(Math.abs(cam.zoomLevelAbsolute() - 5) + 2);
 			gc.strokeLine(upL.getX(), upL.getY(), downL.getX(), downL.getY());
 		}
 		if(top){
 			gc.setStroke(Color.web("EDE1C9"));
-			gc.setLineWidth(3);
-			//gc.setLineWidth(Math.abs(cam.zoomLevelAbsolute() - 5) + 2);
+			gc.setLineWidth(Math.abs(cam.zoomLevelAbsolute() - 5) + 2);
 			gc.strokeLine(up.getX() - radius/2, up.getY(), up.getX() + radius/2, up.getY());
 		}
 	}
