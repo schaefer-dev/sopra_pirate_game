@@ -1,6 +1,6 @@
 *start 					flipzero 2 else drehrechts
 *drehlinks 				turn left
-						flipzero 2 else drehweiterLinks
+						flipzero 3 else drehweiterLinks
 *start5 				pickup 5 else look5rechtsStart
 						drop
 						goto start5
@@ -74,7 +74,7 @@
 *turnrechts3 			turn right
 						goto test4Turned
 *drehrechts 			turn right
-						flipzero 2 else drehweiterRechts
+						flipzero 3 else drehweiterRechts
 *start1 				pickup 5 else look1rechtsStart
 						drop
 						goto start1

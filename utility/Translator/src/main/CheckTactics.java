@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CheckTactics {
@@ -37,28 +37,20 @@ public class CheckTactics {
 		
 	}
 	
-	public ArrayList<Command> goOn(){
+	public LinkedList<Command> goOn(){
 		translator.setLabelized(true);
 		List<Command> parsedTactics = translator.run(in);
-		if(parsedTactics instanceof ArrayList)
-			return (ArrayList<Command>) parsedTactics;
+		if(parsedTactics instanceof LinkedList)
+			return (LinkedList<Command>) parsedTactics;
 		else
 			return null;
 	}
 	
 	public void printTactics(){
-		ArrayList<Command> toPrint = goOn();
-		String res = "";
-		int i=0;
-		for(Command line: toPrint){
-			if(line == null){
-				if(translator.getErrors().get(i).equalsIgnoreCase("skip"))
-					continue;
-				res = res + translator.getErrors().get(i) + "\n";
-				i++;
-			}else
+		LinkedList<Command> toPrint = goOn();
+		String res = "";		
+		for(Command line: toPrint)
 				res = res + line.toString() + "\n";	
-		}
 		tactics.write(res);
 		tactics.close();
 		
@@ -66,8 +58,8 @@ public class CheckTactics {
 	
 	public void printErrors(){
 		if(translator.getErrors().size() > 0)
-			System.out.println("incorrect tactics.Visit the printed to file for details.");
+			System.out.println(translator.getErrors().size() + " Errors occurred. Visit the printed to file for further informations.");
 		else
-			System.out.println("no errors found");
+			System.out.println("no errors found, except those displayed on the console.");
 	}
 }

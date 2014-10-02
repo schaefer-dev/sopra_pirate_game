@@ -1,6 +1,6 @@
 flipzero 2 else 75
 turn left
-flipzero 2 else 26
+flipzero 3 else 26
 pickup 5 else 6
 drop
 goto 3
@@ -74,7 +74,7 @@ goto 260
 turn right
 goto 244
 turn right
-flipzero 2 else 100
+flipzero 3 else 100
 pickup 5 else 80
 drop
 goto 77
