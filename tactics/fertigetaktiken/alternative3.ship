@@ -173,7 +173,7 @@ turn left
 move else 172
 sense 6
 ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else 158
-move else 172
+refresh 2 else 172
 goto 172
 if ship_direction!=5 else 172
 turn right
