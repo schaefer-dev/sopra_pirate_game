@@ -65,16 +65,27 @@ public class Field {
 	}
 	
 	public List<Image> getImages(){
+		int zoom =  map.getCam().zoomLevelAbsolute();
 		List<Image> images = new LinkedList<Image>();
-		images.add(fieldImage);
 		
-		if(buoysImage != null)
+		if(type == FieldType.Water){
+			if(zoom < 2)
+				images.add(fieldImage);
+		}
+		else if(type == FieldType.Base){
+			if(zoom < 5)
+				images.add(fieldImage);
+		}
+		else 
+			images.add(fieldImage);
+		
+		if(buoysImage != null && zoom < 2)
 			images.add(buoysImage);
-		if(krakenImage != null)
+		if(krakenImage != null && zoom < 3)
 			images.add(krakenImage);
-		if(treasureImage != null)
+		if(treasureImage != null && zoom < 3)
 			images.add(treasureImage);
-		if(shipImage != null)
+		if(shipImage != null && zoom < 5)
 			images.add(shipImage);
 		
 		return images;

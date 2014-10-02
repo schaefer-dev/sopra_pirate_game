@@ -10,6 +10,7 @@ import controller.Simulator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -57,6 +58,7 @@ public class InGameState implements GameState, LogWriter {
 		maxRounds = turns;
 		timer = new Timer();
 		canvas = new Canvas(1280, 939);
+		//canvas = new Canvas(750, 550);
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
@@ -83,7 +85,9 @@ public class InGameState implements GameState, LogWriter {
         roundCounter = new Label(rounds.toString());
         
         Button next = new Button("Next");
-		next.getStyleClass().add("menubutton");
+        next.setTranslateY(600);
+        next.setTranslateX(75);
+		next.getStyleClass().add("canvasbutton");
 		next.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -98,22 +102,25 @@ public class InGameState implements GameState, LogWriter {
 		});
 		
         Button play = new Button("Play");
-        play.getStyleClass().add("menubutton");
+        play.setTranslateY(600);
+        play.getStyleClass().add("canvasbutton");
         playPause = new PlayPauseEvent(this, timer);
 		play.setOnAction(playPause);
-
-        HBox box = new HBox(20);
-        box.getChildren().addAll(next, play);
-        box.getStyleClass().add("hbox");		
-         
-        root = new BorderPane();
-		root.setCenter(canvas);
-		BorderPane.setAlignment(box, Pos.BOTTOM_CENTER);
-		root.setBottom(box);
 		
+        Group group = new Group();
+        group.getChildren().addAll(canvas, play, next);
+         
+       // root = new BorderPane();
+		//root.setCenter(canvas);
+		//BorderPane.setAlignment(box, Pos.BOTTOM_CENTER);
+		//root.setBottom(box);
+		
+        
+		manager.getScene().setRoot(group);
+	
 		BorderPane.setAlignment(roundCounter, Pos.TOP_CENTER);
 		manager.getRoot().setTop(roundCounter);
-        manager.getRoot().setCenter(root);
+        //manager.getRoot().setCenter(group);
 	}
 
 	@Override
@@ -126,6 +133,7 @@ public class InGameState implements GameState, LogWriter {
 			 }
 			 catch(Exception e){}
 		 }
+		 manager.getScene().setRoot(manager.getRoot());
 	}
 
 	@Override
