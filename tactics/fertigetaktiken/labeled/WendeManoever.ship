@@ -1,0 +1,25 @@
+*drehTo0 if ship_direction!=0 else goStraightBack		;1 Zug
+if ship_direction<3 else 0greaterThan2				;2 Züge
+if ship_direction<2 else 0equals2				;3 Züge
+turn left 							;4 Züge
+goto goStraightBack						;5 Züge
+*0equals2 turn left 						;4 Züge	
+turn left							;5 Züge
+goto goStraightBack						;6 Züge
+*greaterThan2 if ship_direction>3 else 0equals3			;3 Züge
+if ship_direction>4 else 0equals4				;4 Züge
+turn right							;5 Züge
+goto goStraightBack						;6 Züge
+*0equals4 turn right						;5 Züge
+turn right							;6 Züge
+goto goStraightBack				 		;7 Züge
+*0equals3 turn right						;4 Züge
+turn right							;5 Züge
+turn right							;6 Züge
+goto goStraightBack						;7 Züge
+
+
+
+
+
+
