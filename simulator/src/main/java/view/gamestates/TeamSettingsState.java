@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import view.events.HoverEvent;
 import view.events.SwitchState;
+import view.utility.Configuration;
 import view.utility.GameState;
 import view.GUIController;
 
@@ -32,6 +33,7 @@ public class TeamSettingsState implements GameState {
 	
 	private VBox teamSelection;
 	private GUIController manager;
+	private Configuration config;
 	private BorderPane root;
 	private String title = "Team Settings";
 	private List<ComboBox<String>> choosers;
@@ -42,16 +44,24 @@ public class TeamSettingsState implements GameState {
 	public void entered(GUIController control) {
 		manager = control;
 		manager.getTitleText().setText(title);
+		config = manager.getConfiguration();
 		choosers = new ArrayList<ComboBox<String>>();
 		
 		teamSelection = new VBox();
 		teamSelection.getStyleClass().add("vbox");
 		
-		if(manager.getConfiguration().getTeamCountMax() != 26){
-			for(int i = 0; i < manager.getConfiguration().getTeamCountMax(); i++)
-				teamSelection.getChildren().add(giveNewTeamNode(false));
+		if(config.getTeamCountMax() != 26){
+			if(config.getTeamConfigurations() != null)
+				teamSelection.getChildren().addAll(config.getTeamConfigurations());
+			else{
+				for(int i = 0; i < config.getTeamCountMax(); i++)
+					teamSelection.getChildren().add(giveNewTeamNode(false));
+			}
 		}
 		else{
+			if(config.getTeamConfigurations() != null)
+				teamSelection.getChildren().addAll(config.getTeamConfigurations());
+			
 			newTeam = new Button("+");
 			newTeam.getStyleClass().add("selectionbutton");
 			newTeam.setAlignment(Pos.BOTTOM_LEFT);
@@ -63,7 +73,7 @@ public class TeamSettingsState implements GameState {
 					teams.add(teams.size() - 1, giveNewTeamNode(true));
 					manager.getConfiguration().addTeam();
 					
-					if(teamSelection.getChildren().size() > manager.getConfiguration().getTeamCountMax())
+					if(teamSelection.getChildren().size() > config.getTeamCountMax())
 						newTeam.setVisible(false);
 				}
 			});
@@ -135,6 +145,7 @@ public class TeamSettingsState implements GameState {
 		captainChooser.setValue(DEFAULT_NAME);
 		choosers.add(captainChooser);
 				
+		
 		captainChooser.valueProperty().addListener(new ChangeListener<String>(){
 
 			@Override
@@ -142,7 +153,7 @@ public class TeamSettingsState implements GameState {
 				if(oldV == null || newV == null || newV.equals(DEFAULT_NAME) || oldV.equals("") || newV.equals(""))
 					return;
 				
-				List<String> captainNames = manager.getConfiguration().getCaptainNames();
+				List<String> captainNames = config.getCaptainNames();
 
 				captainNames.remove(newV);
 				
@@ -170,7 +181,7 @@ public class TeamSettingsState implements GameState {
             public void handle(final ActionEvent e) {
                 File file = fileChooser.showOpenDialog(manager.getStage());
                 if(file != null){
-                	manager.getConfiguration().getTactics().add(file.toString());
+                	config.getTactics().add(file.toString());
                 	openFile.setText(file.getName());
                 }	
             }
@@ -186,8 +197,9 @@ public class TeamSettingsState implements GameState {
 				@Override
 				public void handle(ActionEvent arg0){
 					teamSelection.getChildren().remove(box);
+					//config.getTeamConfigurations().remove(box);
 					Node child = box.getChildren().get(1);
-					manager.getConfiguration().removeTeam();
+					config.removeTeam();
 					
 					if(child instanceof ComboBox<?>){
 						ComboBox<?> cBox = (ComboBox<?>) child;
@@ -195,7 +207,7 @@ public class TeamSettingsState implements GameState {
 						manager.getConfiguration().getCaptainNames().add(captainName);
 					}
 					
-					if(teamSelection.getChildren().size() <= manager.getConfiguration().getTeamCountMax())
+					if(teamSelection.getChildren().size() <= config.getTeamCountMax())
 						newTeam.setVisible(true);
 				}
 			});
