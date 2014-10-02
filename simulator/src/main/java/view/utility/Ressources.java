@@ -130,8 +130,10 @@ public class Ressources {
 		defaultConfiguration.setKrakenCount(10);
 		defaultConfiguration.setTeamCount(2);
 		defaultConfiguration.setShipCount(10);
-		defaultConfiguration.setRounds(1000);
-		defaultConfiguration.getTactics().add("src/main/ressources/alternative2.ship");
+
+		defaultConfiguration.setRounds(10000);
+		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
+
 		
 		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);
