@@ -263,7 +263,7 @@ private Command translate(String line){
 		return null;
 		}catch(Exception e){
 			errors.add("row: " + (row + 1));
-			return new Error(absRow,"Exception caught, due to some enum Exceptions.");	
+			return new Error(absRow,"Exception caught, due to some enum Exceptions. You may now lay down and cry.");	
 		}
 	}
 	

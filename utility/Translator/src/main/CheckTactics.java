@@ -58,7 +58,7 @@ public class CheckTactics {
 	
 	public void printErrors(){
 		if(translator.getErrors().size() > 0)
-			System.out.println("incorrect tactics.Visit the printed to file for further details.");
+			System.out.println(translator.getErrors().size() + " Errors occurred. Visit the printed to file for further informations.");
 		else
 			System.out.println("no errors found, except those displayed on the console.");
 	}
