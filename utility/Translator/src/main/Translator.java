@@ -296,24 +296,30 @@ private Command translate(String line){
 				if(labelized){
 					tacticsdoc.mark(140*2000);
 						while(true){
+							System.out.println("@init: " + row);
 							String labeledLine = tacticsdoc.readLine();
 							if(row >= 2001){
 								break;
 							}
 							if(labeledLine == null)
 								break;
-							labeledLine = labeledLine.replaceAll("	", " ");
-							makeSplits(labeledLine);
-							if(currentElement.startsWith("*")){
-								if (labels.containsValue(currentElement.substring(1).toLowerCase()))
-									errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
-								else{
-									labels.put(currentElement.substring(1).toLowerCase(), row);
+							labeledLine = labeledLine.trim().replaceAll("	", " ");
+							if((labeledLine.isEmpty() || labeledLine.trim().equals("") || labeledLine.trim().equals("\n"))){
+								System.out.println("empty: " + row);
+							}else{
+								makeSplits(labeledLine);
+								if(currentElement.startsWith("*")){
+									if (labels.containsValue(currentElement.substring(1).toLowerCase()))
+										errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
+									else{
+										labels.put(currentElement.substring(1).toLowerCase(), row);
+										System.out.println(row);
+										row++;
+									}	
+								}else{ 
 									row++;
-								}	
-							}else{ 
-								row++;
-								continue;
+									continue;
+								}
 							}
 						}
 /*************DER STREAM WIRD RESETTET*****************************************/
@@ -329,10 +335,6 @@ private Command translate(String line){
 							String currentLine = tacticsdoc.readLine();
 							if(row >= 2001){
 								break;
-							}
-							if(currentLine == ""){
-								errors.add("skip");
-								continue;
 							}
 							if(currentLine == null)
 								break;
@@ -352,7 +354,6 @@ private Command translate(String line){
 							}else 	
 								tactic.add(translate(currentLine.replaceAll("	", " ")));	
 							row++;
-							System.out.println(row);
 					}
 				
 				if(labelized){
