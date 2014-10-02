@@ -82,7 +82,7 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		splits = line.split(" ");
+		splits = line.trim().split(" ");
 		String res = "";
 		if (splits.length == 1){
 			currentElement = splits[0];
