@@ -3,7 +3,6 @@ package view.gamestates;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -68,7 +67,7 @@ public class InGameState implements GameState, LogWriter {
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
-		timer = new Timer();
+		timer = new Timer(true);
 		canvas = new Canvas(1280, 939);
 		tooltip = new Rectangle(20, 20, 200, 200);
 		tooltip.setStroke(Color.GRAY);
@@ -172,7 +171,7 @@ public class InGameState implements GameState, LogWriter {
 			 }
 			 catch(Exception e){}
 		 }
-		// manager.getScene().setRoot(manager.getRoot());
+		//manager.getScene().setRoot(manager.getRoot());
 	}
 
 	@Override
@@ -236,6 +235,8 @@ public class InGameState implements GameState, LogWriter {
 
 	@Override
 	public void close() throws IllegalStateException, IOException {
+		roundCounter.setText(roundCounter.getText() + "  Game Over");
+		
 		closed = true;
 		exiting();
 	}
@@ -308,7 +309,7 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public void logStep() throws IllegalStateException, IOException {
 		rounds++;
-		//roundCounter.setText(rounds.toString());
+		roundCounter.setText(rounds.toString());
 	}
 	
 	@Override
@@ -389,6 +390,7 @@ public class InGameState implements GameState, LogWriter {
 			entity.setEntityType(arg0);
 			int x = 0;
 			int y = 0;
+			int value = 0;
 			
 			for(int i = 0; i < arg2.length; i++){
 				switch(arg2[i]){
@@ -397,6 +399,7 @@ public class InGameState implements GameState, LogWriter {
 						break;
 					case VALUE:
 						entity.setValue(arg3[i]);
+						value = arg3[i];
 						break;
 					case X_COORD:
 						x = arg3[i];
@@ -424,6 +427,7 @@ public class InGameState implements GameState, LogWriter {
 				}
 				entities.add(entity);
 			}
+			//System.out.println(x + ", " + y + ":" + value);
 		}
 		
 		return this;

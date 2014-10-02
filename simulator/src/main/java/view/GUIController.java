@@ -215,6 +215,7 @@ public class GUIController extends Application {
 			public void handle(KeyEvent arg0) {
 				if(arg0.getCode().equals(KeyCode.ESCAPE))
 					Platform.exit();	
+					System.exit(0);
 			}
 		});
 	}

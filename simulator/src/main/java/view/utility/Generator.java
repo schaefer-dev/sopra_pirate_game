@@ -148,7 +148,6 @@ public class Generator {
 	}
 	
 	public void setBases(){
-		this.baseChance = baseChance;
 		Random gen = new Random();
 		
 		Arrays.fill(bases, boatsPerTeam);	

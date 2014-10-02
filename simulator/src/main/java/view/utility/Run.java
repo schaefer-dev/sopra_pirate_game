@@ -3,6 +3,7 @@ package view.utility;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
 import view.gamestates.InGameState;
 import controller.Simulator;
 
@@ -19,14 +20,18 @@ public class Run extends TimerTask {
 	
 	@Override
 	public void run() {
-		try{
-			if(state.getRound() < state.getMaxRounds())
-				sim.step();
-			else
-				timer.cancel();			
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		Platform.runLater(new Runnable() {
+            public void run() {
+        		try{
+        			if(state.getRound() < state.getMaxRounds())
+        				sim.step();
+        			else
+        				timer.cancel();			
+        		}
+        		catch(Exception e){
+        			e.printStackTrace();
+        		}
+            }
+        });
 	}
 }

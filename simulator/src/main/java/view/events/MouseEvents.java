@@ -115,6 +115,7 @@ public class MouseEvents {
 		    				Field field = fields[(int)midX][(int)midY];
 							map.markField(field);
 							
+							//System.out.println(field.getTreasure().getValue());
 						
 							tip.setX(newX);
 							tip.setY(newY);

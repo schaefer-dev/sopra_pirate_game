@@ -157,7 +157,7 @@ public class Ressources {
 		defaultConfiguration.setTeamCount(2);
 		defaultConfiguration.setShipCount(10);
 
-		defaultConfiguration.setRounds(10000);
+		defaultConfiguration.setRounds(100);
 		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
 
 		
