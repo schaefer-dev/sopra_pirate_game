@@ -7,7 +7,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.Rectangle;
-import view.gamestates.InGameState;
 import view.utility.Camera;
 import view.utility.Field;
 import view.utility.Map;
