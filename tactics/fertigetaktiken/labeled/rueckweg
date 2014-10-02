@@ -1,0 +1,14 @@
+*findBackFromIsland 	turn right
+*senseAgain 		sense 0
+			ifany sense_celltype==empty sense_celltype==home else findBackFromIsland
+*doItAgain 		move else doItAgain
+			ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else findbackdirect
+			sense 0
+			if celltype==island else checkLeft 
+			turn right
+			goto senseAgain
+*checkLeft 		sense 5 
+			if sense_cellType==empty else doItAgain
+			turn left
+			goto checkLeft
+
