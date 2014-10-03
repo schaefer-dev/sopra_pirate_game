@@ -141,7 +141,7 @@ private Command translate(String line){
 				}	   
 			case GOTO:
 				value = evaluateValues(false,false);
-				if(value != -1)
+				if(value > -1)
 					return new Goto(value);
 				break;
 				
@@ -169,13 +169,13 @@ private Command translate(String line){
 				
 			case MOVE:
 				value = evaluateValues(true,false);
-				if(value == -1)
+				if(value <= -1)
 					return new Error(absRow, "invalid address or label: " + currentElement);
 				return new Move(value);										     
 			
 			case REPAIR: 
 				value = evaluateValues(true,false);
-				if(value == -1)
+				if(value <= -1)
 					return new Error(absRow, "invalid address or label: " + currentElement);
 				return new Repair(value);
 				
@@ -183,7 +183,7 @@ private Command translate(String line){
 				value = evaluateValues(false,true);
 					if(0 <= value && value <= 6){
 						elsepc = evaluateValues(true,true);
-						if(elsepc != -1){
+						if(elsepc > -1){
 									return new Pickup(value,elsepc);	
 								}else
 									return new Error(absRow, "invalid address or label: " + currentElement);
@@ -199,7 +199,7 @@ private Command translate(String line){
 				value = evaluateValues(false,true);
 					if(0 <= value && value <= 6){
 						elsepc = evaluateValues(true,true);
-						if(elsepc != -1){
+						if(elsepc > -1){
 								return new Refresh(value,elsepc);
 							}else
 								return new Error(absRow, "invalid address or label: " + currentElement);
@@ -213,7 +213,7 @@ private Command translate(String line){
 				value = evaluateValues(false,true);
 					if(value > 1){
 						elsepc = evaluateValues(true,true);
-						if(elsepc != -1){
+						if(elsepc > -1){
 							return new Flipzero(value,elsepc);
 						}else
 							return new Error(absRow, "invalid address or label: " + currentElement);
@@ -228,7 +228,7 @@ private Command translate(String line){
 				Comparison comparison = toolBox.buildComparison(currentElement);
 				if(comparison != null && appendix != null){
 					value = evaluateValues(true,false);
-					if(value != -1){
+					if(value > -1){
 						return new If(comparison, value);
 					}else
 						return new Error(absRow, "invalid address or label: " + currentElement);
@@ -337,26 +337,31 @@ private Command translate(String line){
 							if(currentLine.contains(";"))  //schaut, ob ein Kommentar im Text steht und verkuerzt den String.
 								currentLine = currentLine.substring(0, currentLine.indexOf(";"));
 							currentLine = currentLine.trim().replaceAll("	", " ");
-			if(currentLine.length() < 1){
-							row = row + 0;
-							absRow++;
-			}else{
-							if(labelized){
+							if(currentLine.length() < 1){
+								row = row + 0;
+								absRow++;
+							}else{
+								if(labelized){
 									makeSplits(currentLine);
 									if(currentElement.startsWith("*")){
 										try{
-											tactic.add(translate(appendix));
+											appendix = appendix.trim();
+											if (appendix.length() < 1){
+												row = row + 0;
+												absRow++;
+											}else	
+												tactic.add(translate(appendix));
 										}catch(Exception e){
 											errors.add("l: " + row + "leere Zeile");
 										}
 									}else
 										tactic.add(translate(currentLine));
-							}else 	
-								tactic.add(translate(currentLine));	
-							row++;
-							absRow++;
-					}
-			}	
+								}else 	
+									tactic.add(translate(currentLine));	
+								row++;
+								absRow++;
+							}
+						}	
 				if(labelized){
 					if (errors.size() > 0){
 						int error = 0;
