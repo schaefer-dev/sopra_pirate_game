@@ -37,12 +37,6 @@
 						turn right
 						turn right
 						turn right
-						sense 0			;nur bremse
-						sense 0
-						sense 0
-						sense 0
-						sense 0
-						sense 0
 						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
