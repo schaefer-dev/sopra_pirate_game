@@ -338,10 +338,10 @@ sense 0
 if sense_celltype==island else 342
 turn left
 turn left
-move else 340
+move else 356
 goto 345
 turn left
-move else 343
+move else 356
 turn left
 flipzero 2 else 351
 turn right
@@ -349,13 +349,27 @@ flipzero 2 else 349
 move else 348
 move else 349
 turn left
-move else 351
+move else 356
 sense 0
 ifall sense_celltype!=island sense_shiptype!=enemy sense_celltype!=enemyhome sense_shiptype!=friend else 356
 ifany sense_marker0 sense_marker1 sense_marker2 sense_marker3 sense_marker4 sense_marker5 sense_celltype==home else 351
 goto 165
 refresh 0 else 357
-ifany ship_direction==1 ship_direction==2 ship_direction==4 ship_direction==5 else 342
+flipzero 6 else 360
+turn right
+goto 351
+flipzero 5 else 364
 turn right
 turn right
+goto 351
+flipzero 4 else 367
+turn left
+goto 351
+flipzero 3 else 371
+turn left
+turn left
+goto 351
+turn left
+turn left
+turn left
 goto 351
