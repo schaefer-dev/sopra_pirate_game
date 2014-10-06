@@ -26,7 +26,7 @@ public class Configuration {
 	private int supplyDensity = SUPPLY_DENSITY_MIN;
 	
 	public final static int KRAKEN_COUNT_MIN = 0;
-	public final static int KRAKEN_COUNT_MAX = 50;
+	public final static int KRAKEN_COUNT_MAX = 2000;
 	private int krakenCount = KRAKEN_COUNT_MIN;
 	
 	public final static int TEAM_COUNT_MIN = 1;
