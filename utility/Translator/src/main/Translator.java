@@ -309,7 +309,8 @@ private Command translate(String line){
 										errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
 									else{
 										labels.put(currentElement.substring(1).toLowerCase(), row);
-										row++;
+										if(appendix != null)
+											row++;
 									}	
 								}else{ 
 									row++;
@@ -345,7 +346,7 @@ private Command translate(String line){
 										try{
 											appendix = appendix.trim();
 											if (appendix.length() < 1){
-												row = row - 1;
+												row = row + 0;
 												absRow++;
 											}else	
 												tactic.add(translate(appendix));
