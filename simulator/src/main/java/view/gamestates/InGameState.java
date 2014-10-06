@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
 
 import controller.Simulator;
 import javafx.event.ActionEvent;
@@ -19,8 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.FieldType;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
@@ -28,9 +25,9 @@ import view.GUIController;
 import view.GUITransaction;
 import view.SimpleEntity;
 import view.events.MouseEvents;
-import view.events.PlayPauseEvent;
 import view.utility.Camera;
 import view.utility.Field;
+import view.utility.GameFlowControl;
 import view.utility.GameState;
 import view.utility.Map;
 import view.utility.Ressources;
@@ -42,10 +39,15 @@ public class InGameState implements GameState, LogWriter {
 	private GUIController manager;
 	private final Canvas canvas;
 	private Group root;
-	private Rectangle tooltip;
+	private Label tooltip;
 	private GraphicsContext gc;
 	private Accordion teamWindow;
 	private Button teamClosed;
+	private Button play;
+	private Button pause;
+	private Button next;
+	private Button speedUp;
+	private Button slowDown;
 	private VBox teamOpened;
 	
 	private Map map;
@@ -58,27 +60,21 @@ public class InGameState implements GameState, LogWriter {
 	private Integer maxRounds;
 	private Label roundCounter;
 	private Simulator sim;
-	private PlayPauseEvent playPause;
-	private Timer timer;
-	
-	private boolean closed;
+	private GameFlowControl control;
 	
 	public InGameState(char[][] fieldChars, Ressources res, Integer turns) {
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
-		timer = new Timer(true);
 		canvas = new Canvas(1280, 939);
-		tooltip = new Rectangle(20, 20, 200, 200);
-		tooltip.setStroke(Color.GRAY);
-		tooltip.setFill(Color.WHITE);
+		tooltip = new Label();
+		tooltip.getStyleClass().add("tooltipi");
 		tooltip.setVisible(false);
 		addTooltipListener();
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
         rounds = 0;
-        closed = false;
 	}
 	
 	@Override
@@ -97,11 +93,12 @@ public class InGameState implements GameState, LogWriter {
         events.addMouseClickEvent(canvas);
         
         roundCounter = new Label(rounds.toString());
+        roundCounter.getStyleClass().add("menulabel");
         roundCounter.setTranslateX(10);
         
-        Button next = new Button("Next");
+        next = new Button("Next");
         next.setTranslateY(665);
-        next.setTranslateX(75);
+       
 		next.getStyleClass().add("canvasbutton");
 		next.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -116,11 +113,40 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
-        Button play = new Button("Play");
+        play = new Button("Play");
         play.setTranslateY(665);
+        play.setTranslateX(75);
         play.getStyleClass().add("canvasbutton");
-        playPause = new PlayPauseEvent(this, timer);
-		play.setOnAction(playPause);
+        
+        pause = new Button("Pause");
+        pause.setVisible(false);
+        pause.setTranslateY(665);
+        pause.setTranslateX(75);
+        pause.getStyleClass().add("canvasbutton");
+		
+		slowDown = new Button("-");
+		slowDown.setTranslateY(665);
+		slowDown.setTranslateX(145);
+		slowDown.getStyleClass().add("canvasbutton");
+		
+		speedUp = new Button("+");
+		speedUp.setTranslateY(663);
+		speedUp.setTranslateX(170);
+		speedUp.getStyleClass().add("canvasbutton");
+		
+		this.control = new GameFlowControl(sim, play, pause, speedUp, slowDown);
+		
+		Button end = new Button("End");
+		end.getStyleClass().add("canvasbutton");
+		end.setTranslateY(665);
+		end.setTranslateX(1190);
+		end.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				manager.switchState(new MainMenuState());
+			}
+		});
 		
 		Button teamClose = new Button("Close >");
 		teamClose.setVisible(true);
@@ -136,8 +162,23 @@ public class InGameState implements GameState, LogWriter {
 		
 		teams.removeAll(Collections.singleton(null));
 		teamWindow = new Accordion(); 
-		for(Team team: teams)
-			teamWindow.getPanes().add(new TitledPane(team.toString(), new Text(giveTeamText(team))));
+		for(final Team team: teams){
+			
+			final TitledPane pane = new TitledPane(team.toString(), new Text(giveTeamText(team)));
+			pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					map.drawMap();
+					for(Ship ship: team.getShips()){
+						Field field = fields[ship.getX()][ship.getY()];
+						map.markField(field);
+					}
+				}
+			});
+			
+			teamWindow.getPanes().add(pane);
+		}
 		
 		teamOpened = new VBox();
 		teamOpened.setVisible(false);
@@ -156,22 +197,15 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
-		
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, next, tooltip, teamClosed, teamOpened);
+		root.getChildren().addAll(canvas, roundCounter, play, pause, next, slowDown, speedUp, end, tooltip, teamClosed, teamOpened);
 		manager.getScene().setRoot(root);
 	}
 
 	@Override
 	public void exiting() {
-		 playPause.close();
-		 if(!closed){
-			 try{
-				 close();
-			 }
-			 catch(Exception e){}
-		 }
-		//manager.getScene().setRoot(manager.getRoot());
+		 control.close();
+		 manager.getScene().setRoot(manager.getRoot());
 	}
 
 	@Override
@@ -201,7 +235,7 @@ public class InGameState implements GameState, LogWriter {
 		return maxRounds;
 	}
 	
-	public Rectangle getTooltip(){
+	public Label getTooltip(){
 		return tooltip;
 	}
 	
@@ -235,16 +269,20 @@ public class InGameState implements GameState, LogWriter {
 
 	@Override
 	public void close() throws IllegalStateException, IOException {
-		roundCounter.setText(roundCounter.getText() + "  Game Over");
+		control.close();
 		
-		closed = true;
-		exiting();
+		roundCounter.setText(roundCounter.getText() + "  (Game Over)");
+		play.setVisible(false);
+		pause.setVisible(false);
+		next.setVisible(false);
+		slowDown.setVisible(false);
+		speedUp.setVisible(false);
 	}
 	
 	@Override
 	public LogWriter notify(Entity arg0, int arg1, Key arg2, int arg3) throws NullPointerException, IllegalArgumentException, IllegalStateException {
 		if(arg0.equals(Entity.SHIP)){
-			Ship ship = new Ship();
+			Ship ship = ships.get(arg1);
 			
 			switch(arg2){
 				case CONDITION:
@@ -252,6 +290,7 @@ public class InGameState implements GameState, LogWriter {
 					break;
 				case DIRECTION:
 					ship.setDirection(arg3);
+					fields[ship.getX()][ship.getY()].rotateShip(arg3);
 					break;
 				case FLEET:
 					ship.setFleet(arg3);
@@ -274,7 +313,7 @@ public class InGameState implements GameState, LogWriter {
 			}
 		}
 		else{
-			SimpleEntity entity = new SimpleEntity();
+			SimpleEntity entity = entities.get(arg1);
 			entity.setEntityType(arg0);
 
 			switch(arg2){
@@ -300,9 +339,12 @@ public class InGameState implements GameState, LogWriter {
 			teams.set(arg0, new Team(arg0));
 		teams.get(arg0).setScore(arg1);
 		
-		if(teamWindow != null)
-			teamWindow.getPanes().get(arg0).setContent(new Text(giveTeamText(teams.get(arg0))));
-		
+		if(teamWindow != null){
+			TitledPane pane = teamWindow.getPanes().get(arg0);
+			//pane.setText(pane.getText() + " " + teams.get(arg0).getScore());
+			pane.setContent(new Text(giveTeamText(teams.get(arg0))));
+		}
+			
 		return this;
 	}
 
@@ -342,7 +384,7 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public LogWriter create(Entity arg0, int arg1, Key[] arg2, int[] arg3) throws NullPointerException, IllegalArgumentException, ArrayIndexOutOfBoundsException, IllegalStateException {
 		if(arg0.equals(Entity.SHIP)){
-			Ship ship = new Ship();
+			Ship ship = new Ship(arg1);
 			int x = 0;
 			int y = 0;
 			
@@ -374,23 +416,19 @@ public class InGameState implements GameState, LogWriter {
 						break;
 					case X_COORD:
 						x = arg3[i];
-						ship.setX(x);
 						break;
 					case Y_COORD:
 						y = arg3[i];
-						ship.setY(y);
 						break;
 				}
 			}
 			fields[x][y].setShip(ship);
+			ship.setField(fields[x][y]);
 			ships.add(ship);
 		}
 		else{
-			SimpleEntity entity = new SimpleEntity();
+			SimpleEntity entity = new SimpleEntity(arg1);
 			entity.setEntityType(arg0);
-			int x = 0;
-			int y = 0;
-			int value = 0;
 			
 			for(int i = 0; i < arg2.length; i++){
 				switch(arg2[i]){
@@ -399,35 +437,31 @@ public class InGameState implements GameState, LogWriter {
 						break;
 					case VALUE:
 						entity.setValue(arg3[i]);
-						value = arg3[i];
 						break;
 					case X_COORD:
-						x = arg3[i];
-						entity.setX(x);
+						entity.setX(arg3[i]);
 						break;
-					case Y_COORD:
-						y = arg3[i];
-						entity.setY(y);
+					case Y_COORD:				
+						entity.setY(arg3[i]);
 						break;
 					default:
 						throw new IllegalArgumentException();
 				}
-				switch(arg0){
-					case BUOY:
-						fields[x][y].addBuoy(entity);
-						break;
-					case KRAKEN:
-						fields[x][y].setKraken(entity);
-						break;
-					case TREASURE:
-						fields[x][y].setTreasure(entity);
-						break;
-					default:
-						break;
-				}
-				entities.add(entity);
 			}
-			//System.out.println(x + ", " + y + ":" + value);
+			switch(arg0){
+				case BUOY:
+					fields[entity.getX()][entity.getY()].addBuoy(entity);
+					break;
+				case KRAKEN:
+					fields[entity.getX()][entity.getY()].setKraken(entity);
+					break;
+				case TREASURE:
+					fields[entity.getX()][entity.getY()].setTreasure(entity);
+					break;
+				default:
+					break;
+			}
+			entities.add(entity);
 		}
 		
 		return this;
@@ -462,7 +496,6 @@ public class InGameState implements GameState, LogWriter {
 				default:
 					break;
 			}
-			
 			entities.set(arg1, null);
 		}
 		
@@ -482,18 +515,15 @@ public class InGameState implements GameState, LogWriter {
 		
 		if(entity == Entity.SHIP){
 			Ship ship = ships.get(id);
-			
 			int x = (trans.getX() == null) ? ship.getX() : trans.getX();
 			int y = (trans.getY() == null) ? ship.getY() : trans.getY();
 			fields[ship.getX()][ship.getY()].setShip(null);
 			
-			ship.setX(x);
-			ship.setY(y);
+			ship.setField(fields[x][y]);
 			fields[x][y].setShip(ship);
 		}
 		else if(entity == Entity.KRAKEN){
 			SimpleEntity kraken = entities.get(id);
-			
 			int x = (trans.getX() == null) ? kraken.getX() : trans.getX();
 			int y = (trans.getY() == null) ? kraken.getY() : trans.getY();
 			fields[kraken.getX()][kraken.getY()].setKraken(null);

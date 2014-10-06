@@ -27,12 +27,15 @@ public class Field {
 	private Image buoysImage;
 	private Image krakenImage;
 	
+	private boolean farAway;
+	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
 		this.y = y;
 		this.map = map;
 		this.type = type;
 		buoys = new LinkedList<SimpleEntity>();
+		farAway = false;
 		
 		switch(type){
 			case Base:
@@ -64,6 +67,7 @@ public class Field {
 		this.affiliation = affiliation;
 		this.buoys = new LinkedList<SimpleEntity>();
 		fieldImage = map.getRessources().getBaseImage();
+		farAway = false;
 	}
 	
 	
@@ -87,6 +91,11 @@ public class Field {
 		else 
 			images.add(fieldImage);
 		
+		if(farAway){
+			farAway = false;
+			images.add(map.getRessources().getWaterFarImage());
+		}
+		
 		if(detailImage != null && zoom < 2)
 			images.add(detailImage);
 		if(buoysImage != null && zoom < 2)
@@ -95,10 +104,17 @@ public class Field {
 			images.add(krakenImage);
 		if(treasureImage != null && zoom < 3)
 			images.add(treasureImage);
-		if(shipImage != null && zoom < 5)
-			images.add(shipImage);
-		
+
 		return images;
+	}
+	
+	public Image getShipImage(){
+		int zoom =  map.getCam().zoomLevelAbsolute();
+		
+		if(shipImage != null && zoom < 5)
+			return shipImage;
+		
+		return null;
 	}
 	
 	
@@ -128,9 +144,21 @@ public class Field {
 	}
 	
 	public void setShip(Ship ship){
-		this.shipImage = (ship == null) ? null : map.getRessources().getShipImage();
+		if(ship == null){
+			this.shipImage = null;
+			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
+				farAway = true;
+		}
+		else
+			this.shipImage = map.getRessources().getShipImage();
+
 		this.ship = ship;
 		redraw();
+	}
+	
+	public void rotateShip(int direction){
+		if(ship == null) throw new IllegalStateException();
+		
 	}
 	
 	public SimpleEntity getTreasure(){
@@ -174,9 +202,39 @@ public class Field {
 	}
 
 	public void setKraken(SimpleEntity kraken) {
-		krakenImage = (kraken == null) ? null : map.getRessources().getKrakenImage();
+		if(kraken == null){
+			krakenImage = null;
+			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
+				farAway = true;
+		}
+		else
+			krakenImage = map.getRessources().getKrakenImage();
 		
 		this.kraken = kraken;
 		redraw();
 	}	
+	
+	public String giveTooltipText(){
+		String intro = type.toString() + "(" + x + "," + y + ")\n\n";
+		
+		String treasureInfo = "";
+		if(treasure != null)
+			treasureInfo = "Treasure(#" + treasure.getId() + "): " + treasure.getValue() + "\n";
+		
+		String krakenInfo = "";
+		if(kraken != null)
+			krakenInfo = "Kraken(#" + kraken.getId() + ") present\n";
+		
+		String shipInfo = "";
+		if(ship != null)
+			shipInfo = "Ship(#" + ship.getID() + "): \n"
+								+ "PC: " + ship.getPc() + "\n"
+								+ "Resting: " + ship.getResting() + "\n"
+								+ "Load: " + ship.getLoad() + "\n"
+								+ "Moral: " + ship.getMoral() + "\n"
+								+ "Condition: " + ship.getCondition() + "\n"
+								+ "Fleet: " + ship.getFleet()  + "\n";
+		
+		return intro + treasureInfo + krakenInfo +shipInfo;
+	}
 }

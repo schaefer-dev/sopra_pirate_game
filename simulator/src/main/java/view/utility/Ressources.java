@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 public class Ressources {
 
 	private Image water;
+	private Image waterFar;
 	private Image island;
 	private Image base;
 	private Image provision;
@@ -38,6 +39,10 @@ public class Ressources {
 	    	file = new File("src/main/ressources/water2.png");
 	    	stream = new FileInputStream(file);
 	    	water = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/water_far.png");
+	    	stream = new FileInputStream(file);
+	    	waterFar = new Image(stream);
 
 	    	
 	    	file = new File("src/main/ressources/shoreIsland.png");
@@ -50,9 +55,13 @@ public class Ressources {
 	    	base = new Image(stream);
 
 	    	
-	    	file = new File("src/main/ressources/ship100px.png");
+	    	file = new File("src/main/ressources/ship.png");
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/kraken.png");
+	    	stream = new FileInputStream(file);
+	    	krakenImage = new Image(stream);
 
 	    	
 	    	file = new File("src/main/ressources/islandCoin.png");
@@ -98,6 +107,10 @@ public class Ressources {
 	
 	public Image getWaterImage(){
 		return water;
+	}
+	
+	public Image getWaterFarImage(){
+		return waterFar;
 	}
 	
 	public Image getIslandImage(){
@@ -150,15 +163,14 @@ public class Ressources {
 	
 	public void createDefaultConfig() throws IOException{
 		defaultConfiguration = new Configuration();
-		defaultConfiguration.setTreasureCount(3);
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(10);
-		defaultConfiguration.setTeamCount(2);
+		defaultConfiguration.setTeamCount(3);
 		defaultConfiguration.setShipCount(10);
 
-		defaultConfiguration.setRounds(100);
-		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
+		defaultConfiguration.setRounds(10000);
+		defaultConfiguration.getTactics().add("src/main/ressources/danielTest_withBuoyStop.ship");
 
 		
 		File file = new File("src/main/ressources/default.map");

@@ -41,9 +41,11 @@ public class GoogleMapsState implements GameState {
 		catch(Exception e){}
 		
 		Label location = new Label("Location");
+		location.getStyleClass().add("menulabel");
 		final TextField locationField = new TextField("");
 		
 		Label zoom = new Label("Zoom");
+		zoom.getStyleClass().add("menulabel");
 		Slider zoomSlider = new Slider(1, 21, 5);
 		zoomSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Zoom of the map"));
 		zoomSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -51,9 +53,11 @@ public class GoogleMapsState implements GameState {
 		zoomSlider.setMajorTickUnit(2);
 		zoomSlider.setSnapToTicks(true);
 		Label zoomLabel = new Label(String.format("%.0f", zoomSlider.getValue()));
+		zoomLabel.getStyleClass().add("menulabel");
 		SliderListener zListener = new SliderListener(zoomSlider, zoomLabel);
 		
 		Label mapSize = new Label("Map Size");
+		mapSize.getStyleClass().add("menulabel");
 		Slider mapSizeSlider = new Slider(Configuration.MAP_SIZE_MIN, Configuration.MAP_SIZE_MAX, Configuration.MAP_SIZE_MIN);
 		mapSizeSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines width & height of the map"));
 		mapSizeSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -62,6 +66,7 @@ public class GoogleMapsState implements GameState {
 		mapSizeSlider.setMinorTickCount(2);
 		mapSizeSlider.setSnapToTicks(true);
 		Label mapSizeLabel = new Label(String.format("%.0f", mapSizeSlider.getValue()));
+		mapSizeLabel.getStyleClass().add("menulabel");
 		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel, true);
 		
 		Button generate = new Button("Generate");

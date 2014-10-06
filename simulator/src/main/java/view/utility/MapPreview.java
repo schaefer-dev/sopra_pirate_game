@@ -68,6 +68,7 @@ public class MapPreview {
 	}	
 	
 
+	@SuppressWarnings("resource")
 	private char[][] buildMap(File mapFile) throws IOException{
 		if(mapFile == null)
 			mapFile = new File("map.txt");
@@ -105,12 +106,10 @@ public class MapPreview {
 				char glyph = line.charAt(i);
 				char c;
 				
-				if(glyph == '#' || glyph == '$' || isDigit(glyph))
-					c = '#';
-				else if(isTeamLetter(glyph))
+				if(glyph == '.' || glyph == '#' || glyph == '$' || glyph == '&' || isDigit(glyph) || isTeamLetter(glyph))
 					c = glyph;
 				else
-					c = '.';
+					throw new IllegalArgumentException();
 				
 				fields[x][y] = c;
 				incrementXY(width, height);

@@ -18,6 +18,7 @@ public class MainMenuState implements GameState {
 		manager = control;
 		manager.getTitleText().setText(title);
 		manager.setConfiguration(manager.getRessources().getDefaultConfig());
+		manager.resetRessources();
 	
 		Button quickGame = new Button(" Quick Game ");
 		quickGame.getStyleClass().add("menubutton");
@@ -48,6 +49,7 @@ public class MainMenuState implements GameState {
 		manager.getRoot().setCenter(root);
 	}
 
+	
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);

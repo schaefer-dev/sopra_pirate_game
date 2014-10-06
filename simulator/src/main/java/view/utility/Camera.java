@@ -130,6 +130,23 @@ public class Camera {
 		}
 	}
 	
+	public void zoomOut(int factor){
+		if(b - a < maxX + maxZoom){
+			if(scrollable){
+				a -= factor;
+				b += factor;
+				c -= factor;
+				d += factor;
+			}
+			else{
+				a = (a - factor <= minX) ? minX : a - factor;
+				b = (b + factor >= maxX) ? maxX : b + factor;
+				c = (c - factor <= minY) ? minY : c - factor;
+				d = (d + factor >= maxY) ? maxY : d + factor;
+			}
+		}
+	}
+	
 	public int zoomLevelRelative(){
 		int zoom = maxX - (b-a);
 		if(zoom < 0)
@@ -156,29 +173,12 @@ public class Camera {
 			return 1;
 		if(zoom <= 70)
 			return 2;
-		if(zoom <= 80)
+		if(zoom <= 100)
 			return 3;
 		if(zoom <= 130)
 			return 4;
 		else
 			return 5;
-	}
-	
-	public void zoomOut(int factor){
-		if(b - a < maxX + maxZoom){
-			if(scrollable){
-				a -= factor;
-				b += factor;
-				c -= factor;
-				d += factor;
-			}
-			else{
-				a = (a - factor <= minX) ? minX : a - factor;
-				b = (b + factor >= maxX) ? maxX : b + factor;
-				c = (c - factor <= minY) ? minY : c - factor;
-				d = (d + factor >= maxY) ? maxY : d + factor;
-			}
-		}
 	}
 	
 	public boolean intersects(int x, int y){

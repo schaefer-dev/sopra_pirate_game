@@ -17,7 +17,7 @@ public class GameSettingsState implements GameState {
 	private GUIController manager;
 	private String title = "Game Settings";
 	private BorderPane root;
-	private SliderListener tcListener, tdListener, scListener, kListener, sListener, rListener;
+	private SliderListener tdListener, scListener, kListener, sListener, rListener;
 
 	@Override
 	public void entered(GUIController control) {
@@ -25,18 +25,8 @@ public class GameSettingsState implements GameState {
 		manager.getTitleText().setText(title);
 		Configuration map = manager.getConfiguration();
 
-		Label treasureCount = new Label("Treasure Count");
-		Slider treasureCountSlider = new Slider(Configuration.TREASURE_COUNT_MIN, Configuration.TREASURE_COUNT_MAX, map.getTreasureCount());
-		treasureCountSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of gold per treasure chest"));
-		treasureCountSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		treasureCountSlider.setMaxWidth(200);
-		treasureCountSlider.setMajorTickUnit(4);
-		treasureCountSlider.setMinorTickCount(2);
-		treasureCountSlider.setSnapToTicks(true);
-		Label treasureCountLabel = new Label(String.format("%.0f", treasureCountSlider.getValue()));
-		tcListener = new SliderListener(treasureCountSlider, treasureCountLabel);
-		
 		Label treasureDensity = new Label("Treasure Density");
+		treasureDensity.getStyleClass().add("menulabel");
 		Slider treasureDensitySlider = new Slider(Configuration.TREASURE_DENSITY_MIN, Configuration.TREASURE_DENSITY_MAX, map.getTreasureDensity());
 		treasureDensitySlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of treasure chests on the map"));
 		treasureDensitySlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -45,10 +35,12 @@ public class GameSettingsState implements GameState {
 		treasureDensitySlider.setMinorTickCount(2);
 		treasureDensitySlider.setSnapToTicks(true);
 		Label treasureDensityLabel = new Label(String.format("%.0f", treasureDensitySlider.getValue()));
+		treasureDensityLabel.getStyleClass().add("menulabel");
 		tdListener = new SliderListener(treasureDensitySlider, treasureDensityLabel);
 		
-		Label supplyCount = new Label("Supplies");
-		Slider supplyCountSlider = new Slider(Configuration.TREASURE_COUNT_MIN, Configuration.TREASURE_COUNT_MAX, map.getSupplyDensity());
+		Label supplyCount = new Label("Supply Density");
+		supplyCount.getStyleClass().add("menulabel");
+		Slider supplyCountSlider = new Slider(Configuration.SUPPLY_DENSITY_MIN, Configuration.SUPPLY_DENSITY_MAX, map.getSupplyDensity());
 		supplyCountSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of supply on the map"));
 		supplyCountSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		supplyCountSlider.setMaxWidth(200);
@@ -56,9 +48,11 @@ public class GameSettingsState implements GameState {
 		supplyCountSlider.setMinorTickCount(2);
 		supplyCountSlider.setSnapToTicks(true);
 		Label supplyCountLabel = new Label(String.format("%.0f", supplyCountSlider.getValue()));
+		supplyCountLabel.getStyleClass().add("menulabel");
 		scListener = new SliderListener(supplyCountSlider, supplyCountLabel);
 		
 		Label kraken = new Label("Kraken");
+		kraken.getStyleClass().add("menulabel");
 		Slider krakenSlider = new Slider(Configuration.KRAKEN_COUNT_MIN, Configuration.KRAKEN_COUNT_MAX, map.getKrakenCount());
 		krakenSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of deadly kraken on the map"));
 		krakenSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -67,9 +61,11 @@ public class GameSettingsState implements GameState {
 		krakenSlider.setMinorTickCount(2);
 		krakenSlider.setSnapToTicks(true);
 		Label krakenLabel = new Label(String.format("%.0f", krakenSlider.getValue()));
+		krakenLabel.getStyleClass().add("menulabel");
 		kListener = new SliderListener(krakenSlider, krakenLabel);
 		
 		Label ships = new Label("Ships");
+		ships.getStyleClass().add("menulabel");
 		Slider shipsSlider = new Slider(Configuration.SHIP_COUNT_MIN, Configuration.SHIP_COUNT_MAX, map.getShipCount());
 		shipsSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of ships per team"));
 		shipsSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -78,9 +74,11 @@ public class GameSettingsState implements GameState {
 		shipsSlider.setMinorTickCount(2);
 		shipsSlider.setSnapToTicks(true);
 		Label shipsLabel = new Label(String.format("%.0f", shipsSlider.getValue()));
+		shipsLabel.getStyleClass().add("menulabel");
 		sListener = new SliderListener(shipsSlider, shipsLabel);
 		
 		Label rounds = new Label("Rounds");
+		rounds.getStyleClass().add("menulabel");
 		Slider roundSlider = new Slider(Configuration.ROUNDS_MIN, Configuration.ROUNDS_MAX, map.getShipCount());
 		roundSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of ships per team"));
 		roundSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -89,13 +87,11 @@ public class GameSettingsState implements GameState {
 		roundSlider.setMinorTickCount(2);
 		roundSlider.setSnapToTicks(true);
 		Label roundsLabel = new Label(String.format("%.0f", shipsSlider.getValue()));
+		roundsLabel.getStyleClass().add("menulabel");
 		rListener = new SliderListener(roundSlider, roundsLabel);
 		
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
-		grid.add(treasureCount, 1, 0);
-		grid.add(treasureCountSlider, 2, 0);
-		grid.add(treasureCountLabel, 3, 0);
 		grid.add(treasureDensity, 1, 1);
 		grid.add(treasureDensitySlider, 2, 1);
 		grid.add(treasureDensityLabel, 3, 1);
@@ -111,7 +107,6 @@ public class GameSettingsState implements GameState {
 		grid.add(rounds, 1, 5);
 		grid.add(roundSlider, 2, 5);
 		grid.add(roundsLabel, 3, 5);
-		
 		
 		Button back = new Button("< Map Settings");
 		back.getStyleClass().add("menubutton");
@@ -142,7 +137,6 @@ public class GameSettingsState implements GameState {
 	public void exiting() {
 		try{
 			Configuration map = manager.getConfiguration();
-			map.setTreasureCount(tcListener.get());
 			map.setTreasureDensity(tdListener.get());
 			map.setSupplyDensity(scListener.get());
 			map.setKrakenCount(kListener.get());
