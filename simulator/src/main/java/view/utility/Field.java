@@ -130,7 +130,7 @@ public class Field {
 		return y;
 	}
 	
-	public Integer getAffiliation() {
+	public Integer getAffiliation(){
 		return affiliation;
 	}
 	
@@ -197,11 +197,11 @@ public class Field {
 		}	
 	}
 
-	public SimpleEntity getKraken() {
+	public SimpleEntity getKraken(){
 		return kraken;
 	}
 
-	public void setKraken(SimpleEntity kraken) {
+	public void setKraken(SimpleEntity kraken){
 		if(kraken == null){
 			krakenImage = null;
 			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
@@ -235,6 +235,23 @@ public class Field {
 								+ "Condition: " + ship.getCondition() + "\n"
 								+ "Fleet: " + ship.getFleet()  + "\n";
 		
-		return intro + treasureInfo + krakenInfo +shipInfo;
+		String buoyInfo = "";
+		if(buoys.size() > 0){
+			buoyInfo  = "Buoys: \n";
+			String buoyDetails = "";
+			int size = 0;
+			for(SimpleEntity buoy: buoys){
+				buoyDetails += buoy.getValue() + "(#" + buoy.getFleet() + ") ";
+				size++;
+				
+				if(size > 6){
+					size = 0;
+					buoyDetails += "\n";
+				}
+			}
+			buoyInfo += buoyDetails + "\n";
+		}
+		
+		return intro + treasureInfo + krakenInfo +shipInfo + buoyInfo;
 	}
 }

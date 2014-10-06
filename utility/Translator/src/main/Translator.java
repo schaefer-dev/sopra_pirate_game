@@ -82,7 +82,8 @@ public class Translator {
 	private void makeSplits(String line){
 		int index = 1;
 		String[] splits = null;
-		splits = line.trim().split(" ");
+		line = line.trim();
+		splits = line.split(" ");
 		String res = "";
 		if (splits.length == 1){
 			currentElement = splits[0];
@@ -143,7 +144,7 @@ private Command translate(String line){
 				value = evaluateValues(false,false);
 				if(value > -1)
 					return new Goto(value);
-				break;
+				return new Error(absRow,"InvalidLabel: " + currentElement);
 				
 			case MARK: 
 				value = evaluateValues(false,false);
@@ -257,10 +258,7 @@ private Command translate(String line){
 			default:
 				errors.add("row: " + (row + 1));
 				return new Error(absRow,"This error shouldnt even exist! Looks like you forget to enter a valid command.");	
-			}
-		
-			
-		return null;
+			}			
 		}catch(Exception e){
 			errors.add("row: " + (row + 1));
 			return new Error(absRow,"Exception caught, due to some enum Exceptions. You may now lay down and cry.");	
@@ -428,10 +426,10 @@ private Command translate(String line){
 					if(isElse())
 						makeSplits(appendix);
 					else{
-					errors.add("row: " + (row + 1));
-					return -1;
+						errors.add("row: " + (row + 1));
+						return -1;
 					}
-			}address = evaluateAddress(currentElement);
+				}address = evaluateAddress(currentElement);
 				if(address != -1){
 					if(!twoValues)
 						overloadTest();

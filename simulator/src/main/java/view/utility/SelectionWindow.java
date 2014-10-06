@@ -14,6 +14,8 @@ public abstract class SelectionWindow {
 	
 	public abstract void draw(GraphicsContext preview);
 	
+	public abstract int getRounds();
+	
 	@Override
 	public abstract String toString();	
 }

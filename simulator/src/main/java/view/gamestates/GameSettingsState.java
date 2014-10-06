@@ -79,14 +79,14 @@ public class GameSettingsState implements GameState {
 		
 		Label rounds = new Label("Rounds");
 		rounds.getStyleClass().add("menulabel");
-		Slider roundSlider = new Slider(Configuration.ROUNDS_MIN, Configuration.ROUNDS_MAX, map.getShipCount());
+		Slider roundSlider = new Slider(Configuration.ROUNDS_MIN, Configuration.ROUNDS_MAX, map.getRounds());
 		roundSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of ships per team"));
 		roundSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		roundSlider.setMaxWidth(200);
 		roundSlider.setMajorTickUnit(4);
 		roundSlider.setMinorTickCount(2);
 		roundSlider.setSnapToTicks(true);
-		Label roundsLabel = new Label(String.format("%.0f", shipsSlider.getValue()));
+		Label roundsLabel = new Label(String.format("%.0f", roundSlider.getValue()));
 		roundsLabel.getStyleClass().add("menulabel");
 		rListener = new SliderListener(roundSlider, roundsLabel);
 		

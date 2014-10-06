@@ -89,7 +89,8 @@ public class MapPreview {
 			throw new IllegalArgumentException("Submitted coordinates are not valid numbers");
 		}
 		
-		//TODO: check if y is even
+		if(height % 2 != 0)
+			throw new IllegalArgumentException("Height must be a even number");
 	
 		String line;
 		while((line = reader.readLine()) != null){
@@ -104,14 +105,11 @@ public class MapPreview {
 				}
 				
 				char glyph = line.charAt(i);
-				char c;
-				
 				if(glyph == '.' || glyph == '#' || glyph == '$' || glyph == '&' || isDigit(glyph) || isTeamLetter(glyph))
-					c = glyph;
+					fields[x][y] = glyph;
 				else
 					throw new IllegalArgumentException();
-				
-				fields[x][y] = c;
+
 				incrementXY(width, height);
 			}
 		}
@@ -127,8 +125,7 @@ public class MapPreview {
 		
 		return false;
 	}
-	
-	
+
 	private boolean isDigit(char c){
 		if(c >= '1' && c <= '9')
 			return true;
