@@ -10,7 +10,7 @@ goto start5; 														wieder starten
 *look5geradeausStart sense 0; 										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart; 	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal5 move else turnlinks5;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test5
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test5
 mark 2; 															Boje setzten, dass in Richhtung 2 die Basis ist.
 *test5 pickup 5 else look5rechts; 									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback; 														Da Schatz gefunden nach Hause zurückfahren
@@ -36,7 +36,7 @@ goto start4;														Wieder anfangen zu suchen
 *look4geradeausStart sense 0;										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal4 move else turnrechts4;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test4
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test4
 mark 1;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test4 pickup 5 else look4rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback;														Da Schatz gefunden nach Hause zurückfahren
@@ -61,7 +61,7 @@ goto start3;														Schatzsuche erneut starten
 *look3geradeausStart sense 0;										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal3 move else turnlinks3;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test3
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test3
 mark 0;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test3 pickup 5 else look3rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback;														Da Schatz gefunden nach Hause zurückfahren.
@@ -87,7 +87,7 @@ goto start1
 *look1geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal1 move else turnrechts1
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test1
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test1
 mark 4
 *test1 pickup 5 else look1rechts
 goto findback
@@ -113,7 +113,7 @@ goto start2
 *look2geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal2 move else turnlinks2
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test2
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test2
 mark 5
 *test2 pickup 5 else look2rechts
 goto findback
@@ -139,7 +139,7 @@ goto start0
 *look0geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal0 move else turnrechts0
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test0
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test0
 mark 3
 *test0 pickup 5 else look0rechts
 goto findback
@@ -158,7 +158,95 @@ goto test1
 drop
 goto drehTo0Start
 *drehTo0Start if ship_direction==0 else turnLeftGoto0
-flipzero 3 else start
 goto start0
 *turnLeftGoto0 turn left
 goto drehTo0Start
+*findback sense 6
+if sense_celltype==home else findpath
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+goto drehTo0Start
+*findpath if !sense_marker0 else drehTo0
+if !sense_marker1 else drehTo1
+if !sense_marker2 else drehTo2
+if !sense_marker3 else drehTo3
+if !sense_marker4 else drehTo4
+*drehTo5 if ship_direction==5 else turnTo5
+*findpath5 move else findpath5
+goto findback5
+*turnTo5 turn right
+goto drehTo5
+*drehTo4 if ship_direction==4 else turnTo4
+*findpath4 move else findpath4
+goto findback4
+*turnTo4 turn right
+goto drehTo4
+*drehTo3 if ship_direction==3 else turnTo3
+*findpath3 move else findpath3
+goto findback3
+*turnTo3 turn right
+goto drehTo3
+*drehTo2 if ship_direction==2 else turnTo2
+*findpath2 move else findpath2
+goto findback2
+*turnTo2 turn right
+goto drehTo2
+*drehTo1 if ship_direction==1 else turnTo1
+*findpath1 move else findpath1
+goto findback1
+*turnTo1 turn right
+goto drehTo1
+*drehTo0 if ship_direction==0 else turnTo0
+*findpath0 move else findpath0
+goto findback0
+*turnTo0 turn right
+goto drehTo0
+*findback0 sense 6
+if sense_celltype==home else findpath0
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath0 ifall ship_direction==0 sense_marker0 else findpath
+move else findpath
+goto findback0
+*findback1 sense 6
+if sense_celltype==home else findpath1
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath1 ifall ship_direction==1 sense_marker1 else findpath
+move else findback
+goto findback1
+*findback2 sense 6
+if sense_celltype==home else findpath2
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath2 ifall ship_direction==2 sense_marker2 else findpath
+move else findback
+goto findback2
+*findback3 sense 6
+if sense_celltype==home else findpath3
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath3 ifall ship_direction==3 sense_marker3 else findpath
+move else findback
+goto findback3
+*findback4 sense 6
+if sense_celltype==home else findpath4
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath4 ifall ship_direction==4 sense_marker4 else findpath
+move else findback
+goto findback4
+*findback5 sense 6
+if sense_celltype==home else findpath5
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath5 ifall ship_direction==5 sense_marker5 else findpath
+move else findback
+goto findback5

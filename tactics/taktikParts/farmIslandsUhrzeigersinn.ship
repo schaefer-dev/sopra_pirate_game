@@ -1,4 +1,4 @@
-; called with armIslandStartUhrzeigerPickupTurnLeft when looking straight at an island
+; called with farmIslandStartUhrzeigerPickupTurnLeft when looking straight at an island
 ; calls findBackFromIsland when pickup was succesfull
 
 *farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
