@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 import view.Log;
-import view.SimpleLogWriter;
 import model.Kraken;
 import model.Register;
 import model.Ship;

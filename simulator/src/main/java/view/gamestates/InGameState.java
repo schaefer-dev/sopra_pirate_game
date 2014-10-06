@@ -18,6 +18,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -73,6 +74,7 @@ public class InGameState implements GameState, LogWriter {
 		tooltip.setStroke(Color.GRAY);
 		tooltip.setFill(Color.WHITE);
 		tooltip.setVisible(false);
+		addTooltipListener();
         canvas.getStyleClass().add("canvas");
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
@@ -435,6 +437,10 @@ public class InGameState implements GameState, LogWriter {
 			Ship ship = ships.get(arg1);
 			fields[ship.getX()][ship.getY()].setShip(null);
 			ships.set(arg1, null);
+			
+			Team team = teams.get(ship.getFleet());
+			team.deleteShip(ship);
+			teamWindow.getPanes().get(ship.getFleet()).setContent(new Text(giveTeamText(team)));
 		}
 		else{
 			SimpleEntity entity = entities.get(arg1);
@@ -499,5 +505,22 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public LogWriter addCustomHeaderData(String arg0) throws NullPointerException, ArrayIndexOutOfBoundsException {
 		return this;
+	}
+	
+	private void addTooltipListener(){
+		tooltip.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				tooltip.setVisible(false);	
+			}
+        });
+        tooltip.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        	
+			@Override
+			public void handle(MouseEvent arg0) {
+				tooltip.setVisible(false);
+			}
+		});
 	}
 }
