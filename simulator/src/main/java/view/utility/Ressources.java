@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.image.Image;
 
@@ -18,58 +20,75 @@ public class Ressources {
 	private Image treasureIslandImage;
 	private Image buoyImage;
 	private Image krakenImage;
+	private Image shoreIsland;
 	private Image shoreWater;
+	
+	private List<Image> islandDetails = new ArrayList<Image>();
 	
 	private Configuration defaultConfiguration;
 	
 	
 	public Ressources(){
 		try{
-	    	File file = new File("src/main/ressources/he.png");
+	    	File file = new File("src/main/ressources/island2.png");
 	    	InputStream stream = new FileInputStream(file);
 	    	island = new Image(stream);
-	    	stream.close();
+
 	    	
-	    	file = new File("src/main/ressources/water.png");
+	    	file = new File("src/main/ressources/water2.png");
 	    	stream = new FileInputStream(file);
 	    	water = new Image(stream);
-	    	stream.close();
+
 	    	
-	    	file = new File("src/main/ressources/provision.png");
+	    	file = new File("src/main/ressources/shoreIsland.png");
 	    	stream = new FileInputStream(file);
 	    	provision = new Image(stream);
-	    	stream.close();
+	
 	    	
 	    	file = new File("src/main/ressources/base.png");
 	    	stream = new FileInputStream(file);
 	    	base = new Image(stream);
-	    	stream.close();
+
 	    	
 	    	file = new File("src/main/ressources/ship100px.png");
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
-	    	stream.close();
+
 	    	
 	    	file = new File("src/main/ressources/islandCoin.png");
 	    	stream = new FileInputStream(file);
 	    	treasureIslandImage = new Image(stream);
-	    	stream.close();
+
 	    	
 	    	file = new File("src/main/ressources/waterCoin.png");
 	    	stream = new FileInputStream(file);
 	    	treasureWaterImage = new Image(stream);
-	    	stream.close();
+
 	    	
-	    	file = new File("src/main/ressources/shoreWater.png");
+	    	file = new File("src/main/ressources/shore2.png");
 	    	stream = new FileInputStream(file);
 	    	shoreWater = new Image(stream);
-	    	stream.close();
+	    	
+	    	file = new File("src/main/ressources/shoreIsland.png");
+	    	stream = new FileInputStream(file);
+	    	shoreIsland = new Image(stream);
+
 	    	
 	    	file = new File("src/main/ressources/buoy.png");
 	    	stream = new FileInputStream(file);
 	    	buoyImage = new Image(stream);
-	    	stream.close();
+
 	    	
+	    	file = new File("src/main/ressources/bush1.png");
+	    	stream = new FileInputStream(file);
+	    	islandDetails.add(new Image(stream));
+	    	
+	    	file = new File("src/main/ressources/house1.png");
+	    	stream = new FileInputStream(file);
+	    	islandDetails.add(new Image(stream));
+	    	
+	    	
+	    	stream.close();
 	    	createDefaultConfig();
     	}
     	catch(Exception e){
@@ -117,6 +136,13 @@ public class Ressources {
 		return shoreWater;
 	}
 	
+	public Image getShoreIslandImage(){
+		return shoreIsland;
+	}
+	
+	public List<Image> getIslandDetailImages(){
+		return islandDetails;
+	}
 	
 	public Configuration getDefaultConfig(){
 		return defaultConfiguration;
@@ -132,7 +158,7 @@ public class Ressources {
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/alternative4.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/default1.ship");
 
 		
 		File file = new File("src/main/ressources/default.map");

@@ -2,6 +2,7 @@ package view.utility;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.scene.image.Image;
 import view.SimpleEntity;
@@ -19,6 +20,8 @@ public class Field {
 	private FieldType type;
 	
 	private Image fieldImage;
+	private Image detailImage;
+	
 	private Image shipImage;
 	private Image treasureImage;
 	private Image buoysImage;
@@ -40,6 +43,11 @@ public class Field {
 				break;
 			case Island:
 				fieldImage = map.getRessources().getIslandImage();
+				Random random = new Random();
+				if(random.nextInt(10) == 0){
+					List<Image> detailImages = map.getRessources().getIslandDetailImages();
+					detailImage = detailImages.get(random.nextInt(detailImages.size()));
+				}
 				break;
 			case ProvisionIsland:
 				fieldImage = map.getRessources().getProvisionImage();
@@ -79,6 +87,8 @@ public class Field {
 		else 
 			images.add(fieldImage);
 		
+		if(detailImage != null && zoom < 2)
+			images.add(detailImage);
 		if(buoysImage != null && zoom < 2)
 			images.add(buoysImage);
 		if(krakenImage != null && zoom < 3)
