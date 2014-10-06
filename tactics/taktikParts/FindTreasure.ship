@@ -1,0 +1,42 @@
+﻿*startFindTreasure		flipzero 2 else drehrechts
+*drehlinks 				turn left
+						flipzero 3 else drehweiterLinks
+*find 					pickup 5 else lookRechtsStart
+						drop
+						goto find
+*lookRechtsStart 		pickup 1 else look5geradeausStart
+						drop
+						goto find
+*lookGeradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal 				move else avoid
+*test					pickup 5 else lookRechts
+						goto findbackFromIsland
+*lookRechts 			pickup 1 else lookGeradeaus
+						goto findbackFromIsland
+*lookGeradeaus 			sense 0
+						ifany sense_treasure sense_celltype==island else normal
+*pickupGeradeaus 		pickup 0 else farmIslandStartUhrzeigerPickup
+						goto findbackFromIsland
+*avoid			 		flipzero 2 else turnrechts
+*turnlinks	 			turn left
+						goto test
+*turnrechts 			turn right	
+						goto test
+*drehweiterLinks 		turn left
+						flipzero 2 else drehnochweiterLinks
+						goto find
+*drehnochweiterLinks 	turn left
+						goto find
+*drehrechts 			turn right
+						flipzero 3 else drehweiterRechts
+						goto find
+*drehweiterRechts		turn right
+						flipzero 2 else drehnochweiterRechts
+						goto find
+*drehnochweiterRechts	turn right
+						goto goto find
+*drehTo0Start 			if ship_direction==0 else turnLeftGoto0
+						goto goto find
+*turnLeftGoto0 			turn left
+						goto drehTo0Start
