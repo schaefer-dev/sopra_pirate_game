@@ -170,7 +170,7 @@ public class Ressources {
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/danielTest_withBuoyStop.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/alternative5.ship");
 
 		
 		File file = new File("src/main/ressources/default.map");

@@ -67,7 +67,7 @@ public class LoadingState implements GameState {
 			
 			for(int y = 0; y < height; y++){
 				for(int x = 0; x < width; x++){
-					String s = Character.toString(fields[y][x]);
+					String s = Character.toString(fields[x][y]);
 					out.write(s + ' ');
 				}	
 				out.write('\n');
