@@ -1,9 +1,9 @@
 *findback sense 6
 if sense_celltype==home else findpath
 drop
-if ship_condition!=3 else normal
-repair else normal
-goto normal
+if ship_condition!=3 else redistribute; Verteilung der Schiffe auf andere Stellen, als die bisher abgegrasten, vorher Sprung zu normal
+repair else redistribute
+goto redistribute
 *findpath if !sense_marker0 else drehTo0
 if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2

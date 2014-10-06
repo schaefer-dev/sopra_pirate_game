@@ -166,9 +166,9 @@ goto drehTo0Start				;GRENZE
 *findback sense 6
 if sense_celltype==home else findpath
 drop
-if ship_condition!=3 else normal
-repair else normal
-goto normal
+if ship_condition!=3 else redistribute; Verteilung der Schiffe auf andere Stellen, als die bisher abgegrasten, vorher Sprung zu normal
+repair else redistribute
+goto redistribute
 *findpath if !sense_marker0 else drehTo0
 if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2
@@ -357,3 +357,23 @@ goto findback5
 	goto turnLeftAndSearchOn
 *moveBecauseNothingInYourWay move else searchOnForBuoy
 	goto searchOnForBuoy
+*redistribute flipzero 2 else normal
+flipzero 2 else to3
+*to0 if ship_direction!=0 else moveOut
+turn right
+goto to0
+*to3 if ship_direction!=3 else moveOut
+turn right
+goto to3
+*moveOut move else normal
+move else normal
+move else normal
+move else normal
+move else normal
+move else normal
+move else normal
+move else normal
+move else normal
+turn right
+turn right
+goto normal
