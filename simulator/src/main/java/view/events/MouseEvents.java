@@ -3,10 +3,10 @@ package view.events;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.shape.Rectangle;
 import view.utility.Camera;
 import view.utility.Field;
 import view.utility.Map;
@@ -16,12 +16,12 @@ public class MouseEvents {
 	private Camera cam;
 	private Map map;
 	private GraphicsContext gc;
-	private Rectangle tip;
+	private Label tip;
 		
 	private double previousX = 0;
 	private double previousY = 0;
 	
-	public MouseEvents(Camera cam, Map map, GraphicsContext gc, Rectangle tip){
+	public MouseEvents(Camera cam, Map map, GraphicsContext gc, Label tip){
 		this.cam = cam;
 		this.map = map;
 		this.gc = gc;
@@ -102,7 +102,6 @@ public class MouseEvents {
 		        		
 		    			double midX = (cam.width()/canvasWidth)*newX + cam.a;
 		    			double midY = (cam.height()/canvasHeight)*(newY) + cam.c;
-		    				
 		    			midX = mod(midX, map.getWidth());
 		    			midY = mod(midY, map.getHeight());
 
@@ -113,11 +112,21 @@ public class MouseEvents {
 						else if(event.getClickCount() == 1 && event.isStillSincePress()){
 		    				Field[][] fields = map.getMap();
 		    				Field field = fields[(int)midX][(int)midY];
+		    				map.drawMap();
 							map.markField(field);
+			
+							tip.setText(field.giveTooltipText());
 							
-						
-							tip.setX(newX);
-							tip.setY(newY);
+							if(newX + tip.getWidth() > canvasWidth)
+								tip.setTranslateX(newX - tip.getWidth());
+							else
+								tip.setTranslateX(newX);
+							
+							if(newY + tip.getHeight() > canvasHeight)
+								tip.setTranslateX(newY - tip.getHeight());
+							else
+								tip.setTranslateY(newY);
+							
 							tip.setVisible(true);
 		    			}
 					}

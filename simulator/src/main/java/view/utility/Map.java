@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 
 public class Map {
 
@@ -32,11 +33,8 @@ public class Map {
 		this.mapHeight = map[0].length;
 	}
 	
-	
-
-	
 	public void drawMap(){		
-    	gc.setFill(Color.web("76A6A6"));
+		gc.setFill(Color.web("5fb8b8"));
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
     	for(int y = 0; y < cam.height(); y++){
@@ -47,7 +45,6 @@ public class Map {
         	}		
     	}
 	}
-	
 	
 	public void drawFieldSimple(Field field, int x, int y){
     	double scale = gc.getCanvas().getWidth()/cam.width();
@@ -83,7 +80,6 @@ public class Map {
 		}	
 	}
 	
-	
 	private void drawField(Field field, int x, int y){		
     	double radius = gc.getCanvas().getWidth()/cam.width()/2;
 		double stepX = ((y+cam.c)%2 == 0) ? 0 : radius;
@@ -106,7 +102,6 @@ public class Map {
 		double stepX = ((y+cam.c)%2 == 0) ? 0 : radius;
 		double stepY = y*(radius/2);
 		
-		drawMap();
 		markHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, Color.web("B2E097"), false);
 	}
 	
@@ -129,9 +124,13 @@ public class Map {
 		
 		for(Image img: field.getImages())
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		if(field.getShipImage() != null){
+			Ship ship = field.getShip();
+			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		}
 		
 		if(cam.zoomLevelAbsolute() < 1 && field.getFieldType() == FieldType.Water)
-			markHex(mid, radius, Color.GRAY, true);
+			markHex(mid, radius, Color.BLACK, true);
 		if(left){
 			Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
 			Point2D downL = new Point2D(mid.getX() - radius, mid.getY() + radius/2);
@@ -178,8 +177,11 @@ public class Map {
 						if(hasNeigbor(field, FieldType.Island) || hasNeigbor(field, FieldType.ProvisionIsland))
 							field.setFieldImage(ressources.getShoreWaterImage());
 						break;
+						/*
 					case Island:
-						//TODO: do it
+						if(hasNeigbor(field, FieldType.Water) || hasNeigbor(field, FieldType.Base))
+							field.setFieldImage(ressources.getShoreIslandImage());
+						break;*/
 					default: 
 						break;
 				}
@@ -223,26 +225,38 @@ public class Map {
 		}
 			
 		int yy = mod(y-1, mapHeight);
-		if(map[yy][xx].getFieldType() == type)
+		if(map[xx][yy].getFieldType() == type)
 			return true;
 		yy = mod(y, mapHeight);
-		if(map[yy][xx].getFieldType() == type)
+		if(map[xx][yy].getFieldType() == type)
 			return true;
-		if(map[yy][zz].getFieldType() == type)
+		if(map[zz][yy].getFieldType() == type)
 			return true;
 		yy = mod(y+1, mapHeight);
-		if(map[yy][xx].getFieldType() == type)
+		if(map[xx][yy].getFieldType() == type)
 			return true;
 		xx = mod(x, mapWidth);
 		yy = mod(y-1, mapHeight);
-		if(map[yy][xx].getFieldType() == type)
+		if(map[xx][yy].getFieldType() == type)
 			return true;
 		yy = mod(y+1, mapHeight);
-		if(map[yy][xx].getFieldType() == type)
+		if(map[xx][yy].getFieldType() == type)
 			return true;
 		
 		return false;
 	}
+	
+    private void drawRotatedImage(Image image, double angle, double x, double y, double width, double height) {
+        gc.save();
+        rotateGC(angle, x + width/2, y + height/2);
+        gc.drawImage(image, x, y, width, height);
+        gc.restore();
+    }
+	
+    private void rotateGC(double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
 	
 	private int mod(int a, int b){
 		return (a%b + b) % b;

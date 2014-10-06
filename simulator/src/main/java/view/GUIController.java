@@ -160,6 +160,10 @@ public class GUIController extends Application {
 		return res;
 	}
 	
+	public void resetRessources(){
+		res = new Ressources();
+	}
+	
 	public Scene getScene(){
 		return scene;
 	}
@@ -213,8 +217,10 @@ public class GUIController extends Application {
 
 			@Override
 			public void handle(KeyEvent arg0) {
-				if(arg0.getCode().equals(KeyCode.ESCAPE))
+				if(arg0.getCode().equals(KeyCode.ESCAPE)){
 					Platform.exit();	
+					System.exit(0);
+				}
 			}
 		});
 	}

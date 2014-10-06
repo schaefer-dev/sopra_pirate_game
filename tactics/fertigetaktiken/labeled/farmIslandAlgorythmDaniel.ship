@@ -1,56 +1,46 @@
-
 *farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
-			sense 0 																;refresh
-			ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
-			goto farmIslandUhrzeigerMove
-
+						sense 0 																;refresh
+						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
+						goto farmIslandUhrzeigerMove
 *farmIslandStartUhrzeigerPickup 	pickup 0 else farmIslandStartUhrzeigerSkipPickup
-			goto findBackFromIsland
+						goto findBackFromIsland
 *farmIslandStartUhrzeigerSkipPickup		goto farmIslandStartUhrzeigerPickupTurnLeft
-
-*farmIslandUhrzeigerMove
-			move esle farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
-			ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else farmIslandUhrzeigerBuoyFound
-			pickup 1 else skipPickupUrzeigerMove
-			goto findBackFromIsland
-*skipGoHomeUrzeigerMove		goto farmIslandCheckRight
-
-*farmIslandCheckRight		sense 1
-			ifany sense_celltype==empty sense_celltype==home else farmIslandCheckStraight
-			turn right
-			goto farmIslandUhrzeigerMove
+*farmIslandUhrzeigerMove	move else farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
+						ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else farmIslandUhrzeigerBuoyFound
+						pickup 1 else skipPickupUhrzeigerMove
+						goto findBackFromIsland
+*skipPickupUhrzeigerMove	goto farmIslandCheckRight
+*farmIslandCheckRight	sense 1
+						ifany sense_celltype==empty sense_celltype==home else farmIslandCheckStraight
+						turn right
+						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
-			ifany sense_celltype==water sense_celltype==home else farmIslandCheckLeft
-			goto farmIslandUhrzeigerMove
-*farmIslandUhrzeigerBuoyFound
-		if ship_direction!=0 else test0
-		if ship_direction!=1 else test1
-		if ship_direction!=2 else test2
-		if ship_direction!=3 else test3
-		if ship_direction!=4 else test4
-		if ship_direction!=5 else test5
+						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
+						goto farmIslandUhrzeigerMove
+*farmIslandUhrzeigerBuoyFound if ship_direction!=0 else test0Turned
+						if ship_direction!=1 else test1Turned
+						if ship_direction!=2 else test2Turned
+						if ship_direction!=3 else test3Turned
+						if ship_direction!=4 else test4Turned
+						if ship_direction!=5 else test5Turned
 *farmIslandUhrzeigerMoveHit sense 0
-		if sense_shiptye==friend else farmIslandUhrzeigerMoveHitEnemy
+						if sense_shiptype==friend else farmIslandUhrzeigerMoveHitEnemy
 *farmIslandUhrzeigerMoveHitFlee	turn left
-		sense 0
-		ifany sense_celltype==empty sense_celltype==home else farmIslandUhrzeigerMoveHitBlocked
-	*SkipfarmIslandUhrzeigerMoveHit		move else SkipfarmIslandUhrzeigerMoveHit
-			turn right
-			turn right
-			sense 0
-*SkipIslandUhrzeigerMoveHitTryAgain		move else SkipIslandUhrzeigerMoveHitTryAgain
-			turn left
-			goto farmIslandStartUhrzeigerPickupTurnLeft
-	*SkipfarmIslandUhrzeigerMoveHitBlocked
-			turn left
-			turn left
-	*SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove		move else SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove			; schiff zerstört sich selbst wenn hier Insel wäre. Könnte versuchen umzukehren und irgendwie den weg freizumachen. (später verbesserung einfügen)
-			turn right
-			turn right
-			turn right
-*SkipIslandUhrzeigerMoveHitTryAgain		move else SkipIslandUhrzeigerMoveHitTryAgain2
-			turn left
-			goto farmIslandStartUhrzeigerPickupTurnLeft
-*farmIslandUhrzeigerMoveHitEnemy
-			if ship_condition=3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
-			goto farmIslandUhrzeigerMove
+						sense 0
+						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
+*SkipfarmIslandUhrzeigerMoveHit		move else SkipfarmIslandUhrzeigerMoveHit
+						turn right
+						turn right
+						sense 0
+*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitTryAgain
+						turn left
+						goto farmIslandStartUhrzeigerPickupTurnLeft
+*SkipfarmIslandUhrzeigerMoveHitBlocked turn left
+*SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove		move else SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove			; schiff zerstört sich selbst wenn hier Insel wäre. Könnte versuchen umzukehren und irgendwie den weg freizumachen. (später verbesserung einfügen)
+						turn right
+						turn right
+						turn right
+*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitTryAgain2
+						goto farmIslandStartUhrzeigerPickupTurnLeft
+*farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
+						goto farmIslandUhrzeigerMove

@@ -206,13 +206,15 @@ public abstract class Field {
 		if(kraken == null) throw new IllegalStateException();
 		
 		if(destination.setKraken(kraken)){
-			Transaction trans = provideLogger().beginTransaction(Entity.KRAKEN, kraken.getId());
+			Transaction trans = null;
+			if(hasLogWriter)
+				trans = provideLogger().beginTransaction(Entity.KRAKEN, kraken.getId());
 			if(x != destination.getX() && hasLogWriter)
 				trans.set(Key.X_COORD, destination.getX());
 			if(y != destination.getY() && hasLogWriter)
 				trans.set(Key.Y_COORD, destination.getY());
-			
-			provideLogger().commitTransaction(trans);
+			if(hasLogWriter)
+				provideLogger().commitTransaction(trans);
 			
 			kraken = null;
 			return true;

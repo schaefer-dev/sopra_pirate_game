@@ -2,6 +2,7 @@ package view.utility;
 
 public class Ship {
 
+	private int id;
 	private int pc;
 	private int resting;
 	private int direction;
@@ -9,15 +10,24 @@ public class Ship {
 	private int moral;
 	private int condition;
 	private int fleet;
-	private int x;
-	private int y;
+	private Field field;
 	
+	public Ship(int id){
+		this.id = id;
+	}
+	
+	public int getID(){
+		return id;
+	}
 	
 	public int getDirection() {
 		return direction;
 	}
 
 	public void setDirection(int direction) {
+		if(field != null)
+			field.setShip(this);
+			
 		this.direction = direction;
 	}
 
@@ -70,18 +80,14 @@ public class Ship {
 	}
 
 	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
+		return field.getX();
 	}
 
 	public int getY() {
-		return y;
+		return field.getY();
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setField(Field field){
+		this.field = field;
 	}
 }

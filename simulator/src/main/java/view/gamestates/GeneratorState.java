@@ -40,6 +40,7 @@ public class GeneratorState implements GameState {
 		catch(Exception e){}
 		
 		Label mapSize = new Label("Map Size");
+		mapSize.getStyleClass().add("menulabel");
 		Slider mapSizeSlider = new Slider(Configuration.MAP_SIZE_MIN, Configuration.MAP_SIZE_MAX, Configuration.MAP_SIZE_MIN);
 		mapSizeSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines width & height of the map"));
 		mapSizeSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -48,9 +49,11 @@ public class GeneratorState implements GameState {
 		mapSizeSlider.setMinorTickCount(2);
 		mapSizeSlider.setSnapToTicks(true);
 		Label mapSizeLabel = new Label(String.format("%.0f", mapSizeSlider.getValue()));
+		mapSizeLabel.getStyleClass().add("menulabel");
 		SliderListener msListener = new SliderListener(mapSizeSlider, mapSizeLabel, true);
 		
 		Label islandCount = new Label("Island Count");
+		islandCount.getStyleClass().add("menulabel");
 		Slider islandCountSlider = new Slider(Configuration.ISLAND_COUNT_MIN, Configuration.ISLAND_COUNT_MAX, Configuration.ISLAND_COUNT_MIN);
 		islandCountSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Quantity of the islands"));
 		islandCountSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -58,9 +61,11 @@ public class GeneratorState implements GameState {
 		islandCountSlider.setMajorTickUnit(2);
 		islandCountSlider.setSnapToTicks(true);
 		Label islandCountLabel = new Label(String.format("%.0f", islandCountSlider.getValue()));
+		islandCountLabel.getStyleClass().add("menulabel");
 		SliderListener icListener = new SliderListener(islandCountSlider, islandCountLabel);
 		
 		Label islandSize = new Label("Island Size");
+		islandSize.getStyleClass().add("menulabel");
 		Slider islandSizeSlider = new Slider(Configuration.ISLAND_SIZE_MIN, Configuration.ISLAND_SIZE_MAX, Configuration.ISLAND_SIZE_MIN);
 		islandSizeSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Average size of the islands"));
 		islandSizeSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
@@ -68,6 +73,7 @@ public class GeneratorState implements GameState {
 		islandSizeSlider.setMajorTickUnit(2);
 		islandSizeSlider.setSnapToTicks(true);
 		Label islandSizeLabel = new Label(String.format("%.0f", islandSizeSlider.getValue()));
+		islandSizeLabel.getStyleClass().add("menulabel");
 		SliderListener isListener = new SliderListener(islandSizeSlider, islandSizeLabel);
 		
 		Button generate = new Button("Generate");

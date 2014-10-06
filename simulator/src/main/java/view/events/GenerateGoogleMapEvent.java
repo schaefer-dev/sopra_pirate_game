@@ -36,10 +36,8 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 	
 	@Override
 	public void handle(ActionEvent arg0) {
-
 		String location = locationField.getText();
 		location = location.replaceAll(" ", "");
-		
 		Integer height = mapSizeSlider.get();
 		Integer width  = mapSizeSlider.get();
 		Integer zoom  = zoomSlider.get();
@@ -71,11 +69,16 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 				int g = color.getGreen();
 				int b = color.getBlue();
 				int black = 120;
+				int white = 240;
 				
 				if((r < b) && (g < b))
 					map[x][y] = water;
 				else if((r < black) && (g < black) && (b < black))
 					map[x][y] = water;
+				else if((r > white) && (g > white) && (b > white)){
+					
+					
+				}
 				else if(b < 50)
 					map[x][y] = water;
 				else

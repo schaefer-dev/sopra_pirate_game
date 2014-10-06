@@ -12,6 +12,7 @@ public class Generator {
 	private final char emptyIsland = '#';
 	private final char water = '.';
 	private final char provision = '$';
+	private final char kraken = '&';
 	
 	//private final double provisionChance = 0.1;
 	//private final double treasureChance = 0.2;
@@ -144,11 +145,24 @@ public class Generator {
 	
 	public void setKraken(double krakenCount){
 		if(krakenCount > countFieldType(water)) throw new IllegalArgumentException("There can't be more kraken than water fields");
-		//TODO: implement this
+		
+		Random gen = new Random();
+		for(int i = 0; i < krakenCount; i++){
+			
+			boolean set = false;
+			while(!set){
+				int x = gen.nextInt(width);
+				int y = gen.nextInt(height);
+				
+				if(fields[y][x] == water){
+					fields[y][x] = kraken;
+					set = true;
+				}
+			}	
+		}
 	}
 	
 	public void setBases(){
-		this.baseChance = baseChance;
 		Random gen = new Random();
 		
 		Arrays.fill(bases, boatsPerTeam);	
@@ -340,6 +354,13 @@ public class Generator {
 		return counter;
 	}
 	
+	private boolean hasNeighbor(int y, int x, char fieldType){
+		if(hasNeigbors(y, x, fieldType) > 0)
+			return true;
+		
+		return false;
+	}
+	
 	private int countFieldType(char type){
 		int counter = 0;
 		
@@ -350,13 +371,6 @@ public class Generator {
 			}
 		}
 		return counter;
-	}
-	
-	private boolean hasNeighbor(int y, int x, char fieldType){
-		if(hasNeigbors(y, x, fieldType) > 0)
-			return true;
-		
-		return false;
 	}
 	
 	private boolean checkBase(int y, int x){

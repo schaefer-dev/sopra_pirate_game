@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 
 public class Configuration {
 
-	public final static int MAP_SIZE_MIN = 10;
+	public final static int MAP_SIZE_MIN = 40;
 	public final static int MAP_SIZE_MAX = 198;
 	public final static int ISLAND_COUNT_MIN = 0;
 	public final static int ISLAND_COUNT_MAX = 50;
@@ -16,10 +16,6 @@ public class Configuration {
 	public final static int ISLAND_SIZE_MAX = 10;
 	public final static int ZOOM_MIN = 0;
 	public final static int ZOOM_MAX = 10;
-	
-	public final static int TREASURE_COUNT_MIN = 1;
-	public final static int TREASURE_COUNT_MAX = 10;
-	private int treasureCount = TREASURE_COUNT_MIN;
 	
 	public final static int TREASURE_DENSITY_MIN = 0;
 	public final static int TREASURE_DENSITY_MAX = 50;
@@ -38,7 +34,7 @@ public class Configuration {
 	private int teamCount = 0;
 	
 	public final static int SHIP_COUNT_MIN = 1;
-	public final static int SHIP_COUNT_MAX = 100;
+	public final static int SHIP_COUNT_MAX = 40;
 	private int shipCount = SHIP_COUNT_MIN;
 	
 	public final static int ROUNDS_MIN = 1;
@@ -80,7 +76,6 @@ public class Configuration {
 	public void placeObjectsOnMap(){
 		generator.setProvision(0.1 * supplyDensity);
 		generator.setTreasure(0.1 * treasureDensity);
-		//TODO: add treasure count
 		generator.setKraken(krakenCount);
 	}
 	
@@ -91,17 +86,6 @@ public class Configuration {
 	
 	public char[][] getMap(){
 		return map;
-	}
-	
-	public int getTreasureCount(){
-		return treasureCount;
-	}
-		
-	public void setTreasureCount(int treasureCount){
-		if(treasureCount < TREASURE_COUNT_MIN || treasureCount > TREASURE_COUNT_MAX)
-			throw new IllegalArgumentException();
-		
-		this.treasureCount = treasureCount;
 	}
 	
 	public int getTreasureDensity(){

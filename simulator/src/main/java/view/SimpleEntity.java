@@ -11,16 +11,12 @@ public class SimpleEntity {
 	private int fleet;
 	private Entity entityType;
 	
+	public SimpleEntity(int id){
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
-	}
-	
-	public void update(){
-		
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public int getX() {
