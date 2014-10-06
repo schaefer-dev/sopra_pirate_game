@@ -26,6 +26,7 @@ import view.GUITransaction;
 import view.SimpleEntity;
 import view.events.MouseEvents;
 import view.utility.Camera;
+import view.utility.Configuration;
 import view.utility.Field;
 import view.utility.GameFlowControl;
 import view.utility.GameState;
@@ -61,8 +62,10 @@ public class InGameState implements GameState, LogWriter {
 	private Label roundCounter;
 	private Simulator sim;
 	private GameFlowControl control;
+	private Configuration config;
 	
-	public InGameState(char[][] fieldChars, Ressources res, Integer turns) {
+	public InGameState(char[][] fieldChars, Ressources res, Integer turns, Configuration config) {
+		this.config = config;
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
@@ -336,7 +339,7 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public LogWriter fleetScore(int arg0, int arg1) throws IllegalArgumentException, IllegalStateException {
 		if(teams.get(arg0) == null)
-			teams.set(arg0, new Team(arg0));
+			teams.set(arg0, new Team(arg0, config));
 		teams.get(arg0).setScore(arg1);
 		
 		if(teamWindow != null){
@@ -399,7 +402,7 @@ public class InGameState implements GameState, LogWriter {
 					case FLEET:
 						ship.setFleet(arg3[i]);
 						if(teams.get(arg3[i]) == null)
-							teams.set(arg3[i], new Team(arg3[i]));
+							teams.set(arg3[i], new Team(arg3[i], config));
 						teams.get(arg3[i]).addShip(ship);
 						break;
 					case MORAL:

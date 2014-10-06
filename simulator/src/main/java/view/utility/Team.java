@@ -9,8 +9,12 @@ public class Team {
 	private int score;
 	private List<Ship> ships;
 	
-	public Team(Integer number){
-		name = "Team " + number.toString();
+	public Team(Integer number, Configuration config){
+		if(config.getFinalCaptainNames().size() == 0)
+			name = "Team " + number.toString();
+		else
+			name = config.getFinalCaptainNames().get(number);
+		
 		ships = new LinkedList<Ship>();
 		score = 0;
 	}

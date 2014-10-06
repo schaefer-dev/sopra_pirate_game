@@ -165,11 +165,11 @@ public class Ressources {
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(100);
-		defaultConfiguration.setTeamCount(3);
+		defaultConfiguration.setTeamCount(1);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/alternative5.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/complete.ship");
 		
 		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);

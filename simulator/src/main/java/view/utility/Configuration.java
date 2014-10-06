@@ -44,11 +44,13 @@ public class Configuration {
 	private int rounds = ROUNDS_MIN;
 	
 	private List<String> tactics = new LinkedList<String>();
-	private List<String>  captainNames = new LinkedList<String>(Arrays.asList(
-			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Guybrush Threepwood", "Captain Hook", 
+	private final List<String>  captainNames = new LinkedList<String>(Arrays.asList(
+			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Captain Hook", 
 			"Monkey D. Ruffy", "LeChuck"));
 	
-	private Set<String> currentNames = new HashSet<String>();
+	private List<String> finalCaptainNames = new LinkedList<String>();
+	private List<String> currentFreeNames = captainNames;
+	private Set<String> currentReservedNames = new HashSet<String>();
 	private List<ComboBox<String>> teamConfigs = new LinkedList<ComboBox<String>>();
 
 	private char[][] map;
@@ -173,12 +175,27 @@ public class Configuration {
 		return teamConfigs;
 	}
 	
+	public List<String> getFinalCaptainNames(){
+		return finalCaptainNames;
+	}
+	
 	public List<String> getCaptainNames(){
-		return captainNames;
+		return currentFreeNames;
 	}
 	
 	public Set<String> getCurrentCaptainName(){
-		return currentNames;
+		return currentReservedNames;
+	}
+	
+	public int getCaptainNumber(String captainName){
+		int counter = 0;
+		for(String name: captainNames){
+			if(name.equals(captainName))
+				return counter;
+			counter++;
+		}
+						
+		return -1;
 	}
 
 	public List<String> getTactics(){
