@@ -1,14 +1,14 @@
 ﻿*startFindTreasure		flipzero 2 else drehrechtsFind
 *drehlinksFind 			turn left
 						flipzero 3 else drehweiterLinksFind
-*find 					pickup 5 else lookRechtsStart
+*find 					pickup 5 else lookRechtsStartFind
 						drop
 						goto find
-*lookRechtsStart 		pickup 1 else lookGeradeausStart
+*lookRechtsStartFind 	pickup 1 else lookGeradeausStartFind
 						drop
 						goto find
-*lookGeradeausStart 	sense 0
-						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*lookGeradeausStartFind	sense 0
+						ifall !sense_treasure sense_celltype!=island else pickupGeradeaus
 *normal 				move else avoid
 *test					pickup 5 else lookRechts
 						goto findbackFromIsland
@@ -18,10 +18,7 @@
 						ifany sense_treasure sense_celltype==island else normal
 *pickupGeradeaus 		pickup 0 else shouldFarm
 						goto findbackFromIsland
-*avoid			 		flipzero 2 else turnrechts
-*turnlinks	 			turn left
-						goto test
-*turnrechts 			turn right	
+*avoid			 		turn left
 						goto test
 *shouldFarm				refresh 0 else farmIslandStartUhrzeigerPickup
 						goto avoid

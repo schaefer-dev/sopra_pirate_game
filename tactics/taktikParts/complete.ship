@@ -1,4 +1,4 @@
-*start flipzero 3 else startFindTreasure; 1 Drittel der Schiffe legt Bojen, der Rest sucht Schätze.
+*start flipzero 6 else startFindTreasure; 1 Drittel der Schiffe legt Bojen, der Rest sucht Schätze.
 
 *startSetBuoys flipzero 2 else drehrechts; 									Hälfte dreht sich nach links, andere nach rechts
 *drehlinks turn left; 												Drehung in Richtung 5
@@ -258,14 +258,14 @@ goto findback5
 *startFindTreasure		flipzero 2 else drehrechtsFind
 *drehlinksFind 			turn left
 						flipzero 3 else drehweiterLinksFind
-*find 					pickup 5 else lookRechtsStart
+*find 					pickup 5 else lookRechtsStartFind
 						drop
 						goto find
-*lookRechtsStart 		pickup 1 else look5geradeausStart
+*lookRechtsStartFind 	pickup 1 else lookGeradeausStartFind
 						drop
 						goto find
-*lookGeradeausStart 	sense 0
-						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*lookGeradeausStartFind	sense 0
+						ifall !sense_treasure sense_celltype!=island else pickupGeradeaus
 *normal 				move else avoid
 *test					pickup 5 else lookRechts
 						goto findbackFromIsland
@@ -296,6 +296,9 @@ goto findback5
 *drehnochweiterRechtsFind	turn right
 						goto find
 
+; called with farmIslandStartUhrzeigerPickupTurnLeft when looking straight at an island
+; calls findBackFromIsland when pickup was succesfull
+
 *farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
 						sense 0 																;refresh
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
@@ -319,11 +322,11 @@ goto findback5
 *farmIslandUhrzeigerMoveHitFlee	turn left
 						sense 0
 						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
-*SkipfarmIslandUhrzeigerMoveHit		move else SkipfarmIslandUhrzeigerMoveHit
+*SkipfarmIslandUhrzeigerMoveHit		move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn right
 						turn right
 						sense 0
-*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitTryAgain
+*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn left
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *SkipfarmIslandUhrzeigerMoveHitBlocked turn left
@@ -335,6 +338,9 @@ goto findback5
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
 						goto farmIslandUhrzeigerMove
+
+*SkipIslandUhrzeigerMoveHitSearchSolution
+						goto test
 						
 *findBackFromIsland
 sense 2
