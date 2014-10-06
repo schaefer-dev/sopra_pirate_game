@@ -4,7 +4,7 @@
 *find 					pickup 5 else lookRechtsStart
 						drop
 						goto find
-*lookRechtsStart 		pickup 1 else look5geradeausStart
+*lookRechtsStart 		pickup 1 else lookGeradeausStart
 						drop
 						goto find
 *lookGeradeausStart 	sense 0
