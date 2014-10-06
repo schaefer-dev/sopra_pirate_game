@@ -1,4 +1,4 @@
-flipzero 6 else 254
+flipzero 5 else 254
 flipzero 2 else 79
 turn left
 flipzero 2 else 28
@@ -166,9 +166,9 @@ goto 160
 sense 6
 if sense_celltype==home else 171
 drop
-if ship_condition!=3 else 265
-repair else 265
-goto 265
+if ship_condition!=3 else 359
+repair else 359
+goto 359
 if !sense_marker0 else 201
 if !sense_marker1 else 196
 if !sense_marker2 else 191
@@ -207,48 +207,48 @@ goto 201
 sense 6
 if sense_celltype==home else 211
 drop
-if ship_condition!=3 else 160
-repair else 160
+if ship_condition!=3 else 359
+repair else 359
 ifall ship_direction==0 sense_marker0 else 171
 move else 171
 goto 206
 sense 6
 if sense_celltype==home else 219
 drop
-if ship_condition!=3 else 160
-repair else 160
+if ship_condition!=3 else 359
+repair else 359
 ifall ship_direction==1 sense_marker1 else 171
 move else 165
 goto 214
 sense 6
 if sense_celltype==home else 227
 drop
-if ship_condition!=3 else 160
-repair else 160
+if ship_condition!=3 else 359
+repair else 359
 ifall ship_direction==2 sense_marker2 else 171
 move else 165
 goto 222
 sense 6
 if sense_celltype==home else 235
 drop
-if ship_condition!=3 else 160
-repair else 160
+if ship_condition!=3 else 359
+repair else 359
 ifall ship_direction==3 sense_marker3 else 171
 move else 165
 goto 230
 sense 6
 if sense_celltype==home else 243
 drop
-if ship_condition!=3 else 160
-repair else 160
+if ship_condition!=3 else 359
+repair else 359
 ifall ship_direction==4 sense_marker4 else 171
 move else 165
 goto 238
 sense 6
 if sense_celltype==home else 251
 drop
-if ship_condition!=3 else 160
-repair else 160
+if ship_condition!=3 else 359
+repair else 359
 ifall ship_direction==5 sense_marker5 else 171
 move else 165
 goto 246
@@ -357,3 +357,41 @@ turn right
 goto 348
 move else 342
 goto 342
+flipzero 2 else 265
+flipzero 2 else 364
+if ship_direction!=0 else 367
+turn right
+goto 361
+if ship_direction!=3 else 367
+turn right
+goto 364
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+sense 0
+if sense_celltype==empty else 266
+move else 265
+turn right
+turn right
+goto 265

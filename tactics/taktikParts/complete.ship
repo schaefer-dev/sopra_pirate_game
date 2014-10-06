@@ -1,4 +1,4 @@
-*start flipzero 6 else startFindTreasure; 1 sechstel der Schiffe legt Bojen, der Rest sucht Schätze.
+*start flipzero 5 else startFindTreasure; 1 sechstel der Schiffe legt Bojen, der Rest sucht Schätze.
 *startSetBuoys flipzero 2 else drehrechts; 									Hälfte dreht sich nach links, andere nach rechts
 *drehlinks turn left; 												Drehung in Richtung 5
 flipzero 2 else drehweiterLinks; 									Hälfte dreht sich weiter, andere Hälfte nicht
