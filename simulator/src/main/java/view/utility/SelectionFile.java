@@ -34,7 +34,6 @@ public class SelectionFile extends SelectionWindow {
         	
             @Override
             public void handle(final ActionEvent e) {
-                    	
                 mapFile = fileChooser.showOpenDialog(control.getStage());
                 if(mapFile != null)
                 	draw(gc);
@@ -65,7 +64,25 @@ public class SelectionFile extends SelectionWindow {
 		try{
 			MapPreview preview = new MapPreview(mapFile);
 			preview.draw(gc);
-			control.getConfiguration().setMap(preview.getMap(), false);
+			char[][] map = preview.getMap();
+			int[] teams = new int[26];
+			
+			for(int y = 0; y < map[0].length; y++){
+				for(int x = 0; x < map.length; x++){
+					char field = map[x][y];
+					if(field >= 'a' && field <= 'z')
+						teams[field - 'a'] = 1;
+				}
+			}
+			
+			int teamCounter = 0;
+			for(int i = 0; i < teams.length; i++){
+				if(teams[i] == 1)
+					teamCounter++;
+			}
+			
+			control.getConfiguration().setTeamCount(teamCounter);
+			control.getConfiguration().setMap(map, false);
 		}
 		catch(Exception e){
 			control.getHoverText().setText("Please try select a valid file");

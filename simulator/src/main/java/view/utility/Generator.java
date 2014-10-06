@@ -144,7 +144,10 @@ public class Generator {
 	}
 	
 	public void setKraken(double krakenCount){
-		if(krakenCount > countFieldType(water)) throw new IllegalArgumentException("There can't be more kraken than water fields");
+		int freeFields = countFieldType(water);
+		if(krakenCount > freeFields)
+			krakenCount = freeFields/2;
+			//throw new IllegalArgumentException("There can't be more kraken than water fields");
 		
 		Random gen = new Random();
 		for(int i = 0; i < krakenCount; i++){

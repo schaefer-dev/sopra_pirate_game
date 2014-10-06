@@ -35,7 +35,6 @@ public class Ressources {
 	    	InputStream stream = new FileInputStream(file);
 	    	island = new Image(stream);
 
-	    	
 	    	file = new File("src/main/ressources/water2.png");
 	    	stream = new FileInputStream(file);
 	    	water = new Image(stream);
@@ -43,36 +42,30 @@ public class Ressources {
 	    	file = new File("src/main/ressources/water_far.png");
 	    	stream = new FileInputStream(file);
 	    	waterFar = new Image(stream);
-
 	    	
 	    	file = new File("src/main/ressources/shoreIsland.png");
 	    	stream = new FileInputStream(file);
 	    	provision = new Image(stream);
-	
 	    	
 	    	file = new File("src/main/ressources/base.png");
 	    	stream = new FileInputStream(file);
 	    	base = new Image(stream);
-
 	    	
 	    	file = new File("src/main/ressources/ship.png");
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
 	    	
-	    	file = new File("src/main/ressources/kraken.png");
+	    	file = new File("src/main/ressources/Kraken2.png");
 	    	stream = new FileInputStream(file);
 	    	krakenImage = new Image(stream);
-
 	    	
 	    	file = new File("src/main/ressources/islandCoin.png");
 	    	stream = new FileInputStream(file);
 	    	treasureIslandImage = new Image(stream);
 
-	    	
 	    	file = new File("src/main/ressources/waterCoin.png");
 	    	stream = new FileInputStream(file);
 	    	treasureWaterImage = new Image(stream);
-
 	    	
 	    	file = new File("src/main/ressources/shore2.png");
 	    	stream = new FileInputStream(file);
@@ -81,12 +74,10 @@ public class Ressources {
 	    	file = new File("src/main/ressources/shoreIsland.png");
 	    	stream = new FileInputStream(file);
 	    	shoreIsland = new Image(stream);
-
 	    	
 	    	file = new File("src/main/ressources/buoy.png");
 	    	stream = new FileInputStream(file);
 	    	buoyImage = new Image(stream);
-
 	    	
 	    	file = new File("src/main/ressources/bush1.png");
 	    	stream = new FileInputStream(file);
@@ -95,7 +86,6 @@ public class Ressources {
 	    	file = new File("src/main/ressources/house1.png");
 	    	stream = new FileInputStream(file);
 	    	islandDetails.add(new Image(stream));
-	    	
 	    	
 	    	stream.close();
 	    	createDefaultConfig();
@@ -165,18 +155,16 @@ public class Ressources {
 		defaultConfiguration = new Configuration();
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
-		defaultConfiguration.setKrakenCount(10);
+		defaultConfiguration.setKrakenCount(100);
 		defaultConfiguration.setTeamCount(3);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
 		defaultConfiguration.getTactics().add("src/main/ressources/alternative5.ship");
-
 		
 		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);
 		char[][] map = preview.getMap();
 		defaultConfiguration.setMap(map, false);
 	}
-	
 }
