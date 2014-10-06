@@ -19,12 +19,6 @@
 *farmIslandCheckStraight	sense 0
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
 						goto farmIslandUhrzeigerMove
-*farmIslandUhrzeigerBuoyFound if ship_direction!=0 else test0Turned
-						if ship_direction!=1 else test1Turned
-						if ship_direction!=2 else test2Turned
-						if ship_direction!=3 else test3Turned
-						if ship_direction!=4 else test4Turned
-						if ship_direction!=5 else test5Turned
 *farmIslandUhrzeigerMoveHit sense 0
 						if sense_shiptype==friend else farmIslandUhrzeigerMoveHitEnemy
 *farmIslandUhrzeigerMoveHitFlee	turn left

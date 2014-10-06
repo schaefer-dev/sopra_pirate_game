@@ -1,3 +1,5 @@
+*start flipzero 3 else startFindTreasure; 1 Drittel der Schiffe legt Bojen, der Rest sucht Schätze.
+
 *startSetBuoys flipzero 2 else drehrechts; 									Hälfte dreht sich nach links, andere nach rechts
 *drehlinks turn left; 												Drehung in Richtung 5
 flipzero 2 else drehweiterLinks; 									Hälfte dreht sich weiter, andere Hälfte nicht
@@ -10,7 +12,7 @@ goto start5; 														wieder starten
 *look5geradeausStart sense 0; 										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart; 	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal5 move else turnlinks5;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test5
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test5
 mark 2; 															Boje setzten, dass in Richhtung 2 die Basis ist.
 *test5 pickup 5 else look5rechts; 									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback; 														Da Schatz gefunden nach Hause zurückfahren
@@ -36,7 +38,7 @@ goto start4;														Wieder anfangen zu suchen
 *look4geradeausStart sense 0;										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal4 move else turnrechts4;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test4
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test4
 mark 1;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test4 pickup 5 else look4rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback;														Da Schatz gefunden nach Hause zurückfahren
@@ -61,7 +63,7 @@ goto start3;														Schatzsuche erneut starten
 *look3geradeausStart sense 0;										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal3 move else turnlinks3;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test3
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test3
 mark 0;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test3 pickup 5 else look3rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback;														Da Schatz gefunden nach Hause zurückfahren.
@@ -87,7 +89,7 @@ goto start1
 *look1geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal1 move else turnrechts1
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test1
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test1
 mark 4
 *test1 pickup 5 else look1rechts
 goto findback
@@ -113,7 +115,7 @@ goto start2
 *look2geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal2 move else turnlinks2
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test2
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test2
 mark 5
 *test2 pickup 5 else look2rechts
 goto findback
@@ -139,7 +141,7 @@ goto start0
 *look0geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal0 move else turnrechts0
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test0
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test0
 mark 3
 *test0 pickup 5 else look0rechts
 goto findback
@@ -162,3 +164,212 @@ flipzero 3 else start
 goto start0
 *turnLeftGoto0 turn left
 goto drehTo0Start
+
+*findback sense 6
+if sense_celltype==home else findpath
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+goto drehTo0Start
+*findpath if !sense_marker0 else drehTo0
+if !sense_marker1 else drehTo1
+if !sense_marker2 else drehTo2
+if !sense_marker3 else drehTo3
+if !sense_marker4 else drehTo4
+*drehTo5 if ship_direction==5 else turnTo5
+*find5 move else find5
+goto findback5
+*turnTo5 turn right
+goto drehTo5
+*drehTo4 if ship_direction==4 else turnTo4
+*find4 move else find4
+goto findback4
+*turnTo4 turn right
+goto drehTo4
+*drehTo3 if ship_direction==3 else turnTo3
+*find3 move else find3
+goto findback3
+*turnTo3 turn right
+goto drehTo3
+*drehTo2 if ship_direction==2 else turnTo2
+*find2 move else find2
+goto findback2
+*turnTo2 turn right
+goto drehTo2
+*drehTo1 if ship_direction==1 else turnTo1
+*find1 move else find1
+goto findback1
+*turnTo1 turn right
+goto drehTo1
+*drehTo0 if ship_direction==0 else turnTo0
+*find0 move else find0
+goto findback0
+*turnTo0 turn right
+goto drehTo0
+*findback0 sense 6
+if sense_celltype==home else findpath0
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath0 ifall ship_direction==0 sense_marker0 else findpath
+move else findpath
+goto findback0
+*findback1 sense 6
+if sense_celltype==home else findpath1
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath1 ifall ship_direction==1 sense_marker1 else findpath
+move else findback
+goto findback1
+*findback2 sense 6
+if sense_celltype==home else findpath2
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath2 ifall ship_direction==2 sense_marker2 else findpath
+move else findback
+goto findback2
+*findback3 sense 6
+if sense_celltype==home else findpath3
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath3 ifall ship_direction==3 sense_marker3 else findpath
+move else findback
+goto findback3
+*findback4 sense 6
+if sense_celltype==home else findpath4
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath4 ifall ship_direction==4 sense_marker4 else findpath
+move else findback
+goto findback4
+*findback5 sense 6
+if sense_celltype==home else findpath5
+drop
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+*findpath5 ifall ship_direction==5 sense_marker5 else findpath
+move else findback
+goto findback5
+
+*startFindTreasure		flipzero 2 else drehrechtsFind
+*drehlinksFind 			turn left
+						flipzero 3 else drehweiterLinksFind
+*find 					pickup 5 else lookRechtsStart
+						drop
+						goto find
+*lookRechtsStart 		pickup 1 else look5geradeausStart
+						drop
+						goto find
+*lookGeradeausStart 	sense 0
+						ifall !sense_treasure sense_celltype!=island else testWhatStart
+*normal 				move else avoid
+*test					pickup 5 else lookRechts
+						goto findbackFromIsland
+*lookRechts 			pickup 1 else lookGeradeaus
+						goto findbackFromIsland
+*lookGeradeaus 			sense 0
+						ifany sense_treasure sense_celltype==island else normal
+*pickupGeradeaus 		pickup 0 else shouldFarm
+						goto findbackFromIsland
+*avoid			 		flipzero 2 else turnrechts
+*turnlinks	 			turn left
+						goto test
+*turnrechts 			turn right	
+						goto test
+*shouldFarm				refresh 0 else farmIslandStartUhrzeigerPickup
+						goto avoid
+*drehweiterLinksFind	turn left
+						flipzero 2 else drehnochweiterLinksFind
+						goto find
+*drehnochweiterLinksFind 	turn left
+						goto find
+*drehrechtsFind 			turn right
+						flipzero 3 else drehweiterRechtsFind
+						goto find
+*drehweiterRechtsFind		turn right
+						flipzero 2 else drehnochweiterRechtsFind
+						goto find
+*drehnochweiterRechtsFind	turn right
+						goto find
+
+*farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
+						sense 0 																;refresh
+						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
+						goto farmIslandUhrzeigerMove
+*farmIslandStartUhrzeigerPickup 	pickup 0 else farmIslandStartUhrzeigerSkipPickup
+						goto findBackFromIsland
+*farmIslandStartUhrzeigerSkipPickup		goto farmIslandStartUhrzeigerPickupTurnLeft
+*farmIslandUhrzeigerMove	move else farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
+						pickup 1 else skipPickupUhrzeigerMove
+						goto findBackFromIsland
+*skipPickupUhrzeigerMove	goto farmIslandCheckRight
+*farmIslandCheckRight	sense 1
+						ifany sense_celltype==empty sense_celltype==home else farmIslandCheckStraight
+						turn right
+						goto farmIslandUhrzeigerMove
+*farmIslandCheckStraight	sense 0
+						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
+						goto farmIslandUhrzeigerMove
+*farmIslandUhrzeigerMoveHit sense 0
+						if sense_shiptype==friend else farmIslandUhrzeigerMoveHitEnemy
+*farmIslandUhrzeigerMoveHitFlee	turn left
+						sense 0
+						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
+*SkipfarmIslandUhrzeigerMoveHit		move else SkipfarmIslandUhrzeigerMoveHit
+						turn right
+						turn right
+						sense 0
+*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitTryAgain
+						turn left
+						goto farmIslandStartUhrzeigerPickupTurnLeft
+*SkipfarmIslandUhrzeigerMoveHitBlocked turn left
+*SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove		move else SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove			; schiff zerstört sich selbst wenn hier Insel wäre. Könnte versuchen umzukehren und irgendwie den weg freizumachen. (später verbesserung einfügen)
+						turn right
+						turn right
+						turn right
+*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitTryAgain2
+						goto farmIslandStartUhrzeigerPickupTurnLeft
+*farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
+						goto farmIslandUhrzeigerMove
+						
+*findBackFromIsland
+sense 2
+if sense_celltype==island else singleTurn		;funktioniert natuerlich nur auf large
+sense 0
+if sense_celltype==island else singleTurn		;allgemein muesste natuerlich geschaut werden, ob 5 
+turn left
+turn left
+*again 
+move else again
+goto gamble
+*singleTurn
+turn left 
+*wait
+move else wait
+turn left
+*gamble
+flipzero 2 else continue
+turn right
+flipzero 2 else moveless
+*nexttry
+move else nexttry
+*moveless
+move else moveless
+turn left
+*continue 
+move else continue
+sense 0 
+ifall sense_celltype!=island sense_shiptype!=enemy sense_celltype!=enemyhome sense_shiptype!=friend else obstacle
+ifany sense_marker0 sense_marker1 sense_marker2 sense_marker3 sense_marker4 sense_marker5 sense_celltype==home else continue
+goto FINDBACK
+*obstacle
+refresh 0 else doesntmatter
+*doesntmatter
+ifany ship_direction==1 ship_direction==2 ship_direction==4 ship_direction==5 else singleturn
+turn right 
+turn right
+goto continue
