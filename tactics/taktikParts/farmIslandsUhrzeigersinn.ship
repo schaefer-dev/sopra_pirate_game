@@ -1,3 +1,6 @@
+; called with armIslandStartUhrzeigerPickupTurnLeft when looking straight at an island
+; calls findBackFromIsland when pickup was succesfull
+
 *farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
 						sense 0 																;refresh
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
