@@ -10,7 +10,7 @@ goto start5; 														wieder starten
 *look5geradeausStart sense 0; 										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart; 	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal5 move else turnlinks5;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test5
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test5
 mark 2; 															Boje setzten, dass in Richhtung 2 die Basis ist.
 *test5 pickup 5 else look5rechts; 									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback; 														Da Schatz gefunden nach Hause zurückfahren
@@ -36,7 +36,7 @@ goto start4;														Wieder anfangen zu suchen
 *look4geradeausStart sense 0;										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal4 move else turnrechts4;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test4
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test4
 mark 1;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test4 pickup 5 else look4rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback;														Da Schatz gefunden nach Hause zurückfahren
@@ -61,7 +61,7 @@ goto start3;														Schatzsuche erneut starten
 *look3geradeausStart sense 0;										Vorne sensen
 ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
 *normal3 move else turnlinks3;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test3
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test3
 mark 0;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test3 pickup 5 else look3rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
 goto findback;														Da Schatz gefunden nach Hause zurückfahren.
@@ -87,7 +87,7 @@ goto start1
 *look1geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal1 move else turnrechts1
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test1
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test1
 mark 4
 *test1 pickup 5 else look1rechts
 goto findback
@@ -113,7 +113,7 @@ goto start2
 *look2geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal2 move else turnlinks2
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test2
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test2
 mark 5
 *test2 pickup 5 else look2rechts
 goto findback
@@ -139,7 +139,7 @@ goto start0
 *look0geradeausStart sense 0
 ifall !sense_treasure sense_celltype!=island else testWhatStart
 *normal0 move else turnrechts0
-ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 ! sense_marker5 else test0
+ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test0
 mark 3
 *test0 pickup 5 else look0rechts
 goto findback
