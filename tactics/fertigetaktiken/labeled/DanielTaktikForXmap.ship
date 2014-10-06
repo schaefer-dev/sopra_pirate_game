@@ -1,0 +1,68 @@
+*start					;nach unten oben fahren zum identifizieren der seite
+			flipzero 2 else startGoUp
+			goto startGoDown
+
+*startGoUp
+			turn left
+*scanAndMoveGoUp
+			sense 0
+			if sense_fieldtype==empty else moveUpHit
+*scanAndMoveGoUpMove			move else scanAndMoveGoUpMove
+			goto scanAndGoUp
+
+*moveUpHit
+			sense 5
+			if sense_fieldtype==empty else startedTopGoUp
+			goto startedBottomGoUp
+
+*startGoDown
+			turn right
+			turn right
+*scanAndMoveGoDown
+			sense 0
+			if sense_fieldtype==empty else moveDownHit
+*scanAndMoveGoDownMove	move else scanAndMoveGoDownMove
+			goto scanAndGoDown
+
+*moveDownHit
+			sense 5
+			if sense_fieldtype==empty else startedBottomGoDown
+			goto startedTopGoDown
+
+*startedTopGoUp
+			mark 2
+			turn right
+			turn right	
+*startedTopGoUpMove1	sense 0
+			if sense_fieldtype==empty else startedTopGoUpFirstHit
+		*tartedTopGoUpMove		move else startedTopGoUpMove
+			goto startedTopGoUpMove1
+
+*startedTopGoUpFirstHit
+			mark 4
+			turn right
+*startedTopGoUpMove2
+			if sense_fieldtype==empty else startedTopGoUpSecondHit
+		*startedTopGoUpMove2Move1	move else startedTopGoUpMove2Move1
+			turn right
+		*startedTopGoUpMove2Move2	move else startedTopGoUpMove2Move2
+			turn left
+			goto startedTopGoUpMove2
+
+*startedTopGoUpSecondHit
+			goto 999 ;noch nicht implementiert
+
+
+
+
+*startedTopGoDown
+			mark 4
+			goto 999
+
+
+*startedBottomGoUp
+			goto 999
+
+
+*startedBottomGoDown
+			goto 999
