@@ -87,8 +87,6 @@ public class MapGenerator {
 		String line;
 		
 		while((line = reader.readLine()) != null){
-			
-			line.trim();
 			line = line.replaceAll(" ", "");
 
 			for(int i = 0; i < line.length(); i++){
