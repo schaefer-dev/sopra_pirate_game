@@ -1,0 +1,41 @@
+*findBackFromIsland
+sense 2
+if sense_celltype==island else singleTurn
+sense 0
+if sense_celltype==island else singleTurn
+turn left
+turn left
+*again 
+move else again
+goto gamble
+*singleTurn
+turn left 
+*wait
+move else wait
+turn left
+*gamble
+flipzero 2 else continue
+turn right
+flipzero 2 else moveless
+*nexttry
+move else nexttry
+*moveless
+move else *moveless
+turn left
+*continue 
+move else continue
+sense 0 
+ifall sense_celltype!=island sense_shiptype!=enemy else obstacle
+ifany sense_marker0 sense_marker1 sense_marker2 sense_marker3 sense_marker4 sense_marker5 else continue
+goto FINDBACK
+*obstacle
+refresh 0 else doesntmatter
+*doesntmatter
+if ship_direction<3 else GT3
+turn left 
+turn left
+goto continue
+*GT3
+turn right
+turn right 
+goto continue 
