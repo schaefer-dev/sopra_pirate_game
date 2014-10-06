@@ -16,7 +16,10 @@
 						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
-						goto farmIslandUhrzeigerMove
+						flipzero 50 else farmIslandCheckStraightGoOn
+						turn left
+						goto test
+*farmIslandCheckStraightGoOn		goto farmIslandUhrzeigerMove
 *farmIslandUhrzeigerMoveHit sense 0
 						if sense_shiptype==friend else farmIslandUhrzeigerMoveHitEnemy
 *farmIslandUhrzeigerMoveHitFlee	turn left
