@@ -21,6 +21,7 @@ public class Ressources {
 	private Image treasureIslandImage;
 	private Image buoyImage;
 	private Image krakenImage;
+	private Image krakenFarImage;
 	private Image shoreIsland;
 	private Image shoreWater;
 	
@@ -55,9 +56,13 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
 	    	
-	    	file = new File("src/main/ressources/Kraken2.png");
+	    	file = new File("src/main/ressources/kraken3.png");
 	    	stream = new FileInputStream(file);
 	    	krakenImage = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/krakenfaraway.png");
+	    	stream = new FileInputStream(file);
+	    	krakenFarImage = new Image(stream);
 	    	
 	    	file = new File("src/main/ressources/islandCoin.png");
 	    	stream = new FileInputStream(file);
@@ -133,6 +138,10 @@ public class Ressources {
 	
 	public Image getKrakenImage(){
 		return krakenImage;
+	}
+	
+	public Image getKrakenFarImage(){
+		return krakenFarImage;
 	}
 	
 	public Image getShoreWaterImage(){

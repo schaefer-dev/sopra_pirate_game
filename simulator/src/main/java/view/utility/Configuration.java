@@ -1,8 +1,10 @@
 package view.utility;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javafx.scene.control.ComboBox;
 
@@ -46,7 +48,7 @@ public class Configuration {
 			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Guybrush Threepwood", "Captain Hook", 
 			"Monkey D. Ruffy", "LeChuck"));
 	
-	private List<String> currentNames = new LinkedList<String>();
+	private Set<String> currentNames = new HashSet<String>();
 	private List<ComboBox<String>> teamConfigs = new LinkedList<ComboBox<String>>();
 
 	private char[][] map;
@@ -175,9 +177,8 @@ public class Configuration {
 		return captainNames;
 	}
 	
-	public void reserveCaptainName(String name){
-		
-		
+	public Set<String> getCurrentCaptainName(){
+		return currentNames;
 	}
 
 	public List<String> getTactics(){
