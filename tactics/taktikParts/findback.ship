@@ -44,6 +44,7 @@ if sense_celltype==home else findpath0
 drop
 if ship_condition!=3 else redistribute
 repair else redistribute
+goto redistribute
 *findpath0 ifall ship_direction==0 sense_marker0 else findpath
 move else findpath
 goto findback0
@@ -52,6 +53,7 @@ if sense_celltype==home else findpath1
 drop
 if ship_condition!=3 else redistribute
 repair else redistribute
+goto redistribute
 *findpath1 ifall ship_direction==1 sense_marker1 else findpath
 move else findback
 goto findback1
@@ -60,6 +62,7 @@ if sense_celltype==home else findpath2
 drop
 if ship_condition!=3 else redistribute
 repair else redistribute
+goto redistribute
 *findpath2 ifall ship_direction==2 sense_marker2 else findpath
 move else findback
 goto findback2
@@ -68,6 +71,7 @@ if sense_celltype==home else findpath3
 drop
 if ship_condition!=3 else redistribute
 repair else redistribute
+goto redistribute
 *findpath3 ifall ship_direction==3 sense_marker3 else findpath
 move else findback
 goto findback3
@@ -76,6 +80,7 @@ if sense_celltype==home else findpath4
 drop
 if ship_condition!=3 else redistribute
 repair else redistribute
+goto redistribute
 *findpath4 ifall ship_direction==4 sense_marker4 else findpath
 move else findback
 goto findback4
@@ -84,6 +89,7 @@ if sense_celltype==home else findpath5
 drop
 if ship_condition!=3 else redistribute
 repair else redistribute
+goto redistribute
 *findpath5 ifall ship_direction==5 sense_marker5 else findpath
 move else findback
 goto findback5
