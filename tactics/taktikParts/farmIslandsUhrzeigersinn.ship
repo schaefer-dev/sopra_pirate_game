@@ -24,11 +24,11 @@
 *farmIslandUhrzeigerMoveHitFlee	turn left
 						sense 0
 						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
-*SkipfarmIslandUhrzeigerMoveHit		move else SkipfarmIslandUhrzeigerMoveHit
+*SkipfarmIslandUhrzeigerMoveHit		move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn right
 						turn right
 						sense 0
-*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitTryAgain
+*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn left
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *SkipfarmIslandUhrzeigerMoveHitBlocked turn left
@@ -40,3 +40,6 @@
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
 						goto farmIslandUhrzeigerMove
+
+*SkipIslandUhrzeigerMoveHitSearchSolution
+						goto test
