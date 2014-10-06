@@ -21,19 +21,25 @@
 *farmIslandUhrzeigerMoveHitFlee	turn left
 						sense 0
 						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
-*SkipfarmIslandUhrzeigerMoveHit		move else SkipIslandUhrzeigerMoveHitSearchSolution
+						move else SkipfarmIslandUhrzeigerMoveHitBlocked
 						turn right
 						turn right
 						sense 0
-*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitSearchSolution
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn left
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *SkipfarmIslandUhrzeigerMoveHitBlocked turn left
-*SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove		move else SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove			; schiff zerstört sich selbst wenn hier Insel wäre. Könnte versuchen umzukehren und irgendwie den weg freizumachen. (später verbesserung einfügen)
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn right
 						turn right
 						turn right
-*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitSearchSolution
+						sense 0			;nur bremse
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
 						goto farmIslandUhrzeigerMove
