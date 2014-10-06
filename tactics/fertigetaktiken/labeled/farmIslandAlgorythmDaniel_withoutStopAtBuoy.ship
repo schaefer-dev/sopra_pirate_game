@@ -6,7 +6,6 @@
 						goto findBackFromIsland
 *farmIslandStartUhrzeigerSkipPickup		goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMove	move else farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
-						ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else farmIslandUhrzeigerBuoyFound
 						pickup 1 else skipPickupUhrzeigerMove
 						goto findBackFromIsland
 *skipPickupUhrzeigerMove	goto farmIslandCheckRight
