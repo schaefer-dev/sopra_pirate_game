@@ -63,6 +63,23 @@
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
 }
 
+.teamselection{
+    -fx-border-color: #2e8b57;
+    -fx-border-width: 1px;
+}
+
+.teamwindow{
+    -fx-padding: 0 120 0 150;
+}
+
+.teamselectionbutton{
+    -fx-font-size: 22px;
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 0 10 0 100;
+}
+
 .slider .track {
     -fx-base: derive(goldenrod, 50%);
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );

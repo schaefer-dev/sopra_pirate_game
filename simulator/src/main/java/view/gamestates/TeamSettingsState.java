@@ -105,15 +105,6 @@ public class TeamSettingsState implements GameState {
 		root.setBottom(selection);
 		
 		manager.getRoot().setCenter(root);
-		
-		/*
-		list.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-
-			@Override
-			public ListCell<String> call(ListView<String> arg0) {
-				return new ButtonListCell();
-			}
-		});*/
 	}
 
 	@Override

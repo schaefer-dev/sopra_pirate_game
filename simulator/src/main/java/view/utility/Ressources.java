@@ -21,6 +21,7 @@ public class Ressources {
 	private Image treasureIslandImage;
 	private Image buoyImage;
 	private Image krakenImage;
+	private Image krakenFarImage;
 	private Image shoreIsland;
 	private Image shoreWater;
 	
@@ -55,9 +56,13 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
 	    	
-	    	file = new File("src/main/ressources/Kraken2.png");
+	    	file = new File("src/main/ressources/kraken3.png");
 	    	stream = new FileInputStream(file);
 	    	krakenImage = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/krakenfaraway.png");
+	    	stream = new FileInputStream(file);
+	    	krakenFarImage = new Image(stream);
 	    	
 	    	file = new File("src/main/ressources/islandCoin.png");
 	    	stream = new FileInputStream(file);
@@ -135,6 +140,10 @@ public class Ressources {
 		return krakenImage;
 	}
 	
+	public Image getKrakenFarImage(){
+		return krakenFarImage;
+	}
+	
 	public Image getShoreWaterImage(){
 		return shoreWater;
 	}
@@ -156,13 +165,13 @@ public class Ressources {
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(100);
-		defaultConfiguration.setTeamCount(3);
+		defaultConfiguration.setTeamCount(1);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/alternative2.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/complete.ship");
 		
-		File file = new File("src/main/ressources/Large.map");
+		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);
 		char[][] map = preview.getMap();
 		defaultConfiguration.setMap(map, false);

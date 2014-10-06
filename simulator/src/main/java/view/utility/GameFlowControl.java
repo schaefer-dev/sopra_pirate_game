@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 public class GameFlowControl {
 
 	private Timer timer;
-	private int[] speeds = {1, 4, 10, 50, 100, 400, 800, 1500};
+	private int[] speeds = {1, 4, 10, 50, 100, 200, 500, 1000};
 	private int currentSpeed;
 	private int offset;
 	
@@ -28,9 +28,7 @@ public class GameFlowControl {
 					play.setVisible(false);
 					pause.setVisible(true);
 				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
+				catch(Exception e){}
 			}
 		});
 		
@@ -44,9 +42,7 @@ public class GameFlowControl {
 					play.setVisible(true);
 					pause.setVisible(false);
 				} 
-				catch (Exception e){
-					e.printStackTrace();
-				}	
+				catch (Exception e){}	
 			}
 		});
 		
@@ -64,10 +60,7 @@ public class GameFlowControl {
 						pause.setVisible(true);
 					}
 				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
-				
+				catch(Exception e){}
 			}
 		});
 		
@@ -85,9 +78,7 @@ public class GameFlowControl {
 						pause.setVisible(true);
 					}
 				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
+				catch(Exception e){}
 			}
 		});	
 	}

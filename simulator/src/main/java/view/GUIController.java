@@ -5,6 +5,7 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import view.gamestates.MainMenuState;
+import view.gamestates.TeamSettingsState2;
 import view.utility.Configuration;
 import view.utility.GameState;
 import view.utility.Resolution;
@@ -34,7 +35,7 @@ public class GUIController extends Application {
 	private Scene scene;
 	private MediaPlayer player;
 	private Ressources res = new Ressources();
-	private Configuration config;
+	private Configuration config = res.getDefaultConfig(); 	//TODO: delete this later
 	private Text title = new Text();
 	private Text hoverText = new Text();
 	private BorderPane borderPane;
