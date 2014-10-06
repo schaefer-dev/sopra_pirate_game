@@ -42,48 +42,48 @@ goto drehTo0
 *findback0 sense 6
 if sense_celltype==home else findpath0
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
+if ship_condition!=3 else redistribute
+repair else redistribute
 *findpath0 ifall ship_direction==0 sense_marker0 else findpath
 move else findpath
 goto findback0
 *findback1 sense 6
 if sense_celltype==home else findpath1
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
+if ship_condition!=3 else redistribute
+repair else redistribute
 *findpath1 ifall ship_direction==1 sense_marker1 else findpath
 move else findback
 goto findback1
 *findback2 sense 6
 if sense_celltype==home else findpath2
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
+if ship_condition!=3 else redistribute
+repair else redistribute
 *findpath2 ifall ship_direction==2 sense_marker2 else findpath
 move else findback
 goto findback2
 *findback3 sense 6
 if sense_celltype==home else findpath3
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
+if ship_condition!=3 else redistribute
+repair else redistribute
 *findpath3 ifall ship_direction==3 sense_marker3 else findpath
 move else findback
 goto findback3
 *findback4 sense 6
 if sense_celltype==home else findpath4
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
+if ship_condition!=3 else redistribute
+repair else redistribute
 *findpath4 ifall ship_direction==4 sense_marker4 else findpath
 move else findback
 goto findback4
 *findback5 sense 6
 if sense_celltype==home else findpath5
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
+if ship_condition!=3 else redistribute
+repair else redistribute
 *findpath5 ifall ship_direction==5 sense_marker5 else findpath
 move else findback
 goto findback5
