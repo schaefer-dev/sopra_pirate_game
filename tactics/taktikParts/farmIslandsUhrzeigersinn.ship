@@ -36,7 +36,7 @@
 						turn right
 						turn right
 						turn right
-*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitTryAgain2
+*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
 						goto farmIslandUhrzeigerMove
