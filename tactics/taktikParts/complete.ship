@@ -368,20 +368,28 @@ goto to3
 *moveOut sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
+sense 0
 if sense_cellType==empty else test
 move else normal
 turn right
