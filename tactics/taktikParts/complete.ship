@@ -365,14 +365,24 @@ goto to0
 *to3 if ship_direction!=3 else moveOut
 turn right
 goto to3
-*moveOut move else normal
+*moveOut sense 0
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
 move else normal
+if sense_cellType==empty else test
+move else normal
+if sense_cellType==empty else test
 move else normal
 turn right
 turn right
