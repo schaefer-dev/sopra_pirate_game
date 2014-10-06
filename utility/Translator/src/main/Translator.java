@@ -336,7 +336,7 @@ private Command translate(String line){
 								currentLine = currentLine.substring(0, currentLine.indexOf(";"));
 							currentLine = currentLine.trim().replaceAll("	", " ");
 							if(currentLine.length() < 1){
-								row = row + 0;
+								row = row +0;
 								absRow++;
 							}else{
 								if(labelized){
@@ -345,12 +345,12 @@ private Command translate(String line){
 										try{
 											appendix = appendix.trim();
 											if (appendix.length() < 1){
-												row = row + 0;
+												row = row - 1;
 												absRow++;
 											}else	
 												tactic.add(translate(appendix));
 										}catch(Exception e){
-											errors.add("l: " + row + "leere Zeile");
+											continue;
 										}
 									}else
 										tactic.add(translate(currentLine));
@@ -467,7 +467,6 @@ private Command translate(String line){
 			bools.add(comparison);
 			}
 			if(bools.size() != conditions.size()){
-			//	errors.add("row: " + (row + 1));
 				return null;
 			}else{
 				elsePC = evaluateValues(false, false);
