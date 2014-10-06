@@ -11,6 +11,7 @@
 *skipPickupUhrzeigerMove	goto farmIslandCheckRight
 *farmIslandCheckRight	sense 1
 						ifany sense_celltype==empty sense_celltype==home else farmIslandCheckStraight
+						if ship_load<3 else findBackFromIsland
 						turn right
 						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
