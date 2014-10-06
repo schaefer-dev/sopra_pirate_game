@@ -18,7 +18,7 @@ flipzero 2 else moveless
 *nexttry
 move else nexttry
 *moveless
-move else *moveless
+move else moveless
 turn left
 *continue 
 move else obstacle

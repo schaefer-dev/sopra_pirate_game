@@ -160,9 +160,9 @@ public class Ressources {
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/alternative5.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/alternative2.ship");
 		
-		File file = new File("src/main/ressources/default.map");
+		File file = new File("src/main/ressources/Large.map");
 		MapPreview preview = new MapPreview(file);
 		char[][] map = preview.getMap();
 		defaultConfiguration.setMap(map, false);
