@@ -1,6 +1,6 @@
 ﻿*startFindTreasure		flipzero 2 else drehrechtsFind
 *drehlinksFind 			turn left
-						flipzero 3 else drehweiterLinksFind
+						flipzero 5 else drehweiterLinksFind
 *find 					pickup 5 else lookRechtsStartFind
 						drop
 						goto find
@@ -23,13 +23,11 @@
 *shouldFarm				refresh 0 else farmIslandStartUhrzeigerPickup
 						goto avoid
 *drehweiterLinksFind	turn left
-						flipzero 2 else drehnochweiterLinksFind
-						goto find
+						flipzero 5 else find
 *drehnochweiterLinksFind 	turn left
 						goto find
 *drehrechtsFind 			turn right
-						flipzero 3 else drehweiterRechtsFind
-						goto find
+						flipzero 5 else find
 *drehweiterRechtsFind		turn right
 						flipzero 2 else drehnochweiterRechtsFind
 						goto find

@@ -1,9 +1,9 @@
 *findback sense 6
 if sense_celltype==home else findpath
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
-goto drehTo0Start
+if ship_condition!=3 else normal
+repair else normal
+goto normal
 *findpath if !sense_marker0 else drehTo0
 if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2

@@ -166,9 +166,9 @@ goto drehTo0Start				;GRENZE
 *findback sense 6
 if sense_celltype==home else findpath
 drop
-if ship_condition!=3 else drehTo0Start
-repair else drehTo0Start
-goto drehTo0Start
+if ship_condition!=3 else normal
+repair else normal
+goto normal
 *findpath if !sense_marker0 else drehTo0
 if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2
@@ -252,9 +252,9 @@ repair else drehTo0Start
 *findpath5 ifall ship_direction==5 sense_marker5 else findpath
 move else findback
 goto findback5
-*startFindTreasure		flipzero 2 else drehrechtsFind 				;GRENZE
+*startFindTreasure		flipzero 2 else drehrechtsFind
 *drehlinksFind 			turn left
-						flipzero 3 else drehweiterLinksFind
+						flipzero 5 else drehweiterLinksFind
 *find 					pickup 5 else lookRechtsStartFind
 						drop
 						goto find
@@ -272,26 +272,21 @@ goto findback5
 						ifany sense_treasure sense_celltype==island else normal
 *pickupGeradeaus 		pickup 0 else shouldFarm
 						goto findbackFromIsland
-*avoid			 		flipzero 2 else turnrechts
-*turnlinks	 			turn left
-						goto test
-*turnrechts 			turn right	
+*avoid			 		turn left
 						goto test
 *shouldFarm				refresh 0 else farmIslandStartUhrzeigerPickup
 						goto avoid
 *drehweiterLinksFind	turn left
-						flipzero 2 else drehnochweiterLinksFind
-						goto find
+						flipzero 5 else find
 *drehnochweiterLinksFind 	turn left
 						goto find
 *drehrechtsFind 			turn right
-						flipzero 3 else drehweiterRechtsFind
-						goto find
+						flipzero 5 else find
 *drehweiterRechtsFind		turn right
 						flipzero 2 else drehnochweiterRechtsFind
 						goto find
 *drehnochweiterRechtsFind	turn right
-						goto find 		;GRENZE
+						goto find
 *farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
 						sense 0 																;refresh
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
@@ -305,6 +300,7 @@ goto findback5
 *skipPickupUhrzeigerMove	goto farmIslandCheckRight
 *farmIslandCheckRight	sense 1
 						ifany sense_celltype==empty sense_celltype==home else farmIslandCheckStraight
+						if ship_load<3 else findBackFromIsland
 						turn right
 						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
@@ -315,61 +311,47 @@ goto findback5
 *farmIslandUhrzeigerMoveHitFlee	turn left
 						sense 0
 						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
-*SkipfarmIslandUhrzeigerMoveHit		move else SkipIslandUhrzeigerMoveHitSearchSolution
+						move else SkipfarmIslandUhrzeigerMoveHitBlocked
 						turn right
 						turn right
 						sense 0
-*SkipIslandUhrzeigerMoveHitTryAgain	move else SkipIslandUhrzeigerMoveHitSearchSolution
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn left
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *SkipfarmIslandUhrzeigerMoveHitBlocked turn left
-*SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove		move else SkipfarmIslandUhrzeigerMoveHitBlockedSkipMove			; schiff zerstört sich selbst wenn hier Insel wäre. Könnte versuchen umzukehren und irgendwie den weg freizumachen. (später verbesserung einfügen)
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						turn right
 						turn right
 						turn right
-*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitSearchSolution
+						sense 0			;nur bremse
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
 						goto farmIslandUhrzeigerMove
 *SkipIslandUhrzeigerMoveHitSearchSolution		goto test
-*findBackFromIsland sense 2
-if sense_celltype==island else singleTurn		;funktioniert natuerlich nur auf large
-sense 0
-if sense_celltype==island else singleTurn		;allgemein muesste natuerlich geschaut werden, ob 5 insel ist
-turn left
-turn left
-move else obstacle
-goto gamble
-*singleTurn turn left 
-move else obstacle
-turn left
-*gamble flipzero 2 else continue
-turn right
-flipzero 2 else moveless
-*nexttry move else nexttry
-*moveless move else moveless
-turn left
-*continue  move else obstacle
-sense 0 
-ifall sense_celltype!=island sense_shiptype!=enemy sense_celltype!=enemyhome sense_shiptype!=friend else obstacle
-ifany sense_marker0 sense_marker1 sense_marker2 sense_marker3 sense_marker4 sense_marker5 sense_celltype==home else continue
-goto FINDBACK
-*obstacle refresh 0 else doesntmatter
-*doesntmatter flipzero 6 else rightyRight
-turn right
-goto continue
-*rightyRight flipzero 5 else elseRightyRight
-turn right
-turn right
-goto continue
-*elseRightyRight flipzero 4 else leftyLeft
-turn left
-goto continue
-*leftyLeft flipzero 3 else dannnyBoyThePipesThePipesAreCalling.FromGlenToGlenAndDownTheMountainSide
-turn left 
-turn left
-goto continue
-*dannnyBoyThePipesThePipesAreCalling.FromGlenToGlenAndDownTheMountainSide turn left
-turn left
-turn left
-goto continue
+*FindBackFromIsland turn left ;moves in first field on its left side which is free
+	sense 0
+	ifany sense_celltype==home sense_celltype==empty else FindBackFromIsland
+	move else FindBackFromIsland
+*searchOnForBuoy sense 6
+	ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else findback
+	sense 0
+	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	flipzero 2 else turnLeftAndSearchOn
+	goto turnRightAndSearchOn
+*turnLeftAndSearchOn turn left
+	sense 0
+	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	goto turnLeftAndSearchOn
+*turnRightAndSearchOn turn right
+	sense 0
+	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	turn right
+	goto turnLeftAndSearchOn
+*moveBecauseNothingInYourWay move else searchOnForBuoy
+	goto searchOnForBuoy
