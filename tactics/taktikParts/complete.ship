@@ -357,8 +357,7 @@ goto findback5
 	goto turnLeftAndSearchOn
 *moveBecauseNothingInYourWay move else searchOnForBuoy
 	goto searchOnForBuoy
-*redistribute flipzero 2 else normal
-flipzero 2 else to3
+*redistribute flipzero 2 else to3
 *to0 if ship_direction!=0 else moveOut
 turn right
 goto to0
