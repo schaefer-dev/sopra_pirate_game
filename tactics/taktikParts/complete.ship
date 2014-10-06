@@ -327,11 +327,11 @@ goto findback5
 						turn right
 						turn right
 						turn right
-*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitTryAgain2
+*SkipIslandUhrzeigerMoveHitTryAgain2		move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
 						goto farmIslandUhrzeigerMove
-*SkipIslandUhrzeigerMoveHitSearchSolution		goto test					
+*SkipIslandUhrzeigerMoveHitSearchSolution		goto test
 *findBackFromIsland sense 2
 if sense_celltype==island else singleTurn		;funktioniert natuerlich nur auf large
 sense 0
