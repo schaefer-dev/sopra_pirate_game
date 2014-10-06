@@ -59,19 +59,23 @@ import enums.CommandWords;
 public class Translator {
 	
 	Map<String, Integer> labels;
+	Map<String, Integer> check;
 	List<String> errors;
 	boolean labelized;
 	String currentElement = null;
 	String appendix = null;
 	int row, absRow;
 	TranslatorTools toolBox;
-	
+	LinkedList<String> labellist; 
+			
 	public Translator(){
 		this.errors = new ArrayList<String>();
 		this.row = 0;
 		this.toolBox = new TranslatorTools();
 		this.labelized = false;
 		this.labels = new HashMap<String, Integer>();
+		this.check = new HashMap<String, Integer>();
+		this.labellist = new LinkedList<String>();
 	}
 	
 	/** @Specs: splits the given line in a and saves the first word in currentElements and the rest 
@@ -310,6 +314,7 @@ private Command translate(String line){
 									if (labels.containsValue(currentElement.substring(1).toLowerCase()))
 										errors.add("ACHTUNG!!! LABEL :"+ currentElement.substring(1).toLowerCase() + "DOPPELT VERGEBEN!!!!");
 									else{
+										labellist.add(currentElement.substring(1).toLowerCase());
 										labels.put(currentElement.substring(1).toLowerCase(), row);
 										if(appendix != null)
 											row++;
@@ -364,6 +369,12 @@ private Command translate(String line){
 							}
 						}	
 				if(labelized){
+					for(String label: labellist){
+						if(!check.containsKey(label))
+							System.out.println("does not contain: " + label);
+						else
+							continue;
+					}
 					if (errors.size() > 0){
 						int error = 0;
 						while(error < errors.size()){
@@ -392,9 +403,11 @@ private Command translate(String line){
 			    if(0 <= toolBox.toInt(currentElement) && toolBox.toInt(currentElement) <= 1999)
 			    		return toolBox.toInt(currentElement);
 		}if(labelized){
-				if(labels.containsKey(currentElement.toLowerCase()))
+				check.put(currentElement.toLowerCase(), 2000);
+				if(labels.containsKey(currentElement.toLowerCase())){
+						check.put(currentElement.toLowerCase(), labels.get(currentElement.toLowerCase()));
 				    	return (int) labels.get(currentElement.toLowerCase());
-				else
+				}else
 					   return -1;
 		}else
 			   return -1;
