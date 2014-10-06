@@ -6,47 +6,48 @@
 			turn left
 *scanAndMoveGoUp
 			sense 0
-			if sense_fieldtype==empty else moveUpHit
+			if sense_celltype==empty else moveUpHit
 *scanAndMoveGoUpMove			move else scanAndMoveGoUpMove
-			goto scanAndGoUp
+			goto scanAndMoveGoUp
 
 *moveUpHit
 			sense 5
-			if sense_fieldtype==empty else startedTopGoUp
+			if sense_celltype==empty else startedTopGoUp
 			goto startedBottomGoUp
 
 *startGoDown
+			goto 999   ;entfernen
 			turn right
 			turn right
 *scanAndMoveGoDown
 			sense 0
-			if sense_fieldtype==empty else moveDownHit
+			if sense_celltype==empty else moveDownHit
 *scanAndMoveGoDownMove	move else scanAndMoveGoDownMove
-			goto scanAndGoDown
+			goto scanAndMoveGoDown
 
 *moveDownHit
 			sense 5
-			if sense_fieldtype==empty else startedBottomGoDown
+			if sense_celltype==empty else startedBottomGoDown
 			goto startedTopGoDown
 
 *startedTopGoUp
 			mark 2
 			turn right
-			turn right	
 *startedTopGoUpMove1	sense 0
-			if sense_fieldtype==empty else startedTopGoUpFirstHit
-		*tartedTopGoUpMove		move else startedTopGoUpMove
+			if sense_celltype==empty else startedTopGoUpFirstHit
+		*startedTopGoUpMove		move else startedTopGoUpMove
 			goto startedTopGoUpMove1
 
 *startedTopGoUpFirstHit
-			mark 4
+			mark 3
+			turn right
 			turn right
 *startedTopGoUpMove2
-			if sense_fieldtype==empty else startedTopGoUpSecondHit
+			if sense_celltype==empty else startedTopGoUpSecondHit
 		*startedTopGoUpMove2Move1	move else startedTopGoUpMove2Move1
-			turn right
-		*startedTopGoUpMove2Move2	move else startedTopGoUpMove2Move2
 			turn left
+		*startedTopGoUpMove2Move2	move else startedTopGoUpMove2Move2
+			turn right
 			goto startedTopGoUpMove2
 
 *startedTopGoUpSecondHit
