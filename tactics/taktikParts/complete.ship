@@ -305,7 +305,7 @@ goto findback5
 						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
-						flipzero 50 else farmIslandCheckStraightGoOn
+						flipzero 85 else farmIslandCheckStraightGoOn
 						turn left
 						goto test
 *farmIslandCheckStraightGoOn		goto farmIslandUhrzeigerMove

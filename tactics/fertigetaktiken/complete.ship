@@ -305,7 +305,7 @@ turn right
 goto 296
 sense 0
 ifany sense_celltype==empty sense_celltype==home else 289
-flipzero 50 else 310
+flipzero 85 else 310
 turn left
 goto 266
 goto 296
