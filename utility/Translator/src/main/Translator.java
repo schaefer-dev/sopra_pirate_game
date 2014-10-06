@@ -303,6 +303,8 @@ private Command translate(String line){
 								row = row + 0;
 								continue;
 							}else{
+								if(labeledLine.contains(";"))
+									labeledLine = labeledLine.substring(0, labeledLine.indexOf(";"));
 								makeSplits(labeledLine);
 								if(currentElement.startsWith("*")){
 									if (labels.containsValue(currentElement.substring(1).toLowerCase()))

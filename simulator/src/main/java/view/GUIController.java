@@ -114,7 +114,6 @@ public class GUIController extends Application {
 		BorderPane.setAlignment(bottom, Pos.BOTTOM_CENTER);
 		borderPane.setBottom(bottom);
 
-
 		scene = new Scene(borderPane, 1280, 720);
 		stage.setScene(scene);
 		//primaryStage.setResizable(false);
@@ -132,8 +131,8 @@ public class GUIController extends Application {
 			player = mediaPlayer;
 			mediaPlayer.play();
 			mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-			}
-			catch(Exception e){}
+		}
+		catch(Exception e){}
 	}
 	
 	public Text getTitleText(){

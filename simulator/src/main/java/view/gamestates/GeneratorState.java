@@ -116,7 +116,6 @@ public class GeneratorState implements GameState {
 		selection.add(back, 0, 0);
 		selection.add(next, 6, 0);
 		
-		
 		root = new BorderPane();
 		root.setCenter(box);
 		root.setBottom(selection);

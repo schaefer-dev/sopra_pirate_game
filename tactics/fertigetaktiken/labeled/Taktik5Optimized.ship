@@ -1,4 +1,4 @@
-﻿*start 					flipzero 2 else drehrechts
+*start 					flipzero 2 else drehrechts
 *drehlinks 				turn left
 						flipzero 3 else drehweiterLinks
 *start5 				pickup 5 else look5rechtsStart
@@ -346,20 +346,20 @@
 *checkLeft		turn left 
 			goto senseLeft
 *farmIsland5 mark 2
-if sense_shipload<1 else findback
+if ship_load<1 else findback
 goto farmIslandStartUhrzeigerPickup
 *farmIsland4 mark 1
-if sense_shipload<1 else findback
+if ship_load<1 else findback
 goto farmIslandStartUhrzeigerPickup
 *farmIsland3 mark 0
-if sense_shipload<1 else findback
+if ship_load<1 else findback
 goto farmIslandStartUhrzeigerPickup
 *farmIsland2 mark 5
-if sense_shipload<1 else findback
+if ship_load<1 else findback
 goto farmIslandStartUhrzeigerPickup
 *farmIsland1 mark 4
-if sense_shipload<1 else findback
+if ship_load<1 else findback
 goto farmIslandStartUhrzeigerPickup
 *farmIsland0 mark 3
-if sense_shipload<1 else findback
+if ship_load<1 else findback
 goto farmIslandStartUhrzeigerPickup
