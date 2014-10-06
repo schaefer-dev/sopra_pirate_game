@@ -254,7 +254,7 @@ move else 165
 goto 246
 flipzero 2 else 282
 turn left
-flipzero 5 else 278
+flipzero 3 else 278
 pickup 5 else 260
 drop
 goto 257
@@ -265,23 +265,23 @@ sense 0
 ifall !sense_treasure sense_celltype!=island else 272
 move else 274
 pickup 5 else 268
-goto 336
+goto 338
 pickup 1 else 270
-goto 336
+goto 338
 sense 0
 ifany sense_treasure sense_celltype==island else 265
 pickup 0 else 276
-goto 336
+goto 338
 turn left
 goto 266
 refresh 0 else 293
 goto 274
 turn left
-flipzero 5 else 257
+flipzero 2 else 257
 turn left
 goto 257
 turn right
-flipzero 5 else 257
+flipzero 2 else 257
 turn right
 flipzero 2 else 287
 goto 257
@@ -292,34 +292,37 @@ sense 0
 ifany sense_celltype==empty sense_celltype==home else 293
 goto 296
 pickup 0 else 295
-goto 336
+goto 338
 goto 289
-move else 308
+move else 311
 pickup 1 else 299
-goto 336
+goto 338
 goto 300
 sense 1
 ifany sense_celltype==empty sense_celltype==home else 305
-if ship_load<3 else 336
+if ship_load<3 else 338
 turn right
 goto 296
 sense 0
 ifany sense_celltype==empty sense_celltype==home else 289
+flipzero 50 else 310
+turn left
+goto 266
 goto 296
 sense 0
-if sense_shiptype==friend else 333
+if sense_shiptype==friend else 335
 turn left
 sense 0
-ifany sense_celltype==empty sense_celltype==home else 320
-move else 320
+ifany sense_celltype==empty sense_celltype==home else 323
+move else 323
 turn right
 turn right
 sense 0
-move else 335
+move else 337
 turn left
 goto 289
 turn left
-move else 335
+move else 337
 turn right
 turn right
 turn right
@@ -328,30 +331,29 @@ sense 0
 sense 0
 sense 0
 sense 0
-sense 0
-move else 335
+move else 337
 goto 289
-if ship_condition==3 else 310
+if ship_condition==3 else 313
 goto 296
 goto 266
 turn left
 sense 0
-ifany sense_celltype==home sense_celltype==empty else 336
-move else 336
+ifany sense_celltype==home sense_celltype==empty else 338
+move else 338
 sense 6
 ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else 165
 sense 0
-ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 355
-flipzero 2 else 346
-goto 350
+ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 357
+flipzero 2 else 348
+goto 352
 turn left
 sense 0
-ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 355
-goto 346
+ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 357
+goto 348
 turn right
 sense 0
-ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 355
+ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 357
 turn right
-goto 346
-move else 340
-goto 340
+goto 348
+move else 342
+goto 342
