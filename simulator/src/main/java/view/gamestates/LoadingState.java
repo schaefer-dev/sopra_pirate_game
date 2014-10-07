@@ -20,8 +20,11 @@ public class LoadingState implements GameState {
 		manager.getTitleText().setText("");
 
 		Configuration config = manager.getConfiguration();
-		config.placeObjectsOnMap();
-		config.addTeamsToMap();
+		if(config.generate){
+			config.placeObjectsOnMap();
+			config.addTeamsToMap();
+		}
+
 		char[][] map = config.getMap();
 		String mapFile = writeToFile(map);
 		

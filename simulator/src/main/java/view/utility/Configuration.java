@@ -52,6 +52,8 @@ public class Configuration {
 	private List<String> currentFreeNames = captainNames;
 	private Set<String> currentReservedNames = new HashSet<String>();
 	private List<ComboBox<String>> teamConfigs = new LinkedList<ComboBox<String>>();
+	
+	public boolean generate = true;
 
 	private char[][] map;
 	private Generator generator;
