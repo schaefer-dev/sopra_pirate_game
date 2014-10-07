@@ -292,6 +292,67 @@
 	*topLastRowCollectorShipMoveAgain03	move else topLastRowCollectorShipMoveAgain03
 	goto topLastRowCollectorShipRepeatUntilReach
 
+	*topLastRowCollectorShipReachedIsland
+	turn left
+	*topLastRowCollectorShipMoveAgain04	move else topLastRowCollectorShipMoveAgain04
+	*topLastRowCollectorShipMoveAgain05	move else topLastRowCollectorShipMoveAgain05
+	*topLastRowCollectorShipMoveAgain06	move else topLastRowCollectorShipMoveAgain06
+	*topLastRowCollectorShipMoveAgain08	move else topLastRowCollectorShipMoveAgain08
+	sense 1
+	if sense_celltype!=island else topLastRowCollectorShipMoveAgain08 ;wieder ein Feld bewegen und neu sensen
+	turn right
+	*topLastRowCollectorShipMoveAgain09	move else topLastRowCollectorShipMoveAgain09
+	*topLastRowCollectorShipMoveAgain10	move else topLastRowCollectorShipMoveAgain10
+	*topLastRowCollectorShipMoveAgain11	move else topLastRowCollectorShipMoveAgain11
+	*topLastRowCollectorShipMoveAgain12	move else topLastRowCollectorShipMoveAgain12
+	*topLastRowCollectorShipMoveAgain13	move else topLastRowCollectorShipMoveAgain13
+	*topLastRowCollectorShipMoveAgain14	move else topLastRowCollectorShipMoveAgain14
+	*topLastRowCollectorShipMoveAgain15	move else topLastRowCollectorShipMoveAgain15
+	*topLastRowCollectorShipMoveAgain16	move else topLastRowCollectorShipMoveAgain16
+	*topLastRowCollectorShipMoveAgain17	move else topLastRowCollectorShipMoveAgain17
+	*topLastRowCollectorShipMoveAgain18	move else topLastRowCollectorShipMoveAgain18
+	*topLastRowCollectorShipMoveAgain19	move else topLastRowCollectorShipMoveAgain19
+	*topLastRowCollectorShipMoveAgain20	move else topLastRowCollectorShipMoveAgain20
+	*topLastRowCollectorShipMoveAgain21	move else topLastRowCollectorShipMoveAgain21
+	*topLastRowCollectorShipMoveAgain22	move else topLastRowCollectorShipMoveAgain22
+	turn left
+	*topLastRowCollectorShipMoveAgain23	move else topLastRowCollectorShipMoveAgain23
+	turn right
+	*topLastRowCollectorShipMoveAgain24	move else topLastRowCollectorShipMoveAgain24
+	turn right
+	*topLastRowCollectorShipMoveAgain25	move else topLastRowCollectorShipMoveAgain25
+	turn right
+	*topLastRowCollectorShipMoveAgain26	move else topLastRowCollectorShipMoveAgain26
+	*topLastRowCollectorShipMoveAgain27	move else topLastRowCollectorShipMoveAgain27
+	*topLastRowCollectorShipMoveAgain28	move else topLastRowCollectorShipMoveAgain28
+	turn right
+	*topLastRowCollectorShipMoveAgain30	move else topLastRowCollectorShipMoveAgain30
+	pickup 1 else topLastRowCollectorShipMoveAgain30
+	if ship_load==4 else topLastRowCollectorShipMoveAgain30
+	turn left
+	turn left
+	*topLastRowCollectorShipMoveAgain31	move else topLastRowCollectorShipMoveAgain31
+	turn left
+
+
+	*topLastRowCollectorShipShipGoHome1 move else topLastRowCollectorShipShipGoHome1
+	sense 6
+	if sense_marker3 else topLastRowCollectorShipShipGoHome1
+	turn right
+	turn right
+	*topLastRowCollectorShipShipGoHome2 move else topLastRowCollectorShipShipGoHome2
+	sense 6
+	if sense_marker4 else topLastRowCollectorShipShipGoHome2
+	turn right
+	*topLastRowCollectorShipShipGoHome3 move else topLastRowCollectorShipShipGoHome3
+	sense 6
+	if sense_celltype==home else topLastRowCollectorShipShipGoHome3
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythm
+
+
 
 
 *topLastRowHitIsland
