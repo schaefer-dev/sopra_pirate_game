@@ -1,0 +1,46 @@
+*farmIslandStartUhrzeigerPickupTurnLeft turn left 									;alternative auf jedes Feld um insel das besucht wurde boje setzen
+						sense 0 																;refresh
+						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
+						goto farmIslandUhrzeigerMove
+*farmIslandStartUhrzeigerPickup 	pickup 0 else *farmIslandUhrzeigerMove
+						goto findBackFromIsland
+*farmIslandUhrzeigerMove	move else farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
+						pickup 1 else farmIslandCheckRight
+						goto findBackFromIsland
+*farmIslandCheckRight	sense 1
+						ifany sense_celltype==empty sense_celltype==home else farmIslandCheckStraight
+						if ship_load<3 else findBackFromIsland
+						turn right
+						goto farmIslandUhrzeigerMove
+*farmIslandCheckStraight	sense 0
+						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
+						flipzero 85 else farmIslandUhrzeigerMove
+						turn left
+						goto test
+*farmIslandUhrzeigerMoveHit sense 0
+						if sense_shiptype==friend else farmIslandUhrzeigerMoveHitEnemy
+*farmIslandUhrzeigerMoveHitFlee	turn left
+						sense 0
+						ifany sense_celltype==empty sense_celltype==home else SkipfarmIslandUhrzeigerMoveHitBlocked
+						move else SkipfarmIslandUhrzeigerMoveHitBlocked
+						turn right
+						turn right
+						sense 0
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
+						turn left
+						goto farmIslandStartUhrzeigerPickupTurnLeft
+*SkipfarmIslandUhrzeigerMoveHitBlocked turn left
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
+						turn right
+						turn right
+						turn right
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						move else SkipIslandUhrzeigerMoveHitSearchSolution
+						goto farmIslandStartUhrzeigerPickupTurnLeft
+*farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
+						goto farmIslandUhrzeigerMove
+*SkipIslandUhrzeigerMoveHitSearchSolution		goto test

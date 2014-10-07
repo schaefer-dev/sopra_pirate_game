@@ -134,18 +134,18 @@ public class InGameState implements GameState, LogWriter {
         pause.getStyleClass().add("canvasbutton");
 		
 		slowDown = new Button("-");
-		slowDown.setTranslateY(665);
-		slowDown.setTranslateX(150);
+		//slowDown.setTranslateY(665);
+		//slowDown.setTranslateX(150);
 		slowDown.getStyleClass().add("canvasbutton");
 		
 		speedUp = new Button("+");
-		speedUp.setTranslateY(663);
-		speedUp.setTranslateX(170);
+		//speedUp.setTranslateY(663);
+		//speedUp.setTranslateX(170);
 		speedUp.getStyleClass().add("canvasbutton");
 		
 		speed = new Label("10x");
-		speed.setTranslateY(667);
-		speed.setTranslateX(220);
+		//speed.setTranslateY(667);
+		//speed.setTranslateX(220);
 		speed.getStyleClass().add("menulabel");
 		
 		this.control = new GameFlowControl(sim, play, pause, speedUp, slowDown, speed);
@@ -162,7 +162,7 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
-		Button teamClose = new Button("  Close >");
+		Button teamClose = new Button("     Close >");
 		teamClose.setVisible(true);
 		teamClose.getStyleClass().add("canvasbutton");
 		teamClose.setOnAction(new EventHandler<ActionEvent>() {
@@ -178,25 +178,38 @@ public class InGameState implements GameState, LogWriter {
 		
 		teamWindow = new Accordion(); 
 		for(final Team team: teams){
-			final TeamPane pane = new TeamPane(team, new Text(giveTeamText(team)), map);
+			final TeamPane pane = new TeamPane(team, new Text(), map);
 			teamWindow.getPanes().add(pane);
 		}
 		
         teamWindow.expandedPaneProperty().addListener(new ChangeListener<TitledPane>() {
                     
-        	public void changed(ObservableValue<? extends TitledPane> ov, TitledPane old_val, TitledPane new_val) {
-    			if(new_val != null){
+        	public void changed(ObservableValue<? extends TitledPane> ov, TitledPane oldVal, TitledPane newVal) {
+    			if(newVal != null){
+    				TeamPane pane = (TeamPane) newVal;
+    				Team team = pane.getTeam();
+    				newVal.setStyle("-fx-text-fill: #" + team.getColorRGB());
     				
-    				TeamPane pane = (TeamPane) new_val;
-    				String colorString = pane.getTeam().getColorRGB();
+    				for(Ship ship: team.getShips())
+    					ship.marked = true;
     				
-    				new_val.setStyle("-fx-text-fill: #" + colorString);
+    				map.drawMap();
     			}
-                   
-    			else
-    				System.out.println("closed");
+    			
+    			if(oldVal != null){
+    				TeamPane pane = (TeamPane) oldVal;
+    				Team team = pane.getTeam();
+    				oldVal.setStyle("-fx-text-fill: Black");
+    				oldVal.setStyle("-fx-mark-color: #"+team.getColorRGB());
+    				
+    				for(Ship ship: team.getShips())
+    					ship.marked = false;
+    				
+    				map.drawMap();
+    			}
             }
         });
+        
 		
 		teamOpened = new VBox();
 		teamOpened.setVisible(false);
@@ -204,7 +217,7 @@ public class InGameState implements GameState, LogWriter {
 		teamOpened.getChildren().addAll(teamClose, teamWindow);
 		
 		teamClosed = new Button("< Teams");
-		teamClosed.setTranslateX(1110);
+		teamClosed.setTranslateX(1160);
 		teamClosed.getStyleClass().add("canvasbutton");
 		teamClosed.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -215,8 +228,13 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
+		VBox speedBox = new VBox();
+		speedBox.setTranslateY(600);
+		speedBox.setTranslateX(150);
+		speedBox.getChildren().addAll(speedUp, speed, slowDown);
+		
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, pause, next, slowDown, speedUp, speed, end, tooltip, teamClosed, teamOpened);
+		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedBox, end, tooltip, teamClosed, teamOpened);
 		manager.getScene().setRoot(root);
 	}
 
@@ -255,13 +273,6 @@ public class InGameState implements GameState, LogWriter {
 	
 	public Label getTooltip(){
 		return tooltip;
-	}
-	
-	private String giveTeamText(Team team){
-		String score = "Score: " + team.getScore();
-		String ships = "Ships: " + team.getShipCount();
-		
-		return score + "\n" + ships;
 	}
 	
 	@Override
@@ -311,7 +322,6 @@ public class InGameState implements GameState, LogWriter {
 					fields[ship.getX()][ship.getY()].setShip(ship);
 					break;
 				case FLEET:
-					ship.setFleet(arg3);
 					break;
 				case MORAL:
 					ship.setMoral(arg3);
@@ -414,7 +424,7 @@ public class InGameState implements GameState, LogWriter {
 						ship.setDirection(arg3[i]);
 						break;
 					case FLEET:
-						ship.setFleet(arg3[i]);
+						
 						if(teams.get(arg3[i]) == null)
 							teams.set(arg3[i], new Team(arg3[i], config));
 						teams.get(arg3[i]).addShip(ship);
@@ -493,9 +503,9 @@ public class InGameState implements GameState, LogWriter {
 			fields[ship.getX()][ship.getY()].setShip(null);
 			ships.set(arg1, null);
 			
-			Team team = teams.get(ship.getFleet());
+			Team team = ship.getFleet();
 			team.deleteShip(ship);
-			TeamPane pane = (TeamPane) teamWindow.getPanes().get(ship.getFleet());
+			TeamPane pane = (TeamPane) teamWindow.getPanes().get(ship.getFleet().getID());
 			pane.update();
 		}
 		else{

@@ -5,8 +5,10 @@
 	sense 0
 	if sense_celltype!=island else corneredShip
 	move else corneredShip
+	sense 0
 	if sense_celltype!=island else weAreTop
 	move else weAreTop
+	sense 0
 	if sense_celltype!=island else weAreTop
 	move else weAreTop
 	goto weAreBottom
@@ -22,5 +24,4 @@
 *weAreBottom 
 	goto 999
 *weAreTop
-	sense 0
-	goto weAreTop
+	goto TopStart

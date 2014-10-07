@@ -1,0 +1,14 @@
+*FindBackFromIsland turn left ;moves in first field on its left side which is free
+	sense 0
+	ifany sense_celltype==home sense_celltype==empty else FindBackFromIsland
+	move else FindBackFromIsland
+*searchOnForBuoy sense 6
+	ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else findback
+	sense 0
+	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+*turnLeftAndSearchOn turn left
+	sense 0
+	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	goto turnLeftAndSearchOn
+*moveBecauseNothingInYourWay move else searchOnForBuoy
+	goto searchOnForBuoy

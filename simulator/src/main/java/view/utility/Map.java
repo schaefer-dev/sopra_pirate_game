@@ -95,6 +95,12 @@ public class Map {
 		drawHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, field, left, top);
 	}
 	
+	public void drawField(Field field){
+		int x = mod(field.getX() - cam.a, mapWidth);
+    	int y = mod(field.getY() - cam.c, mapHeight);
+    	drawField(field, x, y);
+	}
+	
 	public void markField(Field field){		
 		markField(field, "B2E097");
 	}
@@ -107,13 +113,6 @@ public class Map {
 		double stepY = y*(radius/2);
 		
 		markHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, Color.web(color), false);	
-	}
-	
-	
-	public void drawField(Field field){
-		int x = mod(field.getX() - cam.a, mapWidth);
-    	int y = mod(field.getY() - cam.c, mapHeight);
-    	drawField(field, x, y);
 	}
 	
 	public boolean isVisible(Field field){
@@ -132,6 +131,8 @@ public class Map {
 			Ship ship = field.getShip();
 			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		}
+		if(field.getShip() != null && field.getShip().marked)
+			markHex(mid, radius/1.4, field.getShip().getFleet().getColor(), false);
 		
 		if(cam.zoomLevelAbsolute() < 1 && field.getFieldType() == FieldType.Water)
 			markHex(mid, radius, Color.BLACK, true);

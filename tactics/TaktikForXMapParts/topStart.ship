@@ -1,0 +1,231 @@
+*TopStart
+	sense 0
+	if sense_celltype==island else topNotFirstRow
+	goto topFirstRow
+
+*topFirstRow
+	sense 4
+	ifany sense_celltype!=empty sense_shiptype==friend else topFirstRowFirstShip
+	goto topFirstRowNotFirstShip
+*topFirstRowNotFirstShip
+	sense 5
+	if sense_celltype==island else topFirstRowNotFirstSecondShip
+	sense 4
+	ifany sense_celltype!=empty sense_shiptype==friend else topFirstRowSecondShip
+	goto topFirstRowNotFirstSecondShip
+*topFirstRowNotFirstSecondShip 
+	sense 4
+	goto 999
+
+*topFirstRowFirstShip
+	turn left
+	*topFirstRowFirstShipMoveAgain1	move else topFirstRowFirstShipMoveAgain1
+	turn left
+	*topFirstRowFirstShipMoveAgain2	move else topFirstRowFirstShipMoveAgain2
+	turn right
+	*topFirstRowFirstShipMoveAgain3	move else topFirstRowFirstShipMoveAgain3
+	turn left
+	mark 0
+	*topFirstRowFirstShipMoveAgain01	move else topFirstRowFirstShipMoveAgain01
+	*topFirstRowFirstShipMoveAgain02	move else topFirstRowFirstShipMoveAgain02
+	*topFirstRowFirstShipMoveAgain03	move else topFirstRowFirstShipMoveAgain03
+	*topFirstRowFirstShipMoveAgain04	move else topFirstRowFirstShipMoveAgain04
+	*topFirstRowFirstShipMoveAgain05	move else topFirstRowFirstShipMoveAgain05
+	*topFirstRowFirstShipMoveAgain06	move else topFirstRowFirstShipMoveAgain06
+	*topFirstRowFirstShipMoveAgain07	move else topFirstRowFirstShipMoveAgain07
+	*topFirstRowFirstShipMoveAgain08	move else topFirstRowFirstShipMoveAgain08
+	*topFirstRowFirstShipMoveAgain09	move else topFirstRowFirstShipMoveAgain09
+	*topFirstRowFirstShipMoveAgain10	move else topFirstRowFirstShipMoveAgain10
+	*topFirstRowFirstShipMoveAgain11	move else topFirstRowFirstShipMoveAgain11
+	*topFirstRowFirstShipMoveAgain12	move else topFirstRowFirstShipMoveAgain12
+	*topFirstRowFirstShipMoveAgain13	move else topFirstRowFirstShipMoveAgain13
+	*topFirstRowFirstShipMoveAgain14	move else topFirstRowFirstShipMoveAgain14
+	*topFirstRowFirstShipMoveAgain15	move else topFirstRowFirstShipMoveAgain15
+	*topFirstRowFirstShipMoveAgain16	move else topFirstRowFirstShipMoveAgain16
+	*topFirstRowFirstShipMoveAgain17	move else topFirstRowFirstShipMoveAgain17
+	*topFirstRowFirstShipMoveAgain18	move else topFirstRowFirstShipMoveAgain18
+	*topFirstRowFirstShipMoveAgain19	move else topFirstRowFirstShipMoveAgain19
+	*topFirstRowFirstShipMoveAgain191567 move else topFirstRowFirstShipMoveAgain191567
+	mark 0
+	turn left
+	*topFirstRowFirstShipMoveAgain20	move else topFirstRowFirstShipMoveAgain20
+	mark 0
+	*topFirstRowFirstShipMoveAgain21	move else topFirstRowFirstShipMoveAgain21
+	mark 0
+	*topFirstRowFirstShipMoveAgain22	move else topFirstRowFirstShipMoveAgain22
+	mark 0
+	*topFirstRowFirstShipMoveAgain23	move else topFirstRowFirstShipMoveAgain23
+	mark 4
+	*topFirstRowFirstShipMoveAgain24	move else topFirstRowFirstShipMoveAgain24
+	mark 4
+	*topFirstRowFirstShipMoveAgain25	move else topFirstRowFirstShipMoveAgain25
+	mark 4
+	*topFirstRowFirstShipMoveAgain26	move else topFirstRowFirstShipMoveAgain26
+	mark 4
+	*topFirstRowFirstShipMoveAgain27	move else topFirstRowFirstShipMoveAgain27
+	mark 4
+	*topFirstRowFirstShipMoveAgain28	move else topFirstRowFirstShipMoveAgain28
+	mark 4
+	*topFirstRowFirstShipMoveAgain29	move else topFirstRowFirstShipMoveAgain29
+	mark 4
+	*topFirstRowFirstShipMoveAgain30	move else topFirstRowFirstShipMoveAgain30
+	mark 3
+	*topFirstRowFirstShipMoveAgain31	move else topFirstRowFirstShipMoveAgain31
+	mark 3
+	*topFirstRowFirstShipMoveAgain32	move else topFirstRowFirstShipMoveAgain32
+	mark 3
+	*topFirstRowFirstShipMoveAgain33	move else topFirstRowFirstShipMoveAgain33
+	mark 3
+	*topFirstRowFirstShipMoveAgain34	move else topFirstRowFirstShipMoveAgain34
+	mark 3
+	*topFirstRowFirstShipMoveAgain35	move else topFirstRowFirstShipMoveAgain35
+	mark 3
+	*topFirstRowFirstShipMoveAgain36	move else topFirstRowFirstShipMoveAgain36
+	mark 3
+	*topFirstRowFirstShipMoveAgain37	move else topFirstRowFirstShipMoveAgain37
+	mark 3
+	*topFirstRowFirstShipMoveAgain38	move else topFirstRowFirstShipMoveAgain38
+	mark 3
+	*topFirstRowFirstShipMoveAgain39	move else topFirstRowFirstShipMoveAgain39
+	mark 3
+	*topFirstRowFirstShipMoveAgain40	move else topFirstRowFirstShipMoveAgain40
+	mark 3
+
+*topFirstRowSecondShip
+	turn left
+	turn left
+	*topSecondShipRowMoveAgain00 move else topSecondShipRowMoveAgain00
+	turn right
+	turn right
+	turn left
+	*topFirstRowSecondShipMoveAgain1	move else topFirstRowSecondShipMoveAgain1
+	turn left
+	*topFirstRowSecondShipMoveAgain2	move else topFirstRowSecondShipMoveAgain2
+	turn right
+	*topFirstRowSecondShipMoveAgain3	move else topFirstRowSecondShipMoveAgain3
+	turn left
+	mark 0
+	*topFirstRowSecondShipMoveAgain01	move else topFirstRowSecondShipMoveAgain01
+	*topFirstRowSecondShipMoveAgain02	move else topFirstRowSecondShipMoveAgain02
+	*topFirstRowSecondShipMoveAgain03	move else topFirstRowSecondShipMoveAgain03
+	*topFirstRowSecondShipMoveAgain04	move else topFirstRowSecondShipMoveAgain04
+	*topFirstRowSecondShipMoveAgain05	move else topFirstRowSecondShipMoveAgain05
+	*topFirstRowSecondShipMoveAgain06	move else topFirstRowSecondShipMoveAgain06
+	*topFirstRowSecondShipMoveAgain07	move else topFirstRowSecondShipMoveAgain07
+	*topFirstRowSecondShipMoveAgain08	move else topFirstRowSecondShipMoveAgain08
+	*topFirstRowSecondShipMoveAgain09	move else topFirstRowSecondShipMoveAgain09
+	*topFirstRowSecondShipMoveAgain10	move else topFirstRowSecondShipMoveAgain10
+	*topFirstRowSecondShipMoveAgain11	move else topFirstRowSecondShipMoveAgain11
+	*topFirstRowSecondShipMoveAgain12	move else topFirstRowSecondShipMoveAgain12
+	*topFirstRowSecondShipMoveAgain13	move else topFirstRowSecondShipMoveAgain13
+	*topFirstRowSecondShipMoveAgain14	move else topFirstRowSecondShipMoveAgain14
+	*topFirstRowSecondShipMoveAgain15	move else topFirstRowSecondShipMoveAgain15
+	*topFirstRowSecondShipMoveAgain16	move else topFirstRowSecondShipMoveAgain16
+	*topFirstRowSecondShipMoveAgain17	move else topFirstRowSecondShipMoveAgain17
+	*topFirstRowSecondShipMoveAgain18	move else topFirstRowSecondShipMoveAgain18
+	*topFirstRowSecondShipMoveAgain19	move else topFirstRowSecondShipMoveAgain19
+	*topFirstRowSecondShipMoveAgain191	move else topFirstRowSecondShipMoveAgain191
+	mark 0
+	turn right
+	turn right
+	*topFirstRowSecondShipMoveAgain20	move else topFirstRowSecondShipMoveAgain20
+	mark 0
+	*topFirstRowSecondShipMoveAgain21	move else topFirstRowSecondShipMoveAgain21
+	mark 0
+	*topFirstRowSecondShipMoveAgain22	move else topFirstRowSecondShipMoveAgain22
+	mark 0
+	*topFirstRowSecondShipMoveAgain23	move else topFirstRowSecondShipMoveAgain23
+	mark 0
+
+*topLastRow
+	turn right
+	turn right
+	turn right
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	move else LastRowHitIsland
+	turn right
+	sense 3
+	if sense_shiptype==friend else topLastRowCollectorShip
+	goto topLastRowMarkShip
+
+*topLastRowMarkShip
+	*topLastRowMarkShipMoveAgain00	move else topLastRowMarkShipMoveAgain00
+	*topLastRowMarkShipMoveAgain01	move else topLastRowMarkShipMoveAgain01
+	*topLastRowMarkShipMoveAgain02	move else topLastRowMarkShipMoveAgain02
+	*topLastRowMarkShipRepeatUntilReach sense 0
+	if sense_celltype!=island else topLastRowMarkShipReachedIsland
+	*topLastRowMarkShipMoveAgain03	move else topLastRowMarkShipMoveAgain03
+	goto topLastRowMarkShipRepeatUntilReach
+
+*topLastRowMarkShipReachedIsland
+	turn left
+	*topLastRowMarkShipMoveAgain04	move else topLastRowMarkShipMoveAgain04
+	*topLastRowMarkShipMoveAgain05	move else topLastRowMarkShipMoveAgain05
+	*topLastRowMarkShipMoveAgain06	move else topLastRowMarkShipMoveAgain06
+	*topLastRowMarkShipMoveAgain07	move else topLastRowMarkShipMoveAgain07
+	*topLastRowMarkShipMoveAgain08	move else topLastRowMarkShipMoveAgain08
+	sense 1
+	if sense_celltype!=island else topLastRowMarkShipMoveAgain08 ;wieder ein Feld bewegen und neu sensen
+	mark 1
+	turn right
+	*topLastRowMarkShipMoveAgain09	move else topLastRowMarkShipMoveAgain09
+	*topLastRowMarkShipMoveAgain10	move else topLastRowMarkShipMoveAgain10
+	*topLastRowMarkShipMoveAgain11	move else topLastRowMarkShipMoveAgain11
+	*topLastRowMarkShipMoveAgain12	move else topLastRowMarkShipMoveAgain12
+	*topLastRowMarkShipMoveAgain13	move else topLastRowMarkShipMoveAgain13
+	*topLastRowMarkShipMoveAgain14	move else topLastRowMarkShipMoveAgain14
+	*topLastRowMarkShipMoveAgain15	move else topLastRowMarkShipMoveAgain15
+	*topLastRowMarkShipMoveAgain16	move else topLastRowMarkShipMoveAgain16
+	*topLastRowMarkShipMoveAgain17	move else topLastRowMarkShipMoveAgain17
+	*topLastRowMarkShipMoveAgain18	move else topLastRowMarkShipMoveAgain18
+	*topLastRowMarkShipMoveAgain19	move else topLastRowMarkShipMoveAgain19
+	*topLastRowMarkShipMoveAgain20	move else topLastRowMarkShipMoveAgain20
+	*topLastRowMarkShipMoveAgain21	move else topLastRowMarkShipMoveAgain21
+	*topLastRowMarkShipMoveAgain22	move else topLastRowMarkShipMoveAgain22
+	mark 0
+	turn left
+	*topLastRowMarkShipMoveAgain23	move else topLastRowMarkShipMoveAgain23
+	mark 1
+	turn right
+	*topLastRowMarkShipMoveAgain24	move else topLastRowMarkShipMoveAgain24
+	mark 2
+	turn right
+	*topLastRowMarkShipMoveAgain25	move else topLastRowMarkShipMoveAgain25
+	mark 3
+	turn right
+	*topLastRowMarkShipMoveAgain26	move else topLastRowMarkShipMoveAgain26
+	*topLastRowMarkShipMoveAgain27	move else topLastRowMarkShipMoveAgain27
+	*topLastRowMarkShipMoveAgain28	move else topLastRowMarkShipMoveAgain28
+	*topLastRowMarkShipMoveAgain29	move else topLastRowMarkShipMoveAgain29
+	mark 1
+	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	mark 0
+	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	mark 3
+	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	mark 1
+
+
+
+*topLastRowCollectorShip
+	goto topLastRowCollectorShip
+
+
+*LastRowHitIsland
+	turn left
+	turn left 
+	turn left
+	goto topNotFirstRow
+
+*topNotFirstRow
+	sense 3
+	ifany sense_shiptype==friend sense_celltype==island else topLastRow
+	goto topNotFirstLastRow
+*topNotFirstLastRow
+	goto 999

@@ -9,8 +9,10 @@ public class Ship {
 	private int load;
 	private int moral;
 	private int condition;
-	private int fleet;
+	private Team fleet;
 	private Field field;
+	
+	public boolean marked = false;
 	
 	public Ship(int id){
 		this.id = id;
@@ -55,11 +57,11 @@ public class Ship {
 		this.condition = condition;
 	}
 
-	public int getFleet() {
+	public Team getFleet() {
 		return fleet;
 	}
 
-	public void setFleet(int fleet) {
+	public void setFleet(Team fleet) {
 		this.fleet = fleet;
 	}
 

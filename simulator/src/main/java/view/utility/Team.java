@@ -43,6 +43,7 @@ public class Team {
 	}
 	
 	public void addShip(Ship ship){
+		ship.setFleet(this);
 		ships.add(ship);
 	}
 	
