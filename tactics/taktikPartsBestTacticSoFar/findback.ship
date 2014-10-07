@@ -1,0 +1,95 @@
+*findback sense 6
+if sense_celltype==home else findpath
+drop
+if ship_condition!=3 else redistribute; Verteilung der Schiffe auf andere Stellen, als die bisher abgegrasten, vorher Sprung zu normal
+repair else redistribute
+goto redistribute
+*findpath if !sense_marker0 else drehTo0
+if !sense_marker1 else drehTo1
+if !sense_marker2 else drehTo2
+if !sense_marker3 else drehTo3
+if !sense_marker4 else drehTo4
+*drehTo5 if ship_direction==5 else turnTo5
+*find5 move else find5
+goto findback5
+*turnTo5 turn right
+goto drehTo5
+*drehTo4 if ship_direction==4 else turnTo4
+*find4 move else find4
+goto findback4
+*turnTo4 turn right
+goto drehTo4
+*drehTo3 if ship_direction==3 else turnTo3
+*find3 move else find3
+goto findback3
+*turnTo3 turn right
+goto drehTo3
+*drehTo2 if ship_direction==2 else turnTo2
+*find2 move else find2
+goto findback2
+*turnTo2 turn right
+goto drehTo2
+*drehTo1 if ship_direction==1 else turnTo1
+*find1 move else find1
+goto findback1
+*turnTo1 turn right
+goto drehTo1
+*drehTo0 if ship_direction==0 else turnTo0
+*find0 move else find0
+goto findback0
+*turnTo0 turn right
+goto drehTo0
+*findback0 sense 6
+if sense_celltype==home else findpath0
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath0 ifall ship_direction==0 sense_marker0 else findpath
+move else findpath
+goto findback0
+*findback1 sense 6
+if sense_celltype==home else findpath1
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath1 ifall ship_direction==1 sense_marker1 else findpath
+move else findback
+goto findback1
+*findback2 sense 6
+if sense_celltype==home else findpath2
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath2 ifall ship_direction==2 sense_marker2 else findpath
+move else findback
+goto findback2
+*findback3 sense 6
+if sense_celltype==home else findpath3
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath3 ifall ship_direction==3 sense_marker3 else findpath
+move else findback
+goto findback3
+*findback4 sense 6
+if sense_celltype==home else findpath4
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath4 ifall ship_direction==4 sense_marker4 else findpath
+move else findback
+goto findback4
+*findback5 sense 6
+if sense_celltype==home else findpath5
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath5 ifall ship_direction==5 sense_marker5 else findpath
+move else findback
+goto findback5
