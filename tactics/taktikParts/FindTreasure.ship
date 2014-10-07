@@ -1,14 +1,7 @@
 ﻿*startFindTreasure		flipzero 2 else drehrechtsFind
 *drehlinksFind 			turn left
 						flipzero 3 else drehweiterLinksFind
-*find 					pickup 5 else lookRechtsStartFind
-						drop
-						goto find
-*lookRechtsStartFind 	pickup 1 else lookGeradeausStartFind
-						drop
-						goto find
-*lookGeradeausStartFind	sense 0
-						ifall !sense_treasure sense_celltype!=island else pickupGeradeaus
+*find 					goto normal
 *normal 				move else avoid
 *test					pickup 5 else lookRechts
 						goto findbackFromIsland
