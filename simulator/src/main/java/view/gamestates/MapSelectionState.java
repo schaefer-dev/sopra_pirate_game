@@ -87,6 +87,7 @@ public class MapSelectionState implements GameState {
 	public void exiting() {
 		manager.getRoot().setCenter(null);
 		manager.getConfiguration().removeMap();
+		manager.getConfiguration().generate = true;
 	}
 
 	@Override
@@ -94,6 +95,7 @@ public class MapSelectionState implements GameState {
 		manager.getRoot().setCenter(null);
 		int rounds = list.getSelectionModel().getSelectedItem().getRounds();
 		manager.getConfiguration().setRounds(rounds);
+		manager.getConfiguration().generate = false;
 	}
 
 	@Override

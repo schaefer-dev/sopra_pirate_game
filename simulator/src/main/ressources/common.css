@@ -185,7 +185,7 @@
 
 .root {
     -fx-background: #f4f4f4;
-    -fx-background-image: url("storm.jpg");
+    -fx-background-image: url("backtest.png");
     -fx-background-size: stretch;
 }
 

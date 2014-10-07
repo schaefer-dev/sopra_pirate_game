@@ -160,21 +160,20 @@ public class TeamSettingsState2 implements GameState {
 
 	@Override
 	public void exiting() {
-		// TODO Auto-generated method stub
-
+		manager.getRoot().setCenter(null);
 	}
 
 	@Override
 	public void concealing() {
-		// TODO Auto-generated method stub
-
+		manager.getRoot().setCenter(null);
 	}
 
 	@Override
 	public void revealed() {
-		// TODO Auto-generated method stub
-
+		manager.getTitleText().setText(title);
+		manager.getRoot().setCenter(root);
 	}
+	
 	
 	public List<TeamSelectionWindow> getTeamWindows(){
 		return teamWindows;
