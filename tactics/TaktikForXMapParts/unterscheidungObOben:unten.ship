@@ -1,0 +1,26 @@
+*startUnterscheidung 
+	turn left
+	turn left
+	turn left
+	sense 0
+	if sense_celltype!=island else corneredShip
+	move else corneredShip
+	if sense_celltype!=island else weAreTop
+	move else weAreTop
+	if sense_celltype!=island else weAreTop
+	move else weAreTop
+	goto weAreBottom
+*corneredShip goto 999
+*repeatMove1	move else repeatMove1
+	if sense_celltype!=island else weAreBottom
+	move else weAreBottom
+	if sense_celltype!=island else weAreBottom
+	move else weAreBottom
+	goto weAreTop
+
+
+*weAreBottom 
+	goto 999
+*weAreTop
+	sense 0
+	goto weAreTop
