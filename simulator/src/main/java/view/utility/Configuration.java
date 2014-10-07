@@ -11,7 +11,7 @@ import javafx.scene.control.ComboBox;
 public class Configuration {
 
 	public final static int MAP_SIZE_MIN = 40;
-	public final static int MAP_SIZE_MAX = 198;
+	public final static int MAP_SIZE_MAX = 200;
 	public final static int ISLAND_COUNT_MIN = 0;
 	public final static int ISLAND_COUNT_MAX = 50;
 	public final static int ISLAND_SIZE_MIN = 1;
@@ -45,10 +45,10 @@ public class Configuration {
 	
 	private List<String> tactics = new LinkedList<String>();
 	public final List<String>  captainNames = new LinkedList<String>(Arrays.asList(
-			"Captain Blaubaer", "Flying Dutchman", "Black Beard", "Jeanne de Belleville", "Red Beard", "Henry Morgan", "Francis Drake",
+			"Captain Blaubaer", "Flying Dutchman", "Black Beard", "Miss Fortune", "Red Beard", "Henry Morgan", "Francis Drake",
 			"Stoertebeker", "Captain Hook", "Monkey D. Ruffy", "LeChuck", "Mary Read", "Bill Turner", "Babossa", "Captain Flint", 
-			"Chui A-Poo", "Dread Pirate Roberts", "Billy One-Hand", "Gottfrid Svartholm", "Gold Roger", "Zheng Yi-Sao", "Jack Aubrey",
-			"John Silver", "Black Jack Anderson", "Jack Sparrow", "Simbad"));
+			"Chui A-Poo", "Shanks", "Billy One-Hand", "G. Svartholm", "Gold Roger", "Zheng Yi-Sao", "Jack Aubrey",
+			"John Silver", "Black Jack", "Jack Sparrow", "Simbad"));
 	
 	private List<String> finalCaptainNames = new LinkedList<String>();
 	private List<String> currentFreeNames;

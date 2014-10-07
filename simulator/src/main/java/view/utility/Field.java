@@ -98,7 +98,7 @@ public class Field {
 		
 		if(detailImage != null && zoom < 2)
 			images.add(detailImage);
-		if(buoysImage != null && zoom < 2)
+		if(buoysImage != null && zoom < 1)
 			images.add(buoysImage);
 		if(krakenImage != null && zoom < 3)
 			images.add(krakenImage);
@@ -151,15 +151,9 @@ public class Field {
 		}
 		else
 			this.shipImage = map.getRessources().getShipImage(ship.getFleet());
-			//this.shipImage = map.getRessources().getShipImage();
 
 		this.ship = ship;
 		redraw();
-	}
-	
-	public void rotateShip(int direction){
-		if(ship == null) throw new IllegalStateException();
-		
 	}
 	
 	public SimpleEntity getTreasure(){

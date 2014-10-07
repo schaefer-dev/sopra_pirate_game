@@ -15,7 +15,7 @@ public class MapPreview {
 	private int y;
 	private char[][] map;
 
-	private String[] teamColors = {"007171","57493D","1A3140","59734E","837C48","BE6D5F","FFFB00", "716C67", "659FA6","8B0D00","D1DC48","A6F2CB", "EE6456", "BF96BC", "AEB660", "FF8C53", "BBFF91", "D9304F",
+	public static String[] teamColors = {"007171","57493D","1A3140","59734E","837C48","BE6D5F","FFFB00", "716C67", "659FA6","8B0D00","D1DC48","A6F2CB", "EE6456", "BF96BC", "AEB660", "FF8C53", "BBFF91", "D9304F",
 								   "FC9D9B", "590B00", "5A3C31", "000000", "E6B91F", "1CAF9A", "73436F", "FFFFFF"};
 
 	

@@ -28,6 +28,7 @@ public class GenerateEvent implements EventHandler<ActionEvent> {
 		Integer width  = mapSize.get();
 		int isCount = islandCount.get();
 		int isSize  = islandSize.get();
+		isSize = 10 - isSize + 1;
 
 		char[][] fields = config.generateMap(height, width, isCount, isSize);		
 		MapPreview preview = new MapPreview(fields);
