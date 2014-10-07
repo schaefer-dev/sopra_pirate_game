@@ -44,12 +44,14 @@ public class Configuration {
 	private int rounds = ROUNDS_MIN;
 	
 	private List<String> tactics = new LinkedList<String>();
-	private final List<String>  captainNames = new LinkedList<String>(Arrays.asList(
-			"Captain Blaubaer", "Black Beard", "Red Beard", "Henry Morgan", "Francis Drake", "Stoertebeker", "Captain Hook", 
-			"Monkey D. Ruffy", "LeChuck"));
+	public final List<String>  captainNames = new LinkedList<String>(Arrays.asList(
+			"Captain Blaubaer", "Flying Dutchman", "Black Beard", "Jeanne de Belleville", "Red Beard", "Henry Morgan", "Francis Drake",
+			"Stoertebeker", "Captain Hook", "Monkey D. Ruffy", "LeChuck", "Mary Read", "Bill Turner", "Babossa", "Captain Flint", 
+			"Chui A-Poo", "Dread Pirate Roberts", "Billy One-Hand", "Gottfrid Svartholm", "Gold Roger", "Zheng Yi-Sao", "Jack Aubrey",
+			"John Silver", "Black Jack Anderson", "Jack Sparrow", "Simbad"));
 	
 	private List<String> finalCaptainNames = new LinkedList<String>();
-	private List<String> currentFreeNames = captainNames;
+	private List<String> currentFreeNames;
 	private Set<String> currentReservedNames = new HashSet<String>();
 	private List<ComboBox<String>> teamConfigs = new LinkedList<ComboBox<String>>();
 	
@@ -58,6 +60,12 @@ public class Configuration {
 	private char[][] map;
 	private Generator generator;
 	
+	
+	public Configuration(){
+		currentFreeNames = new LinkedList<String>();
+		for(String name: captainNames)
+			currentFreeNames.add(name);
+	}
 	
 	public void setMap(char[][] map, boolean smooth){
 		this.map = map;

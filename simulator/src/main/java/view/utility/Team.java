@@ -6,15 +6,17 @@ import java.util.List;
 public class Team {
 
 	private String name;
+	private int id;
 	private int score;
 	private List<Ship> ships;
 	
 	public Team(Integer number, Configuration config){
 		if(config.getFinalCaptainNames().size() == 0)
-			name = "Team " + number.toString();
+			name = config.captainNames.get(number);
 		else
 			name = config.getFinalCaptainNames().get(number);
 		
+		id = number;
 		ships = new LinkedList<Ship>();
 		score = 0;
 	}
@@ -41,6 +43,10 @@ public class Team {
 	
 	public int getShipCount(){
 		return ships.size();
+	}
+	
+	public int getID(){
+		return id;
 	}
 	
 	@Override

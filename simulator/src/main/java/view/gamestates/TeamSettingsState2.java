@@ -88,9 +88,7 @@ public class TeamSettingsState2 implements GameState {
 					oneTactic = false;
 					for(TeamSelectionWindow window : teamWindows){
 						window.getTacticButton().setDisable(false);
-						
 					}
-					
 				}
 			}
 		});

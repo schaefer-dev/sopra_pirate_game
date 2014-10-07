@@ -14,7 +14,7 @@ public class MapPreview {
 	private int x;
 	private int y;
 	private char[][] map;
-	private String[] teamColors = {"FFFFFF","FF0040","0000FF","00FFFF","FFFF00","00FF00","000000", "585858", "A9F5F2","F5A9E1","088A29","088A68", "088A68", "086A87", "08298A", "29088A", "6A0888", "8A0868",
+	public static final String[] teamColors = {"FFFFFF","FF0040","0000FF","00FFFF","FFFF00","00FF00","000000", "585858", "A9F5F2","F5A9E1","088A29","088A68", "088A68", "086A87", "08298A", "29088A", "6A0888", "8A0868",
 								   "3A2F0B", "243B0B", "0B3B24", "0B2F3A", "0B0B3B", "2F0B3A", "3B0B17", "610B21"};
 	
 	public MapPreview(File mapFile) throws IOException{

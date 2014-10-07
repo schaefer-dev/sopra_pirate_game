@@ -150,7 +150,8 @@ public class Field {
 				farAway = true;
 		}
 		else
-			this.shipImage = map.getRessources().getShipImage();
+			this.shipImage = map.getRessources().getShipImage(ship.getFleet());
+			//this.shipImage = map.getRessources().getShipImage();
 
 		this.ship = ship;
 		redraw();
