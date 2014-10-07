@@ -82,6 +82,7 @@
 	mark 3
 	*topFirstRowFirstShipMoveAgain36	move else topFirstRowFirstShipMoveAgain36
 	mark 3
+	refresh 5 else topFirstRowFirstShipMoveAgain37
 	*topFirstRowFirstShipMoveAgain37	move else topFirstRowFirstShipMoveAgain37
 	mark 3
 	*topFirstRowFirstShipMoveAgain38	move else topFirstRowFirstShipMoveAgain38
@@ -118,8 +119,10 @@
 	*topFirstRowFirstShipSearchHomeFindOut3 move else topFirstRowFirstShipSearchHomeFindOut3
 	sense 6
 	if sense_celltype==home else topFirstRowFirstShipSearchHomeFindOut3
+	turn right
+	turn right
 	drop
-	goto 999
+	goto topFarmAlgorythm
 
 
 
@@ -168,19 +171,47 @@
 	mark 0
 	*topFirstRowSecondShipMoveAgain23	move else topFirstRowSecondShipMoveAgain23
 	mark 0
+	turn right																					;start collecting
+	turn right
+	*topFirstRowSecondShipMoveAgain24	move else topFirstRowSecondShipMoveAgain24
+	turn left
+	*topFirstRowSecondShipMoveAgain25	move else topFirstRowSecondShipMoveAgain25
+	pickup 1 else topFirstRowSecondShipMoveAgain25
+	turn left
+	*topFirstRowSecondShipMoveAgain26	move else topFirstRowSecondShipMoveAgain26
+	turn left
+	turn left
+	*topFirstRowSecondShipGoHome1 move else topFirstRowSecondShipGoHome1
+	sense 6
+	if sense_marker0 else topFirstRowSecondShipGoHome1
+	*topFirstRowSecondShipMoveAgain27	move else topFirstRowSecondShipMoveAgain27;one more move to avoid collisions
+	turn left
+	*topFirstRowSecondShipGoHome2 move else topFirstRowSecondShipGoHome2
+	sense 4
+	if sense_marker4 else topFirstRowSecondShipGoHome2
+	turn left
+	turn left
+	*topFirstRowSecondShipGoHome3 move else topFirstRowSecondShipGoHome3
+	sense 6
+	if sense_celltype==home else topFirstRowSecondShipGoHome3
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythm
+
 
 *topLastRow
 	turn right
 	turn right
 	turn right
-	move else LastRowHitIsland
-	move else LastRowHitIsland
-	move else LastRowHitIsland
-	move else LastRowHitIsland
-	move else LastRowHitIsland
-	move else LastRowHitIsland
-	move else LastRowHitIsland
-	move else LastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
 	turn right
 	sense 3
 	if sense_shiptype==friend else topLastRowCollectorShip
@@ -246,10 +277,24 @@
 
 
 *topLastRowCollectorShip
-	goto topLastRowCollectorShip
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	*topLastRowCollectorShipMoveAgain00	move else topLastRowCollectorShipMoveAgain00
+	*topLastRowCollectorShipMoveAgain01	move else topLastRowCollectorShipMoveAgain01
+	*topLastRowCollectorShipMoveAgain02	move else topLastRowCollectorShipMoveAgain02
+	*topLastRowCollectorShipRepeatUntilReach sense 0
+	if sense_celltype!=island else topLastRowCollectorShipReachedIsland
+	*topLastRowCollectorShipMoveAgain03	move else topLastRowCollectorShipMoveAgain03
+	goto topLastRowCollectorShipRepeatUntilReach
 
 
-*LastRowHitIsland
+
+*topLastRowHitIsland
 	turn left
 	turn left 
 	turn left
@@ -260,4 +305,6 @@
 	ifany sense_shiptype==friend sense_celltype==island else topLastRow
 	goto topNotFirstLastRow
 *topNotFirstLastRow
+	goto 999
+*topFarmAlgorythm
 	goto 999
