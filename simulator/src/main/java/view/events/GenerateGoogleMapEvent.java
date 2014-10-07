@@ -75,10 +75,7 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 					map[x][y] = water;
 				else if((r < black) && (g < black) && (b < black))
 					map[x][y] = water;
-				else if((r > white) && (g > white) && (b > white)){
-					
-					
-				}
+
 				else if(b < 50)
 					map[x][y] = water;
 				else

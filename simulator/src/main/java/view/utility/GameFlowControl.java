@@ -6,6 +6,7 @@ import controller.Simulator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class GameFlowControl {
 
@@ -13,10 +14,12 @@ public class GameFlowControl {
 	private int[] speeds = {1, 4, 10, 50, 100, 200, 500, 1000};
 	private int currentSpeed;
 	private int offset;
+	private Label speed;
 	
-	public GameFlowControl(final Simulator sim, final Button play, final Button pause, final Button speedUp, final Button slowDown){
+	public GameFlowControl(final Simulator sim, final Button play, final Button pause, final Button speedUp, final Button slowDown, final Label speed){
 		this.currentSpeed = 4;
 		this.offset = 1000;
+		this.speed = speed;
 		
 		play.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -53,6 +56,7 @@ public class GameFlowControl {
 				try{
 					if(currentSpeed > 0){
 						currentSpeed--;
+						setLabel();
 						timer.cancel();
 						timer = new Timer(true);
 						timer.schedule(new Run(sim), 0, speeds[currentSpeed]);
@@ -71,6 +75,7 @@ public class GameFlowControl {
 				try{
 					if(currentSpeed < speeds.length - 1){
 						currentSpeed++;
+						setLabel();
 						timer.cancel();
 						timer = new Timer(true);
 						timer.schedule(new Run(sim), 0, speeds[currentSpeed]);
@@ -81,6 +86,12 @@ public class GameFlowControl {
 				catch(Exception e){}
 			}
 		});	
+	}
+	
+	private void setLabel(){
+		double i = 1d/(speeds[currentSpeed]/1000d);
+		int j = (int) i;
+		speed.setText(j + "x");
 	}
 	
 	public void close(){
