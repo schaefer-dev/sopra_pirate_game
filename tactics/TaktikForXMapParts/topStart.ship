@@ -88,8 +88,40 @@
 	mark 3
 	*topFirstRowFirstShipMoveAgain39	move else topFirstRowFirstShipMoveAgain39
 	mark 3
+	turn left
+	turn left
 	*topFirstRowFirstShipMoveAgain40	move else topFirstRowFirstShipMoveAgain40
-	mark 3
+	*topFirstRowFirstShipMoveAgain41	move else topFirstRowFirstShipMoveAgain41
+	*topFirstRowFirstShipMoveAgain42	move else topFirstRowFirstShipMoveAgain42
+	pickup 1 else topFirstRowFirstShipMoveAgain43
+	*topFirstRowFirstShipMoveAgain43	move else topFirstRowFirstShipMoveAgain43
+	pickup 1 else topFirstRowFirstShipMoveAgain43
+	turn left
+	turn left
+	*topFirstRowFirstShipMoveAgain44	move else topFirstRowFirstShipMoveAgain44
+	turn left
+	*topFirstRowFirstShipSearchHomeFindOut1	move else topFirstRowFirstShipSearchHomeFindOut1
+	sense 6
+	if !sense_marker3 else topFirstRowFirstShipSearchHomeFindOutSense3Found
+	goto topFirstRowFirstShipSearchHomeFindOut1
+
+	*topFirstRowFirstShipSearchHomeFindOutSense3Found
+	turn right
+	turn right
+	*topFirstRowFirstShipSearchHomeFindOut2 move else topFirstRowFirstShipSearchHomeFindOut2
+	sense 6
+	if !sense_marker4 else topFirstRowFirstShipSearchHomeFindOutSense4Found
+	goto topFirstRowFirstShipSearchHomeFindOut2
+
+	*topFirstRowFirstShipSearchHomeFindOutSense4Found
+	turn right
+	*topFirstRowFirstShipSearchHomeFindOut3 move else topFirstRowFirstShipSearchHomeFindOut3
+	sense 6
+	if sense_celltype==home else topFirstRowFirstShipSearchHomeFindOut3
+	drop
+	goto 999
+
+
 
 *topFirstRowSecondShip
 	turn left
