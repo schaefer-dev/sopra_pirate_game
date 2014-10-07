@@ -28,6 +28,7 @@ public class Field {
 	private Image krakenImage;
 	
 	private boolean farAway;
+	public boolean marked = false;
 	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
@@ -150,7 +151,7 @@ public class Field {
 				farAway = true;
 		}
 		else
-			this.shipImage = map.getRessources().getShipImage(ship.getFleet());
+			this.shipImage = map.getRessources().getShipImage(ship.getFleet().getID());
 
 		this.ship = ship;
 		redraw();
