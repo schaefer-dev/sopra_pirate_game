@@ -10,32 +10,32 @@ if !sense_marker2 else drehTo2
 if !sense_marker3 else drehTo3
 if !sense_marker4 else drehTo4
 *drehTo5 if ship_direction==5 else turnTo5
-*find5 move else find5
+*find5 move else findBackFromIsland
 goto findback5
 *turnTo5 turn right
 goto drehTo5
 *drehTo4 if ship_direction==4 else turnTo4
-*find4 move else find4
+*find4 move else findBackFromIsland
 goto findback4
 *turnTo4 turn right
 goto drehTo4
 *drehTo3 if ship_direction==3 else turnTo3
-*find3 move else find3
+*find3 move else findBackFromIsland
 goto findback3
 *turnTo3 turn right
 goto drehTo3
 *drehTo2 if ship_direction==2 else turnTo2
-*find2 move else find2
+*find2 move else findBackFromIsland
 goto findback2
 *turnTo2 turn right
 goto drehTo2
 *drehTo1 if ship_direction==1 else turnTo1
-*find1 move else find1
+*find1 move else findBackFromIsland
 goto findback1
 *turnTo1 turn right
 goto drehTo1
 *drehTo0 if ship_direction==0 else turnTo0
-*find0 move else find0
+*find0 move else findBackFromIsland
 goto findback0
 *turnTo0 turn right
 goto drehTo0
