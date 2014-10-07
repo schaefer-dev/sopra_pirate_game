@@ -16,7 +16,7 @@
 						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
-						flipzero 50 else farmIslandCheckStraightGoOn
+						flipzero 85 else farmIslandCheckStraightGoOn
 						turn left
 						goto test
 *farmIslandCheckStraightGoOn		goto farmIslandUhrzeigerMove
@@ -37,6 +37,11 @@
 						turn right
 						turn right
 						turn right
+						sense 0
+						sense 0
+						sense 0
+						sense 0
+						sense 0
 						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen

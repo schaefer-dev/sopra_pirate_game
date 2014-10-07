@@ -1,15 +1,8 @@
-*start flipzero 6 else startFindTreasure; 1 Drittel der Schiffe legt Bojen, der Rest sucht Schätze.
+*start flipzero 2 else startFindTreasure; 1 die Hälfte der Schiffe legt Bojen, der Rest sucht Schätze.
 *startSetBuoys flipzero 2 else drehrechts; 									Hälfte dreht sich nach links, andere nach rechts
 *drehlinks turn left; 												Drehung in Richtung 5
 flipzero 2 else drehweiterLinks; 									Hälfte dreht sich weiter, andere Hälfte nicht
-*start5 pickup 5 else look5rechtsStart; 							Gucken ob links vorne Schatz ist, sonst rechts gucken
-drop; 																Schatz abgeben
-goto start5; 														wieder starten
-*look5rechtsStart pickup 1 else look5geradeausStart; 				gucken ob rechts schatz ist, sonst vorne gucken
-drop; 																Schatz abgeben
-goto start5; 														wieder starten
-*look5geradeausStart sense 0; 										Vorne sensen
-ifall !sense_treasure sense_celltype!=island else testWhatStart; 	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
+*start5 goto normal5
 *normal5 move else turnlinks5;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test5
 mark 2; 															Boje setzten, dass in Richhtung 2 die Basis ist.
@@ -28,14 +21,7 @@ goto test4;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
 goto test0;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
 *drehweiterLinks turn left;											Noch weiter nach links drehen in Richtung 4
 flipzero 2 else drehnochweiterLinks;								So bleiben oder volle 180° Drehung
-*start4 pickup 5 else look4rechtsStart;								Gucken ob links vorne Schatz ist, sonst rechts gucken
-drop;																Schatz abgeben
-goto start4;														Wieder anfangen zu suchen
-*look4rechtsStart pickup 1 else look4geradeausStart;				gucken ob rechts schatz ist, sonst vorne gucken
-drop;																Schatz abgeben
-goto start4;														Wieder anfangen zu suchen
-*look4geradeausStart sense 0;										Vorne sensen
-ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
+*start4 goto normal4
 *normal4 move else turnrechts4;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test4
 mark 1;																Boje setzten, dass in Richhtung 1 die Basis ist.
@@ -53,14 +39,7 @@ goto test3;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
 *turnrechts4 turn right;											rechts abbiegen
 goto test5;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
 *drehnochweiterLinks turn left;										In Richtung 3 drehen.
-*start3 pickup 5 else look3rechtsStart;								Gucken ob links vorne Schatz ist, sonst rechts gucken
-drop;																Schatz abgeben
-goto start3;														Schatzsuche erneut starten
-*look3rechtsStart pickup 1 else look3geradeausStart;                gucken ob rechts schatz ist, sonst vorne gucken
-drop;																Schatz abgeben
-goto start3;														Schatzsuche erneut starten
-*look3geradeausStart sense 0;										Vorne sensen
-ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schatz oder Insel vorne, losfahren, sonst nachgucken was es ist
+*start3 goto normal3
 *normal3 move else turnlinks3;										Nach vorne Bewegen, wenn's nicht geht nach links drehen.
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test3
 mark 0;																Boje setzten, dass in Richhtung 1 die Basis ist.
@@ -79,14 +58,7 @@ goto test2;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
 goto test4;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
 *drehrechts turn right;												Drehung in Richtung 1
 flipzero 2 else drehweiterRechts
-*start1 pickup 5 else look1rechtsStart
-drop
-goto start1
-*look1rechtsStart pickup 1 else look1geradeausStart
-drop
-goto start1
-*look1geradeausStart sense 0
-ifall !sense_treasure sense_celltype!=island else testWhatStart
+*start1 goto normal1
 *normal1 move else turnrechts1
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test1
 mark 4
@@ -105,14 +77,7 @@ goto test0
 goto test2
 *drehweiterRechts turn right
 flipzero 2 else drehnochweiterRechts
-*start2 pickup 5 else look2rechtsStart
-drop
-goto start2
-*look2rechtsStart pickup 1 else look2geradeausStart
-drop
-goto start2
-*look2geradeausStart sense 0
-ifall !sense_treasure sense_celltype!=island else testWhatStart
+*start2 goto normal2
 *normal2 move else turnlinks2
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test2
 mark 5
@@ -131,14 +96,7 @@ goto test1
 goto test3
 *drehnochweiterRechts turn right
 goto start3
-*start0 pickup 5 else look0rechtsStart
-drop
-goto start0
-*look0rechtsStart pickup 1 else look0geradeausStart
-drop
-goto start0
-*look0geradeausStart sense 0
-ifall !sense_treasure sense_celltype!=island else testWhatStart
+*start0 goto normal0
 *normal0 move else turnrechts0
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test0
 mark 3
@@ -159,48 +117,47 @@ goto test1
 drop
 goto drehTo0Start
 *drehTo0Start if ship_direction==0 else turnLeftGoto0
-flipzero 3 else start
 goto start0
 *turnLeftGoto0 turn left
-goto drehTo0Start				;GRENZE
+goto drehTo0Start
 *findback sense 6
 if sense_celltype==home else findpath
 drop
-if ship_condition!=3 else normal
-repair else normal
-goto normal
+if ship_condition!=3 else drehTo0Start
+repair else drehTo0Start
+goto drehTo0Start
 *findpath if !sense_marker0 else drehTo0
 if !sense_marker1 else drehTo1
 if !sense_marker2 else drehTo2
 if !sense_marker3 else drehTo3
 if !sense_marker4 else drehTo4
 *drehTo5 if ship_direction==5 else turnTo5
-*find5 move else find5
+*findpath5 move else findpath5
 goto findback5
 *turnTo5 turn right
 goto drehTo5
 *drehTo4 if ship_direction==4 else turnTo4
-*find4 move else find4
+*findpath4 move else findpath4
 goto findback4
 *turnTo4 turn right
 goto drehTo4
 *drehTo3 if ship_direction==3 else turnTo3
-*find3 move else find3
+*findpath3 move else findpath3
 goto findback3
 *turnTo3 turn right
 goto drehTo3
 *drehTo2 if ship_direction==2 else turnTo2
-*find2 move else find2
+*findpath2 move else findpath2
 goto findback2
 *turnTo2 turn right
 goto drehTo2
 *drehTo1 if ship_direction==1 else turnTo1
-*find1 move else find1
+*findpath1 move else findpath1
 goto findback1
 *turnTo1 turn right
 goto drehTo1
 *drehTo0 if ship_direction==0 else turnTo0
-*find0 move else find0
+*findpath0 move else findpath0
 goto findback0
 *turnTo0 turn right
 goto drehTo0
@@ -252,17 +209,105 @@ repair else drehTo0Start
 *findpath5 ifall ship_direction==5 sense_marker5 else findpath
 move else findback
 goto findback5
+*findback sense 6
+if sense_celltype==home else findpath
+drop
+if ship_condition!=3 else redistribute; Verteilung der Schiffe auf andere Stellen, als die bisher abgegrasten, vorher Sprung zu normal
+repair else redistribute
+goto redistribute
+*findpath if !sense_marker0 else drehTo0
+if !sense_marker1 else drehTo1
+if !sense_marker2 else drehTo2
+if !sense_marker3 else drehTo3
+if !sense_marker4 else drehTo4
+*drehTo5 if ship_direction==5 else turnTo5
+*find5 move else find5
+goto findback5
+*turnTo5 turn right
+goto drehTo5
+*drehTo4 if ship_direction==4 else turnTo4
+*find4 move else find4
+goto findback4
+*turnTo4 turn right
+goto drehTo4
+*drehTo3 if ship_direction==3 else turnTo3
+*find3 move else find3
+goto findback3
+*turnTo3 turn right
+goto drehTo3
+*drehTo2 if ship_direction==2 else turnTo2
+*find2 move else find2
+goto findback2
+*turnTo2 turn right
+goto drehTo2
+*drehTo1 if ship_direction==1 else turnTo1
+*find1 move else find1
+goto findback1
+*turnTo1 turn right
+goto drehTo1
+*drehTo0 if ship_direction==0 else turnTo0
+*find0 move else find0
+goto findback0
+*turnTo0 turn right
+goto drehTo0
+*findback0 sense 6
+if sense_celltype==home else findpath0
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath0 ifall ship_direction==0 sense_marker0 else findpath
+move else findpath
+goto findback0
+*findback1 sense 6
+if sense_celltype==home else findpath1
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath1 ifall ship_direction==1 sense_marker1 else findpath
+move else findback
+goto findback1
+*findback2 sense 6
+if sense_celltype==home else findpath2
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath2 ifall ship_direction==2 sense_marker2 else findpath
+move else findback
+goto findback2
+*findback3 sense 6
+if sense_celltype==home else findpath3
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath3 ifall ship_direction==3 sense_marker3 else findpath
+move else findback
+goto findback3
+*findback4 sense 6
+if sense_celltype==home else findpath4
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath4 ifall ship_direction==4 sense_marker4 else findpath
+move else findback
+goto findback4
+*findback5 sense 6
+if sense_celltype==home else findpath5
+drop
+if ship_condition!=3 else redistribute
+repair else redistribute
+goto redistribute
+*findpath5 ifall ship_direction==5 sense_marker5 else findpath
+move else findback
+goto findback5
 *startFindTreasure		flipzero 2 else drehrechtsFind
 *drehlinksFind 			turn left
-						flipzero 5 else drehweiterLinksFind
-*find 					pickup 5 else lookRechtsStartFind
-						drop
-						goto find
-*lookRechtsStartFind 	pickup 1 else lookGeradeausStartFind
-						drop
-						goto find
-*lookGeradeausStartFind	sense 0
-						ifall !sense_treasure sense_celltype!=island else pickupGeradeaus
+						flipzero 3 else drehweiterLinksFind
+*find 					goto normal
 *normal 				move else avoid
 *test					pickup 5 else lookRechts
 						goto findbackFromIsland
@@ -277,11 +322,11 @@ goto findback5
 *shouldFarm				refresh 0 else farmIslandStartUhrzeigerPickup
 						goto avoid
 *drehweiterLinksFind	turn left
-						flipzero 5 else find
+						flipzero 2 else find
 *drehnochweiterLinksFind 	turn left
 						goto find
 *drehrechtsFind 			turn right
-						flipzero 5 else find
+						flipzero 2 else find
 *drehweiterRechtsFind		turn right
 						flipzero 2 else drehnochweiterRechtsFind
 						goto find
@@ -305,7 +350,10 @@ goto findback5
 						goto farmIslandUhrzeigerMove
 *farmIslandCheckStraight	sense 0
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickupTurnLeft
-						goto farmIslandUhrzeigerMove
+						flipzero 85 else farmIslandCheckStraightGoOn
+						turn left
+						goto test
+*farmIslandCheckStraightGoOn		goto farmIslandUhrzeigerMove
 *farmIslandUhrzeigerMoveHit sense 0
 						if sense_shiptype==friend else farmIslandUhrzeigerMoveHitEnemy
 *farmIslandUhrzeigerMoveHitFlee	turn left
@@ -323,7 +371,6 @@ goto findback5
 						turn right
 						turn right
 						turn right
-						sense 0			;nur bremse
 						sense 0
 						sense 0
 						sense 0
@@ -355,3 +402,41 @@ goto findback5
 	goto turnLeftAndSearchOn
 *moveBecauseNothingInYourWay move else searchOnForBuoy
 	goto searchOnForBuoy
+*redistribute flipzero 2 else normal
+flipzero 2 else to3
+*to0 if ship_direction!=0 else moveOut
+turn right
+goto to0
+*to3 if ship_direction!=3 else moveOut
+turn right
+goto to3
+*moveOut sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+sense 0
+if sense_cellType==empty else test
+move else normal
+turn right
+turn right
+goto normal
