@@ -17,6 +17,23 @@
     -fx-font-family: "UglyQua";
 }
 
+.titled-pane > .title {
+    -fx-font-family: "Ubuntu Mono";
+    -fx-font-size: 12px;
+    -fx-background-insets: -1.4, 0, 1, 2;
+    -fx-background-color: white;
+    -fx-padding: 5 10 5 10;
+}
+
+.titled-pane > *.content {
+    -fx-background-color: #E6E8E8;
+}
+
+.titled-pane:focused > .title {
+    -fx-background-color: #A6A6A6;
+    -fx-color: black;
+}
+
 .tooltipi{
     -fx-background-color: #FFFFFF;
     -fx-border-color: #585858;
@@ -185,7 +202,7 @@
 
 .root {
     -fx-background: #f4f4f4;
-    -fx-background-image: url("backtest.png");
+    -fx-background-image: url("back.png");
     -fx-background-size: stretch;
 }
 
