@@ -31,6 +31,7 @@ import view.utility.Field;
 import view.utility.GameFlowControl;
 import view.utility.GameState;
 import view.utility.Map;
+import view.utility.MapPreview;
 import view.utility.Ressources;
 import view.utility.Ship;
 import view.utility.Team;
@@ -168,6 +169,10 @@ public class InGameState implements GameState, LogWriter {
 		for(final Team team: teams){
 			
 			final TitledPane pane = new TitledPane(team.toString(), new Text(giveTeamText(team)));
+			pane.setStyle("-fx-text-fill: red");
+			int index = config.captainNames.indexOf(team.toString());
+			String colorString = MapPreview.teamColors[index];	
+			pane.setStyle("-fx-mark-color: #"+colorString);
 			pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 				@Override
@@ -175,7 +180,10 @@ public class InGameState implements GameState, LogWriter {
 					map.drawMap();
 					for(Ship ship: team.getShips()){
 						Field field = fields[ship.getX()][ship.getY()];
-						map.markField(field);
+						Team team = teams.get(ship.getFleet());
+						int index = config.captainNames.indexOf(team.toString());
+						String colorString = MapPreview.teamColors[index];
+						map.markField(field, colorString);
 					}
 				}
 			});
