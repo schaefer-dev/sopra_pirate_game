@@ -41,7 +41,7 @@ public class TeamSelectionWindow {
 		color = new Rectangle();
 		color.setWidth(15);
 		color.setHeight(15);
-		color.setFill(Color.BLUE);
+		color.setFill(Color.WHITE);
 		
 		ObservableList<String> captains = FXCollections.observableArrayList(config.getCaptainNames());
 		captainChooser = new ComboBox<String>(captains);
@@ -58,6 +58,13 @@ public class TeamSelectionWindow {
 				
 				config.getCurrentCaptainName().remove(currentValue);
 				currentValue = newValue;
+				
+				int index = config.captainNames.indexOf(currentValue);
+				if(index != -1){
+					String colorString = MapPreview.teamColors[config.captainNames.indexOf(currentValue)];
+					color.setFill(Color.web(colorString));
+				}
+				
 				config.getCaptainNames().remove(newValue);
 				config.getCurrentCaptainName().add(newValue);
 			}

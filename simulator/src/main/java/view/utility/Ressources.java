@@ -26,6 +26,7 @@ public class Ressources {
 	private Image shoreWater;
 	
 	private List<Image> islandDetails = new ArrayList<Image>();
+	private List<Image> shipImages = new ArrayList<Image>();
 	
 	private Configuration defaultConfiguration;
 	
@@ -92,6 +93,12 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	islandDetails.add(new Image(stream));
 	    	
+	    	for(int i = 1; i < 6; i++){
+	    		file = new File("src/main/ressources/ships/"+i+".png");
+	    		stream = new FileInputStream(file);
+	    		shipImages.add(new Image(stream));
+	    	}
+	    	
 	    	stream.close();
 	    	createDefaultConfig();
     	}
@@ -122,6 +129,10 @@ public class Ressources {
 	
 	public Image getShipImage(){
 		return ship;
+	}
+	
+	public Image getShipImage(int fleet){
+		return shipImages.get(fleet);
 	}
 	
 	public Image getWaterTreasureImage(){
@@ -165,7 +176,7 @@ public class Ressources {
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(100);
-		defaultConfiguration.setTeamCount(1);
+		defaultConfiguration.setTeamCount(4);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);

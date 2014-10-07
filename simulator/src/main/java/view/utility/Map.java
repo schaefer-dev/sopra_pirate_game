@@ -96,13 +96,17 @@ public class Map {
 	}
 	
 	public void markField(Field field){		
+		markField(field, "B2E097");
+	}
+	
+	public void markField(Field field, String color){
 		int x = mod(field.getX() - cam.a, mapWidth);
     	int y = mod(field.getY() - cam.c, mapHeight);
     	double radius = gc.getCanvas().getWidth()/cam.width()/2;
 		double stepX = ((y+cam.c)%2 == 0) ? 0 : radius;
 		double stepY = y*(radius/2);
 		
-		markHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, Color.web("B2E097"), false);
+		markHex(new Point2D(x*2*radius+stepX, y*2*radius - stepY), radius, Color.web(color), false);	
 	}
 	
 	
