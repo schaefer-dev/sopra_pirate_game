@@ -2,7 +2,7 @@ package view.utility;
 
 import java.util.Timer;
 
-import controller.Simulator;
+import view.gamestates.InGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -16,10 +16,13 @@ public class GameFlowControl {
 	private int offset;
 	private Label speed;
 	
-	public GameFlowControl(final Simulator sim, final Button play, final Button pause, final Button speedUp, final Button slowDown, final Label speed){
+	private InGameState state;
+	
+	public GameFlowControl(final InGameState state, final Button play, final Button pause, final Button speedUp, final Button slowDown, final Label speed){
 		this.currentSpeed = 4;
 		this.offset = 1000;
 		this.speed = speed;
+		this.state = state;
 		
 		play.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -27,7 +30,7 @@ public class GameFlowControl {
 			public void handle(ActionEvent arg0) {
 				try{
 					timer = new Timer(true);
-					timer.schedule(new Run(sim), offset, speeds[currentSpeed]);
+					timer.schedule(new Run(state), offset, speeds[currentSpeed]);
 					play.setVisible(false);
 					pause.setVisible(true);
 				}
@@ -59,7 +62,7 @@ public class GameFlowControl {
 						setLabel();
 						timer.cancel();
 						timer = new Timer(true);
-						timer.schedule(new Run(sim), 0, speeds[currentSpeed]);
+						timer.schedule(new Run(state), 0, speeds[currentSpeed]);
 						play.setVisible(false);
 						pause.setVisible(true);
 					}
@@ -78,7 +81,7 @@ public class GameFlowControl {
 						setLabel();
 						timer.cancel();
 						timer = new Timer(true);
-						timer.schedule(new Run(sim), 0, speeds[currentSpeed]);
+						timer.schedule(new Run(state), 0, speeds[currentSpeed]);
 						play.setVisible(false);
 						pause.setVisible(true);
 					}
@@ -94,8 +97,29 @@ public class GameFlowControl {
 		speed.setText(j + "x");
 	}
 	
+	public void pause(){
+		try {
+			timer.cancel();
+			offset = 0;
+		} 
+		catch (Exception e){}	
+	}
+	
+	public void play(){
+		try{
+			timer = new Timer(true);
+			timer.schedule(new Run(state), offset, speeds[currentSpeed]);
+		}
+		catch(Exception e){}
+	}
+	
 	public void close(){
+		System.out.println("hey");
 		if(timer != null)
 			timer.cancel();
+	}
+	
+	public int getCurrentSpeed(){
+		return currentSpeed;
 	}
 }

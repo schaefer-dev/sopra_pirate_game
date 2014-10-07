@@ -16,6 +16,11 @@ public class TeamPane extends TitledPane {
 	}	
 	
 	public void update(){
+		updateText();
+		this.setContent(new Text(giveTeamText()));
+	}
+	
+	public void updateText(){
 		String title = " " + team.toString();
 		
 		int stell = 1;
@@ -28,7 +33,6 @@ public class TeamPane extends TitledPane {
 		title += String.valueOf(team.getScore());
 		
 		this.setText(title);
-		this.setContent(new Text(giveTeamText()));
 	}
 
 	
