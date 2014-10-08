@@ -6,40 +6,40 @@ goto to0
 turn right
 goto to3
 *moveOut sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 turn right
 turn right
