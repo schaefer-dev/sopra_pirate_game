@@ -1,7 +1,7 @@
-*start flipzero 2 else startFindTreasure; 1 sechstel der Schiffe legt Bojen, der Rest sucht Schätze.
-*startSetBuoys flipzero 2 else drehrechts; 							Hälfte dreht sich nach links, andere nach rechts
+*start flipzero 2 else startFindTreasure; 1 sechstel der Schiffe legt Bojen, der Rest sucht SchÃ¤tze.
+*startSetBuoys flipzero 2 else drehrechts; 							HÃ¤lfte dreht sich nach links, andere nach rechts
 *drehlinks turn left; 												Drehung in Richtung 5
-flipzero 2 else drehweiterLinks; 									Hälfte dreht sich weiter, andere Hälfte nicht
+flipzero 2 else drehweiterLinks; 									HÃ¤lfte dreht sich weiter, andere HÃ¤lfte nicht
 *start5 pickup 5 else look5rechtsStart; 							Gucken ob links vorne Schatz ist, sonst rechts gucken
 drop; 																Schatz abgeben
 goto start5; 														wieder starten
@@ -14,20 +14,20 @@ ifall !sense_treasure sense_celltype!=island else testWhatStart; 	Wenn kein Scha
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test5
 mark 2; 															Boje setzten, dass in Richhtung 2 die Basis ist.
 *test5 pickup 5 else look5rechts; 									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
-goto findback; 														Da Schatz gefunden nach Hause zurückfahren
+goto findback; 														Da Schatz gefunden nach Hause zurÃ¼ckfahren
 *look5rechts pickup 1 else look5geradeaus; 							rechtsvorne nach Schatz gucken, wenn keiner da geradeaus gucken.
-goto findback; 														Da Schatz gefunden nach Hause zurückfahren
+goto findback; 														Da Schatz gefunden nach Hause zurÃ¼ckfahren
 *look5geradeaus sense 0; 											nach vorne sensen
 ifany sense_treasure sense_celltype==island else normal5; 			Wenn vorne kein Schatz oder Insel weiterfahren, sonst
-*pickupGeradeaus5 pickup 0 else inselavoid5; 						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurückfahren.
+*pickupGeradeaus5 pickup 0 else inselavoid5; 						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurÃ¼ckfahren.
 goto findback; 														Nach Hause fahren, da Schatz gefunden
 *inselavoid5 flipzero 2 else turnrechts5;							Um nicht auf Insel zu fahren entweder links oder rechts abbiegen.
 *turnlinks5 turn left;												links abbiegen
-goto test4;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
+goto test4;															Auf SchÃ¤tz oder Inseln Testen in neue Fahrtrichtung
 *turnrechts5 turn right;											rechts abbiegen
-goto test0;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
+goto test0;															Auf SchÃ¤tz oder Inseln Testen in neue Fahrtrichtung
 *drehweiterLinks turn left;											Noch weiter nach links drehen in Richtung 4
-flipzero 2 else drehnochweiterLinks;								So bleiben oder volle 180° Drehung
+flipzero 2 else drehnochweiterLinks;								So bleiben oder volle 180Â° Drehung
 *start4 pickup 5 else look4rechtsStart;								Gucken ob links vorne Schatz ist, sonst rechts gucken
 drop;																Schatz abgeben
 goto start4;														Wieder anfangen zu suchen
@@ -40,18 +40,18 @@ ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schat
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test4
 mark 1;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test4 pickup 5 else look4rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
-goto findback;														Da Schatz gefunden nach Hause zurückfahren
+goto findback;														Da Schatz gefunden nach Hause zurÃ¼ckfahren
 *look4rechts pickup 1 else look4geradeaus;							rechtsvorne nach Schatz gucken, wenn keiner da geradeaus gucken.
-goto findback;														Da Schatz gefunden nach Hause zurückfahren
+goto findback;														Da Schatz gefunden nach Hause zurÃ¼ckfahren
 *look4geradeaus sense 0;											nach vorne sensen
 ifany sense_treasure sense_celltype==island else normal4;			Wenn vorne kein Schatz oder Insel weiterfahren, sonst
-*pickupGeradeaus4 pickup 0 else avoidIsland4;						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurückfahren.
-goto findback;														Da Schatz gefunden nach Hause zurückfahren
+*pickupGeradeaus4 pickup 0 else avoidIsland4;						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurÃ¼ckfahren.
+goto findback;														Da Schatz gefunden nach Hause zurÃ¼ckfahren
 *avoidIsland4 flipzero 2 else turnrechts4;							Um nicht auf Insel zu fahren entweder links oder rechts abbiegen.
 *turnlinks4 turn left;												Links abbiegen
-goto test3;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
+goto test3;															Auf SchÃ¤tz oder Inseln testen in neue Fahrtrichtung
 *turnrechts4 turn right;											rechts abbiegen
-goto test5;															Auf Schätz oder Inseln Testen in neue Fahrtrichtung
+goto test5;															Auf SchÃ¤tz oder Inseln Testen in neue Fahrtrichtung
 *drehnochweiterLinks turn left;										In Richtung 3 drehen.
 *start3 pickup 5 else look3rechtsStart;								Gucken ob links vorne Schatz ist, sonst rechts gucken
 drop;																Schatz abgeben
@@ -65,18 +65,18 @@ ifall !sense_treasure sense_celltype!=island else testWhatStart;	Wenn kein Schat
 ifAll !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 else test3
 mark 0;																Boje setzten, dass in Richhtung 1 die Basis ist.
 *test3 pickup 5 else look3rechts;									linksvorne nach Schatz gucken, wenn keiner da rechts gucken
-goto findback;														Da Schatz gefunden nach Hause zurückfahren.
+goto findback;														Da Schatz gefunden nach Hause zurÃ¼ckfahren.
 *look3rechts pickup 1 else look3geradeaus;							rechtsvorne nach Schatz gucken, wenn keiner da geradeaus gucken.
-goto findback;														Da Schatz gefunden nach Hause zurückfahren.
+goto findback;														Da Schatz gefunden nach Hause zurÃ¼ckfahren.
 *look3geradeaus sense 0;											nach vorne sensen
 ifany sense_treasure sense_celltype==island else normal3;			Wenn vorne kein Schatz oder Insel weiterfahren, sonst
-*pickupGeradeaus3 pickup 0 else avoidIsland3;						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurückfahren.
-goto findback;														Da Schatz gefunden nach Hause zurückfahren.
+*pickupGeradeaus3 pickup 0 else avoidIsland3;						Vorne nach Schatz suchen, wenn keiner da drehen, da Insel im Weg, sonst zurÃ¼ckfahren.
+goto findback;														Da Schatz gefunden nach Hause zurÃ¼ckfahren.
 *avoidIsland3 flipzero 2 else turnrechts3;							Um nicht auf Insel zu fahren entweder links oder rechts abbiegen.
 *turnlinks3 turn left;												Links abbiegen
-goto test2;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
+goto test2;															Auf SchÃ¤tz oder Inseln testen in neue Fahrtrichtung
 *turnrechts3 turn right;											Rechts abbiegen
-goto test4;															Auf Schätz oder Inseln testen in neue Fahrtrichtung
+goto test4;															Auf SchÃ¤tz oder Inseln testen in neue Fahrtrichtung
 *drehrechts turn right;												Drehung in Richtung 1
 flipzero 2 else drehweiterRechts
 *start1 pickup 5 else look1rechtsStart
@@ -338,7 +338,7 @@ goto findback5
 						sense 0
 						move else SkipIslandUhrzeigerMoveHitSearchSolution
 						goto farmIslandStartUhrzeigerPickupTurnLeft
-*farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;könnten auch spekulieren dass die Gegner ausweichen, beide Fälle testen
+*farmIslandUhrzeigerMoveHitEnemy if ship_condition==3 else farmIslandUhrzeigerMoveHitFlee				;kÃ¶nnten auch spekulieren dass die Gegner ausweichen, beide FÃ¤lle testen
 						goto farmIslandUhrzeigerMove
 *SkipIslandUhrzeigerMoveHitSearchSolution		goto test
 *FindBackFromIsland turn left ;moves in first field on its left side which is free
@@ -349,9 +349,16 @@ goto findback5
 	ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else findback
 	sense 0
 	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	flipzero 10 else turnLeftAndSearchOn
+	goto turnRightAndSearchOn
 *turnLeftAndSearchOn turn left
 	sense 0
 	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	goto turnLeftAndSearchOn
+*turnRightAndSearchOn turn right
+	sense 0
+	ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else moveBecauseNothingInYourWay
+	turn right
 	goto turnLeftAndSearchOn
 *moveBecauseNothingInYourWay move else searchOnForBuoy
 	goto searchOnForBuoy
@@ -363,40 +370,40 @@ goto to0
 turn right
 goto to3
 *moveOut sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 sense 0
-if sense_cellType==empty else test
+ifany sense_cellType==empty sense_celltype==home else test
 move else normal
 turn right
 turn right
