@@ -129,7 +129,6 @@ public class GeneratorState implements GameState {
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
-		manager.getConfiguration().removeMap();
 	}
 
 	@Override
