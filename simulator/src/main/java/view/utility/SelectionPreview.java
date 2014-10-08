@@ -13,7 +13,6 @@ public class SelectionPreview extends SelectionWindow {
 	private MapPreview preview;
 	private Text rounds;
 	private Text mapSize;
-	private Text difficulty;
 	private Text description;
 	private Configuration config;
 	private int teamCount;
@@ -33,7 +32,6 @@ public class SelectionPreview extends SelectionWindow {
 		this.name = name;
 		this.rounds = new Text(rounds);
 		this.mapSize = new Text(mapSize);
-		this.difficulty = new Text(difficulty);
 		this.description = new Text(description);
 		this.teamCount = teamCount;
 

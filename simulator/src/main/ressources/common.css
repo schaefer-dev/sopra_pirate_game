@@ -128,6 +128,11 @@
     -fx-padding: 0 150 0 150;
 }
 
+.formattingfixer2{
+    -fx-padding: 0 200 0 200;
+}
+
+
 .slider .track {
     -fx-base: derive(goldenrod, 50%);
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
@@ -194,7 +199,7 @@
 
 .maplist-view {
     -fx-background-color: transparent;
-    -fx-padding: 0 200 0 450;
+    /*-fx-padding: 0 200 0 450;*/
 }
 
 

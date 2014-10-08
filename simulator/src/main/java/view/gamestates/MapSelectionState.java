@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -43,7 +44,6 @@ public class MapSelectionState implements GameState {
 		SelectionWindow empty = giveEmptyElement();
 		preview.getChildren().add(empty.get());
 		empty.draw(gc);
-	
 		
 		list.setItems(giveElementList(gc));
 		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SelectionWindow>() {
@@ -75,11 +75,22 @@ public class MapSelectionState implements GameState {
 		selection.getStyleClass().add("grid");
 		selection.add(back, 0, 0);
 		selection.add(next, 6, 0);
-	
+		
 		root = new BorderPane();
 		root.setCenter(list);
 		root.setBottom(selection);
 		root.setRight(preview);
+		
+		Label formattingFixer1 = new Label();
+		formattingFixer1.getStyleClass().add("formattingfixer2");
+		
+		GridPane mid = new GridPane();
+		mid.add(formattingFixer1, 0, 0);
+		mid.add(list, 1, 0);
+		mid.add(preview, 2, 0);
+		root = new BorderPane();
+		root.setCenter(mid);
+		root.setBottom(selection);
 		
 		manager.getRoot().setCenter(root);
 	}
