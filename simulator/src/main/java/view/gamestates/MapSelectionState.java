@@ -59,6 +59,7 @@ public class MapSelectionState implements GameState {
 				arg2.draw(gc);
 			}
 		});
+		list.getSelectionModel().select(0);
 		
 		Button back = new Button("< Map Type");
 		back.getStyleClass().add("menubutton");
@@ -88,7 +89,6 @@ public class MapSelectionState implements GameState {
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
-		manager.getConfiguration().removeMap();
 		manager.getConfiguration().generate = true;
 	}
 

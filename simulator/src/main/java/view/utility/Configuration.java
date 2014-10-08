@@ -82,11 +82,6 @@ public class Configuration {
 		return map;
 	}
 	
-	public void removeMap(){
-		generator = null;
-		map = null;
-	}
-	
 	public void placeObjectsOnMap(){
 		System.out.println(generator);
 		generator.setProvision(0.005 * supplyDensity);
