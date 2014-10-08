@@ -14,8 +14,88 @@
 	ifany sense_celltype!=empty sense_shiptype==friend else topFirstRowSecondShip
 	goto topFirstRowNotFirstSecondShip
 *topFirstRowNotFirstSecondShip 
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 5
+	if sense_celltype==empty else topFirstRowNotFirstSecondShipTurnTwice
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain01 move else topFirstRowNotFirstSecondShipMoveAgain01
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain02 move else topFirstRowNotFirstSecondShipMoveAgain02
+	*topFirstRowNotFirstSecondShipRepeat01 turn right
+	*topFirstRowNotFirstSecondShipMoveAgain03 move else topFirstRowNotFirstSecondShipMoveAgain03
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain04 move else topFirstRowNotFirstSecondShipMoveAgain04
+	sense 1
+	if sense_celltype!=empty else topFirstRowNotFirstSecondShipRepeat01
+	*topFirstRowNotFirstSecondShipMoveAgain05 move else topFirstRowNotFirstSecondShipMoveAgain05
+	*topFirstRowNotFirstSecondShipMoveAgain06 move else topFirstRowNotFirstSecondShipMoveAgain06
+	*topFirstRowNotFirstSecondShipMoveAgain07 move else topFirstRowNotFirstSecondShipMoveAgain07
+	*topFirstRowNotFirstSecondShipMoveAgain08 move else topFirstRowNotFirstSecondShipMoveAgain08
+	*topFirstRowNotFirstSecondShipMoveAgain09 move else topFirstRowNotFirstSecondShipMoveAgain09
+	*topFirstRowNotFirstSecondShipMoveAgain10 move else topFirstRowNotFirstSecondShipMoveAgain10
+	*topFirstRowNotFirstSecondShipMoveAgain11 move else topFirstRowNotFirstSecondShipMoveAgain11
+	*topFirstRowNotFirstSecondShipMoveAgain12 move else topFirstRowNotFirstSecondShipMoveAgain12
+	*topFirstRowNotFirstSecondShipMoveAgain13 move else topFirstRowNotFirstSecondShipMoveAgain13
+	*topFirstRowNotFirstSecondShipMoveAgain14 move else topFirstRowNotFirstSecondShipMoveAgain14
+	*topFirstRowNotFirstSecondShipMoveAgain15 move else topFirstRowNotFirstSecondShipMoveAgain15
+	sense 6
+	if sense_marker0 else topFirstRowNotFirstSecondShipMoveAgain15
+	turn right
+	turn right
+	*topFirstRowNotFirstSecondShipMoveAgain16 move else topFirstRowNotFirstSecondShipMoveAgain16
+	*topFirstRowNotFirstSecondShipMoveAgain17 move else topFirstRowNotFirstSecondShipMoveAgain17
+	*topFirstRowNotFirstSecondShipMoveAgain18 move else topFirstRowNotFirstSecondShipMoveAgain18
+	turn right
+	*topFirstRowNotFirstSecondShipMoveAgain19 move else topFirstRowNotFirstSecondShipMoveAgain19
+	*topFirstRowNotFirstSecondShipMoveAgain20 move else topFirstRowNotFirstSecondShipMoveAgain20
+	pickup 1 else topFirstRowNotFirstSecondShipMoveAgain20
+	if ship_load==4 else topFirstRowNotFirstSecondShipMoveAgain20
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain21 move else topFirstRowNotFirstSecondShipMoveAgain21
+	turn left
+	turn left
+	*topFirstRowNotFirstSecondShipFindHome01 move else topFirstRowNotFirstSecondShipFindHome01
 	sense 4
-	goto 999
+	if sense_marker0 else topFirstRowNotFirstSecondShipFindHome01
+	turn left
+	*topFirstRowNotFirstSecondShipFindHome02 move else topFirstRowNotFirstSecondShipFindHome02
+	sense 4
+	if sense_marker4 else topFirstRowNotFirstSecondShipFindHome02
+	turn left
+	turn left
+	*topFirstRowNotFirstSecondShipFindHome03 move else topFirstRowNotFirstSecondShipFindHome03
+	sense 6
+	if sense_celltype==home else topFirstRowNotFirstSecondShipFindHome03
+	turn left
+	drop
+	goto topFarmAlgorythmLeft
+
+
+
+	*topFirstRowNotFirstSecondShipTurnTwice
+	turn left
+	turn left
+	goto topFirstRowNotFirstSecondShipMoveAgain02
 
 *topFirstRowFirstShip
 	turn left
@@ -122,7 +202,7 @@
 	turn right
 	turn right
 	drop
-	goto topFarmAlgorythm
+	goto topFarmAlgorythmRight
 
 
 
@@ -194,10 +274,9 @@
 	*topFirstRowSecondShipGoHome3 move else topFirstRowSecondShipGoHome3
 	sense 6
 	if sense_celltype==home else topFirstRowSecondShipGoHome3
-	turn right
-	turn right
+	turn left
 	drop
-	goto topFarmAlgorythm
+	goto topFarmAlgorythmLeft
 
 
 *topLastRow
@@ -269,10 +348,46 @@
 	mark 1
 	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
 	mark 0
-	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	*topLastRowMarkShipMoveAgain31	move else topLastRowMarkShipMoveAgain31
 	mark 3
-	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	*topLastRowMarkShipMoveAgain32	move else topLastRowMarkShipMoveAgain32
 	mark 1
+	*topLastRowMarkShipMoveAgain33	move else topLastRowMarkShipMoveAgain33
+	pickup 5 else topLastRowMarkShipFoundNoTreasure
+	pickup 0 else topLastRowMarkShipFoundNoTreasure
+	turn left
+	turn left
+	goto topLastRowMarkShipGoHome01
+
+
+*topLastRowMarkShipFoundNoTreasure
+	turn right 
+	*topLastRowMarkShipMoveAgain34	move else topLastRowMarkShipMoveAgain34
+	pickup 4 else topLastRowMarkShipMoveAgain34
+	pickup 5 else topLastRowMarkShipMoveAgain34
+	turn left
+	turn left
+	turn left
+	*topLastRowMarkShipMoveAgain35	move else topLastRowMarkShipMoveAgain35
+	goto topLastRowMarkShipGoHome01
+
+*topLastRowMarkShipGoHome01	move else topLastRowMarkShipGoHome01
+	sense 6
+	if sense_marker3 else topLastRowMarkShipGoHome01
+	turn right
+	turn right
+*topLastRowMarkShipGoHome02 move else topLastRowMarkShipGoHome02
+	sense 6
+	if sense_marker4 else topLastRowMarkShipGoHome02
+	turn right
+*topLastRowMarkShipGoHome03 move else topLastRowMarkShipGoHome03
+	sense 6
+	if sense_celltype==home else topLastRowMarkShipGoHome03
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythmRight
+
 
 
 
@@ -350,7 +465,7 @@
 	turn right
 	turn right
 	drop
-	goto topFarmAlgorythm
+	goto topFarmAlgorythmRight
 
 
 
@@ -366,6 +481,110 @@
 	ifany sense_shiptype==friend sense_celltype==island else topLastRow
 	goto topNotFirstLastRow
 *topNotFirstLastRow
+	turn left
+	turn left
+	turn left
+	*topNotFirstLastRowMoveAgain02 move else topNotFirstLastRowMoveAgain02
+	sense 1
+	if sense_celltype==empty else topNotFirstLastBottomRow
+*topBottomRow  turn right
+	*topBottomRowMoveAgain01 move else topBottomRowMoveAgain01
+	sense 5
+	if sense_celltype==island else checkforIsland
+	*checkforIsland sense 0
+	if sense_celltype==island else topBottomRowMoveAgain01
+	pickup 0 else topBottomRowNoGoHomeYet
+		if ship_load!=2 else topBottomRowNoGoHomeYet
+		turn left
+		turn left
+		turn left
+		*topBottomRowGoHomeEarly move else topBottomRowGoHomeEarly
+		sense 6
+		if sense_celltype==home else topBottomRowGoHomeEarly
+		turn right
+		turn right
+		*topBottomRowGoHomeEarlyMoveCorrect01 move else topBottomRowGoHomeEarlyMoveCorrect01
+		*topBottomRowGoHomeEarlyMoveCorrect02 move else topBottomRowGoHomeEarlyMoveCorrect02
+		turn right
+		*topBottomRowGoHomeEarlyDrop drop
+		goto topFarmAlgorythmBottom
+
+	*topBottomRowNoGoHomeYet mark 0
+	turn left
+	*topBottomRowMoveAgain03 move else topBottomRowMoveAgain03
+	mark 0
+	refresh 1 else topBottomRowMoveAgain04
+	*topBottomRowMoveAgain04 move else topBottomRowMoveAgain04
+	mark 0
+	Refresh 1 else topBottomRowMoveAgain05
+	*topBottomRowMoveAgain05 move else topBottomRowMoveAgain05
+	mark 0
+	refresh 1 else topBottomRowLabel01
+	*topBottomRowLabel01 sense 0
+	if sense_marker0 else topBottomRowsetBuoy2
+	*topBottomRowMoveAgain06 move else topBottomRowMoveAgain06
+	sense 6
+	if sense_marker2 else topBottomRowMoveAgain06
+	turn right
+	turn right
+	goto topBottomRowSearchTreasure
+
+
+*topBottomRowsetBuoy2
+	*topBottomRowMoveAgain07 move else topBottomRowMoveAgain07
+	mark 2
+	turn right
+	turn right
+	goto topBottomRowSearchTreasure
+
+*topBottomRowSearchTreasure move else topBottomRowSearchTreasure
+
+
+
+*topNotFirstLastBottomRow
 	goto 999
-*topFarmAlgorythm
+*topFarmAlgorythmRight
 	goto 999
+*topFarmAlgorythmLeft
+	goto 999
+*topFarmAlgorythmBottom
+	*topFarmAlgorythmBottomMoveAgain01 move else topFarmAlgorythmBottomMoveAgain01
+	*topFarmAlgorythmBottomMoveAgain02 move else topFarmAlgorythmBottomMoveAgain02
+	*topFarmAlgorythmBottomMoveAgain03 move else topFarmAlgorythmBottomMoveAgain03
+	*topFarmAlgorythmBottomMoveAgain04 move else topFarmAlgorythmBottomMoveAgain04
+	*topFarmAlgorythmBottomMoveAgain05 move else topFarmAlgorythmBottomMoveAgain05
+	*topFarmAlgorythmBottomMoveAgain06 move else topFarmAlgorythmBottomMoveAgain06
+	*topFarmAlgorythmBottomMoveAgain07 move else topFarmAlgorythmBottomMoveAgain07
+	*topFarmAlgorythmBottomMoveAgain08 move else topFarmAlgorythmBottomMoveAgain08
+	*topFarmAlgorythmBottomMoveAgain09 move else topFarmAlgorythmBottomMoveAgain09
+	*topFarmAlgorythmBottomMoveAgain10 move else topFarmAlgorythmBottomMoveAgain10
+	*topFarmAlgorythmBottomMoveAgain11 move else topFarmAlgorythmBottomMoveAgain11
+	*topFarmAlgorythmBottomMoveAgain12 move else topFarmAlgorythmBottomMoveAgain12
+	*topFarmAlgorythmBottomMoveAgain13 move else topFarmAlgorythmBottomMoveAgain13
+	*topFarmAlgorythmBottomMoveAgain14 move else topFarmAlgorythmBottomMoveAgain14
+	*topFarmAlgorythmBottomMoveAgain15 move else topFarmAlgorythmBottomMoveAgain15
+	*topFarmAlgorythmBottomMoveAgain16 move else topFarmAlgorythmBottomMoveAgain16
+	*topFarmAlgorythmBottomMoveAgain17 move else topFarmAlgorythmBottomMoveAgain17
+	*topFarmAlgorythmBottomMoveAgain18 move else topFarmAlgorythmBottomMoveAgain18
+	*topFarmAlgorythmBottomMoveAgain19 move else topFarmAlgorythmBottomMoveAgain19
+	*topFarmAlgorythmBottomMoveAgain20 move else topFarmAlgorythmBottomMoveAgain20
+	*topFarmAlgorythmBottomMoveAgain21 move else topFarmAlgorythmBottomMoveAgain21
+	*topFarmAlgorythmBottomMoveAgain22 move else topFarmAlgorythmBottomMoveAgain22
+	*topFarmAlgorythmBottomMoveAgain23 move else topFarmAlgorythmBottomMoveAgain23
+	*topFarmAlgorythmBottomMoveAgain24 move else topFarmAlgorythmBottomMoveAgain24
+	*topFarmAlgorythmBottomMoveAgain25 move else topFarmAlgorythmBottomMoveAgain25
+	*topFarmAlgorythmBottomMoveAgain26 move else topFarmAlgorythmBottomMoveAgain26
+	*topFarmAlgorythmBottomMoveAgain27 move else topFarmAlgorythmBottomMoveAgain27
+	*topFarmAlgorythmBottomMoveAgain28 move else topFarmAlgorythmBottomMoveAgain28
+	*topFarmAlgorythmBottomMoveAgain29 move else topFarmAlgorythmBottomMoveAgain29
+	*topFarmAlgorythmBottomMoveAgain30 move else topFarmAlgorythmBottomMoveAgain30
+	*topFarmAlgorythmBottomMoveAgain31 move else topFarmAlgorythmBottomMoveAgain31
+	*topFarmAlgorythmBottomMoveAgain32 move else topFarmAlgorythmBottomMoveAgain32
+	*topFarmAlgorythmBottomMoveAgain33 move else topFarmAlgorythmBottomMoveAgain33
+	*topFarmAlgorythmBottomMoveAgain34 move else topFarmAlgorythmBottomMoveAgain34
+	*topFarmAlgorythmBottomMoveAgain35 move else topFarmAlgorythmBottomMoveAgain35
+	*topFarmAlgorythmBottomMoveAgain36 move else topFarmAlgorythmBottomMoveAgain36
+	*topFarmAlgorythmBottomMoveAgain37 move else topFarmAlgorythmBottomMoveAgain37
+	*topFarmAlgorythmBottomMoveAgain38 move else topFarmAlgorythmBottomMoveAgain38
+	*topFarmAlgorythmBottomMoveAgain39 move else topFarmAlgorythmBottomMoveAgain39
+
