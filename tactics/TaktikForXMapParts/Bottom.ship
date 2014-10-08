@@ -5,7 +5,8 @@
 				if sense_shiptype==friend else bottomFarmAlgorythmRight
 				sense 3 
 				if sense_shiptype==friend else bottomFarmAlgorythmLeft
-*bottomFarmAlgorythmRight	goto 1999
+				goto 1999
+*bottomFarmAlgorythmRight	
 				turn left
 *bottomFarmAlgorythmRightMove01	move else bottomFarmAlgorythmRightMove01
 *bottomFarmAlgorythmRightMove02	move else bottomFarmAlgorythmRightMove02
@@ -44,7 +45,7 @@
 				turn left
 *bottomFarmAlgorythmRightGoPickUpMove02	move else bottomFarmAlgorythmRightGoPickUpMove01
 				pickup 1 else bottomFarmAlgorythmRightGoPickUpMove02
-				if ship_load<4 else *getHome
+				if ship_load<4 else getHome
 				goto bottomFarmAlgorythmRightGoPickUpMove02
 *getHome
 				turn left 
@@ -174,8 +175,8 @@
 			if ship_load<4 else bottomFarmAlgorythmLeftHome00
 			goto LeftPickUpRightLook  
 *LeftPickUpBorderLine   turn left 
-			pickup1 else LeftPickUpBorderPickUp01
-			if ship_load<4 else *bottomFarmAlgorythmLeftSpecial00
+			pickup 1 else LeftPickUpBorderPickUp01
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial00
 *LeftPickUpBorderPickUp01 move else LeftPickUpBorderPickUp01
 			pickup 1 else LeftPickUpBorderPickUp02
 			if ship_load<4 else bottomFarmAlgorythmLeftSpecial01
@@ -190,12 +191,18 @@
 			if ship_load<4 else bottomFarmAlgorythmLeftSpecial04
 *LeftPickUpBorderPickUp05 move else LeftPickUpBorderPickUp05
 			pickup 1 else LeftPickUpBorderPickUp06
-			if ship_load<4 elsebottomFarmAlgorythmLeftSpecial06
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial06
 *LeftPickUpBorderPickUp06 move else LeftPickUpBorderPickUp06
 			pickup 1 else LeftPickUpBorderLine2
 			if ship_load<4 else bottomFarmAlgorythmLeftSpecial07
-LeftPickUpBorderLine2   turn left
-
+*LeftPickUpBorderLine2   turn left
+*bottomFarmAlgorythmLeftSpecial01
+*bottomFarmAlgorythmLeftSpecial02
+*bottomFarmAlgorythmLeftSpecial03
+*bottomFarmAlgorythmLeftSpecial04
+*bottomFarmAlgorythmLeftSpecial05
+*bottomFarmAlgorythmLeftSpecial06
+*bottomFarmAlgorythmLeftSpecial07
 *bottomFarmAlgorythmLeftSpecial00 turn left
 *specialmove0		move else specialmove0
 			turn right 
@@ -209,6 +216,39 @@ LeftPickUpBorderLine2   turn left
 *bottomFarmAlgorythmLeftHome04 move else bottomFarmAlgorythmLeftHome04
 			turn left 
 			turn left
+*bottomFarmAlgorythmLeftHome05 move else bottomFarmAlgorythmLeftHome05
+			refresh 3 else bottomFarmAlgorythmLeftHome05
+			turn right
+*bottomFarmAlgorythmLeftHome06 move else bottomFarmAlgorythmLeftHome06
+*bottomFarmAlgorythmLeftHome07 move else bottomFarmAlgorythmLeftHome07
+*bottomFarmAlgorythmLeftHome08 move else bottomFarmAlgorythmLeftHome08
+*bottomFarmAlgorythmLeftHome09 move else bottomFarmAlgorythmLeftHome09
+*bottomFarmAlgorythmLeftHome10 move else bottomFarmAlgorythmLeftHome10
+			turn right
+*bottomFarmAlgorythmLeftHome11 move else bottomFarmAlgorythmLeftHome11
+*bottomFarmAlgorythmLeftHome12 move else bottomFarmAlgorythmLeftHome12
+*bottomFarmAlgorythmLeftHome13 move else bottomFarmAlgorythmLeftHome13
+*bottomFarmAlgorythmLeftHome14 move else bottomFarmAlgorythmLeftHome14
+*bottomFarmAlgorythmLeftHome15 move else bottomFarmAlgorythmLeftHome15
+*bottomFarmAlgorythmLeftHome16 move else bottomFarmAlgorythmLeftHome16
+*bottomFarmAlgorythmLeftHome17 move else bottomFarmAlgorythmLeftHome17
+*bottomFarmAlgorythmLeftHome18 move else bottomFarmAlgorythmLeftHome18
+*bottomFarmAlgorythmLeftHome19 move else bottomFarmAlgorythmLeftHome19
+*bottomFarmAlgorythmLeftHome20 move else bottomFarmAlgorythmLeftHome20
+*bottomFarmAlgorythmLeftHome21 move else bottomFarmAlgorythmLeftHome21
+*bottomFarmAlgorythmLeftHome22 move else bottomFarmAlgorythmLeftHome22
+*bottomFarmAlgorythmLeftHome23 move else bottomFarmAlgorythmLeftHome23
+*bottomFarmAlgorythmLeftHome24 move else bottomFarmAlgorythmLeftHome24
+*bottomFarmAlgorythmLeftHome25 move else bottomFarmAlgorythmLeftHome25
+*bottomFarmAlgorythmLeftHome26 move else bottomFarmAlgorythmLeftHome26
+*bottomFarmAlgorythmLeftHome27 move else bottomFarmAlgorythmLeftHome27
+*bottomFarmAlgorythmLeftHome28 move else bottomFarmAlgorythmLeftHome28
+*bottomFarmAlgorythmLeftHome29 move else bottomFarmAlgorythmLeftHome29
+*bottomFarmAlgorythmLeftHome30 move else bottomFarmAlgorythmLeftHome30
+			turn left 
+			turn left 
+			drop
+			goto bottomFarmAlgorythmLeft
 
 *bottomFarmAlgorythmTop
 	goto 999
