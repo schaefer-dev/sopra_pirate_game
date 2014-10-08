@@ -164,6 +164,7 @@ public class TeamSettingsState implements GameState {
 				}
 				
 				config.setTeamCount(teamWindows.size());
+				//manager.addState(new LoadingState());
 				manager.addState(new LoadingState());
 			}
 		});

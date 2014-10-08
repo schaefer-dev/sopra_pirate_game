@@ -21,6 +21,12 @@ public class LoadingState implements GameState {
 
 	private GUIController manager;
 	
+	private Random random;
+	private List<String> shipFileList;
+	//private String[]shipFiles;
+	private String mapFile;
+	private Integer turns;
+	
 	@Override
 	public void entered(GUIController control) {
 		manager = control;
@@ -33,23 +39,44 @@ public class LoadingState implements GameState {
 		}
 
 		char[][] map = config.getMap();
-		String mapFile = writeToFile(map);
+		mapFile = writeToFile(map);
 		
-		Random random = new Random();
-		List<String> shipFileList = manager.getConfiguration().getTactics();
-		String[] shipFiles = shipFileList.toArray(new String[shipFileList.size()]);
-		Integer turns = manager.getConfiguration().getRounds();
-		InGameState game = new InGameState(map, manager.getRessources(), turns, config);
-		
+		random = new Random();
+		shipFileList = manager.getConfiguration().getTactics();
+		turns = manager.getConfiguration().getRounds();
+		InGameState game = new InGameState(manager.getRessources(), turns, config);
+		initSimuator(game);
+		manager.addState(game);
+	}
+
+	@Override
+	public void exiting() {
+		manager.getRoot().setCenter(null);
+	}
+
+	@Override
+	public void concealing(){
+		manager.getRoot().setCenter(null);
+	}
+
+	@Override
+	public void revealed(){
+		InGameState game = new InGameState(manager.getRessources(), turns, manager.getConfiguration());
+		initSimuator(game);
+		manager.addState(game);
+	}
+
+	
+	private void initSimuator(InGameState game){
 		try{
+			String[] shipFiles = shipFileList.toArray(new String[shipFileList.size()]);
 			Simulator sim = new Simulator(shipFiles, mapFile, random.nextInt(Integer.MAX_VALUE), null, turns, game);
 			game.setSimulator(sim);
-			
 		}
 		catch(Exception e){	
 			Label errorIntro = new Label("Error");
 			errorIntro.getStyleClass().add("errorlabel");
-			Label error = new Label(e.toString());
+			Label error = new Label(e.getMessage());
 			error.getStyleClass().add("menulabel");
 			Label errorSmiley = new Label(":-(");
 			errorSmiley.getStyleClass().add("errorlabel");
@@ -75,21 +102,9 @@ public class LoadingState implements GameState {
 			manager.getRoot().setCenter(pain);
 			return;
 		}
-		
-		manager.switchState(game);
 	}
-
-	@Override
-	public void exiting() {
-		manager.getRoot().setCenter(null);
-	}
-
-	@Override
-	public void concealing(){}
-
-	@Override
-	public void revealed(){}
-
+	
+	
 	private String writeToFile(char[][] fields){
 		Integer height = fields.length;
 		Integer width = fields[0].length;

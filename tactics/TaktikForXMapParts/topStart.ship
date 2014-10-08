@@ -14,8 +14,88 @@
 	ifany sense_celltype!=empty sense_shiptype==friend else topFirstRowSecondShip
 	goto topFirstRowNotFirstSecondShip
 *topFirstRowNotFirstSecondShip 
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 5
+	if sense_celltype==empty else topFirstRowNotFirstSecondShipTurnTwice
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain01 move else topFirstRowNotFirstSecondShipMoveAgain01
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain02 move else topFirstRowNotFirstSecondShipMoveAgain02
+	*topFirstRowNotFirstSecondShipRepeat01 turn right
+	*topFirstRowNotFirstSecondShipMoveAgain03 move else topFirstRowNotFirstSecondShipMoveAgain03
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain04 move else topFirstRowNotFirstSecondShipMoveAgain04
+	sense 1
+	if sense_celltype!=empty else topFirstRowNotFirstSecondShipRepeat01
+	*topFirstRowNotFirstSecondShipMoveAgain05 move else topFirstRowNotFirstSecondShipMoveAgain05
+	*topFirstRowNotFirstSecondShipMoveAgain06 move else topFirstRowNotFirstSecondShipMoveAgain06
+	*topFirstRowNotFirstSecondShipMoveAgain07 move else topFirstRowNotFirstSecondShipMoveAgain07
+	*topFirstRowNotFirstSecondShipMoveAgain08 move else topFirstRowNotFirstSecondShipMoveAgain08
+	*topFirstRowNotFirstSecondShipMoveAgain09 move else topFirstRowNotFirstSecondShipMoveAgain09
+	*topFirstRowNotFirstSecondShipMoveAgain10 move else topFirstRowNotFirstSecondShipMoveAgain10
+	*topFirstRowNotFirstSecondShipMoveAgain11 move else topFirstRowNotFirstSecondShipMoveAgain11
+	*topFirstRowNotFirstSecondShipMoveAgain12 move else topFirstRowNotFirstSecondShipMoveAgain12
+	*topFirstRowNotFirstSecondShipMoveAgain13 move else topFirstRowNotFirstSecondShipMoveAgain13
+	*topFirstRowNotFirstSecondShipMoveAgain14 move else topFirstRowNotFirstSecondShipMoveAgain14
+	*topFirstRowNotFirstSecondShipMoveAgain15 move else topFirstRowNotFirstSecondShipMoveAgain15
+	sense 6
+	if sense_marker0 else topFirstRowNotFirstSecondShipMoveAgain15
+	turn right
+	turn right
+	*topFirstRowNotFirstSecondShipMoveAgain16 move else topFirstRowNotFirstSecondShipMoveAgain16
+	*topFirstRowNotFirstSecondShipMoveAgain17 move else topFirstRowNotFirstSecondShipMoveAgain17
+	*topFirstRowNotFirstSecondShipMoveAgain18 move else topFirstRowNotFirstSecondShipMoveAgain18
+	turn right
+	*topFirstRowNotFirstSecondShipMoveAgain19 move else topFirstRowNotFirstSecondShipMoveAgain19
+	*topFirstRowNotFirstSecondShipMoveAgain20 move else topFirstRowNotFirstSecondShipMoveAgain20
+	pickup 1 else topFirstRowNotFirstSecondShipMoveAgain20
+	if ship_load==4 else topFirstRowNotFirstSecondShipMoveAgain20
+	turn left
+	*topFirstRowNotFirstSecondShipMoveAgain21 move else topFirstRowNotFirstSecondShipMoveAgain21
+	turn left
+	turn left
+	*topFirstRowNotFirstSecondShipFindHome01 move else topFirstRowNotFirstSecondShipFindHome01
 	sense 4
-	goto 999
+	if sense_marker0 else topFirstRowNotFirstSecondShipFindHome01
+	turn left
+	*topFirstRowNotFirstSecondShipFindHome02 move else topFirstRowNotFirstSecondShipFindHome02
+	sense 4
+	if sense_marker4 else topFirstRowNotFirstSecondShipFindHome02
+	turn left
+	turn left
+	*topFirstRowNotFirstSecondShipFindHome03 move else topFirstRowNotFirstSecondShipFindHome03
+	sense 6
+	if sense_celltype==home else topFirstRowNotFirstSecondShipFindHome03
+	turn left
+	drop
+	goto topFarmAlgorythmLeft
+
+
+
+	*topFirstRowNotFirstSecondShipTurnTwice
+	turn left
+	turn left
+	goto topFirstRowNotFirstSecondShipMoveAgain02
 
 *topFirstRowFirstShip
 	turn left
@@ -122,7 +202,7 @@
 	turn right
 	turn right
 	drop
-	goto topFarmAlgorythm
+	goto topFarmAlgorythmRight
 
 
 
@@ -194,10 +274,9 @@
 	*topFirstRowSecondShipGoHome3 move else topFirstRowSecondShipGoHome3
 	sense 6
 	if sense_celltype==home else topFirstRowSecondShipGoHome3
-	turn right
-	turn right
+	turn left
 	drop
-	goto topFarmAlgorythm
+	goto topFarmAlgorythmLeft
 
 
 *topLastRow
@@ -269,10 +348,46 @@
 	mark 1
 	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
 	mark 0
-	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	*topLastRowMarkShipMoveAgain31	move else topLastRowMarkShipMoveAgain31
 	mark 3
-	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	*topLastRowMarkShipMoveAgain32	move else topLastRowMarkShipMoveAgain32
 	mark 1
+	*topLastRowMarkShipMoveAgain33	move else topLastRowMarkShipMoveAgain33
+	pickup 5 else topLastRowMarkShipFoundNoTreasure
+	pickup 0 else topLastRowMarkShipFoundNoTreasure
+	turn left
+	turn left
+	goto topLastRowMarkShipGoHome01
+
+
+*topLastRowMarkShipFoundNoTreasure
+	turn right 
+	*topLastRowMarkShipMoveAgain34	move else topLastRowMarkShipMoveAgain34
+	pickup 4 else topLastRowMarkShipMoveAgain34
+	pickup 5 else topLastRowMarkShipMoveAgain34
+	turn left
+	turn left
+	turn left
+	*topLastRowMarkShipMoveAgain35	move else topLastRowMarkShipMoveAgain35
+	goto topLastRowMarkShipGoHome01
+
+*topLastRowMarkShipGoHome01	move else topLastRowMarkShipGoHome01
+	sense 6
+	if sense_marker3 else topLastRowMarkShipGoHome01
+	turn right
+	turn right
+*topLastRowMarkShipGoHome02 move else topLastRowMarkShipGoHome02
+	sense 6
+	if sense_marker4 else topLastRowMarkShipGoHome02
+	turn right
+*topLastRowMarkShipGoHome03 move else topLastRowMarkShipGoHome03
+	sense 6
+	if sense_celltype==home else topLastRowMarkShipGoHome03
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythmRight
+
 
 
 
@@ -350,7 +465,7 @@
 	turn right
 	turn right
 	drop
-	goto topFarmAlgorythm
+	goto topFarmAlgorythmRight
 
 
 
@@ -366,6 +481,333 @@
 	ifany sense_shiptype==friend sense_celltype==island else topLastRow
 	goto topNotFirstLastRow
 *topNotFirstLastRow
+	turn left
+	turn left
+	turn left
+	*topNotFirstLastRowMoveAgain02 move else topNotFirstLastRowMoveAgain02
+	sense 1
+	if sense_celltype==empty else topNotFirstLastBottomRow
+
+
+*topBottomRow  turn right
+	*topBottomRowMoveAgain01 move else topBottomRowMoveAgain01
+	sense 5
+	if sense_celltype==island else checkforIsland
+	*checkforIsland sense 0
+	if sense_celltype==island else topBottomRowMoveAgain01
+	pickup 0 else topBottomRowNoGoHomeYet
+		if ship_load!=2 else topBottomRowNoGoHomeYet
+		turn left
+		turn left
+		turn left
+		*topBottomRowGoHomeEarly move else topBottomRowGoHomeEarly
+		sense 6
+		if sense_celltype==home else topBottomRowGoHomeEarly
+		turn right
+		turn right
+		*topBottomRowGoHomeEarlyMoveCorrect01 move else topBottomRowGoHomeEarlyMoveCorrect01
+		*topBottomRowGoHomeEarlyMoveCorrect02 move else topBottomRowGoHomeEarlyMoveCorrect02
+		turn right
+		*topBottomRowGoHomeEarlyDrop drop
+		goto topFarmAlgorythmBottom
+
+	*topBottomRowNoGoHomeYet mark 0
+	turn left
+	*topBottomRowMoveAgain03 move else topBottomRowMoveAgain03
+	mark 0
+	refresh 1 else topBottomRowMoveAgain04
+	*topBottomRowMoveAgain04 move else topBottomRowMoveAgain04
+	mark 0
+	Refresh 1 else topBottomRowMoveAgain05
+	*topBottomRowMoveAgain05 move else topBottomRowMoveAgain05
+	mark 0
+	refresh 1 else topBottomRowLabel01
+	*topBottomRowLabel01 sense 0
+	if sense_marker0 else topBottomRowsetBuoy2
+	*topBottomRowMoveAgain06 move else topBottomRowMoveAgain06
+	sense 6
+	if sense_marker2 else topBottomRowMoveAgain06
+	turn right
+	turn right
+	goto topBottomRowSearchTreasure
+
+
+*topBottomRowsetBuoy2
+	*topBottomRowMoveAgain07 move else topBottomRowMoveAgain07
+	mark 2
+	turn right
+	turn right
+	goto topBottomRowSearchTreasure
+
+*topBottomRowSearchTreasure move else topBottomRowSearchTreasure
+	*topBottomRowSearchTreasure01 move else topBottomRowSearchTreasure01
+	*topBottomRowSearchTreasure02 move else topBottomRowSearchTreasure02
+	*topBottomRowSearchTreasure03 move else topBottomRowSearchTreasure03
+	pickup 5 else topBottomRowSearchTreasure04
+	*topBottomRowSearchTreasure04 move else topBottomRowSearchTreasure04
+	pickup 5 else topBottomRowSearchTreasure05
+	*topBottomRowSearchTreasure05 move else topBottomRowSearchTreasure05
+	pickup 5 else topBottomRowSearchTreasure06
+	*topBottomRowSearchTreasure06 move else topBottomRowSearchTreasure06
+	pickup 5 else topBottomRowSearchTreasure07
+	*topBottomRowSearchTreasure07 move else topBottomRowSearchTreasure07
+	pickup 5 else topBottomRowSearchTreasure08
+	*topBottomRowSearchTreasure08 move else topBottomRowSearchTreasure08
+	pickup 5 else topBottomRowSearchTreasure09
+	*topBottomRowSearchTreasure09 move else topBottomRowSearchTreasure09
+	pickup 5 else topBottomRowSearchTreasure10
+	*topBottomRowSearchTreasure10 move else topBottomRowSearchTreasure10
+	pickup 5 else topBottomRowSearchTreasure11
+	*topBottomRowSearchTreasure11 move else topBottomRowSearchTreasure11
+	pickup 5 else topBottomRowSearchTreasure12
+	*topBottomRowSearchTreasure12 move else topBottomRowSearchTreasure12
+	pickup 5 else topBottomRowSearchTreasure13
+	*topBottomRowSearchTreasure13 move else topBottomRowSearchTreasure13
+	pickup 5 else topBottomRowSearchTreasure14
+	*topBottomRowSearchTreasure14 move else topBottomRowSearchTreasure14
+	pickup 5 else topBottomRowSearchTreasure16
+	*topBottomRowSearchTreasure16 move else topBottomRowSearchTreasure16
+	pickup 5 else topBottomRowSearchTreasureTurn1
+	*topBottomRowSearchTreasureTurn1 turn right
+	pickup 5 else topBottomRowSearchTreasure17
+	*topBottomRowSearchTreasure17 move else topBottomRowSearchTreasure17
+	pickup 5 else topBottomRowSearchTreasure18
+	*topBottomRowSearchTreasure18 move else topBottomRowSearchTreasure18
+	pickup 5 else topBottomRowSearchTreasure19
+	*topBottomRowSearchTreasure19 move else topBottomRowSearchTreasure19
+	pickup 5 else topBottomRowSearchTreasure20
+	*topBottomRowSearchTreasure20 move else topBottomRowSearchTreasure20
+	pickup 5 else topBottomRowSearchTreasure21
+	*topBottomRowSearchTreasure21 move else topBottomRowSearchTreasure21
+	pickup 5 else topBottomRowSearchTreasureLabel12
+	*topBottomRowSearchTreasureLabel12 pickup 0 else topBottomRowSearchTreasureTurn2
+	*topBottomRowSearchTreasureTurn2 turn right
+	turn right
+
+	pickup 5 else topBottomRowSearchTreasure34
+	*topBottomRowSearchTreasure34 move else topBottomRowSearchTreasure34
+	pickup 5 else topBottomRowSearchTreasure35
+	*topBottomRowSearchTreasure35 move else topBottomRowSearchTreasure35
+	pickup 5 else topBottomRowSearchTreasure36
+	*topBottomRowSearchTreasure36 move else topBottomRowSearchTreasure36
+	pickup 5 else topBottomRowSearchTreasure37
+	*topBottomRowSearchTreasure37 move else topBottomRowSearchTreasure37
+	pickup 5 else topBottomRowSearchTreasure38
+	*topBottomRowSearchTreasure38 move else topBottomRowSearchTreasure38
+	pickup 5 else topBottomRowSearchTreasure39
+	*topBottomRowSearchTreasure39 move else topBottomRowSearchTreasure39
+	pickup 5 else topBottomRowSearchTreasure40
+	*topBottomRowSearchTreasure40 move else topBottomRowSearchTreasure40
+	pickup 5 else topBottomRowSearchTreasure41
+	*topBottomRowSearchTreasure41 move else topBottomRowSearchTreasure41
+	pickup 5 else topBottomRowSearchTreasure42
+	*topBottomRowSearchTreasure42 move else topBottomRowSearchTreasure42
+	pickup 5 else topBottomRowSearchTreasure43
+	*topBottomRowSearchTreasure43 move else topBottomRowSearchTreasure43
+	pickup 5 else topBottomRowSearchTreasure44
+	*topBottomRowSearchTreasure44 move else topBottomRowSearchTreasure44
+	pickup 5 else topBottomRowSearchTreasure45
+	*topBottomRowSearchTreasure45 move else topBottomRowSearchTreasure45
+	pickup 5 else topBottomRowSearchTreasure46
+	*topBottomRowSearchTreasure46 move else topBottomRowSearchTreasure46
+	pickup 5 else topBottomRowSearchTreasure47
+	*topBottomRowSearchTreasure47 move else topBottomRowSearchTreasure47
+	pickup 5 else topBottomRowSearchTreasure48
+	*topBottomRowSearchTreasure48 move else topBottomRowSearchTreasure48
+	pickup 5 else topBottomRowSearchTreasure49
+	*topBottomRowSearchTreasure49 move else topBottomRowSearchTreasure49
+	turn left
+
+	*topBottomRowGoHomeRegular move else topBottomRowGoHomeRegular
+		sense 6
+		if sense_celltype==home else topBottomRowGoHomeRegular
+		turn right
+		turn right
+		*topBottomRowGoHomeRegularMoveCorrect01 move else topBottomRowGoHomeEarlyMoveCorrect01
+		*topBottomRowGoHomeRegularMoveCorrect02 move else topBottomRowGoHomeRegularMoveCorrect02
+		turn right
+		*topBottomRowGoHomeRegularDrop drop
+		goto topFarmAlgorythmBottom
+
+
+
+*topNotFirstLastBottomRow
 	goto 999
-*topFarmAlgorythm
-	goto 999
+*topFarmAlgorythmRight
+	*topFarmAlgorythmRightMoveAgain01 move else topFarmAlgorythmRightMoveAgain01
+	*topFarmAlgorythmRightMoveAgain02 move else topFarmAlgorythmRightMoveAgain02
+	*topFarmAlgorythmRightMoveAgain03 move else topFarmAlgorythmRightMoveAgain03
+	*topFarmAlgorythmRightMoveAgain04 move else topFarmAlgorythmRightMoveAgain04
+	*topFarmAlgorythmRightMoveAgain05 move else topFarmAlgorythmRightMoveAgain05
+	*topFarmAlgorythmRightMoveAgain06 move else topFarmAlgorythmRightMoveAgain06
+	*topFarmAlgorythmRightMoveAgain07 move else topFarmAlgorythmRightMoveAgain07
+	turn right
+	*topFarmAlgorythmRightMoveAgain08 move else topFarmAlgorythmRightMoveAgain08
+	*topFarmAlgorythmRightMoveAgain09 move else topFarmAlgorythmRightMoveAgain09
+	*topFarmAlgorythmRightMoveAgain10 move else topFarmAlgorythmRightMoveAgain10
+	*topFarmAlgorythmRightMoveAgain11 move else topFarmAlgorythmRightMoveAgain11
+	turn left
+	*topFarmAlgorythmRightMoveAgain12 move else topFarmAlgorythmRightMoveAgain12
+	sense 6
+	if sense_marker1 else topFarmAlgorythmRightMoveAgain12
+	turn right
+	*topFarmAlgorythmRightMoveAgain13 move else topFarmAlgorythmRightMoveAgain13
+	sense 6
+	if sense_marker0 else topFarmAlgorythmRightMoveAgain13
+	turn left
+	*topFarmAlgorythmRightMoveAgain14 move else topFarmAlgorythmRightMoveAgain14
+	turn right
+	*topFarmAlgorythmRightMoveAgain15 move else topFarmAlgorythmRightMoveAgain15
+	turn right
+	*topFarmAlgorythmRightMoveAgain16 move else topFarmAlgorythmRightMoveAgain16
+	turn right
+	*topFarmAlgorythmRightMoveAgain17 move else topFarmAlgorythmRightMoveAgain17
+	*topFarmAlgorythmRightMoveAgain18 move else topFarmAlgorythmRightMoveAgain18
+	*topFarmAlgorythmRightMoveAgain19 move else topFarmAlgorythmRightMoveAgain19
+	turn right
+
+*topFarmAlgorythmRightSearchTreasure
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove01
+	*topFarmAlgorythmRightSearchTreasureMove01 move else topFarmAlgorythmRightSearchTreasureMove01
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove02
+	*topFarmAlgorythmRightSearchTreasureMove02 move else topFarmAlgorythmRightSearchTreasureMove02
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove03
+	*topFarmAlgorythmRightSearchTreasureMove03 move else topFarmAlgorythmRightSearchTreasureMove03
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove04
+	*topFarmAlgorythmRightSearchTreasureMove04 move else topFarmAlgorythmRightSearchTreasureMove04
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove05
+	*topFarmAlgorythmRightSearchTreasureMove05 move else topFarmAlgorythmRightSearchTreasureMove05
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove06
+	*topFarmAlgorythmRightSearchTreasureMove06 move else topFarmAlgorythmRightSearchTreasureMove06
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove07
+	*topFarmAlgorythmRightSearchTreasureMove07 move else topFarmAlgorythmRightSearchTreasureMove07
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove08
+	*topFarmAlgorythmRightSearchTreasureMove08 move else topFarmAlgorythmRightSearchTreasureMove08
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove09
+	*topFarmAlgorythmRightSearchTreasureMove09 move else topFarmAlgorythmRightSearchTreasureMove09
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove10
+	*topFarmAlgorythmRightSearchTreasureMove10 move else topFarmAlgorythmRightSearchTreasureMove10
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove11
+	*topFarmAlgorythmRightSearchTreasureMove11 move else topFarmAlgorythmRightSearchTreasureMove11
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove12
+	*topFarmAlgorythmRightSearchTreasureMove12 move else topFarmAlgorythmRightSearchTreasureMove12
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove13
+	*topFarmAlgorythmRightSearchTreasureMove13 move else topFarmAlgorythmRightSearchTreasureMove13
+	turn left
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove14
+	*topFarmAlgorythmRightSearchTreasureMove14 move else topFarmAlgorythmRightSearchTreasureMove14
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove15
+	*topFarmAlgorythmRightSearchTreasureMove15 move else topFarmAlgorythmRightSearchTreasureMove15
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove16
+	*topFarmAlgorythmRightSearchTreasureMove16 move else topFarmAlgorythmRightSearchTreasureMove16
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove17
+	*topFarmAlgorythmRightSearchTreasureMove17 move else topFarmAlgorythmRightSearchTreasureMove17
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove18
+	*topFarmAlgorythmRightSearchTreasureMove18 move else topFarmAlgorythmRightSearchTreasureMove18
+	turn left
+	turn left
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove20
+	*topFarmAlgorythmRightSearchTreasureMove20 move else topFarmAlgorythmRightSearchTreasureMove20
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove21
+	*topFarmAlgorythmRightSearchTreasureMove21 move else topFarmAlgorythmRightSearchTreasureMove21
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove22
+	*topFarmAlgorythmRightSearchTreasureMove22 move else topFarmAlgorythmRightSearchTreasureMove22
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove23
+	*topFarmAlgorythmRightSearchTreasureMove23 move else topFarmAlgorythmRightSearchTreasureMove23
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove24
+	*topFarmAlgorythmRightSearchTreasureMove24 move else topFarmAlgorythmRightSearchTreasureMove24
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove25
+	*topFarmAlgorythmRightSearchTreasureMove25 move else topFarmAlgorythmRightSearchTreasureMove25
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove26
+	*topFarmAlgorythmRightSearchTreasureMove26 move else topFarmAlgorythmRightSearchTreasureMove26
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove27
+	*topFarmAlgorythmRightSearchTreasureMove27 move else topFarmAlgorythmRightSearchTreasureMove27
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove28
+	*topFarmAlgorythmRightSearchTreasureMove28 move else topFarmAlgorythmRightSearchTreasureMove28
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove29
+	*topFarmAlgorythmRightSearchTreasureMove29 move else topFarmAlgorythmRightSearchTreasureMove29
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove30
+	*topFarmAlgorythmRightSearchTreasureMove30 move else topFarmAlgorythmRightSearchTreasureMove30
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove31
+	*topFarmAlgorythmRightSearchTreasureMove31 move else topFarmAlgorythmRightSearchTreasureMove31
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove32
+	*topFarmAlgorythmRightSearchTreasureMove32 move else topFarmAlgorythmRightSearchTreasureMove32
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove33
+	*topFarmAlgorythmRightSearchTreasureMove33 move else topFarmAlgorythmRightSearchTreasureMove33
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove34
+	*topFarmAlgorythmRightSearchTreasureMove34 move else topFarmAlgorythmRightSearchTreasureMove34
+	pickup 1 else topFarmAlgorythmRightSearchTreasureMove35
+	*topFarmAlgorythmRightSearchTreasureMove35 move else topFarmAlgorythmRightSearchTreasureMove35
+	turn right
+	turn right
+
+*topFarmAlgorythmRightGoHome1
+	*topFarmAlgorythmRightGoHomeMove01 move else topFarmAlgorythmRightGoHomeMove01
+	*topFarmAlgorythmRightGoHomeMove02 move else topFarmAlgorythmRightGoHomeMove02
+	*topFarmAlgorythmRightGoHomeMove03 move else topFarmAlgorythmRightGoHomeMove03
+	*topFarmAlgorythmRightGoHomeMove04 move else topFarmAlgorythmRightGoHomeMove04
+	*topFarmAlgorythmRightGoHomeMove05 move else topFarmAlgorythmRightGoHomeMove05
+	turn right
+*topFarmAlgorythmRightGoHome2
+	*topFarmAlgorythmRightGoHomeMove06 move else topFarmAlgorythmRightGoHomeMove06
+	sense 6
+	if sense_celltype==home else topFarmAlgorythmRightGoHomeMove06
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythmRight
+
+*topFarmAlgorythmLeft
+	turn left
+	*topFarmAlgorythmLeftMove01 move else topFarmAlgorythmLeftMove01
+	*topFarmAlgorythmLeftMove02 move else topFarmAlgorythmLeftMove02
+	*topFarmAlgorythmLeftMove03 move else topFarmAlgorythmLeftMove03
+	*topFarmAlgorythmLeftMove04 move else topFarmAlgorythmLeftMove04
+	turn left
+	*topFarmAlgorythmLeftWay1 move else topFarmAlgorythmLeftWay1
+	sense 6
+	if sense_marker0 else topFarmAlgorythmLeftWay1
+	turn right
+	turn right
+	*topFarmAlgorythmLeftMove05 move else topFarmAlgorythmLeftMove05
+	*topFarmAlgorythmLeftMove06 move else topFarmAlgorythmLeftMove06
+	*topFarmAlgorythmLeftMove07 move else topFarmAlgorythmLeftMove07
+	turn right
+	*topFarmAlgorythmLeftMove08 move else topFarmAlgorythmLeftMove08
+
+	*topFarmAlgorythmLeftMove09 move else topFarmAlgorythmLeftMove09
+	pickup 1 else topFarmAlgorythmLeftMove09
+	turn left
+	*topFarmAlgorythmLeftMove10 move else topFarmAlgorythmLeftMove10
+	turn left
+	turn left
+	*topFarmAlgorythmLeftMove11 move else topFarmAlgorythmLeftMove11
+	sense 3
+	if sense_marker0 else topFarmAlgorythmLeftMove11
+	turn left
+	*topFarmAlgorythmLeftMove12 move else topFarmAlgorythmLeftMove12
+	sense 4
+	if sense_marker4 else topFarmAlgorythmLeftMove12
+	turn left
+	turn left
+	*topFarmAlgorythmLeftMove13 move else topFarmAlgorythmLeftMove13
+	sense 6
+	if sense_celltype==home else topFarmAlgorythmLeftMove13
+	turn left
+	drop
+	goto topFarmAlgorythmLeft
+
+
+
+*topFarmAlgorythmBottom
+	*topFarmAlgorythmBottomMoveAgain01 move else topFarmAlgorythmBottomMoveAgain01
+	sense 0
+	if sense_celltype==island else topFarmAlgorythmBottomMoveAgain01
+	turn left
+	*topFarmAlgorythmBottomMoveAgain02 move else topFarmAlgorythmBottomMoveAgain02
+	sense 6
+	if sense_marker2 else topFarmAlgorythmBottomMoveAgain02
+	turn right
+	turn right
+	goto topBottomRowSearchTreasure
+
