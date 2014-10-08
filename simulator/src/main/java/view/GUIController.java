@@ -5,7 +5,6 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import view.gamestates.MainMenuState;
-import view.gamestates.TeamSettingsState2;
 import view.utility.Configuration;
 import view.utility.GameState;
 import view.utility.Resolution;

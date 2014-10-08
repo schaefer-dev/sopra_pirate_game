@@ -82,14 +82,49 @@
 	mark 3
 	*topFirstRowFirstShipMoveAgain36	move else topFirstRowFirstShipMoveAgain36
 	mark 3
+	refresh 5 else topFirstRowFirstShipMoveAgain37
 	*topFirstRowFirstShipMoveAgain37	move else topFirstRowFirstShipMoveAgain37
 	mark 3
 	*topFirstRowFirstShipMoveAgain38	move else topFirstRowFirstShipMoveAgain38
 	mark 3
 	*topFirstRowFirstShipMoveAgain39	move else topFirstRowFirstShipMoveAgain39
 	mark 3
+	turn left
+	turn left
 	*topFirstRowFirstShipMoveAgain40	move else topFirstRowFirstShipMoveAgain40
-	mark 3
+	*topFirstRowFirstShipMoveAgain41	move else topFirstRowFirstShipMoveAgain41
+	*topFirstRowFirstShipMoveAgain42	move else topFirstRowFirstShipMoveAgain42
+	pickup 1 else topFirstRowFirstShipMoveAgain43
+	*topFirstRowFirstShipMoveAgain43	move else topFirstRowFirstShipMoveAgain43
+	pickup 1 else topFirstRowFirstShipMoveAgain43
+	turn left
+	turn left
+	*topFirstRowFirstShipMoveAgain44	move else topFirstRowFirstShipMoveAgain44
+	turn left
+	*topFirstRowFirstShipSearchHomeFindOut1	move else topFirstRowFirstShipSearchHomeFindOut1
+	sense 6
+	if !sense_marker3 else topFirstRowFirstShipSearchHomeFindOutSense3Found
+	goto topFirstRowFirstShipSearchHomeFindOut1
+
+	*topFirstRowFirstShipSearchHomeFindOutSense3Found
+	turn right
+	turn right
+	*topFirstRowFirstShipSearchHomeFindOut2 move else topFirstRowFirstShipSearchHomeFindOut2
+	sense 6
+	if !sense_marker4 else topFirstRowFirstShipSearchHomeFindOutSense4Found
+	goto topFirstRowFirstShipSearchHomeFindOut2
+
+	*topFirstRowFirstShipSearchHomeFindOutSense4Found
+	turn right
+	*topFirstRowFirstShipSearchHomeFindOut3 move else topFirstRowFirstShipSearchHomeFindOut3
+	sense 6
+	if sense_celltype==home else topFirstRowFirstShipSearchHomeFindOut3
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythm
+
+
 
 *topFirstRowSecondShip
 	turn left
@@ -136,7 +171,201 @@
 	mark 0
 	*topFirstRowSecondShipMoveAgain23	move else topFirstRowSecondShipMoveAgain23
 	mark 0
+	turn right																					;start collecting
+	turn right
+	*topFirstRowSecondShipMoveAgain24	move else topFirstRowSecondShipMoveAgain24
+	turn left
+	*topFirstRowSecondShipMoveAgain25	move else topFirstRowSecondShipMoveAgain25
+	pickup 1 else topFirstRowSecondShipMoveAgain25
+	turn left
+	*topFirstRowSecondShipMoveAgain26	move else topFirstRowSecondShipMoveAgain26
+	turn left
+	turn left
+	*topFirstRowSecondShipGoHome1 move else topFirstRowSecondShipGoHome1
+	sense 6
+	if sense_marker0 else topFirstRowSecondShipGoHome1
+	*topFirstRowSecondShipMoveAgain27	move else topFirstRowSecondShipMoveAgain27;one more move to avoid collisions
+	turn left
+	*topFirstRowSecondShipGoHome2 move else topFirstRowSecondShipGoHome2
+	sense 4
+	if sense_marker4 else topFirstRowSecondShipGoHome2
+	turn left
+	turn left
+	*topFirstRowSecondShipGoHome3 move else topFirstRowSecondShipGoHome3
+	sense 6
+	if sense_celltype==home else topFirstRowSecondShipGoHome3
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythm
 
+
+*topLastRow
+	turn right
+	turn right
+	turn right
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	move else topLastRowHitIsland
+	turn right
+	sense 3
+	if sense_shiptype==friend else topLastRowCollectorShip
+	goto topLastRowMarkShip
+
+*topLastRowMarkShip
+	*topLastRowMarkShipMoveAgain00	move else topLastRowMarkShipMoveAgain00
+	*topLastRowMarkShipMoveAgain01	move else topLastRowMarkShipMoveAgain01
+	*topLastRowMarkShipMoveAgain02	move else topLastRowMarkShipMoveAgain02
+	*topLastRowMarkShipRepeatUntilReach sense 0
+	if sense_celltype!=island else topLastRowMarkShipReachedIsland
+	*topLastRowMarkShipMoveAgain03	move else topLastRowMarkShipMoveAgain03
+	goto topLastRowMarkShipRepeatUntilReach
+
+*topLastRowMarkShipReachedIsland
+	turn left
+	*topLastRowMarkShipMoveAgain04	move else topLastRowMarkShipMoveAgain04
+	*topLastRowMarkShipMoveAgain05	move else topLastRowMarkShipMoveAgain05
+	*topLastRowMarkShipMoveAgain06	move else topLastRowMarkShipMoveAgain06
+	*topLastRowMarkShipMoveAgain07	move else topLastRowMarkShipMoveAgain07
+	*topLastRowMarkShipMoveAgain08	move else topLastRowMarkShipMoveAgain08
+	sense 1
+	if sense_celltype!=island else topLastRowMarkShipMoveAgain08 ;wieder ein Feld bewegen und neu sensen
+	mark 1
+	turn right
+	*topLastRowMarkShipMoveAgain09	move else topLastRowMarkShipMoveAgain09
+	*topLastRowMarkShipMoveAgain10	move else topLastRowMarkShipMoveAgain10
+	*topLastRowMarkShipMoveAgain11	move else topLastRowMarkShipMoveAgain11
+	*topLastRowMarkShipMoveAgain12	move else topLastRowMarkShipMoveAgain12
+	*topLastRowMarkShipMoveAgain13	move else topLastRowMarkShipMoveAgain13
+	*topLastRowMarkShipMoveAgain14	move else topLastRowMarkShipMoveAgain14
+	*topLastRowMarkShipMoveAgain15	move else topLastRowMarkShipMoveAgain15
+	*topLastRowMarkShipMoveAgain16	move else topLastRowMarkShipMoveAgain16
+	*topLastRowMarkShipMoveAgain17	move else topLastRowMarkShipMoveAgain17
+	*topLastRowMarkShipMoveAgain18	move else topLastRowMarkShipMoveAgain18
+	*topLastRowMarkShipMoveAgain19	move else topLastRowMarkShipMoveAgain19
+	*topLastRowMarkShipMoveAgain20	move else topLastRowMarkShipMoveAgain20
+	*topLastRowMarkShipMoveAgain21	move else topLastRowMarkShipMoveAgain21
+	*topLastRowMarkShipMoveAgain22	move else topLastRowMarkShipMoveAgain22
+	mark 0
+	turn left
+	*topLastRowMarkShipMoveAgain23	move else topLastRowMarkShipMoveAgain23
+	mark 1
+	turn right
+	*topLastRowMarkShipMoveAgain24	move else topLastRowMarkShipMoveAgain24
+	mark 2
+	turn right
+	*topLastRowMarkShipMoveAgain25	move else topLastRowMarkShipMoveAgain25
+	mark 3
+	turn right
+	*topLastRowMarkShipMoveAgain26	move else topLastRowMarkShipMoveAgain26
+	*topLastRowMarkShipMoveAgain27	move else topLastRowMarkShipMoveAgain27
+	*topLastRowMarkShipMoveAgain28	move else topLastRowMarkShipMoveAgain28
+	*topLastRowMarkShipMoveAgain29	move else topLastRowMarkShipMoveAgain29
+	mark 1
+	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	mark 0
+	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	mark 3
+	*topLastRowMarkShipMoveAgain30	move else topLastRowMarkShipMoveAgain30
+	mark 1
+
+
+
+*topLastRowCollectorShip
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	*topLastRowCollectorShipMoveAgain00	move else topLastRowCollectorShipMoveAgain00
+	*topLastRowCollectorShipMoveAgain01	move else topLastRowCollectorShipMoveAgain01
+	*topLastRowCollectorShipMoveAgain02	move else topLastRowCollectorShipMoveAgain02
+	*topLastRowCollectorShipRepeatUntilReach sense 0
+	if sense_celltype!=island else topLastRowCollectorShipReachedIsland
+	*topLastRowCollectorShipMoveAgain03	move else topLastRowCollectorShipMoveAgain03
+	goto topLastRowCollectorShipRepeatUntilReach
+
+	*topLastRowCollectorShipReachedIsland
+	turn left
+	*topLastRowCollectorShipMoveAgain04	move else topLastRowCollectorShipMoveAgain04
+	*topLastRowCollectorShipMoveAgain05	move else topLastRowCollectorShipMoveAgain05
+	*topLastRowCollectorShipMoveAgain06	move else topLastRowCollectorShipMoveAgain06
+	*topLastRowCollectorShipMoveAgain08	move else topLastRowCollectorShipMoveAgain08
+	sense 1
+	if sense_celltype!=island else topLastRowCollectorShipMoveAgain08 ;wieder ein Feld bewegen und neu sensen
+	turn right
+	*topLastRowCollectorShipMoveAgain09	move else topLastRowCollectorShipMoveAgain09
+	*topLastRowCollectorShipMoveAgain10	move else topLastRowCollectorShipMoveAgain10
+	*topLastRowCollectorShipMoveAgain11	move else topLastRowCollectorShipMoveAgain11
+	*topLastRowCollectorShipMoveAgain12	move else topLastRowCollectorShipMoveAgain12
+	*topLastRowCollectorShipMoveAgain13	move else topLastRowCollectorShipMoveAgain13
+	*topLastRowCollectorShipMoveAgain14	move else topLastRowCollectorShipMoveAgain14
+	*topLastRowCollectorShipMoveAgain15	move else topLastRowCollectorShipMoveAgain15
+	*topLastRowCollectorShipMoveAgain16	move else topLastRowCollectorShipMoveAgain16
+	*topLastRowCollectorShipMoveAgain17	move else topLastRowCollectorShipMoveAgain17
+	*topLastRowCollectorShipMoveAgain18	move else topLastRowCollectorShipMoveAgain18
+	*topLastRowCollectorShipMoveAgain19	move else topLastRowCollectorShipMoveAgain19
+	*topLastRowCollectorShipMoveAgain20	move else topLastRowCollectorShipMoveAgain20
+	*topLastRowCollectorShipMoveAgain21	move else topLastRowCollectorShipMoveAgain21
+	*topLastRowCollectorShipMoveAgain22	move else topLastRowCollectorShipMoveAgain22
+	turn left
+	*topLastRowCollectorShipMoveAgain23	move else topLastRowCollectorShipMoveAgain23
+	turn right
+	*topLastRowCollectorShipMoveAgain24	move else topLastRowCollectorShipMoveAgain24
+	turn right
+	*topLastRowCollectorShipMoveAgain25	move else topLastRowCollectorShipMoveAgain25
+	turn right
+	*topLastRowCollectorShipMoveAgain26	move else topLastRowCollectorShipMoveAgain26
+	*topLastRowCollectorShipMoveAgain27	move else topLastRowCollectorShipMoveAgain27
+	*topLastRowCollectorShipMoveAgain28	move else topLastRowCollectorShipMoveAgain28
+	turn right
+	*topLastRowCollectorShipMoveAgain30	move else topLastRowCollectorShipMoveAgain30
+	pickup 1 else topLastRowCollectorShipMoveAgain30
+	if ship_load==4 else topLastRowCollectorShipMoveAgain30
+	turn left
+	turn left
+	*topLastRowCollectorShipMoveAgain31	move else topLastRowCollectorShipMoveAgain31
+	turn left
+
+
+	*topLastRowCollectorShipShipGoHome1 move else topLastRowCollectorShipShipGoHome1
+	sense 6
+	if sense_marker3 else topLastRowCollectorShipShipGoHome1
+	turn right
+	turn right
+	*topLastRowCollectorShipShipGoHome2 move else topLastRowCollectorShipShipGoHome2
+	sense 6
+	if sense_marker4 else topLastRowCollectorShipShipGoHome2
+	turn right
+	*topLastRowCollectorShipShipGoHome3 move else topLastRowCollectorShipShipGoHome3
+	sense 6
+	if sense_celltype==home else topLastRowCollectorShipShipGoHome3
+	turn right
+	turn right
+	drop
+	goto topFarmAlgorythm
+
+
+
+
+*topLastRowHitIsland
+	turn left
+	turn left 
+	turn left
+	goto topNotFirstRow
 
 *topNotFirstRow
-		goto 999
+	sense 3
+	ifany sense_shiptype==friend sense_celltype==island else topLastRow
+	goto topNotFirstLastRow
+*topNotFirstLastRow
+	goto 999
+*topFarmAlgorythm
+	goto 999

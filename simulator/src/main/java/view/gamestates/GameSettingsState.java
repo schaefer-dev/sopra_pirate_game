@@ -90,6 +90,8 @@ public class GameSettingsState implements GameState {
 		roundsLabel.getStyleClass().add("menulabel");
 		rListener = new SliderListener(roundSlider, roundsLabel);
 		
+		Label formattingHelper = new Label("                  ");
+		
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
 		grid.add(treasureDensity, 1, 1);
@@ -107,6 +109,7 @@ public class GameSettingsState implements GameState {
 		grid.add(rounds, 1, 5);
 		grid.add(roundSlider, 2, 5);
 		grid.add(roundsLabel, 3, 5);
+		grid.add(formattingHelper, 3, 6);
 		
 		Button back = new Button("< Map Settings");
 		back.getStyleClass().add("menubutton");

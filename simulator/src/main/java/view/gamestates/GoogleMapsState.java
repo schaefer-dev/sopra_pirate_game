@@ -75,6 +75,8 @@ public class GoogleMapsState implements GameState {
 		generate.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		generate.setOnAction(new GenerateGoogleMapEvent(manager.getConfiguration(), locationField, msListener, zListener, gc, manager.getHoverText()));
 
+		Label formattingHelper = new Label("             ");
+		
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
 		grid.add(location, 0, 0);
@@ -86,6 +88,7 @@ public class GoogleMapsState implements GameState {
 		grid.add(mapSizeSlider, 1, 2);
 		grid.add(mapSizeLabel, 2, 2);
 		grid.add(generate, 1, 3);
+		grid.add(formattingHelper, 2, 3);
 		
 		HBox box = new HBox(20);
 		box.setAlignment(Pos.CENTER);

@@ -9,10 +9,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import view.utility.Camera;
 import view.utility.Field;
+import view.utility.GameFlowControl;
 import view.utility.Map;
 
 public class MouseEvents {
 
+	private GameFlowControl control;
 	private Camera cam;
 	private Map map;
 	private GraphicsContext gc;
@@ -20,12 +22,14 @@ public class MouseEvents {
 		
 	private double previousX = 0;
 	private double previousY = 0;
+	private boolean paused = false;
 	
-	public MouseEvents(Camera cam, Map map, GraphicsContext gc, Label tip){
+	public MouseEvents(Camera cam, Map map, GraphicsContext gc, Label tip, GameFlowControl control){
 		this.cam = cam;
 		this.map = map;
 		this.gc = gc;
 		this.tip = tip;
+		this.control = control;
 	}
 	
 	public void addMouseDragEvent(Node root, final boolean invert){
@@ -56,6 +60,12 @@ public class MouseEvents {
 				
 				map.drawMap();
 				tip.setVisible(false);
+				
+				if(control.getCurrentSpeed() < 2 && !paused){
+					control.pause();
+					paused = true;
+				}
+					
 			}
 		});
 		
@@ -65,6 +75,11 @@ public class MouseEvents {
 			public void handle(MouseEvent arg0) {
 				previousX = 0;
 				previousY = 0;
+				
+				if(paused){
+					control.play();
+					paused = false;
+				}
 			}
 		});
 	}

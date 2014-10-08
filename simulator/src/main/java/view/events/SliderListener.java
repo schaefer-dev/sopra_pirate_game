@@ -24,13 +24,7 @@ public class SliderListener {
 						i++;
 				}
 				value = i.toString();
-				
-				if(value.length() == 1)
-					label.setText(value + "  ");
-				else if(value.length() == 2)
-					label.setText(value + " ");
-				else
-					label.setText(value);
+				label.setText(value);
 			}
 		});
 	}
