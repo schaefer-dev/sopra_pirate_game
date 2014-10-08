@@ -1,0 +1,1066 @@
+turn left
+turn left
+turn left
+sense 0
+if sense_celltype!=island else 13
+move else 13
+sense 0
+if sense_celltype!=island else 21
+move else 21
+sense 0
+if sense_celltype!=island else 21
+move else 21
+goto 20
+goto 1999
+move else 14
+if sense_celltype!=island else 20
+move else 20
+if sense_celltype!=island else 20
+move else 20
+goto 21
+goto 761
+goto 22
+sense 0
+if sense_celltype==island else 455
+goto 25
+sense 4
+ifany sense_celltype!=empty sense_shiptype==friend else 111
+goto 28
+sense 5
+if sense_celltype==island else 33
+sense 4
+ifany sense_celltype!=empty sense_shiptype==friend else 212
+goto 33
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 5
+if sense_celltype==empty else 108
+turn left
+move else 57
+turn left
+move else 59
+turn right
+move else 61
+turn left
+move else 63
+sense 1
+if sense_celltype!=empty else 60
+move else 66
+move else 67
+move else 68
+move else 69
+move else 70
+move else 71
+move else 72
+move else 73
+move else 74
+move else 75
+move else 76
+sense 6
+if sense_marker0 else 76
+turn right
+turn right
+move else 81
+move else 82
+move else 83
+turn right
+move else 85
+move else 86
+pickup 1 else 86
+if ship_load==4 else 86
+turn left
+move else 90
+turn left
+turn left
+move else 93
+sense 4
+if sense_marker0 else 93
+turn left
+move else 97
+sense 4
+if sense_marker4 else 97
+turn left
+turn left
+move else 102
+sense 6
+if sense_celltype==home else 102
+turn left
+drop
+goto 714
+turn left
+turn left
+goto 59
+turn left
+move else 112
+turn left
+move else 114
+turn right
+move else 116
+turn left
+mark 0
+move else 119
+move else 120
+move else 121
+move else 122
+move else 123
+move else 124
+move else 125
+move else 126
+move else 127
+move else 128
+move else 129
+move else 130
+move else 131
+move else 132
+move else 133
+move else 134
+move else 135
+move else 136
+move else 137
+move else 138
+mark 0
+turn left
+move else 141
+mark 0
+move else 143
+mark 0
+move else 145
+mark 0
+move else 147
+mark 4
+move else 149
+mark 4
+move else 151
+mark 4
+move else 153
+mark 4
+move else 155
+mark 4
+move else 157
+mark 4
+move else 159
+mark 4
+move else 161
+mark 3
+move else 163
+mark 3
+move else 165
+mark 3
+move else 167
+mark 3
+move else 169
+mark 3
+move else 171
+mark 3
+move else 173
+mark 3
+refresh 5 else 176
+move else 176
+mark 3
+move else 178
+mark 3
+move else 180
+mark 3
+turn left
+turn left
+move else 184
+move else 185
+move else 186
+pickup 1 else 188
+move else 188
+pickup 1 else 188
+turn left
+turn left
+move else 192
+turn left
+move else 194
+sense 6
+if !sense_marker3 else 198
+goto 194
+turn right
+turn right
+move else 200
+sense 6
+if !sense_marker4 else 204
+goto 200
+turn right
+move else 205
+sense 6
+if sense_celltype==home else 205
+turn right
+turn right
+drop
+goto 597
+turn left
+turn left
+move else 214
+turn right
+turn right
+turn left
+move else 218
+turn left
+move else 220
+turn right
+move else 222
+turn left
+mark 0
+move else 225
+move else 226
+move else 227
+move else 228
+move else 229
+move else 230
+move else 231
+move else 232
+move else 233
+move else 234
+move else 235
+move else 236
+move else 237
+move else 238
+move else 239
+move else 240
+move else 241
+move else 242
+move else 243
+move else 244
+mark 0
+turn right
+turn right
+move else 248
+mark 0
+move else 250
+mark 0
+move else 252
+mark 0
+move else 254
+mark 0
+turn right
+turn right
+move else 258
+turn left
+move else 260
+pickup 1 else 260
+turn left
+move else 263
+turn left
+turn left
+move else 266
+sense 6
+if sense_marker0 else 266
+move else 269
+turn left
+move else 271
+sense 4
+if sense_marker4 else 271
+turn left
+turn left
+move else 276
+sense 6
+if sense_celltype==home else 276
+turn left
+drop
+goto 714
+turn right
+turn right
+turn right
+move else 451
+move else 451
+move else 451
+move else 451
+move else 451
+move else 451
+move else 451
+move else 451
+turn right
+sense 3
+if sense_shiptype==friend else 381
+goto 297
+move else 297
+move else 298
+move else 299
+sense 0
+if sense_celltype!=island else 304
+move else 302
+goto 300
+turn left
+move else 305
+move else 306
+move else 307
+move else 308
+move else 309
+sense 1
+if sense_celltype!=island else 309
+mark 1
+turn right
+move else 314
+move else 315
+move else 316
+move else 317
+move else 318
+move else 319
+move else 320
+move else 321
+move else 322
+move else 323
+move else 324
+move else 325
+move else 326
+move else 327
+mark 0
+turn left
+move else 330
+mark 1
+turn right
+move else 333
+mark 2
+turn right
+move else 336
+mark 3
+turn right
+move else 339
+move else 340
+move else 341
+move else 342
+mark 1
+move else 344
+mark 0
+move else 346
+mark 3
+move else 348
+mark 1
+move else 350
+pickup 5 else 356
+pickup 0 else 356
+turn left
+turn left
+goto 365
+turn right
+move else 357
+pickup 4 else 357
+pickup 5 else 357
+turn left
+turn left
+turn left
+move else 363
+goto 365
+move else 365
+sense 6
+if sense_marker3 else 365
+turn right
+turn right
+move else 370
+sense 6
+if sense_marker4 else 370
+turn right
+move else 374
+sense 6
+if sense_celltype==home else 374
+turn right
+turn right
+drop
+goto 597
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+move else 388
+move else 389
+move else 390
+sense 0
+if sense_celltype!=island else 395
+move else 393
+goto 391
+turn left
+move else 396
+move else 397
+move else 398
+move else 399
+sense 1
+if sense_celltype!=island else 399
+turn right
+move else 403
+move else 404
+move else 405
+move else 406
+move else 407
+move else 408
+move else 409
+move else 410
+move else 411
+move else 412
+move else 413
+move else 414
+move else 415
+move else 416
+turn left
+move else 418
+turn right
+move else 420
+turn right
+move else 422
+turn right
+move else 424
+move else 425
+move else 426
+turn right
+move else 428
+pickup 1 else 428
+if ship_load==4 else 428
+turn left
+turn left
+move else 433
+turn left
+move else 435
+sense 6
+if sense_marker3 else 435
+turn right
+turn right
+move else 440
+sense 6
+if sense_marker4 else 440
+turn right
+move else 444
+sense 6
+if sense_celltype==home else 444
+turn right
+turn right
+drop
+goto 597
+turn left
+turn left
+turn left
+goto 455
+sense 3
+ifany sense_shiptype==friend sense_celltype==island else 282
+goto 458
+turn left
+turn left
+turn left
+move else 461
+sense 1
+if sense_celltype==empty else 596
+turn right
+move else 465
+sense 5
+if sense_celltype==island else 468
+sense 0
+if sense_celltype==island else 465
+pickup 0 else 485
+if ship_load!=2 else 485
+turn left
+turn left
+turn left
+move else 475
+sense 6
+if sense_celltype==home else 475
+turn right
+turn right
+move else 480
+move else 481
+turn right
+drop
+goto 751
+mark 0
+turn left
+move else 487
+mark 0
+refresh 1 else 490
+move else 490
+mark 0
+refresh 1 else 493
+move else 493
+mark 0
+refresh 1 else 496
+sense 0
+if sense_marker0 else 504
+move else 498
+sense 6
+if sense_marker2 else 498
+turn right
+turn right
+goto 509
+move else 504
+mark 2
+turn right
+turn right
+goto 509
+move else 509
+move else 510
+move else 511
+move else 512
+pickup 5 else 514
+move else 514
+pickup 5 else 516
+move else 516
+pickup 5 else 518
+move else 518
+pickup 5 else 520
+move else 520
+pickup 5 else 522
+move else 522
+pickup 5 else 524
+move else 524
+pickup 5 else 526
+move else 526
+pickup 5 else 528
+move else 528
+pickup 5 else 530
+move else 530
+pickup 5 else 532
+move else 532
+pickup 5 else 534
+move else 534
+pickup 5 else 536
+move else 536
+pickup 5 else 538
+turn right
+pickup 5 else 540
+move else 540
+pickup 5 else 542
+move else 542
+pickup 5 else 544
+move else 544
+pickup 5 else 546
+move else 546
+pickup 5 else 548
+move else 548
+pickup 5 else 550
+pickup 0 else 551
+turn right
+turn right
+pickup 5 else 554
+move else 554
+pickup 5 else 556
+move else 556
+pickup 5 else 558
+move else 558
+pickup 5 else 560
+move else 560
+pickup 5 else 562
+move else 562
+pickup 5 else 564
+move else 564
+pickup 5 else 566
+move else 566
+pickup 5 else 568
+move else 568
+pickup 5 else 570
+move else 570
+pickup 5 else 572
+move else 572
+pickup 5 else 574
+move else 574
+pickup 5 else 576
+move else 576
+pickup 5 else 578
+move else 578
+pickup 5 else 580
+move else 580
+pickup 5 else 582
+move else 582
+pickup 5 else 584
+move else 584
+turn left
+move else 586
+sense 6
+if sense_celltype==home else 586
+turn right
+turn right
+move else 480
+move else 592
+turn right
+drop
+goto 751
+goto 1999
+move else 597
+move else 598
+move else 599
+move else 600
+move else 601
+move else 602
+move else 603
+turn right
+move else 605
+move else 606
+move else 607
+move else 608
+turn left
+move else 610
+sense 6
+if sense_marker1 else 610
+turn right
+move else 614
+sense 6
+if sense_marker0 else 614
+turn left
+move else 618
+turn right
+move else 620
+turn right
+move else 622
+turn right
+move else 624
+move else 625
+move else 626
+turn right
+pickup 1 else 629
+move else 629
+pickup 1 else 631
+move else 631
+pickup 1 else 633
+move else 633
+pickup 1 else 635
+move else 635
+pickup 1 else 637
+move else 637
+pickup 1 else 639
+move else 639
+pickup 1 else 641
+move else 641
+pickup 1 else 643
+move else 643
+pickup 1 else 645
+move else 645
+pickup 1 else 647
+move else 647
+pickup 1 else 649
+move else 649
+pickup 1 else 651
+move else 651
+pickup 1 else 653
+move else 653
+turn left
+pickup 1 else 656
+move else 656
+pickup 1 else 658
+move else 658
+pickup 1 else 660
+move else 660
+pickup 1 else 662
+move else 662
+pickup 1 else 664
+move else 664
+turn left
+turn left
+pickup 1 else 668
+move else 668
+pickup 1 else 670
+move else 670
+pickup 1 else 672
+move else 672
+pickup 1 else 674
+move else 674
+pickup 1 else 676
+move else 676
+pickup 1 else 678
+move else 678
+pickup 1 else 680
+move else 680
+pickup 1 else 682
+move else 682
+pickup 1 else 684
+move else 684
+pickup 1 else 686
+move else 686
+pickup 1 else 688
+move else 688
+pickup 1 else 690
+move else 690
+pickup 1 else 692
+move else 692
+pickup 1 else 694
+move else 694
+pickup 1 else 696
+move else 696
+pickup 1 else 698
+move else 698
+turn right
+turn right
+move else 701
+move else 702
+move else 703
+move else 704
+move else 705
+turn right
+move else 707
+sense 6
+if sense_celltype==home else 707
+turn right
+turn right
+drop
+goto 597
+turn left
+move else 715
+move else 716
+move else 717
+move else 718
+turn left
+move else 720
+sense 6
+if sense_marker0 else 720
+turn right
+turn right
+move else 725
+move else 726
+move else 727
+turn right
+move else 729
+move else 730
+pickup 1 else 730
+turn left
+move else 733
+turn left
+turn left
+move else 736
+sense 3
+if sense_marker0 else 736
+turn left
+move else 740
+sense 4
+if sense_marker4 else 740
+turn left
+turn left
+move else 745
+sense 6
+if sense_celltype==home else 745
+turn left
+drop
+goto 714
+move else 751
+sense 0
+if sense_celltype==island else 751
+turn left
+move else 755
+sense 6
+if sense_marker2 else 755
+turn right
+turn right
+goto 509
+turn left
+turn left
+turn left
+move else 764
+move else 765
+move else 766
+sense 0
+ifany sense_celltype==home sense_shiptype==friend sense_celltype==island else 770
+goto 821
+sense 5
+if sense_celltype==empty else 791
+sense 1
+if sense_shiptype==friend else 791
+goto 836
+turn left
+move else 776
+goto 774
+sense 2
+if sense_shiptype==friend else 797
+sense 5
+if sense_celltype==empty else 797
+move else 782
+turn left
+move else 784
+move else 785
+mark 0
+turn left
+move else 788
+move else 789
+goto 922
+sense 4
+sense 4
+sense 4
+sense 4
+ifany sense_celltype!=home sense_shiptype==friend else 778
+goto 797
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+sense 0
+move else 803
+move else 804
+turn left
+sense 0
+if sense_celltype==empty else 819
+move else 808
+turn left
+move else 810
+turn right
+move else 812
+sense 6
+if sense_marker0 else 809
+turn left
+move else 816
+move else 817
+goto 922
+turn left
+goto 810
+sense 3
+if sense_celltype==empty else 824
+goto 832
+sense 5
+if sense_celltype==empty else 831
+goto 827
+turn left
+turn left
+turn left
+goto 464
+goto 1999
+turn left
+turn left
+turn left
+goto 946
+turn left
+move else 837
+move else 838
+move else 839
+turn left
+move else 841
+move else 842
+move else 843
+move else 844
+move else 845
+move else 846
+move else 847
+move else 848
+move else 849
+move else 850
+move else 851
+move else 852
+move else 853
+move else 854
+move else 855
+move else 856
+move else 857
+turn right
+move else 859
+mark 3
+turn right
+move else 862
+mark 3
+move else 864
+mark 3
+move else 866
+mark 3
+turn right
+turn right
+move else 870
+turn left
+move else 870
+pickup 1 else 872
+if ship_load==4 else 872
+turn left
+turn left
+move else 877
+turn left
+move else 879
+sense 6
+if sense_marker3 else 879
+move else 882
+turn left
+move else 884
+move else 885
+move else 886
+move else 887
+move else 888
+move else 889
+move else 890
+turn left
+turn left
+move else 893
+move else 894
+move else 895
+move else 896
+move else 897
+move else 898
+move else 899
+move else 900
+move else 901
+move else 902
+move else 903
+move else 904
+move else 905
+move else 906
+move else 907
+move else 908
+move else 909
+move else 910
+move else 911
+move else 912
+move else 913
+move else 914
+turn left
+turn left
+drop
+move else 918
+move else 919
+move else 920
+turn left
+move else 922
+move else 923
+move else 924
+move else 925
+move else 926
+move else 927
+move else 928
+move else 929
+move else 930
+move else 931
+move else 932
+move else 933
+move else 934
+move else 935
+move else 936
+move else 937
+move else 938
+turn right
+move else 940
+turn right
+move else 942
+move else 943
+move else 944
+goto 868
+move else 946
+move else 947
+move else 948
+move else 949
+move else 950
+move else 951
+move else 952
+move else 953
+move else 954
+move else 955
+move else 956
+move else 957
+move else 958
+turn right
+turn right
+move else 961
+sense 0
+if sense_celltype==island else 961
+turn left
+move else 965
+turn right
+move else 967
+move else 968
+move else 969
+move else 970
+move else 971
+move else 972
+move else 973
+move else 974
+move else 975
+move else 976
+move else 977
+move else 978
+move else 979
+move else 980
+move else 981
+turn left
+move else 983
+turn right
+move else 985
+move else 986
+turn right
+move else 988
+move else 989
+move else 990
+turn right
+goto 996
+sense 0
+if sense_celltype==island else 996
+goto 1000
+move else 996
+pickup 1 else 993
+if ship_load<4 else 1026
+goto 993
+turn left
+pickup 1 else 1003
+if ship_load<4 else 1022
+move else 1003
+pickup 1 else 1006
+if ship_load<4 else 1022
+move else 1006
+pickup 1 else 1009
+if ship_load<4 else 1022
+move else 1009
+pickup 1 else 1012
+if ship_load<4 else 1022
+move else 1012
+pickup 1 else 1015
+if ship_load<4 else 1022
+move else 1015
+pickup 1 else 1018
+if ship_load<4 else 1022
+move else 1018
+pickup 1 else 1021
+if ship_load<4 else 1022
+turn left
+turn left
+move else 1023
+turn right
+goto 1028
+turn left
+move else 1027
+move else 1028
+move else 1029
+move else 1030
+turn left
+turn left
+move else 1033
+refresh 3 else 1033
+turn right
+move else 1036
+move else 1037
+move else 1038
+move else 1039
+move else 1040
+turn right
+move else 1042
+move else 1043
+move else 1044
+move else 1045
+move else 1046
+move else 1047
+move else 1048
+move else 1049
+move else 1050
+move else 1051
+move else 1052
+move else 1053
+move else 1054
+move else 1055
+move else 1056
+move else 1057
+move else 1058
+move else 1059
+move else 1060
+move else 1061
+turn left
+turn left
+drop
+goto 946
