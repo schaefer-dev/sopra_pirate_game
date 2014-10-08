@@ -50,6 +50,13 @@
     -fx-alignment: CENTER;
 }
 
+.inmenubutton{
+    -fx-font-family: "Ubuntu Mono";
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
+    -fx-font-size: 13px;
+}
+
 .canvasbutton {
     -fx-font-family: "UglyQua";
     -fx-background-color: transparent;

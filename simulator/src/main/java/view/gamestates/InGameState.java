@@ -10,6 +10,7 @@ import controller.Simulator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
@@ -66,7 +67,7 @@ public class InGameState implements GameState, LogWriter {
 	private GameFlowControl control;
 	private Configuration config;
 	
-	public InGameState(char[][] fieldChars, Ressources res, Integer turns, Configuration config) {
+	public InGameState(Ressources res, Integer turns, Configuration config) {
 		this.config = config;
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
@@ -146,10 +147,8 @@ public class InGameState implements GameState, LogWriter {
         events.addMouseScrollEvent(canvas);
         events.addMouseClickEvent(canvas);
 		
-		Button end = new Button("End");
-		end.getStyleClass().add("canvasbutton");
-		end.setTranslateY(665);
-		end.setTranslateX(1190);
+		Button end = new Button("Main Menu");
+		end.getStyleClass().add("inmenubutton");
 		end.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -157,6 +156,38 @@ public class InGameState implements GameState, LogWriter {
 				manager.switchState(new MainMenuState());
 			}
 		});
+		
+		final InGameState state = this;
+		Button restart = new Button("Restart");
+		restart.getStyleClass().add("inmenubutton");
+		restart.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				//manager.switchState(loadingState);
+				try{
+					state.close();
+				}
+				catch(Exception e) {}
+				manager.removeState();
+				manager.getRoot().setCenter(null);
+			}
+		});
+		
+		VBox menuselection = new VBox(2);
+		menuselection.getChildren().addAll(restart, end);
+		
+        final TitledPane menu = new TitledPane("Menu", menuselection);
+        menu.setExpanded(false);
+        menu.setTranslateX(1020);  
+        menu.setOnMouseExited(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				menu.setExpanded(false);
+			}
+		});
+        
 		
 		teams.removeAll(Collections.singleton(null));
 		teamWindow = new Accordion(); 
@@ -194,6 +225,7 @@ public class InGameState implements GameState, LogWriter {
             }
         });
         
+
         final TitledPane teamOpen = new TitledPane("Teams", teamWindow);
         teamOpen.setTranslateX(1120);        
 		
@@ -203,7 +235,7 @@ public class InGameState implements GameState, LogWriter {
 		speedBox.getChildren().addAll(speedUp, speed, slowDown);
 		
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedBox, end, tooltip, teamOpen);
+		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedBox, menu, tooltip, teamOpen);
 		manager.getScene().setRoot(root);
 	}
 

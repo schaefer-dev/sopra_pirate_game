@@ -52,9 +52,10 @@ public class GUIController extends Application {
 		for(GameState current: states)
 			current.exiting();
 		
-		state.entered(this);
+		
 		states = new Stack<GameState>();
 		states.push(state);
+		state.entered(this);
 	}
 	
 	public void addState(GameState state){
@@ -65,7 +66,6 @@ public class GUIController extends Application {
 			current.concealing();
 		}
 		catch(EmptyStackException e){}
-		
 		state.entered(this);
 		states.push(state);
 	}
