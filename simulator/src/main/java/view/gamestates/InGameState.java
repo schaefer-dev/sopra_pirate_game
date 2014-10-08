@@ -178,7 +178,6 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
-		final InGameState state = this;
 		Button restart = new Button("Restart");
 		restart.getStyleClass().add("inmenubutton");
 		restart.setOnAction(new EventHandler<ActionEvent>() {
@@ -186,10 +185,6 @@ public class InGameState implements GameState, LogWriter {
 			@Override
 			public void handle(ActionEvent arg0) {
 				//manager.switchState(loadingState);
-				try{
-					state.close();
-				}
-				catch(Exception e) {}
 				manager.removeState();
 				manager.getRoot().setCenter(null);
 			}

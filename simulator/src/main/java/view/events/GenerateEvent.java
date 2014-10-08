@@ -30,7 +30,8 @@ public class GenerateEvent implements EventHandler<ActionEvent> {
 		int isSize  = islandSize.get();
 		isSize = 10 - isSize + 1;
 
-		char[][] fields = config.generateMap(height, width, isCount, isSize);		
+		char[][] fields = config.generateMap(height, width, isCount, isSize);	
+		System.out.println("hey");
 		MapPreview preview = new MapPreview(fields);
 		preview.draw(gc);
 	}

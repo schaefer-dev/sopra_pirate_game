@@ -14,7 +14,6 @@ public class Ressources {
 	private Image water;
 	private Image waterFar;
 	private Image island;
-	private Image base;
 	private Image provision;
 	private Image ship;
 	private Image treasureWaterImage;
@@ -33,6 +32,7 @@ public class Ressources {
 	
 	private List<Image> islandDetails = new ArrayList<Image>();
 	private List<Image> shipImages = new ArrayList<Image>();
+	private List<Image> baseImages = new ArrayList<Image>();
 	
 	private Configuration defaultConfiguration;
 	
@@ -54,11 +54,7 @@ public class Ressources {
 	    	file = new File("src/main/ressources/proviant.png");
 	    	stream = new FileInputStream(file);
 	    	provision = new Image(stream);
-	    	
-	    	file = new File("src/main/ressources/base.png");
-	    	stream = new FileInputStream(file);
-	    	base = new Image(stream);
-	    	
+	    		    	
 	    	file = new File("src/main/ressources/ship.png");
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
@@ -92,7 +88,7 @@ public class Ressources {
 	    	buoyImage = new Image(stream);
 	    	
 	    	
-	    	for(int i = 1; i < 7; i++){
+	    	for(int i = 1; i < 6; i++){
 		    	file = new File("src/main/ressources/IslandDetails/"+i+".png");
 		    	stream = new FileInputStream(file);
 		    	islandDetails.add(new Image(stream));
@@ -102,6 +98,12 @@ public class Ressources {
 	    		file = new File("src/main/ressources/ships/"+i+".png");
 	    		stream = new FileInputStream(file);
 	    		shipImages.add(new Image(stream));
+	    	}
+	    	
+	    	for(int i = 1; i <= 26; i++){
+	    		file = new File("src/main/ressources/Bases/Base ("+i+").png");
+	    		stream = new FileInputStream(file);
+	    		baseImages.add(new Image(stream));
 	    	}
 	    	
 	    	file = new File("src/main/ressources/Buttons/play.png");
@@ -144,10 +146,6 @@ public class Ressources {
 		return island;
 	}
 	
-	public Image getBaseImage(){
-		return base;
-	}
-	
 	public Image getProvisionImage(){
 		return provision;
 	}
@@ -158,6 +156,10 @@ public class Ressources {
 	
 	public Image getShipImage(int fleet){
 		return shipImages.get(fleet);
+	}
+	
+	public Image getBaseImage(int fleet){
+		return baseImages.get(fleet);
 	}
 	
 	public Image getWaterTreasureImage(){
@@ -222,12 +224,12 @@ public class Ressources {
 		defaultConfiguration = new Configuration();
 		defaultConfiguration.setTreasureDensity(100);
 		defaultConfiguration.setSupplyDensity(2);
-		defaultConfiguration.setKrakenCount(10);
-		defaultConfiguration.setTeamCount(10);
+		defaultConfiguration.setKrakenCount(1000);
+		defaultConfiguration.setTeamCount(13);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
-		defaultConfiguration.getTactics().add("src/main/ressources/complete.ship");
+		defaultConfiguration.getTactics().add("src/main/ressources/gruppe-05.ship");
 		
 		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);
