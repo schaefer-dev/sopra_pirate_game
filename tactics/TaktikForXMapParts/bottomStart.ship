@@ -1,0 +1,59 @@
+*bottomStart
+	turn left
+	turn left
+	turn left
+	*bottomStartMove01 move else bottomStartMove01
+	*bottomStartMove02 move else bottomStartMove02
+	*bottomStartMove03 move else bottomStartMove03
+	sense 0
+	ifany sense_celltype==home sense_shiptype==friend sense_celltype==island else bottomStartRightRow
+	goto bottomStartNotRightRow
+
+
+*bottomStartRightRow
+	sense 5
+	if sense_celltype==empty else bottomStartRightRowNotFirstShip
+	sense 1 
+	if sense_shiptype==friend else bottomStartRightRowNotFirstShip
+
+*bottomStartRightRowFirstShip
+	turn left
+	*bottomStartRightRowFirstShipMove01 move else bottomStartRightRowFirstShipMove01
+	goto bottomStartRightRowFirstShip  ;insert bottomStartFarmRightAlgorythm but insert marking
+
+*bottomStartRightRowSecondShip
+	sense 2
+	if sense_shiptype==friend else bottomStartRightRowNotFirstSecondShip
+	*loop goto loop
+
+
+*bottomStartRightRowNotFirstShip
+	sense 4
+	sense 4
+	sense 4
+	sense 4
+	ifany sense_celltype!=home sense_shiptype==friend else bottomStartRightRowSecondShip
+	goto bottomStartRightRowNotFirstSecondShip
+
+*bottomStartRightRowNotFirstSecondShip
+	*bottomStartRightRowNotFirstSecondShipMove01 move else bottomStartRightRowNotFirstSecondShipMove01
+	*bottomStartRightRowNotFirstSecondShipMove02 move else bottomStartRightRowNotFirstSecondShipMove02
+	turn left
+	sense 0
+	if sense_celltype==empty else bottomStartRightRowNotFirstSecondShipTurnMore
+	*bottomStartRightRowNotFirstSecondShipMove03 move else bottomStartRightRowNotFirstSecondShipMove03
+	*bottomStartRightRowNotFirstSecondShipContinueStair turn left
+	*bottomStartRightRowNotFirstSecondShipMove04 move else bottomStartRightRowNotFirstSecondShipMove04
+	turn right
+	*bottomStartRightRowNotFirstSecondShipMove05 move else bottomStartRightRowNotFirstSecondShipMove05
+	sense 6
+	if sense_marker0 else bottomStartRightRowNotFirstSecondShipContinueStair
+	turn left ;move straight now
+
+*bottomStartRightRowNotFirstSecondShipTurnMore
+	turn left
+	goto bottomStartRightRowNotFirstSecondShipMove04
+	
+
+*bottomStartNotRightRow
+	goto 999
