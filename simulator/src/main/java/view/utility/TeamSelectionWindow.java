@@ -3,7 +3,7 @@ package view.utility;
 import java.io.File;
 
 import view.GUIController;
-import view.gamestates.TeamSettingsState2;
+import view.gamestates.TeamSettingsState;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,8 +14,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -24,7 +25,7 @@ public class TeamSelectionWindow {
 	
 	public final String DEFAULT_NAME = "Your Captain";
 	
-	private HBox box;
+	private GridPane box;
 	private Rectangle color;
 	private ComboBox<String> captainChooser;
 	private Button openFile;
@@ -34,7 +35,7 @@ public class TeamSelectionWindow {
 	private String currentValue;
 	private String tactic;
 	
-	public TeamSelectionWindow(final GUIController manager, final TeamSettingsState2 state, boolean removable){
+	public TeamSelectionWindow(final GUIController manager, final TeamSettingsState state, boolean removable){
 		this.config = manager.getConfiguration();
 		this.currentValue = DEFAULT_NAME;
 		
@@ -82,8 +83,8 @@ public class TeamSelectionWindow {
 		final FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SHIP", "*.ship"));
 		openFile = new Button("Choose Tactic");
-		openFile.getStyleClass().add("selectionbutton");
-		openFile.setStyle("-fx-font-size: 20px;");
+		openFile.getStyleClass().add("teamwindowbutton");
+		openFile.setStyle("-fx-font-size: 15px;");
         openFile.setOnAction(new EventHandler<ActionEvent>(){
         	
             @Override
@@ -91,7 +92,14 @@ public class TeamSelectionWindow {
                 File file = fileChooser.showOpenDialog(manager.getStage());
                 if(file != null){
                 	tactic = file.toString();
-                	openFile.setText(file.getName());
+                	
+                	String fileString = file.getName();
+                	if(fileString.length() > 20){
+                		fileString = fileString.substring(0, 9);
+                		fileString += "...";
+                	}
+                	
+                	openFile.setText(fileString);
                 }	
             }
         });
@@ -99,23 +107,31 @@ public class TeamSelectionWindow {
         final TeamSelectionWindow wind = this;
         removeTeam = new Button("x");
         removeTeam.setAlignment(Pos.TOP_CENTER);
-        removeTeam.getStyleClass().add("deletebutton");
-        removeTeam.setStyle("-fx-font-size: 20px;");
+        removeTeam.getStyleClass().add("teamwindowbutton");
+        removeTeam.setStyle("-fx-font-size: 15px;");
         removeTeam.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				state.getTeamWindows().remove(wind);
 				state.getTeamSelections().getChildren().remove(getRoot());
+				config.getCaptainNames().add(currentValue);
+				config.getCurrentCaptainName().remove(currentValue);
 			}
 		});
         
         
         if(!removable)
         	removeTeam.setVisible(false);
-
-        box = new HBox(20);
-        box.getChildren().addAll(color, captainChooser, openFile, removeTeam);
+        
+        box = new GridPane();
+        box.add(color, 0, 0);
+        box.add(new Label("   "), 1, 0);
+        box.add(captainChooser, 2, 0);
+        box.add(new Label("      "), 3, 0);
+        box.add(openFile, 4, 0);
+        box.add(new Label("  "), 5, 0);
+        box.add(removeTeam, 6, 0);
 	}
 	
 	public Node getRoot(){

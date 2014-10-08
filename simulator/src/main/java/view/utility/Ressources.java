@@ -93,7 +93,7 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	islandDetails.add(new Image(stream));
 	    	
-	    	for(int i = 1; i < 6; i++){
+	    	for(int i = 1; i < 15; i++){
 	    		file = new File("src/main/ressources/ships/"+i+".png");
 	    		stream = new FileInputStream(file);
 	    		shipImages.add(new Image(stream));
@@ -176,7 +176,7 @@ public class Ressources {
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(100);
-		defaultConfiguration.setTeamCount(4);
+		defaultConfiguration.setTeamCount(10);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);

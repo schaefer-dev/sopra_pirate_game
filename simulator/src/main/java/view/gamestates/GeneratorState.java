@@ -81,6 +81,8 @@ public class GeneratorState implements GameState {
 		generate.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Generate a map with given values"));
 		generate.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		generate.setOnAction(new GenerateEvent(manager.getConfiguration(), msListener, icListener, isListener, gc));
+		
+		Label formattingHelper = new Label("             ");
 
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
@@ -94,6 +96,7 @@ public class GeneratorState implements GameState {
 		grid.add(islandSizeSlider, 1, 2);
 		grid.add(islandSizeLabel, 2, 2);
 		grid.add(generate, 1, 3);
+		grid.add(formattingHelper, 2, 3);
 		
 		HBox box = new HBox(20);
 		box.setAlignment(Pos.CENTER);

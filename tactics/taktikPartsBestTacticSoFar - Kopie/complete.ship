@@ -1,5 +1,5 @@
 *start flipzero 2 else startFindTreasure; 1 sechstel der Schiffe legt Bojen, der Rest sucht Schätze.
-*startSetBuoys flipzero 2 else drehrechts; 									Hälfte dreht sich nach links, andere nach rechts
+*startSetBuoys flipzero 2 else drehrechts; 							Hälfte dreht sich nach links, andere nach rechts
 *drehlinks turn left; 												Drehung in Richtung 5
 flipzero 2 else drehweiterLinks; 									Hälfte dreht sich weiter, andere Hälfte nicht
 *start5 pickup 5 else look5rechtsStart; 							Gucken ob links vorne Schatz ist, sonst rechts gucken
@@ -298,8 +298,9 @@ goto findback5
 						sense 0 																;refresh
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
 						goto farmIslandUhrzeigerMove
-*farmIslandStartUhrzeigerPickup 	pickup 0 else *farmIslandUhrzeigerMove
+*farmIslandStartUhrzeigerPickup 	pickup 0 else farmIslandStartUhrzeigerSkipPickup
 						goto findBackFromIsland
+*farmIslandStartUhrzeigerSkipPickup		goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMove	move else farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
 						pickup 1 else farmIslandCheckRight
 						goto findBackFromIsland

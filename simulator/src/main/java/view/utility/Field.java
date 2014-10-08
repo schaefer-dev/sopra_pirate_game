@@ -81,16 +81,27 @@ public class Field {
 		int zoom =  map.getCam().zoomLevelAbsolute();
 		List<Image> images = new LinkedList<Image>();
 		
-		if(type == FieldType.Water){
+		switch(type){
+		case Water:
 			if(zoom < 2)
 				images.add(fieldImage);
-		}
-		else if(type == FieldType.Base){
+			break;
+		case Base:
 			if(zoom < 5)
 				images.add(fieldImage);
-		}
-		else 
+			break;
+
+		case ProvisionIsland:
+			if(zoom < 5)
+				images.add(fieldImage);
+			else
+				images.add(map.getRessources().getIslandImage());
+			break;
+		case Island:
 			images.add(fieldImage);
+			break;
+		}
+
 		
 		if(farAway){
 			farAway = false;
@@ -215,25 +226,26 @@ public class Field {
 	}	
 	
 	public String giveTooltipText(){
-		String intro = type.toString() + "(" + x + "," + y + ")\n\n";
+		String intro = type.toString() + " (" + x + "," + y + ")\n\n";
 		
 		String treasureInfo = "";
 		if(treasure != null)
-			treasureInfo = "Treasure(#" + treasure.getId() + "): " + treasure.getValue() + "\n";
+			treasureInfo = "Treasure(#" + treasure.getId() + ") \n"
+										+ "   Value: " + treasure.getValue() + "\n";
 		
 		String krakenInfo = "";
 		if(kraken != null)
-			krakenInfo = "Kraken(#" + kraken.getId() + ") present\n";
+			krakenInfo = "Kraken(#" + kraken.getId() + ")\n";
 		
 		String shipInfo = "";
 		if(ship != null)
-			shipInfo = "Ship(#" + ship.getID() + "): \n"
-								+ "PC: " + ship.getPc() + "\n"
-								+ "Resting: " + ship.getResting() + "\n"
-								+ "Load: " + ship.getLoad() + "\n"
-								+ "Moral: " + ship.getMoral() + "\n"
-								+ "Condition: " + ship.getCondition() + "\n"
-								+ "Fleet: " + ship.getFleet()  + "\n";
+			shipInfo = "Ship(#" + ship.getID() + ")\n"
+								+ "  Fleet: " + ship.getFleet()  + "\n"
+								+ "  Condition: " + ship.getCondition() + "\n"
+								+ "  Resting: " + ship.getResting() + "\n"
+								+ "  Moral: " + ship.getMoral() + "\n"
+								+ "  Load: " + ship.getLoad() + "\n"
+								+ "  PC: " + ship.getPc() + "\n";
 		
 		String buoyInfo = "";
 		if(buoys.size() > 0){
@@ -241,7 +253,7 @@ public class Field {
 			String buoyDetails = "";
 			int size = 0;
 			for(SimpleEntity buoy: buoys){
-				buoyDetails += buoy.getValue() + "(#" + buoy.getFleet() + ") ";
+				buoyDetails += buoy.getValue() + "(" + buoy.getFleet() + ") ";
 				size++;
 				
 				if(size > 6){

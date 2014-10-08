@@ -13,7 +13,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.events.HoverEvent;
 import view.events.MusicSliderListener;
-import view.events.SliderListener;
 import view.events.SwitchState;
 import view.utility.GameState;
 import view.utility.Resolution;
@@ -37,12 +36,13 @@ public class SettingsState implements GameState {
 			supportedResolutions.add(Resolution.FHD);
 		
 		Label resolutionLabel = new Label("Resolution");
+		resolutionLabel.getStyleClass().add("menulabel");
 		final ComboBox<Resolution> resolutionBox = new ComboBox<Resolution>(supportedResolutions);
 		resolutionBox.setValue(manager.getResolution());
 		addResolutionListener(resolutionBox);
 		
-		Button back = new Button("< Back");
-		back.getStyleClass().add("menubutton");
+		Button back = new Button("Back");
+		back.getStyleClass().add("menulabel");
 		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		back.setOnAction(new SwitchState(manager));
@@ -53,9 +53,11 @@ public class SettingsState implements GameState {
 		volume.setMajorTickUnit(2);
 		volume.setSnapToTicks(true);
 		Label volumeLabel = new Label(String.format("%.0f", manager.getPlayer().getVolume()*100));
+		
 		volume.setValue(Integer.parseInt(volumeLabel.getText()));
 		Label volumeText = new Label("Volume");
-		SliderListener volumeListener = new MusicSliderListener(volume, volumeLabel, manager.getPlayer());
+		volumeText.getStyleClass().add("menulabel");
+		new MusicSliderListener(volume, volumeLabel, manager.getPlayer());
 		
 		root = new GridPane();
 		root.getStyleClass().add("grid");
@@ -64,7 +66,7 @@ public class SettingsState implements GameState {
 		root.add(volumeText, 0, 0);
 		root.add(volume, 1, 0);
 		root.add(volumeLabel, 2, 0);
-		root.add(back, 0, 2);
+		root.add(back, 1, 2);
 		
 		manager.getRoot().setCenter(root);
 	}

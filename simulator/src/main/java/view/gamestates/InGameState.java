@@ -10,7 +10,6 @@ import controller.Simulator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
@@ -34,7 +33,6 @@ import view.utility.Field;
 import view.utility.GameFlowControl;
 import view.utility.GameState;
 import view.utility.Map;
-import view.utility.MapPreview;
 import view.utility.Ressources;
 import view.utility.Ship;
 import view.utility.Team;
@@ -48,14 +46,12 @@ public class InGameState implements GameState, LogWriter {
 	private Label tooltip;
 	private GraphicsContext gc;
 	private Accordion teamWindow;
-	private Button teamClosed;
 	private Button play;
 	private Button pause;
 	private Button next;
 	private Button speedUp;
 	private Button slowDown;
 	private Label speed;
-	private VBox teamOpened;
 	
 	private Map map;
 	private Camera cam;
@@ -95,12 +91,7 @@ public class InGameState implements GameState, LogWriter {
         map.initMap(fields, cam);
         map.addMapDetails();
         map.drawMap();
-        
-        MouseEvents events = new MouseEvents(cam, map, gc, tooltip);
-        events.addMouseDragEvent(canvas, true);
-        events.addMouseScrollEvent(canvas);
-        events.addMouseClickEvent(canvas);
-        
+       
         roundCounter = new Label(rounds.toString());
         roundCounter.getStyleClass().add("menulabel");
         roundCounter.setTranslateX(10);
@@ -148,7 +139,12 @@ public class InGameState implements GameState, LogWriter {
 		//speed.setTranslateX(220);
 		speed.getStyleClass().add("menulabel");
 		
-		this.control = new GameFlowControl(sim, play, pause, speedUp, slowDown, speed);
+		this.control = new GameFlowControl(this, play, pause, speedUp, slowDown, speed);
+		
+        MouseEvents events = new MouseEvents(cam, map, gc, tooltip, this.control);
+        events.addMouseDragEvent(canvas, true);
+        events.addMouseScrollEvent(canvas);
+        events.addMouseClickEvent(canvas);
 		
 		Button end = new Button("End");
 		end.getStyleClass().add("canvasbutton");
@@ -162,20 +158,7 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
-		Button teamClose = new Button("     Close >");
-		teamClose.setVisible(true);
-		teamClose.getStyleClass().add("canvasbutton");
-		teamClose.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				teamOpened.setVisible(false);
-				teamClosed.setVisible(true);
-			}
-		});
-		
 		teams.removeAll(Collections.singleton(null));
-		
 		teamWindow = new Accordion(); 
 		for(final Team team: teams){
 			final TeamPane pane = new TeamPane(team, new Text(), map);
@@ -187,6 +170,7 @@ public class InGameState implements GameState, LogWriter {
         	public void changed(ObservableValue<? extends TitledPane> ov, TitledPane oldVal, TitledPane newVal) {
     			if(newVal != null){
     				TeamPane pane = (TeamPane) newVal;
+    				pane.update();
     				Team team = pane.getTeam();
     				newVal.setStyle("-fx-text-fill: #" + team.getColorRGB());
     				
@@ -210,23 +194,8 @@ public class InGameState implements GameState, LogWriter {
             }
         });
         
-		
-		teamOpened = new VBox();
-		teamOpened.setVisible(false);
-		teamOpened.setTranslateX(1120);
-		teamOpened.getChildren().addAll(teamClose, teamWindow);
-		
-		teamClosed = new Button("< Teams");
-		teamClosed.setTranslateX(1160);
-		teamClosed.getStyleClass().add("canvasbutton");
-		teamClosed.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				teamOpened.setVisible(true);
-				teamClosed.setVisible(false);
-			}
-		});
+        final TitledPane teamOpen = new TitledPane("Teams", teamWindow);
+        teamOpen.setTranslateX(1120);        
 		
 		VBox speedBox = new VBox();
 		speedBox.setTranslateY(600);
@@ -234,7 +203,7 @@ public class InGameState implements GameState, LogWriter {
 		speedBox.getChildren().addAll(speedUp, speed, slowDown);
 		
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedBox, end, tooltip, teamClosed, teamOpened);
+		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedBox, end, tooltip, teamOpen);
 		manager.getScene().setRoot(root);
 	}
 
@@ -306,6 +275,7 @@ public class InGameState implements GameState, LogWriter {
 		next.setVisible(false);
 		slowDown.setVisible(false);
 		speedUp.setVisible(false);
+		speed.setVisible(false);
 	}
 	
 	@Override
@@ -345,9 +315,6 @@ public class InGameState implements GameState, LogWriter {
 			entity.setEntityType(arg0);
 
 			switch(arg2){
-				case FLEET:
-					entity.setFleet(arg3);
-					break;
 				case VALUE:
 					entity.setValue(arg3);
 					break;
@@ -460,7 +427,7 @@ public class InGameState implements GameState, LogWriter {
 			for(int i = 0; i < arg2.length; i++){
 				switch(arg2[i]){
 					case FLEET:
-						entity.setFleet(arg3[i]);
+						entity.setFleet(teams.get(arg3[i]));
 						break;
 					case VALUE:
 						entity.setValue(arg3[i]);

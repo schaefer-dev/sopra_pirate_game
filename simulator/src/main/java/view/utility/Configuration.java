@@ -20,11 +20,11 @@ public class Configuration {
 	public final static int ZOOM_MAX = 10;
 	
 	public final static int TREASURE_DENSITY_MIN = 0;
-	public final static int TREASURE_DENSITY_MAX = 50;
+	public final static int TREASURE_DENSITY_MAX = 100;
 	private int treasureDensity = TREASURE_DENSITY_MIN;
 
 	public final static int SUPPLY_DENSITY_MIN = 0;
-	public final static int SUPPLY_DENSITY_MAX = 50;
+	public final static int SUPPLY_DENSITY_MAX = 100;
 	private int supplyDensity = SUPPLY_DENSITY_MIN;
 	
 	public final static int KRAKEN_COUNT_MIN = 0;
@@ -88,8 +88,8 @@ public class Configuration {
 	}
 	
 	public void placeObjectsOnMap(){
-		generator.setProvision(0.1 * supplyDensity);
-		generator.setTreasure(0.1 * treasureDensity);
+		generator.setProvision(0.005 * supplyDensity);
+		generator.setTreasure(0.005 * treasureDensity);
 		generator.setKraken(krakenCount);
 	}
 	
