@@ -953,18 +953,18 @@ move else 951
 move else 952
 move else 953
 move else 954
-move else 955
+turn right
 move else 956
-move else 957
-move else 958
-turn right
-turn right
-move else 961
 sense 0
-if sense_celltype==island else 961
+if sense_celltype==island else 956
 turn left
-move else 965
+move else 960
+sense 1
+if sense_celltype==empty else 960
 turn right
+move else 964
+move else 965
+move else 966
 move else 967
 move else 968
 move else 969
@@ -976,91 +976,117 @@ move else 974
 move else 975
 move else 976
 move else 977
-move else 978
-move else 979
-move else 980
-move else 981
 turn left
+move else 979
+turn right
+move else 981
+turn right
 move else 983
 turn right
 move else 985
 move else 986
+move else 987
 turn right
-move else 988
-move else 989
-move else 990
-turn right
-goto 996
-sense 0
-if sense_celltype==island else 996
-goto 1000
-move else 996
-pickup 1 else 993
-if ship_load<4 else 1026
 goto 993
+sense 0
+if sense_celltype==island else 993
+goto 997
+move else 993
+pickup 1 else 990
+if ship_load<4 else 1047
+goto 990
 turn left
+pickup 1 else 999
+move else 999
+pickup 1 else 1001
+move else 1001
 pickup 1 else 1003
-if ship_load<4 else 1022
 move else 1003
-pickup 1 else 1006
-if ship_load<4 else 1022
-move else 1006
+pickup 1 else 1005
+move else 1005
+pickup 1 else 1007
+move else 1007
 pickup 1 else 1009
-if ship_load<4 else 1022
-move else 1009
+turn left
+turn left
 pickup 1 else 1012
-if ship_load<4 else 1022
 move else 1012
-pickup 1 else 1015
-if ship_load<4 else 1022
-move else 1015
+pickup 1 else 1014
+move else 1014
+pickup 1 else 1016
+move else 1016
 pickup 1 else 1018
-if ship_load<4 else 1022
 move else 1018
-pickup 1 else 1021
-if ship_load<4 else 1022
-turn left
-turn left
-move else 1023
-turn right
-goto 1028
-turn left
-move else 1027
+pickup 1 else 1020
+move else 1020
+pickup 1 else 1022
+move else 1022
+pickup 1 else 1024
+move else 1024
+pickup 1 else 1026
+move else 1026
+pickup 1 else 1028
 move else 1028
-move else 1029
+pickup 1 else 1030
 move else 1030
-turn left
-turn left
-move else 1033
-refresh 3 else 1033
-turn right
+pickup 1 else 1032
+move else 1032
+pickup 1 else 1034
+move else 1034
+pickup 1 else 1036
 move else 1036
-move else 1037
+pickup 1 else 1038
 move else 1038
-move else 1039
+pickup 1 else 1040
 move else 1040
-turn right
-move else 1042
+pickup 1 else 1042
+turn left
 move else 1043
-move else 1044
-move else 1045
-move else 1046
-move else 1047
+refresh 0 else 1043
+turn right
+goto 1056
+turn left
 move else 1048
 move else 1049
 move else 1050
 move else 1051
-move else 1052
-move else 1053
+turn left
+turn left
 move else 1054
-move else 1055
-move else 1056
+refresh 5 else 1054
+turn right
 move else 1057
-move else 1058
+turn right
 move else 1059
 move else 1060
 move else 1061
-turn left
-turn left
+move else 1062
+move else 1063
+turn right
+move else 1065
+move else 1066
+move else 1067
+move else 1068
+move else 1069
+move else 1070
+move else 1071
+move else 1072
+move else 1073
+move else 1074
+move else 1075
+move else 1076
+move else 1077
+move else 1078
+move else 1079
+move else 1080
+move else 1081
+move else 1082
+move else 1083
+move else 1084
+move else 1085
+move else 1086
+move else 1087
+turn right
+turn right
 drop
 goto 946
