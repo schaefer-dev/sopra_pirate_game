@@ -37,7 +37,7 @@ public class SelectionPreview extends SelectionWindow {
 		this.description = new Text(description);
 		this.teamCount = teamCount;
 
-		root.getChildren().addAll(this.mapSize, this.difficulty, this.description);
+		root.getChildren().addAll(this.mapSize, this.description);
 	}
 	
 	@Override

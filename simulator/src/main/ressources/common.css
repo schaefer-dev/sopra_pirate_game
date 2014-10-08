@@ -15,6 +15,7 @@
 
 .menulabel {
     -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
 }
 
 .titled-pane > .title {
@@ -35,6 +36,7 @@
 }
 
 .tooltipi{
+    -fx-font-family: "Ubuntu Mono";
     -fx-background-color: #FFFFFF;
     -fx-border-color: #585858;
     -fx-border-width: 1px; 
@@ -52,6 +54,21 @@
     -fx-font-family: "UglyQua";
     -fx-background-color: transparent;
     -fx-alignment: BOTTOM_CENTER;
+}
+
+.toggle-button:hover {
+    -fx-text-fill: #A62E2E;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+}
+
+.toggle-button:selected {
+    -fx-text-fill: #fc5f4a;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
+}
+
+.errorlabel{
+    -fx-font-family: "UglyQua";
+    -fx-font-size: 60px;
 }
 
 .selectionbutton {
@@ -81,20 +98,27 @@
 }
 
 .teamselection{
-    -fx-border-color: #2e8b57;
+    -fx-border-color: #023059;
     -fx-border-width: 1px;
 }
 
 .teamwindow{
-    -fx-padding: 0 120 0 150;
+    -fx-padding: 0 0 0 50;
+}
+
+.teamwindowbutton{
+    -fx-background-color: transparent;
+    -fx-font-family: "Ubuntu Mono";
 }
 
 .teamselectionbutton{
     -fx-font-size: 22px;
-    -fx-font-family: "UglyQua";
+    -fx-font-family: "Ubuntu Mono";
     -fx-background-color: transparent;
-    -fx-alignment: CENTER_RIGHT;
-    -fx-padding: 0 10 0 100;
+}
+
+.formattingfixer{
+    -fx-padding: 0 150 0 150;
 }
 
 .slider .track {
@@ -110,12 +134,11 @@
     -fx-background-insets: 0, 2;
     -fx-padding: 10;
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
-    /*-fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);*/
 }
 
 
 .combo-box {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: "Ubuntu Mono";
     -fx-background-color: transparent;
     /*-fx-background-image: url("storm.jpg");*/
     -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);
@@ -164,7 +187,7 @@
 
 .maplist-view {
     -fx-background-color: transparent;
-    -fx-padding: 0 400 0 250;
+    -fx-padding: 0 200 0 450;
 }
 
 
@@ -177,8 +200,8 @@
 }
 
 .maplist-view .list-cell:filled:hover {
-    /*-fx-background-color: #0093ff;*/
-    -fx-text-fill: #B9B437;
+    -fx-text-fill: #AB3528; 
+    -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 10, 0.0 , 5 , 1);  
     -fx-font-weight: bold;
 }
 

@@ -33,7 +33,7 @@ public class TeamInfoState implements GameState {
 		GridPane forText = new GridPane();
 		forText.setAlignment(Pos.TOP_CENTER);
 		manager.getTitleText().setText("The Team");
-		Button back = new Button("< Back");
+		Button back = new Button("Back");
 		back.setAlignment(Pos.BOTTOM_CENTER);
 		back.setOnMouseEntered(new HoverEvent(root.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(root.getHoverText(), ""));

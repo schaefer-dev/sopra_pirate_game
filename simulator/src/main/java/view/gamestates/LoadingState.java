@@ -5,6 +5,13 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import controller.Simulator;
 import view.utility.Configuration;
 import view.utility.GameState;
@@ -37,11 +44,35 @@ public class LoadingState implements GameState {
 		try{
 			Simulator sim = new Simulator(shipFiles, mapFile, random.nextInt(Integer.MAX_VALUE), null, turns, game);
 			game.setSimulator(sim);
+			
 		}
 		catch(Exception e){	
-			e.printStackTrace();
-			manager.switchState(new MainMenuState());
-			manager.getHoverText().setText("Something went terribly wrong");
+			Label errorIntro = new Label("Error");
+			errorIntro.getStyleClass().add("errorlabel");
+			Label error = new Label(e.toString());
+			error.getStyleClass().add("menulabel");
+			Label errorSmiley = new Label(":-(");
+			errorSmiley.getStyleClass().add("errorlabel");
+			
+			VBox errorBox = new VBox();
+			errorBox.getStyleClass().add("vbox");
+			errorBox.getChildren().addAll(errorIntro, error, errorSmiley);
+			
+			Button back = new Button("Back To Menu");
+			back.getStyleClass().add("menubutton");
+			back.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent arg0) {
+					manager.switchState(new MainMenuState());
+				}
+			});
+			
+			BorderPane.setAlignment(back, Pos.BOTTOM_CENTER);
+			BorderPane pain = new BorderPane();
+			pain.setCenter(errorBox);
+			pain.setBottom(back);
+			manager.getRoot().setCenter(pain);
 			return;
 		}
 		

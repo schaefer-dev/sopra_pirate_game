@@ -114,7 +114,6 @@ public class GameFlowControl {
 	}
 	
 	public void close(){
-		System.out.println("hey");
 		if(timer != null)
 			timer.cancel();
 	}

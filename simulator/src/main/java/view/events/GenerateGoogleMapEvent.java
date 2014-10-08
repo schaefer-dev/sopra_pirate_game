@@ -69,7 +69,7 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 				int g = color.getGreen();
 				int b = color.getBlue();
 				int black = 120;
-				int white = 240;
+				//int white = 240;
 				
 				if((r < b) && (g < b))
 					map[x][y] = water;

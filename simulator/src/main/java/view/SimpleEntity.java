@@ -1,5 +1,6 @@
 package view;
 
+import view.utility.Team;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 
 public class SimpleEntity {
@@ -8,7 +9,7 @@ public class SimpleEntity {
 	private int x;
 	private int y;
 	private int value;
-	private int fleet;
+	private Team fleet;
 	private Entity entityType;
 	
 	public SimpleEntity(int id){
@@ -43,11 +44,11 @@ public class SimpleEntity {
 		this.value = value;
 	}
 	
-	public int getFleet() {
+	public Team getFleet() {
 		return fleet;
 	}
 	
-	public void setFleet(int fleet) {
+	public void setFleet(Team fleet) {
 		this.fleet = fleet;
 	}
 	

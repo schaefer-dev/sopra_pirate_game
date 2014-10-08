@@ -80,7 +80,7 @@ public class GameSettingsState implements GameState {
 		Label rounds = new Label("Rounds");
 		rounds.getStyleClass().add("menulabel");
 		Slider roundSlider = new Slider(Configuration.ROUNDS_MIN, Configuration.ROUNDS_MAX, map.getRounds());
-		roundSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of ships per team"));
+		roundSlider.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Value determines the amount of played rounds"));
 		roundSlider.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		roundSlider.setMaxWidth(200);
 		roundSlider.setMajorTickUnit(4);
@@ -121,7 +121,7 @@ public class GameSettingsState implements GameState {
 		next.getStyleClass().add("menubutton");
 		next.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go to team settings"));
 		next.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		next.setOnAction(new SwitchState(manager, new TeamSettingsState2(), false));
+		next.setOnAction(new SwitchState(manager, new TeamSettingsState(), false));
 		
 		GridPane selection = new GridPane();
 		selection.getStyleClass().add("grid");

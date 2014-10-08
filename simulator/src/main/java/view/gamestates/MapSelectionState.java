@@ -68,7 +68,7 @@ public class MapSelectionState implements GameState {
 		next.getStyleClass().add("menubutton");
 		next.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go to team settings"));
 		next.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
-		next.setOnAction(new SwitchState(manager, new TeamSettingsState2(), true));
+		next.setOnAction(new SwitchState(manager, new TeamSettingsState(), true));
 		
 		GridPane selection = new GridPane();
 		selection.getStyleClass().add("grid");

@@ -38,7 +38,7 @@ public class CustomGameState implements GameState {
 		googleMaps.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		googleMaps.setOnAction(new SwitchState(manager, new GoogleMapsState(), false));
 		
-		Button back = new Button("< Back");
+		Button back = new Button("Back");
 		back.getStyleClass().add("menubutton");
 		back.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Go back to main menu"));
 		back.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));

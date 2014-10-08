@@ -16,25 +16,15 @@ public class TeamPane extends TitledPane {
 	}	
 	
 	public void update(){
-		updateText();
-		this.setContent(new Text(giveTeamText()));
-	}
-	
-	public void updateText(){
 		String title = " " + team.toString();
-		
-		int stell = 1;
-		int x = team.getScore();
-		while(x/10 > 0)
-			stell++;
-		int offset = 20 - stell;
-		
+		String score = String.valueOf(team.getScore());
+		int offset = 20 - score.length();
 		title = String.format("%-"+offset+"s", title).replace(' ', ' ');
-		title += String.valueOf(team.getScore());
+		title += score;
 		
 		this.setText(title);
+		this.setContent(new Text(giveTeamText()));
 	}
-
 	
 	private String giveTeamText(){
 		String score = "Score: " + team.getScore();

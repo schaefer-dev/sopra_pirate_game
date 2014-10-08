@@ -134,7 +134,7 @@ public class Map {
 		if(field.getShip() != null && field.getShip().marked)
 			markHex(mid, radius/1.4, field.getShip().getFleet().getColor(), false);
 		
-		if(cam.zoomLevelAbsolute() < 1 && field.getFieldType() == FieldType.Water)
+		if(cam.zoomLevelAbsolute() < 1)
 			markHex(mid, radius, Color.BLACK, true);
 		if(left){
 			Point2D upL = new Point2D(mid.getX() - radius, mid.getY() - radius/2);
@@ -177,18 +177,9 @@ public class Map {
 			for(int x = 0; x < mapWidth; x++){
 				Field field = map[x][y];
 				
-				switch(field.getFieldType()){
-					case Water:
-						if(hasNeigbor(field, FieldType.Island) || hasNeigbor(field, FieldType.ProvisionIsland))
-							field.setFieldImage(ressources.getShoreWaterImage());
-						break;
-						/*
-					case Island:
-						if(hasNeigbor(field, FieldType.Water) || hasNeigbor(field, FieldType.Base))
-							field.setFieldImage(ressources.getShoreIslandImage());
-						break;*/
-					default: 
-						break;
+				if(field.getFieldType() == FieldType.Water){
+					if(hasNeigbor(field, FieldType.Island) || hasNeigbor(field, FieldType.ProvisionIsland))
+						field.setFieldImage(ressources.getShoreWaterImage());
 				}
 			}
 		}

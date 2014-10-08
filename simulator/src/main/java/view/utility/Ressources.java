@@ -176,7 +176,7 @@ public class Ressources {
 		defaultConfiguration.setTreasureDensity(1);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(100);
-		defaultConfiguration.setTeamCount(14);
+		defaultConfiguration.setTeamCount(10);
 		defaultConfiguration.setShipCount(10);
 
 		defaultConfiguration.setRounds(10000);
