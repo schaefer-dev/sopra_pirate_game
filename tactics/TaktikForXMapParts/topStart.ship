@@ -632,7 +632,7 @@
 
 
 *topNotFirstLastBottomRow
-	goto 999
+	goto 1999
 *topFarmAlgorythmRight
 	*topFarmAlgorythmRightMoveAgain01 move else topFarmAlgorythmRightMoveAgain01
 	*topFarmAlgorythmRightMoveAgain02 move else topFarmAlgorythmRightMoveAgain02
