@@ -40,7 +40,6 @@ public class Field {
 		
 		switch(type){
 			case Base:
-				fieldImage = map.getRessources().getBaseImage();
 				break;
 			case Water:
 				fieldImage = map.getRessources().getWaterImage();
@@ -67,7 +66,7 @@ public class Field {
 		this.type = FieldType.Base;
 		this.affiliation = affiliation;
 		this.buoys = new LinkedList<SimpleEntity>();
-		fieldImage = map.getRessources().getBaseImage();
+		fieldImage = map.getRessources().getBaseImage(affiliation);
 		farAway = false;
 	}
 	
@@ -113,8 +112,12 @@ public class Field {
 			images.add(detailImage);
 		if(buoysImage != null && zoom < 1)
 			images.add(buoysImage);
-		if(krakenImage != null && zoom < 3)
-			images.add(krakenImage);
+		if(krakenImage != null && zoom < 3){
+			if(ship == null)
+				images.add(krakenImage);
+			else
+				images.add(map.getRessources().getKrakenImage());
+		}
 		if(treasureImage != null && zoom < 3)
 			images.add(treasureImage);
 
@@ -221,12 +224,8 @@ public class Field {
 			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
 				farAway = true;
 		}
-		else{
-			if(map.getCam() != null)
-				krakenImage = (map.getCam().zoomLevelAbsolute() > 1) ? map.getRessources().getKrakenFarImage() : map.getRessources().getKrakenImage();
-			else
-				krakenImage = map.getRessources().getKrakenFarImage();
-		}
+		else
+			krakenImage = map.getRessources().getKrakenFarImage();
 			
 		this.kraken = kraken;
 		redraw();
