@@ -25,6 +25,8 @@
 *bottomStartRightRowSecondShip
 	sense 2
 	if sense_shiptype==friend else bottomStartRightRowNotFirstSecondShip
+	sense 5
+	if sense_celltype==empty else bottomStartRightRowNotFirstSecondShip
 	*bottomStartRightRowSecondShipMove01 move else bottomStartRightRowSecondShipMove01
 	turn left
 	*bottomStartRightRowSecondShipMove02 move else bottomStartRightRowSecondShipMove02
@@ -45,6 +47,12 @@
 	goto bottomStartRightRowNotFirstSecondShip
 
 *bottomStartRightRowNotFirstSecondShip
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
+	sense 0
 	*bottomStartRightRowNotFirstSecondShipMove01 move else bottomStartRightRowNotFirstSecondShipMove01
 	*bottomStartRightRowNotFirstSecondShipMove02 move else bottomStartRightRowNotFirstSecondShipMove02
 	turn left
@@ -68,7 +76,28 @@
 	
 
 *bottomStartNotRightRow
+	sense 3
+	if sense_celltype==empty else bottomStartNotRightLeftRow
+	goto bottomStartLeftRow
+
+
+*bottomStartNotRightLeftRow
+	sense 5
+	if sense_celltype==empty else bottmStartNotRightLeftTopRow
+	goto bottomStartTopRow
+
+*bottomStartTopRow
+	turn left
+	goto bottomStartTopRow
+
+*bottmStartNotRightLeftTopRow
 	goto 1999
+
+*bottomStartLeftRow
+	turn left
+	turn left
+	turn left
+	goto bottomFarmAlgorythmLeft
 
 *bottomFarmAlgorythmRight
 						turn left
@@ -182,3 +211,8 @@
 		*bottomFarmAlgorythmRightTurn2Move102 move else bottomFarmAlgorythmRightTurn2Move102
 		*bottomFarmAlgorythmRightTurn2Move103 move else bottomFarmAlgorythmRightTurn2Move103
 					goto bottomFarmAlgorythmRightSecondTime2
+
+
+
+*bottomFarmAlgorythmLeft
+	goto bottomFarmAlgorythmLeft
