@@ -88,6 +88,7 @@ public class Configuration {
 	}
 	
 	public void placeObjectsOnMap(){
+		System.out.println(generator);
 		generator.setProvision(0.005 * supplyDensity);
 		generator.setTreasure(0.005 * treasureDensity);
 		generator.setKraken(krakenCount);
