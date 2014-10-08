@@ -56,7 +56,7 @@ public class SelectionFile extends SelectionWindow {
 		HBox box = new HBox(8);
 		box.getChildren().addAll(rounds, roundSlider, roundsLabel);
 
-        root.getChildren().addAll(openFile, box, new Label("\n\n\n\n\n\n"));
+        root.getChildren().addAll(openFile, box, new Label(" gdfg   \ndgdfg   \n dfgdfg \n dfgdf \n  \n  \n  \n  \n"));
 	}
 	
 	@Override

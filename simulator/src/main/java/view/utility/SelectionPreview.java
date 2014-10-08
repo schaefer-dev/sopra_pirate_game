@@ -17,7 +17,7 @@ public class SelectionPreview extends SelectionWindow {
 	private Configuration config;
 	private int teamCount;
 	
-	public SelectionPreview(Configuration config, String name, String rounds, String mapSize, int teamCount, String difficulty, String description, File mapFile) throws IOException{
+	public SelectionPreview(Configuration config, String name, String rounds, String mapSize, int teamCount, String description, File mapFile) throws IOException{
 		root = new VBox(20);
 		root.getStyleClass().add("preview");
 				
