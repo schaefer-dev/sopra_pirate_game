@@ -362,48 +362,50 @@ turn right
 goto 353
 move else 347
 goto 347
-flipzero 2 else 368
-if ship_direction!=0 else 371
+flipzero 5 else 366
+goto 270
+flipzero 2 else 370
+if ship_direction!=0 else 373
 turn right
-goto 365
-if ship_direction!=3 else 371
+goto 367
+if ship_direction!=3 else 373
 turn right
-goto 368
+goto 370
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 turn right
 turn right

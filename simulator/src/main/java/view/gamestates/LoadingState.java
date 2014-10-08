@@ -23,7 +23,6 @@ public class LoadingState implements GameState {
 	
 	private Random random;
 	private List<String> shipFileList;
-	//private String[]shipFiles;
 	private String mapFile;
 	private Integer turns;
 	

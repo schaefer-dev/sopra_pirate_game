@@ -3,7 +3,6 @@ package model;
 import controller.Command;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
 
 
 /**

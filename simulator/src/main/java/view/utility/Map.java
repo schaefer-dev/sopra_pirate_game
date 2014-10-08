@@ -129,6 +129,9 @@ public class Map {
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		if(field.getShipImage() != null){
 			Ship ship = field.getShip();
+			if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
+				gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			
 			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		}
 		if(field.getShip() != null && field.getShip().marked)
