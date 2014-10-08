@@ -2,8 +2,9 @@
 						sense 0 																;refresh
 						ifany sense_celltype==empty sense_celltype==home else farmIslandStartUhrzeigerPickup
 						goto farmIslandUhrzeigerMove
-*farmIslandStartUhrzeigerPickup 	pickup 0 else *farmIslandUhrzeigerMove
+*farmIslandStartUhrzeigerPickup 	pickup 0 else farmIslandStartUhrzeigerSkipPickup
 						goto findBackFromIsland
+*farmIslandStartUhrzeigerSkipPickup		goto farmIslandStartUhrzeigerPickupTurnLeft
 *farmIslandUhrzeigerMove	move else farmIslandUhrzeigerMoveHit					;Feld auf das hier gemovt wurde, wurde vorher GARANTIERT als letztes gesenst
 						pickup 1 else farmIslandCheckRight
 						goto findBackFromIsland
