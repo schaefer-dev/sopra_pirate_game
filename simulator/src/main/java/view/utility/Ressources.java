@@ -25,6 +25,12 @@ public class Ressources {
 	private Image shoreIsland;
 	private Image shoreWater;
 	
+	private Image playImage;
+	private Image pauseImage;
+	private Image nextImage;
+	private Image speedUpImage;
+	private Image slowDownImage;
+	
 	private List<Image> islandDetails = new ArrayList<Image>();
 	private List<Image> shipImages = new ArrayList<Image>();
 	
@@ -45,7 +51,7 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	waterFar = new Image(stream);
 	    	
-	    	file = new File("src/main/ressources/shoreIsland.png");
+	    	file = new File("src/main/ressources/proviant.png");
 	    	stream = new FileInputStream(file);
 	    	provision = new Image(stream);
 	    	
@@ -85,19 +91,38 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	buoyImage = new Image(stream);
 	    	
-	    	file = new File("src/main/ressources/bush1.png");
-	    	stream = new FileInputStream(file);
-	    	islandDetails.add(new Image(stream));
 	    	
-	    	file = new File("src/main/ressources/house1.png");
-	    	stream = new FileInputStream(file);
-	    	islandDetails.add(new Image(stream));
+	    	for(int i = 1; i < 7; i++){
+		    	file = new File("src/main/ressources/IslandDetails/"+i+".png");
+		    	stream = new FileInputStream(file);
+		    	islandDetails.add(new Image(stream));
+	    	}
 	    	
 	    	for(int i = 1; i < 15; i++){
 	    		file = new File("src/main/ressources/ships/"+i+".png");
 	    		stream = new FileInputStream(file);
 	    		shipImages.add(new Image(stream));
 	    	}
+	    	
+	    	file = new File("src/main/ressources/Buttons/play.png");
+	    	stream = new FileInputStream(file);
+	    	playImage = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/Buttons/pause.png");
+	    	stream = new FileInputStream(file);
+	    	pauseImage = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/Buttons/next.png");
+	    	stream = new FileInputStream(file);
+	    	nextImage = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/Buttons/speedup.png");
+	    	stream = new FileInputStream(file);
+	    	speedUpImage = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/Buttons/slowdown.png");
+	    	stream = new FileInputStream(file);
+	    	slowDownImage = new Image(stream);
 	    	
 	    	stream.close();
 	    	createDefaultConfig();
@@ -167,15 +192,37 @@ public class Ressources {
 		return islandDetails;
 	}
 	
+	
+	public Image getPlayImage(){
+		return playImage;
+	}
+	
+	public Image getPauseImage(){
+		return pauseImage;
+	}
+	
+	public Image getNextImage(){
+		return nextImage;
+	}
+	
+	public Image getSpeedUpImage(){
+		return speedUpImage;
+	}
+	
+	public Image getSlowDownImage(){
+		return slowDownImage;
+	}
+	
+	
 	public Configuration getDefaultConfig(){
 		return defaultConfiguration;
 	}
 	
 	public void createDefaultConfig() throws IOException{
 		defaultConfiguration = new Configuration();
-		defaultConfiguration.setTreasureDensity(1);
+		defaultConfiguration.setTreasureDensity(100);
 		defaultConfiguration.setSupplyDensity(2);
-		defaultConfiguration.setKrakenCount(100);
+		defaultConfiguration.setKrakenCount(10);
 		defaultConfiguration.setTeamCount(10);
 		defaultConfiguration.setShipCount(10);
 

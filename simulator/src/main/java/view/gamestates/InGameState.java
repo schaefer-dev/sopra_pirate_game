@@ -19,6 +19,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -97,9 +98,13 @@ public class InGameState implements GameState, LogWriter {
         roundCounter.getStyleClass().add("menulabel");
         roundCounter.setTranslateX(10);
         
-        next = new Button("Next");
+		ImageView nextImage = new ImageView(manager.getRessources().getNextImage());
+		nextImage.setFitHeight(30);
+		nextImage.setFitWidth(30);
+        next = new Button();
+        next.setGraphic(nextImage);
         next.setTranslateY(665);
-       
+        next.setTranslateX(500);
 		next.getStyleClass().add("canvasbutton");
 		next.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -114,30 +119,46 @@ public class InGameState implements GameState, LogWriter {
 			}
 		});
 		
-        play = new Button("Play");
+		ImageView playImage = new ImageView(manager.getRessources().getPlayImage());
+		playImage.setFitHeight(30);
+		playImage.setFitWidth(30);
+        play = new Button();
+        play.setGraphic(playImage);
         play.setTranslateY(665);
-        play.setTranslateX(75);
+        play.setTranslateX(550);
         play.getStyleClass().add("canvasbutton");
         
-        pause = new Button("Pause");
+		ImageView pauseImage = new ImageView(manager.getRessources().getPauseImage());
+		pauseImage.setFitHeight(30);
+		pauseImage.setFitWidth(30);
+        pause = new Button();
+        pause.setGraphic(pauseImage);
         pause.setVisible(false);
         pause.setTranslateY(665);
-        pause.setTranslateX(75);
+        pause.setTranslateX(550);
         pause.getStyleClass().add("canvasbutton");
 		
-		slowDown = new Button("-");
-		//slowDown.setTranslateY(665);
-		//slowDown.setTranslateX(150);
+		ImageView slowDownImage = new ImageView(manager.getRessources().getSlowDownImage());
+		slowDownImage.setFitHeight(30);
+		slowDownImage.setFitWidth(30);
+		slowDown = new Button();
+		slowDown.setGraphic(slowDownImage);
+		slowDown.setTranslateY(665);
+		slowDown.setTranslateX(600);
 		slowDown.getStyleClass().add("canvasbutton");
 		
-		speedUp = new Button("+");
-		//speedUp.setTranslateY(663);
-		//speedUp.setTranslateX(170);
+		ImageView speedUpImage = new ImageView(manager.getRessources().getSpeedUpImage());
+		speedUpImage.setFitHeight(30);
+		speedUpImage.setFitWidth(30);
+		speedUp = new Button();
+		speedUp.setGraphic(speedUpImage);
+		speedUp.setTranslateY(665);
+		speedUp.setTranslateX(635);
 		speedUp.getStyleClass().add("canvasbutton");
 		
 		speed = new Label("10x");
-		//speed.setTranslateY(667);
-		//speed.setTranslateX(220);
+		speed.setTranslateY(670);
+		speed.setTranslateX(700);
 		speed.getStyleClass().add("menulabel");
 		
 		this.control = new GameFlowControl(this, play, pause, speedUp, slowDown, speed);
@@ -229,13 +250,14 @@ public class InGameState implements GameState, LogWriter {
         final TitledPane teamOpen = new TitledPane("Teams", teamWindow);
         teamOpen.setTranslateX(1120);        
 		
+        /*
 		VBox speedBox = new VBox();
 		speedBox.setTranslateY(600);
 		speedBox.setTranslateX(150);
 		speedBox.getChildren().addAll(speedUp, speed, slowDown);
-		
+		*/
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedBox, menu, tooltip, teamOpen);
+		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedUp, slowDown, speed, menu, tooltip, teamOpen);
 		manager.getScene().setRoot(root);
 	}
 
