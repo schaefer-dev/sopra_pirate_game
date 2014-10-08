@@ -1,0 +1,214 @@
+				sense 4 
+				if sense_shiptype==friend else here
+				goto 999
+*here				sense 0
+				if sense_shiptype==friend else bottomFarmAlgorythmRight
+				sense 3 
+				if sense_shiptype==friend else bottomFarmAlgorythmLeft
+*bottomFarmAlgorythmRight	goto 1999
+				turn left
+*bottomFarmAlgorythmRightMove01	move else bottomFarmAlgorythmRightMove01
+*bottomFarmAlgorythmRightMove02	move else bottomFarmAlgorythmRightMove02
+*bottomFarmAlgorythmRightMove03	move else bottomFarmAlgorythmRightMove03
+				turn left 
+*bottomFarmAlgorythmRLeftTurnMove01 move else bottomFarmAlgorythmRLeftTurnMove01
+*bottomFarmAlgorythmRLeftTurnMove02 move else bottomFarmAlgorythmRLeftTurnMove02
+*bottomFarmAlgorythmRLeftTurnMove03 move else bottomFarmAlgorythmRLeftTurnMove03
+*bottomFarmAlgorythmRLeftTurnMove04 move else bottomFarmAlgorythmRLeftTurnMove04
+*bottomFarmAlgorythmRLeftTurnMove05 move else bottomFarmAlgorythmRLeftTurnMove05
+*bottomFarmAlgorythmRLeftTurnMove06 move else bottomFarmAlgorythmRLeftTurnMove06
+*bottomFarmAlgorythmRLeftTurnMove07 move else bottomFarmAlgorythmRLeftTurnMove07
+*bottomFarmAlgorythmRLeftTurnMove08 move else bottomFarmAlgorythmRLeftTurnMove08
+*bottomFarmAlgorythmRLeftTurnMove09 move else bottomFarmAlgorythmRLeftTurnMove09
+*bottomFarmAlgorythmRLeftTurnMove10 move else bottomFarmAlgorythmRLeftTurnMove10
+*bottomFarmAlgorythmRLeftTurnMove11 move else bottomFarmAlgorythmRLeftTurnMove11
+*bottomFarmAlgorythmRLeftTurnMove12 move else bottomFarmAlgorythmRLeftTurnMove12
+*bottomFarmAlgorythmRLeftTurnMove13 move else bottomFarmAlgorythmRLeftTurnMove13
+*bottomFarmAlgorythmRLeftTurnMove14 move else bottomFarmAlgorythmRLeftTurnMove14
+*bottomFarmAlgorythmRLeftTurnMove15 move else bottomFarmAlgorythmRLeftTurnMove15
+*bottomFarmAlgorythmRLeftTurnMove16 move else bottomFarmAlgorythmRLeftTurnMove16
+*bottomFarmAlgorythmRLeftTurnMove17 move else bottomFarmAlgorythmRLeftTurnMove17
+				turn right
+*bottomFarmAlgorythmRightTurnMove01 move else bottomFarmAlgorythmRightTurnMove01
+				mark 3
+				turn right
+*bottomFarmAlgorythmRightTurn2Move01 move else bottomFarmAlgorythmRightTurn2Move01
+				mark 3
+*bottomFarmAlgorythmRightTurn2Move02 move else bottomFarmAlgorythmRightTurn2Move02
+				mark 3
+*bottomFarmAlgorythmRightTurn2Move03 move else bottomFarmAlgorythmRightTurn2Move03
+				mark 3
+*bottomFarmAlgorythmRightSecondTime2 turn right
+				turn right
+*bottomFarmAlgorythmRightGoPickUpMove01 move else bottomFarmAlgorythmRightGoPickUpMove01
+				turn left
+*bottomFarmAlgorythmRightGoPickUpMove02	move else bottomFarmAlgorythmRightGoPickUpMove01
+				pickup 1 else bottomFarmAlgorythmRightGoPickUpMove02
+				if ship_load<4 else *getHome
+				goto bottomFarmAlgorythmRightGoPickUpMove02
+*getHome
+				turn left 
+				turn left 
+*bottomFarmAlgorythmRightGoHomeMove01 move else bottomFarmAlgorythmRightGoHomeMove01
+				turn left
+*bottomFarmAlgorythmRightGoHomeMove02 move else bottomFarmAlgorythmRightGoHomeMove02
+				sense 6
+				if sense_marker3 else bottomFarmAlgorythmRightGoHomeMove02
+*bottomFarmAlgorythmRightGoHomeMove03 move else bottomFarmAlgorythmRightGoHomeMove03
+				turn left 
+*bottomFarmAlgorythmRightGoHomeMove04 move else bottomFarmAlgorythmRightGoHomeMove04
+*bottomFarmAlgorythmRightGoHomeMove05 move else bottomFarmAlgorythmRightGoHomeMove05
+*bottomFarmAlgorythmRightGoHomeMove06 move else bottomFarmAlgorythmRightGoHomeMove06
+*bottomFarmAlgorythmRightGoHomeMove07 move else bottomFarmAlgorythmRightGoHomeMove07
+*bottomFarmAlgorythmRightGoHomeMove08 move else bottomFarmAlgorythmRightGoHomeMove08
+*bottomFarmAlgorythmRightGoHomeMove09 move else bottomFarmAlgorythmRightGoHomeMove09
+*bottomFarmAlgorythmRightGoHomeMove10 move else bottomFarmAlgorythmRightGoHomeMove10
+				turn left
+				turn left
+*bottomFarmAlgorythmRightGoHomeMove11 move else bottomFarmAlgorythmRightGoHomeMove11
+*bottomFarmAlgorythmRightGoHomeMove12 move else bottomFarmAlgorythmRightGoHomeMove12
+*bottomFarmAlgorythmRightGoHomeMove13 move else bottomFarmAlgorythmRightGoHomeMove13
+*bottomFarmAlgorythmRightGoHomeMove14 move else bottomFarmAlgorythmRightGoHomeMove14
+*bottomFarmAlgorythmRightGoHomeMove15 move else bottomFarmAlgorythmRightGoHomeMove15
+*bottomFarmAlgorythmRightGoHomeMove16 move else bottomFarmAlgorythmRightGoHomeMove16
+*bottomFarmAlgorythmRightGoHomeMove17 move else bottomFarmAlgorythmRightGoHomeMove17
+*bottomFarmAlgorythmRightGoHomeMove18 move else bottomFarmAlgorythmRightGoHomeMove18
+*bottomFarmAlgorythmRightGoHomeMove19 move else bottomFarmAlgorythmRightGoHomeMove19
+*bottomFarmAlgorythmRightGoHomeMove20 move else bottomFarmAlgorythmRightGoHomeMove20
+*bottomFarmAlgorythmRightGoHomeMove21 move else bottomFarmAlgorythmRightGoHomeMove21
+*bottomFarmAlgorythmRightGoHomeMove22 move else bottomFarmAlgorythmRightGoHomeMove22
+*bottomFarmAlgorythmRightGoHomeMove23 move else bottomFarmAlgorythmRightGoHomeMove23
+*bottomFarmAlgorythmRightGoHomeMove24 move else bottomFarmAlgorythmRightGoHomeMove24
+*bottomFarmAlgorythmRightGoHomeMove25 move else bottomFarmAlgorythmRightGoHomeMove25
+*bottomFarmAlgorythmRightGoHomeMove26 move else bottomFarmAlgorythmRightGoHomeMove26
+*bottomFarmAlgorythmRightGoHomeMove27 move else bottomFarmAlgorythmRightGoHomeMove27
+*bottomFarmAlgorythmRightGoHomeMove28 move else bottomFarmAlgorythmRightGoHomeMove28
+*bottomFarmAlgorythmRightGoHomeMove29 move else bottomFarmAlgorythmRightGoHomeMove29
+*bottomFarmAlgorythmRightGoHomeMove30 move else bottomFarmAlgorythmRightGoHomeMove30
+*bottomFarmAlgorythmRightGoHomeMove31 move else bottomFarmAlgorythmRightGoHomeMove31
+*bottomFarmAlgorythmRightGoHomeMove32 move else bottomFarmAlgorythmRightGoHomeMove32
+				turn left
+				turn left
+				drop 
+*bottomFarmAlgorythmRightMove01	move else bottomFarmAlgorythmRightMove01
+*bottomFarmAlgorythmRightMove02	move else bottomFarmAlgorythmRightMove02
+*bottomFarmAlgorythmRightMove03	move else bottomFarmAlgorythmRightMove03
+				turn left 
+*bottomFarmAlgorythmRLeftTurnMove01 move else bottomFarmAlgorythmRLeftTurnMove01
+*bottomFarmAlgorythmRLeftTurnMove02 move else bottomFarmAlgorythmRLeftTurnMove02
+*bottomFarmAlgorythmRLeftTurnMove03 move else bottomFarmAlgorythmRLeftTurnMove03
+*bottomFarmAlgorythmRLeftTurnMove04 move else bottomFarmAlgorythmRLeftTurnMove04
+*bottomFarmAlgorythmRLeftTurnMove05 move else bottomFarmAlgorythmRLeftTurnMove05
+*bottomFarmAlgorythmRLeftTurnMove06 move else bottomFarmAlgorythmRLeftTurnMove06
+*bottomFarmAlgorythmRLeftTurnMove07 move else bottomFarmAlgorythmRLeftTurnMove07
+*bottomFarmAlgorythmRLeftTurnMove08 move else bottomFarmAlgorythmRLeftTurnMove08
+*bottomFarmAlgorythmRLeftTurnMove09 move else bottomFarmAlgorythmRLeftTurnMove09
+*bottomFarmAlgorythmRLeftTurnMove10 move else bottomFarmAlgorythmRLeftTurnMove10
+*bottomFarmAlgorythmRLeftTurnMove11 move else bottomFarmAlgorythmRLeftTurnMove11
+*bottomFarmAlgorythmRLeftTurnMove12 move else bottomFarmAlgorythmRLeftTurnMove12
+*bottomFarmAlgorythmRLeftTurnMove13 move else bottomFarmAlgorythmRLeftTurnMove13
+*bottomFarmAlgorythmRLeftTurnMove14 move else bottomFarmAlgorythmRLeftTurnMove14
+*bottomFarmAlgorythmRLeftTurnMove15 move else bottomFarmAlgorythmRLeftTurnMove15
+*bottomFarmAlgorythmRLeftTurnMove16 move else bottomFarmAlgorythmRLeftTurnMove16
+*bottomFarmAlgorythmRLeftTurnMove17 move else bottomFarmAlgorythmRLeftTurnMove17
+				turn right
+*bottomFarmAlgorythmRightTurnMove01 move else bottomFarmAlgorythmRightTurnMove01
+				turn right
+*bottomFarmAlgorythmRightTurn2Move01 move else bottomFarmAlgorythmRightTurn2Move01
+*bottomFarmAlgorythmRightTurn2Move02 move else bottomFarmAlgorythmRightTurn2Move02
+*bottomFarmAlgorythmRightTurn2Move03 move else bottomFarmAlgorythmRightTurn2Move03
+			goto bottomFarmAlgorythmRightSecondTime2
+*bottomFarmAlgorythmLeft
+*bottomFarmAlgorythmLeftMove01 move else bottomFarmAlgorythmLeftMove01
+*bottomFarmAlgorythmLeftMove02 move else bottomFarmAlgorythmLeftMove02
+*bottomFarmAlgorythmLeftMove03 move else bottomFarmAlgorythmLeftMove03
+*bottomFarmAlgorythmLeftMove04 move else bottomFarmAlgorythmLeftMove04
+*bottomFarmAlgorythmLeftMove05 move else bottomFarmAlgorythmLeftMove05
+*bottomFarmAlgorythmLeftMove06 move else bottomFarmAlgorythmLeftMove06
+*bottomFarmAlgorythmLeftMove07 move else bottomFarmAlgorythmLeftMove07
+*bottomFarmAlgorythmLeftMove08 move else bottomFarmAlgorythmLeftMove08
+*bottomFarmAlgorythmLeftMove09 move else bottomFarmAlgorythmLeftMove09
+*bottomFarmAlgorythmLeftMove10 move else bottomFarmAlgorythmLeftMove10
+*bottomFarmAlgorythmLeftMove11 move else bottomFarmAlgorythmLeftMove11
+*bottomFarmAlgorythmLeftMove12 move else bottomFarmAlgorythmLeftMove12
+*bottomFarmAlgorythmLeftMove13 move else bottomFarmAlgorythmLeftMove13
+			turn right
+			turn right
+*bottomFarmAlgorythmLRightMove01 move else bottomFarmAlgorythmLRightMove01
+			sense 0 
+			if sense_celltype==island else bottomFarmAlgorythmLRightMove01
+			turn left
+*bottomFarmAlgorythmLRightMove02 move else bottomFarmAlgorythmLRightMove02
+			turn right 
+*bottomFarmAlgorythmLRightMove03 move else bottomFarmAlgorythmLRightMove03
+*bottomFarmAlgorythmLRightMove04 move else bottomFarmAlgorythmLRightMove04
+*bottomFarmAlgorythmLRightMove05 move else bottomFarmAlgorythmLRightMove05
+*bottomFarmAlgorythmLRightMove06 move else bottomFarmAlgorythmLRightMove06
+*bottomFarmAlgorythmLRightMove07 move else bottomFarmAlgorythmLRightMove07
+*bottomFarmAlgorythmLRightMove08 move else bottomFarmAlgorythmLRightMove08
+*bottomFarmAlgorythmLRightMove09 move else bottomFarmAlgorythmLRightMove09
+*bottomFarmAlgorythmLRightMove10 move else bottomFarmAlgorythmLRightMove10
+*bottomFarmAlgorythmLRightMove11 move else bottomFarmAlgorythmLRightMove11
+*bottomFarmAlgorythmLRightMove12 move else bottomFarmAlgorythmLRightMove12
+*bottomFarmAlgorythmLRightMove13 move else bottomFarmAlgorythmLRightMove13
+*bottomFarmAlgorythmLRightMove14 move else bottomFarmAlgorythmLRightMove14
+*bottomFarmAlgorythmLRightMove15 move else bottomFarmAlgorythmLRightMove15
+*bottomFarmAlgorythmLRightMove16 move else bottomFarmAlgorythmLRightMove16
+*bottomFarmAlgorythmLRightMove17 move else bottomFarmAlgorythmLRightMove17
+			turn left
+*bottomFarmAlgorythmLRightMove18 move else bottomFarmAlgorythmLRightMove18
+			turn right
+*bottomFarmAlgorythmLRightMove19 move else bottomFarmAlgorythmLRightMove19
+*bottomFarmAlgorythmLRightMove20 move else bottomFarmAlgorythmLRightMove20
+			turn right
+*bottomFarmAlgorythmLRightMove21 move else bottomFarmAlgorythmLRightMove21
+*bottomFarmAlgorythmLRightMove22 move else bottomFarmAlgorythmLRightMove22
+*bottomFarmAlgorythmLRightMove23 move else bottomFarmAlgorythmLRightMove23
+			turn right
+			goto LeftPickUpRight
+*LeftPickUpRightLook    sense 0 
+			if sense_celltype==island else LeftPickUpRight
+			goto LeftPickUpBorderLine
+*LeftPickUpRight	move else LeftPickUpRight
+			pickup 1 else LeftPickUpRightLook
+			if ship_load<4 else bottomFarmAlgorythmLeftHome00
+			goto LeftPickUpRightLook  
+*LeftPickUpBorderLine   turn left 
+			pickup1 else LeftPickUpBorderPickUp01
+			if ship_load<4 else *bottomFarmAlgorythmLeftSpecial00
+*LeftPickUpBorderPickUp01 move else LeftPickUpBorderPickUp01
+			pickup 1 else LeftPickUpBorderPickUp02
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial01
+*LeftPickUpBorderPickUp02 move else LeftPickUpBorderPickUp02
+			pickup 1 else LeftPickUpBorderPickUp03
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial02
+*LeftPickUpBorderPickUp03 move else LeftPickUpBorderPickUp03
+			pickup 1 else LeftPickUpBorderPickUp04
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial03
+*LeftPickUpBorderPickUp04 move else LeftPickUpBorderPickUp04
+			pickup 1 else LeftPickUpBorderPickUp05
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial04
+*LeftPickUpBorderPickUp05 move else LeftPickUpBorderPickUp05
+			pickup 1 else LeftPickUpBorderPickUp06
+			if ship_load<4 elsebottomFarmAlgorythmLeftSpecial06
+*LeftPickUpBorderPickUp06 move else LeftPickUpBorderPickUp06
+			pickup 1 else LeftPickUpBorderLine2
+			if ship_load<4 else bottomFarmAlgorythmLeftSpecial07
+LeftPickUpBorderLine2   turn left
+
+*bottomFarmAlgorythmLeftSpecial00 turn left
+*specialmove0		move else specialmove0
+			turn right 
+			goto bottomFarmAlgorythmLeftHome02
+
+*bottomFarmAlgorythmLeftHome00 
+			turn left
+*bottomFarmAlgorythmLeftHome01 move else bottomFarmAlgorythmLeftHome01
+*bottomFarmAlgorythmLeftHome02 move else bottomFarmAlgorythmLeftHome02
+*bottomFarmAlgorythmLeftHome03 move else bottomFarmAlgorythmLeftHome03
+*bottomFarmAlgorythmLeftHome04 move else bottomFarmAlgorythmLeftHome04
+			turn left 
+			turn left
+
+*bottomFarmAlgorythmTop
+	goto 999

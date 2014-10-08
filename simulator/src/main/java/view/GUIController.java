@@ -52,7 +52,6 @@ public class GUIController extends Application {
 		for(GameState current: states)
 			current.exiting();
 		
-		
 		states = new Stack<GameState>();
 		states.push(state);
 		state.entered(this);

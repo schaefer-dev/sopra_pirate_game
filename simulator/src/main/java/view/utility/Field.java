@@ -92,17 +92,18 @@ public class Field {
 			break;
 
 		case ProvisionIsland:
-			if(zoom < 5)
-				images.add(fieldImage);
-			else
+			if(zoom > 4)
 				images.add(map.getRessources().getIslandImage());
+			else if(zoom > 2)
+				images.add(map.getRessources().getShoreIslandImage());
+			else
+				images.add(fieldImage);
 			break;
 		case Island:
 			images.add(fieldImage);
 			break;
 		}
 
-		
 		if(farAway){
 			farAway = false;
 			images.add(map.getRessources().getWaterFarImage());
@@ -129,6 +130,9 @@ public class Field {
 		return null;
 	}
 	
+	public Image getFieldImage(){
+		return fieldImage;
+	}
 	
 	public void setFieldImage(Image fieldImage){
 		this.fieldImage = fieldImage;
@@ -177,6 +181,9 @@ public class Field {
 			treasureImage = (treasure == null) ? null : map.getRessources().getWaterTreasureImage();
 		else if(type == FieldType.Island)
 			treasureImage = (treasure == null) ? null : map.getRessources().getIslandTreasureImage();
+		
+		if(type == FieldType.Island && detailImage != null)
+			detailImage = null;
 		
 		this.treasure = treasure;
 		redraw();
