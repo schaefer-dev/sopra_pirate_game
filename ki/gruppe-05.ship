@@ -165,9 +165,9 @@ goto 160
 sense 6
 if sense_celltype==home else 170
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 if !sense_marker0 else 200
 if !sense_marker1 else 195
 if !sense_marker2 else 190
@@ -206,54 +206,54 @@ goto 200
 sense 6
 if sense_celltype==home else 211
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 ifall ship_direction==0 sense_marker0 else 170
 move else 170
 goto 205
 sense 6
 if sense_celltype==home else 220
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 ifall ship_direction==1 sense_marker1 else 170
 move else 164
 goto 214
 sense 6
 if sense_celltype==home else 229
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 ifall ship_direction==2 sense_marker2 else 170
 move else 164
 goto 223
 sense 6
 if sense_celltype==home else 238
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 ifall ship_direction==3 sense_marker3 else 170
 move else 164
 goto 232
 sense 6
 if sense_celltype==home else 247
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 ifall ship_direction==4 sense_marker4 else 170
 move else 164
 goto 241
 sense 6
 if sense_celltype==home else 256
 drop
-if ship_condition!=3 else 357
-repair else 357
-goto 357
+if ship_condition!=3 else 364
+repair else 364
+goto 364
 ifall ship_direction==5 sense_marker5 else 170
 move else 164
 goto 250
@@ -348,55 +348,64 @@ move else 343
 sense 6
 ifall !sense_marker0 !sense_marker1 !sense_marker2 !sense_marker3 !sense_marker4 !sense_marker5 sense_celltype!=home else 164
 sense 0
-ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 355
+ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 362
+flipzero 10 else 353
+goto 357
 turn left
 sense 0
-ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 355
-goto 351
+ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 362
+goto 353
+turn right
+sense 0
+ifany sense_shiptype==enemy sense_shiptype==friend sense_celltype==enemyhome sense_celltype==island else 362
+turn right
+goto 353
 move else 347
 goto 347
-flipzero 2 else 361
-if ship_direction!=0 else 364
+flipzero 5 else 366
+goto 270
+flipzero 2 else 370
+if ship_direction!=0 else 373
 turn right
-goto 358
-if ship_direction!=3 else 364
+goto 367
+if ship_direction!=3 else 373
 turn right
-goto 361
+goto 370
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 sense 0
-if sense_celltype==empty else 271
+ifany sense_celltype==empty sense_celltype==home else 271
 move else 270
 turn right
 turn right
