@@ -52,9 +52,9 @@ public class Main {
 				char[][] fields = trans.transform();
 				height = fields.length;
 				width = fields[0].length;
-				Generator gen1 = new Generator(fields, teamsPerMap, boatsPerTeam1);
+//				Generator gen1 = new Generator(fields, teamsPerMap, boatsPerTeam1);
 
-				write(gen1.placeObjects());
+				write(fields);
 				break;
 			default:
 				System.out.println("args[0] must be either 'generate' to generate a random map or 'transform' to create a map from an image file(args[1])");
@@ -63,7 +63,7 @@ public class Main {
 	
 	private static void write(char[][] fields) throws FileNotFoundException{
 		
-		PrintWriter out = new PrintWriter("map.txt");
+		PrintWriter out = new PrintWriter("map.map");
 		out.write(height.toString() + '\n');
 		out.write(width.toString() + '\n');
 		
