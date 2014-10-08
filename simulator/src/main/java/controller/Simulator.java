@@ -56,10 +56,12 @@ public class Simulator {
 		Translator translator = new Translator();
 		teams = new ArrayList<Team>();
 		if(shipFiles.length == 1){
+			
 			InputStream shipStream = getClass().getResourceAsStream(shipFiles[0]);
 			if(shipStream == null)
 				shipStream = new FileInputStream(shipFiles[0]);
 			List<Command> tactic = translator.run(shipStream);
+			
 			for(int i = 0; i < 26; i++)
 				teams.add(new Team((char)('a' + i), tactic));
 			shipStream.close();
@@ -87,7 +89,6 @@ public class Simulator {
 			scanner.close();
 			shipFiles[i] = shipString;
 		}
-		
 		InputStream mapStream = getClass().getResourceAsStream(mapFile);
 		if(mapStream == null)
 			mapStream= new FileInputStream(mapFile);
@@ -102,7 +103,7 @@ public class Simulator {
 			if(guiController != null)
 				logWriter.addLogger(guiController);
 		}
-
+		
 		MapGenerator generator = new MapGenerator();
 		InputStream inMap = getClass().getResourceAsStream(mapFile);
 		if(inMap == null)

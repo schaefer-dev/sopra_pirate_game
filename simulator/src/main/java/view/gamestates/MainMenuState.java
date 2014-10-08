@@ -4,6 +4,8 @@ import view.events.HoverEvent;
 import view.events.SwitchState;
 import view.utility.GameState;
 import view.GUIController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
@@ -24,7 +26,13 @@ public class MainMenuState implements GameState {
 		quickGame.getStyleClass().add("menubutton");
 		quickGame.setOnMouseEntered(new HoverEvent(control.getHoverText(), "Start a new game immediately"));
 		quickGame.setOnMouseExited(new HoverEvent(control.getHoverText(), ""));
-		quickGame.setOnAction(new SwitchState(manager, new LoadingState(), false));
+		quickGame.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				manager.switchState(new LoadingState());
+			}
+		});
 				
 		Button customGame = new Button("Custom Game");
 		customGame.getStyleClass().add("menubutton");
@@ -48,7 +56,6 @@ public class MainMenuState implements GameState {
 		
 		manager.getRoot().setCenter(root);
 	}
-
 	
 	@Override
 	public void exiting() {
