@@ -11,14 +11,14 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorTest {
-	String[] ships = {"/TestShip.ship"};
+	String[] ships = {"src/test/ressources/TestShip.ship"};
 	String map;
 	String logfile;
 	int rounds;
 	@Before
 	public void setUp(){
-		map = "/map.txt";
-		logfile = "/log.log";
+		map = "src/test/ressources/map.txt";
+		logfile = "src/test/ressources/log.log";
 		rounds = 2000;
 	}
 

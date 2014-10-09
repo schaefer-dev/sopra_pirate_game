@@ -11,14 +11,14 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorNoTreasureOnDeathTest {
-	String[] ships = {"/noTreasureOnDeath.ship"};
+	String[] ships = {"src/test/ressources/noTreasureOnDeath.ship"};
 	String map;
 	String logfile;
 	int rounds;
 	@Before
 	public void setUp(){
-		map = "/mapTreasureOnDeath.txt";
-		logfile = "/log.log";
+		map = "src/test/ressources/mapTreasureOnDeath.txt";
+		logfile = "src/test/ressources/log.log";
 		rounds = 20;
 	}
 

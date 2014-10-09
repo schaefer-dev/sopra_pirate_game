@@ -11,14 +11,14 @@ import org.junit.Test;
 import controller.Simulator;
 
 public class SimulatorSenseMoveTest {
-	String[] ships = {"/sensemove01.ship","/sensemove02doNothing.ship"};
+	String[] ships = {"src/test/ressources/sensemove01.ship","src/test/ressources/sensemove02doNothing.ship"};
 	String map;
 	String logfile;
 	int rounds;
 	@Before
 	public void setUp(){
 		map = "src/test/ressources/map4x4sensemove1.txt";
-		logfile = "/log.log";
+		logfile = "src/test/ressources/log.log";
 		rounds = 200;
 	}
 

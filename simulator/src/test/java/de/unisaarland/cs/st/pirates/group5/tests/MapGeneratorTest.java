@@ -45,9 +45,9 @@ public class MapGeneratorTest {
 	@Before
 	public void setUp() throws FileNotFoundException {
 		
-		stream = getClass().getResourceAsStream("/map2x2.txt");
+		stream = getClass().getResourceAsStream("src/test/ressources/map2x2.txt");
 		if(stream == null)
-			stream = new FileInputStream("/map2x2.txt");
+			stream = new FileInputStream("src/test/ressources/map2x2.txt");
 		mapgen = new MapGenerator();
 		team = new Team(a, null);
 		teamlist.add(team);
