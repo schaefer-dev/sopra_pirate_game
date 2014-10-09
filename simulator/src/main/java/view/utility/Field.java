@@ -163,10 +163,10 @@ public class Field {
 		return ship;
 	}
 	
-	public void setShip(Ship ship){
+	public void setShip(Ship ship, boolean destroyed){
 		if(ship == null){
 			sailedAway = true;
-			this.shipImage = null;
+			this.shipImage = destroyed ? map.getRessources().getDestroyedShipImage() : null;
 			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
 				farAway = true;
 		}

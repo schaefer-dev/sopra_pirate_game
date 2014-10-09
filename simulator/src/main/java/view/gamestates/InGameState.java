@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import controller.Simulator;
 import javafx.beans.value.ChangeListener;
@@ -328,11 +330,54 @@ public class InGameState implements GameState, LogWriter {
 		speedUp.setVisible(false);
 		speed.setVisible(false);
 		
-		Team winner = teams.get(0);
+		Team winner;
+		LinkedList<Team> potentialWinners = new LinkedList<Team>();
+		potentialWinners.add(teams.get(0));
+		int highScore = teams.get(0).getScore();
 		for(Team team: teams){
-			if(team.getScore() > winner.getScore())
-				winner = team;
+			if(team.getScore() > highScore){
+				potentialWinners.clear();
+				potentialWinners.add(team);
+				highScore = team.getScore();
+			}
+			else if(team.getScore() > highScore){
+				potentialWinners.add(team);
+			}
 		}
+		
+		if(potentialWinners.size() == 1)
+			winner = potentialWinners.getFirst();
+		else{
+			for(Team team: potentialWinners){
+				Integer loads = 0;
+				for(Ship ship: team.getShips()){
+					loads += ship.getLoad();
+				}
+				team.setShipLoads(loads);	
+			}
+			
+			LinkedList<Team> potentialWinnerByLoad = new LinkedList<Team>();
+			potentialWinnerByLoad.add(potentialWinners.getFirst());
+			
+			for(Team team: potentialWinners){
+				if(team.getShipLoads() > potentialWinnerByLoad.getFirst().getShipLoads()){
+					potentialWinnerByLoad.clear();
+					potentialWinnerByLoad.add(team);
+				}
+				if(team.getShipLoads() == potentialWinnerByLoad.getFirst().getShipLoads()){
+					potentialWinnerByLoad.add(team);
+				}
+			}
+			
+			if(potentialWinnerByLoad.size() == 1)
+				winner = potentialWinnerByLoad.getFirst();
+			else{
+				Random random = new Random();
+				int choose = random.nextInt(potentialWinnerByLoad.size());
+				winner = potentialWinnerByLoad.get(choose);
+			}
+		}
+		
 		
 		int teamIndex = teams.indexOf(winner);
 		TitledPane winnerPane = teamWindow.getPanes().get(teamIndex);
@@ -350,7 +395,7 @@ public class InGameState implements GameState, LogWriter {
 					break;
 				case DIRECTION:
 					ship.setDirection(arg3);
-					fields[ship.getX()][ship.getY()].setShip(ship);
+					fields[ship.getX()][ship.getY()].setShip(ship, false);
 					break;
 				case FLEET:
 					break;
@@ -475,7 +520,7 @@ public class InGameState implements GameState, LogWriter {
 						break;
 				}
 			}
-			fields[x][y].setShip(ship);
+			fields[x][y].setShip(ship, false);
 			ship.setField(fields[x][y]);
 			ships.add(ship);
 		}
@@ -526,7 +571,7 @@ public class InGameState implements GameState, LogWriter {
 		
 		if(arg0.equals(Entity.SHIP)){
 			Ship ship = ships.get(arg1);
-			fields[ship.getX()][ship.getY()].setShip(null);
+			fields[ship.getX()][ship.getY()].setShip(null, true);
 			ships.set(arg1, null);
 			
 			Team team = ship.getFleet();
@@ -571,10 +616,10 @@ public class InGameState implements GameState, LogWriter {
 			Ship ship = ships.get(id);
 			int x = (trans.getX() == null) ? ship.getX() : trans.getX();
 			int y = (trans.getY() == null) ? ship.getY() : trans.getY();
-			fields[ship.getX()][ship.getY()].setShip(null);
+			fields[ship.getX()][ship.getY()].setShip(null, false);
 			
 			ship.setField(fields[x][y]);
-			fields[x][y].setShip(ship);
+			fields[x][y].setShip(ship, false);
 		}
 		else if(entity == Entity.KRAKEN){
 			SimpleEntity kraken = entities.get(id);
