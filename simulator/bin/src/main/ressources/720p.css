@@ -2,12 +2,16 @@
     -fx-font-size: 25px;
 }
 
-.label {
+.menulabel {
     -fx-font-size: 22px;
 }
 
 .menubutton {
 	-fx-font-size: 37px;
+}
+
+.canvasbutton {
+	-fx-font-size: 25px;
 }
 
 .vbox {

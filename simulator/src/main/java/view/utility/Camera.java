@@ -128,7 +128,6 @@ public class Camera {
 				d -= factor;
 			}
 		}
-		System.out.println(zoomLevelAbsolute());
 	}
 	
 	public void zoomOut(int factor){
@@ -146,7 +145,6 @@ public class Camera {
 				d = (d + factor >= maxY) ? maxY : d + factor;
 			}
 		}
-		System.out.println(zoomLevelAbsolute());
 	}
 	
 	public int zoomLevelRelative(){
