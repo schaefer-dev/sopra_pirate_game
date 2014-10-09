@@ -72,7 +72,7 @@ public class Configuration {
 		generator = new Generator(map);
 		
 		if(smooth)
-			generator.smoothIslands(5);
+			generator.smoothIslands(10);
 	}
 	
 	public char[][] generateMap(Integer height, Integer width, int isCount, int isSize){

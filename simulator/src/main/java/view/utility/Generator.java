@@ -193,6 +193,10 @@ public class Generator {
 						if(hasNeigbors(y, x, emptyIsland) > levelOfDetail)
 							fields[y][x] = emptyIsland;
 					}
+					if(fields[y][x] == emptyIsland || fields[y][x] == provision){
+						if(hasNeigbors(y, x, water) > 4)
+							fields[y][x] = water;
+					}
 				}
 			}
 		}

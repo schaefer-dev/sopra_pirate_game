@@ -48,7 +48,7 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 			BufferedImage googleImage = ImageIO.read(new URL(
 					"http://maps.googleapis.com/maps/api/staticmap?center="+location+"+&zoom="+zoom.toString()+"&scale=false&size=600x600&maptype=terrain&sensor=false&format=png&visual_refresh=true"));
 		
-	        image = new BufferedImage(width, height, googleImage.getType());
+	        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	        Graphics2D g2d = image.createGraphics();
 	        g2d.drawImage(googleImage, 0, 0, width, height, null);
 	        g2d.dispose();
@@ -69,19 +69,16 @@ public class GenerateGoogleMapEvent implements EventHandler<ActionEvent> {
 				int g = color.getGreen();
 				int b = color.getBlue();
 				int black = 120;
-				//int white = 240;
 				
 				if((r < b) && (g < b))
 					map[x][y] = water;
 				else if((r < black) && (g < black) && (b < black))
 					map[x][y] = water;
-
 				else if(b < 50)
 					map[x][y] = water;
 				else
 					map[x][y] = island;
 			}
-				
 		}
 		
 		config.setMap(map, true);
