@@ -13,12 +13,11 @@ public class SelectionPreview extends SelectionWindow {
 	private MapPreview preview;
 	private Text rounds;
 	private Text mapSize;
-	private Text difficulty;
 	private Text description;
 	private Configuration config;
 	private int teamCount;
 	
-	public SelectionPreview(Configuration config, String name, String rounds, String mapSize, int teamCount, String difficulty, String description, File mapFile) throws IOException{
+	public SelectionPreview(Configuration config, String name, String rounds, String mapSize, int teamCount, String description, File mapFile) throws IOException{
 		root = new VBox(20);
 		root.getStyleClass().add("preview");
 				
@@ -33,7 +32,6 @@ public class SelectionPreview extends SelectionWindow {
 		this.name = name;
 		this.rounds = new Text(rounds);
 		this.mapSize = new Text(mapSize);
-		this.difficulty = new Text(difficulty);
 		this.description = new Text(description);
 		this.teamCount = teamCount;
 

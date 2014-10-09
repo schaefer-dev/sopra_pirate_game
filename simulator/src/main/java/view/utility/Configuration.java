@@ -36,7 +36,7 @@ public class Configuration {
 	private int teamCount = 0;
 	
 	public final static int SHIP_COUNT_MIN = 1;
-	public final static int SHIP_COUNT_MAX = 40;
+	public final static int SHIP_COUNT_MAX = 100;
 	private int shipCount = SHIP_COUNT_MIN;
 	
 	public final static int ROUNDS_MIN = 1;
@@ -83,7 +83,6 @@ public class Configuration {
 	}
 	
 	public void placeObjectsOnMap(){
-		System.out.println(generator);
 		generator.setProvision(0.005 * supplyDensity);
 		generator.setTreasure(0.005 * treasureDensity);
 		generator.setKraken(krakenCount);

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 public class SelectionFile extends SelectionWindow {
@@ -56,7 +57,7 @@ public class SelectionFile extends SelectionWindow {
 		HBox box = new HBox(8);
 		box.getChildren().addAll(rounds, roundSlider, roundsLabel);
 
-        root.getChildren().addAll(openFile, box);
+        root.getChildren().addAll(openFile, box, new Text("\n\n"));
 	}
 	
 	@Override

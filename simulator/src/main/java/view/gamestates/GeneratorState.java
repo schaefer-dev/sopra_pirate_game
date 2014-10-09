@@ -134,6 +134,7 @@ public class GeneratorState implements GameState {
 	@Override
 	public void concealing() {
 		manager.getRoot().setCenter(null);
+		manager.getConfiguration().generate = true;
 	}
 
 	@Override

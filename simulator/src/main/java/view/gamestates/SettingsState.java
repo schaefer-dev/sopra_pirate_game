@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.events.HoverEvent;
@@ -53,6 +54,7 @@ public class SettingsState implements GameState {
 		volume.setMajorTickUnit(2);
 		volume.setSnapToTicks(true);
 		Label volumeLabel = new Label(String.format("%.0f", manager.getPlayer().getVolume()*100));
+		volumeLabel.getStyleClass().add("menulabel");
 		
 		volume.setValue(Integer.parseInt(volumeLabel.getText()));
 		Label volumeText = new Label("Volume");
@@ -66,7 +68,9 @@ public class SettingsState implements GameState {
 		root.add(volumeText, 0, 0);
 		root.add(volume, 1, 0);
 		root.add(volumeLabel, 2, 0);
+		root.add(new Text("            "), 1, 1);
 		root.add(back, 1, 2);
+		root.add(new Text("            "), 2, 2);
 		
 		manager.getRoot().setCenter(root);
 	}

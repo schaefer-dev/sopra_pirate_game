@@ -68,8 +68,9 @@ public class InGameState implements GameState, LogWriter {
 	private GameFlowControl control;
 	private Configuration config;
 	
-	public InGameState(Ressources res, Integer turns, Configuration config) {
+	public InGameState(Ressources res, Integer turns, Configuration config, GUIController manager) {
 		this.config = config;
+		this.manager = manager;
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
@@ -184,7 +185,6 @@ public class InGameState implements GameState, LogWriter {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				//manager.switchState(loadingState);
 				manager.removeState();
 				manager.getRoot().setCenter(null);
 			}
@@ -240,17 +240,10 @@ public class InGameState implements GameState, LogWriter {
     			}
             }
         });
-        
 
         final TitledPane teamOpen = new TitledPane("Teams", teamWindow);
-        teamOpen.setTranslateX(1120);        
+        teamOpen.setTranslateX(1115);        
 		
-        /*
-		VBox speedBox = new VBox();
-		speedBox.setTranslateY(600);
-		speedBox.setTranslateX(150);
-		speedBox.getChildren().addAll(speedUp, speed, slowDown);
-		*/
 		root = new Group();
 		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedUp, slowDown, speed, menu, tooltip, teamOpen);
 		manager.getScene().setRoot(root);
@@ -317,7 +310,6 @@ public class InGameState implements GameState, LogWriter {
 	@Override
 	public void close() throws IllegalStateException, IOException {
 		control.close();
-		
 		roundCounter.setText(roundCounter.getText() + "  (Game Over)");
 		play.setVisible(false);
 		pause.setVisible(false);
@@ -325,6 +317,16 @@ public class InGameState implements GameState, LogWriter {
 		slowDown.setVisible(false);
 		speedUp.setVisible(false);
 		speed.setVisible(false);
+		
+		Team winner = teams.get(0);
+		for(Team team: teams){
+			if(team.getScore() > winner.getScore())
+				winner = team;
+		}
+		
+		int teamIndex = teams.indexOf(winner);
+		TitledPane winnerPane = teamWindow.getPanes().get(teamIndex);
+		winnerPane.setExpanded(true);
 	}
 	
 	@Override
@@ -379,8 +381,6 @@ public class InGameState implements GameState, LogWriter {
 	
 	@Override
 	public LogWriter fleetScore(int arg0, int arg1) throws IllegalArgumentException, IllegalStateException {
-		if(teams.get(arg0) == null)
-			teams.set(arg0, new Team(arg0, config));
 		teams.get(arg0).setScore(arg1);
 		
 		if(teamWindow != null){
@@ -392,7 +392,7 @@ public class InGameState implements GameState, LogWriter {
 	}
 
 	@Override
-	public void logStep() throws IllegalStateException, IOException {
+	public void logStep() throws IllegalStateException, IOException {	
 		rounds++;
 		roundCounter.setText(rounds.toString());
 	}
@@ -418,7 +418,10 @@ public class InGameState implements GameState, LogWriter {
 		if(arg1 == null)
 			fields[arg2][arg3] = new Field(map, arg2, arg3, type);
 		else{
-			fields[arg2][arg3] = new Field(map, arg2, arg3, arg1);
+			if(teams.get(arg1) == null)
+				teams.set(arg1, new Team(arg1, config));
+			
+			fields[arg2][arg3] = new Field(map, arg2, arg3, teams.get(arg1));
 		}
 		
 		return this;
@@ -440,9 +443,6 @@ public class InGameState implements GameState, LogWriter {
 						ship.setDirection(arg3[i]);
 						break;
 					case FLEET:
-						
-						if(teams.get(arg3[i]) == null)
-							teams.set(arg3[i], new Team(arg3[i], config));
 						teams.get(arg3[i]).addShip(ship);
 						break;
 					case MORAL:

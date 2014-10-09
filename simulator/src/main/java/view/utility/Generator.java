@@ -14,9 +14,7 @@ public class Generator {
 	private final char provision = '$';
 	private final char kraken = '&';
 	
-	//private final double provisionChance = 0.1;
-	//private final double treasureChance = 0.2;
-	private double baseChance = 0.7;
+	private double baseChance = 0.8;
 	private final double islandChance = 0.8;
 
 	private Integer height;
@@ -25,7 +23,7 @@ public class Generator {
 	private Integer islandSize;
 	private Integer minIslandSize;
 	private Integer maxIslandSize;
-	private Integer levelOfDetail = 3;					//no gaps if < 3
+	private Integer levelOfDetail = 3;					
 	private Integer boatsPerTeam;
 
 	private int[] bases;
@@ -147,7 +145,6 @@ public class Generator {
 		int freeFields = countFieldType(water);
 		if(krakenCount > freeFields)
 			krakenCount = freeFields/2;
-			//throw new IllegalArgumentException("There can't be more kraken than water fields");
 		
 		Random gen = new Random();
 		for(int i = 0; i < krakenCount; i++){
@@ -227,10 +224,16 @@ public class Generator {
 			
 			Random gen = new Random();
 			float pick = gen.nextFloat();
-			if((pick < baseChance) && !checkBase(mod(y, height), mod(x, width))){
-				fields[mod(y, height)][mod(x, width)] = teamName(teamNumber);
-				bases[teamNumber]--;
-				return true;
+			if((pick < baseChance)){
+				if(fields[mod(y, height)][mod(x, width)] == teamName(teamNumber)){
+					fields[mod(y, height)][mod(x, width)] = teamName(teamNumber);
+					return true;
+				}
+				if(!checkBase(mod(y, height), mod(x, width))){
+					fields[mod(y, height)][mod(x, width)] = teamName(teamNumber);
+					bases[teamNumber]--;
+					return true;
+				}
 			}			
 		}
 		return false;

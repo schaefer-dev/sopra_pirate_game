@@ -1,5 +1,6 @@
 package view.utility;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,7 @@ public class Field {
 	private SimpleEntity treasure;
 	private SimpleEntity kraken;
 	private Ship ship;
-	private Integer affiliation;
+	private Team team;
 	private FieldType type;
 	
 	private Image fieldImage;
@@ -29,6 +30,7 @@ public class Field {
 	
 	private boolean farAway;
 	public boolean marked = false;
+	public boolean sailedAway = false;
 	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
@@ -59,14 +61,14 @@ public class Field {
 	}
 	
 	
-	public Field(Map map, int x, int y, Integer affiliation){
+	public Field(Map map, int x, int y, Team affiliation){
 		this.x = x;
 		this.y = y;
 		this.map = map;
 		this.type = FieldType.Base;
-		this.affiliation = affiliation;
+		this.team = affiliation;
 		this.buoys = new LinkedList<SimpleEntity>();
-		fieldImage = map.getRessources().getBaseImage(affiliation);
+		fieldImage = map.getRessources().getBaseImage(team.getID());
 		farAway = false;
 	}
 	
@@ -149,10 +151,9 @@ public class Field {
 		return y;
 	}
 	
-	public Integer getAffiliation(){
-		return affiliation;
+	public Team getTeam(){
+		return team;
 	}
-	
 	
 	public FieldType getFieldType(){
 		return type;
@@ -164,6 +165,7 @@ public class Field {
 	
 	public void setShip(Ship ship){
 		if(ship == null){
+			sailedAway = true;
 			this.shipImage = null;
 			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
 				farAway = true;
@@ -203,6 +205,7 @@ public class Field {
 		}
 		
 		buoys.add(buoy);
+		Collections.sort(buoys);
 	}
 	
 	public void deleteBuoy(SimpleEntity buoy){
@@ -232,7 +235,11 @@ public class Field {
 	}	
 	
 	public String giveTooltipText(){
-		String intro = type.toString() + " (" + x + "," + y + ")\n\n";
+		String intro;
+		if(team == null)
+			intro = type.toString() + " (" + x + "," + y + ")\n\n";
+		else
+			intro = team.toString() + "'s Base (" + x + "," + y + ")\n\n";
 		
 		String treasureInfo = "";
 		if(treasure != null)
@@ -257,19 +264,11 @@ public class Field {
 		if(buoys.size() > 0){
 			buoyInfo  = "Buoys: \n";
 			String buoyDetails = "";
-			int size = 0;
-			for(SimpleEntity buoy: buoys){
-				buoyDetails += buoy.getValue() + "(" + buoy.getFleet() + ") ";
-				size++;
-				
-				if(size > 6){
-					size = 0;
-					buoyDetails += "\n";
-				}
-			}
-			buoyInfo += buoyDetails + "\n";
+			for(SimpleEntity buoy: buoys)
+				buoyDetails += "   " + buoy.getValue() + "(" + buoy.getFleet() + ")\n";
+			buoyInfo += buoyDetails;
 		}
 		
-		return intro + treasureInfo + krakenInfo +shipInfo + buoyInfo;
+		return intro + treasureInfo + krakenInfo + shipInfo + buoyInfo;
 	}
 }

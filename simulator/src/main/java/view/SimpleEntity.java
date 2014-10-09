@@ -3,7 +3,7 @@ package view;
 import view.utility.Team;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 
-public class SimpleEntity {
+public class SimpleEntity implements Comparable<SimpleEntity> {
 
 	private int id;
 	private int x;
@@ -58,5 +58,21 @@ public class SimpleEntity {
 	
 	public void setEntityType(Entity entityType) {
 		this.entityType = entityType;
+	}
+
+	@Override
+	public int compareTo(SimpleEntity o) {
+		if(fleet.getID() < o.getFleet().getID())
+			return -1;
+		if(fleet.getID() == o.getFleet().getID()){
+			if(value < o.getValue())
+				return -1;
+			if(value < o.getValue())
+				return 0;
+			else
+				return 1;	
+		}
+		else
+			return 1;
 	}
 }

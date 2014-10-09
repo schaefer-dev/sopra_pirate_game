@@ -43,7 +43,7 @@ public class LoadingState implements GameState {
 		random = new Random();
 		shipFileList = manager.getConfiguration().getTactics();
 		turns = manager.getConfiguration().getRounds();
-		InGameState game = new InGameState(manager.getRessources(), turns, config);
+		InGameState game = new InGameState(manager.getRessources(), turns, config, manager);
 		initSimuator(game);
 		manager.addState(game);
 	}
@@ -60,7 +60,7 @@ public class LoadingState implements GameState {
 
 	@Override
 	public void revealed(){
-		InGameState game = new InGameState(manager.getRessources(), turns, manager.getConfiguration());
+		InGameState game = new InGameState(manager.getRessources(), turns, manager.getConfiguration(), manager);
 		initSimuator(game);
 		manager.addState(game);
 	}
@@ -105,13 +105,13 @@ public class LoadingState implements GameState {
 	
 	
 	private String writeToFile(char[][] fields){
-		Integer height = fields.length;
-		Integer width = fields[0].length;
+		Integer height = fields[0].length;
+		Integer width = fields.length;
 		
 		try{
 			PrintWriter out = new PrintWriter("map.map");
-			out.write(height.toString() + '\n');
 			out.write(width.toString() + '\n');
+			out.write(height.toString() + '\n');
 			
 			for(int y = 0; y < height; y++){
 				for(int x = 0; x < width; x++){
@@ -126,6 +126,7 @@ public class LoadingState implements GameState {
 			out.close();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			System.out.println("This will never happen");
 		}
 		

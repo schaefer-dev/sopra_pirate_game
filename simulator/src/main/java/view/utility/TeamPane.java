@@ -16,9 +16,9 @@ public class TeamPane extends TitledPane {
 	}	
 	
 	public void update(){
-		String title = " " + team.toString();
+		String title = team.toString();
 		String score = String.valueOf(team.getScore());
-		int offset = 20 - score.length();
+		int offset = 21 - score.length();
 		title = String.format("%-"+offset+"s", title).replace(' ', ' ');
 		title += score;
 		
