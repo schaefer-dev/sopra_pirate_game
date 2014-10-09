@@ -110,8 +110,8 @@ public class LoadingState implements GameState {
 		
 		try{
 			PrintWriter out = new PrintWriter("map.map");
-			out.write(height.toString() + '\n');
 			out.write(width.toString() + '\n');
+			out.write(height.toString() + '\n');
 			
 			for(int y = 0; y < height; y++){
 				for(int x = 0; x < width; x++){
@@ -126,6 +126,7 @@ public class LoadingState implements GameState {
 			out.close();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			System.out.println("This will never happen");
 		}
 		

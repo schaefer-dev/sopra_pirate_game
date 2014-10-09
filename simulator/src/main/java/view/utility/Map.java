@@ -96,14 +96,19 @@ public class Map {
 	}
 	
 	public void drawField(Field field){
-		if(cam.b - cam.a > map.length)
-			System.out.println("X");
-		if(cam.d - cam.c > map.length)
-			System.out.println("Y");
-		
 		int x = mod(field.getX() - cam.a, mapWidth);
     	int y = mod(field.getY() - cam.c, mapHeight);
     	drawField(field, x, y);
+    	
+		if(cam.b - cam.a > map.length && cam.d - cam.c <= map.length)
+				drawField(field, x + map.length, y);
+		else if(cam.b - cam.a <= map.length && cam.d - cam.c > map[0].length)
+				drawField(field, x, y + map[0].length);
+		else if(cam.b - cam.a > map.length && cam.d - cam.c > map.length){
+			drawField(field, x + map.length, y);
+			drawField(field, x, y + map[0].length);
+			drawField(field, x + map.length, y + map[0].length);
+		}
 	}
 	
 	public void markField(Field field){		
@@ -134,11 +139,18 @@ public class Map {
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		if(field.getShipImage() != null){
 			Ship ship = field.getShip();
-			if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
-				gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-			
+			//if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
+			//	gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			System.out.println(field.getX() + ", " + field.getY());
 			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-		}
+		}/*
+		else{
+			if(cam.zoomLevelAbsolute() > 4 && field.sailedAway){
+				System.out.println(field.getX() + ", " + field.getY());
+				field.sailedAway = false;
+				gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			}
+		}*/
 		if(field.getShip() != null && field.getShip().marked)
 			markHex(mid, radius/1.4, field.getShip().getFleet().getColor(), false);
 		
