@@ -100,7 +100,6 @@ public class MapSelectionState implements GameState {
 	@Override
 	public void exiting() {
 		manager.getRoot().setCenter(null);
-		manager.getConfiguration().generate = true;
 	}
 
 	@Override

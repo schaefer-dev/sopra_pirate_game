@@ -96,6 +96,11 @@ public class Map {
 	}
 	
 	public void drawField(Field field){
+		if(cam.b - cam.a > map.length)
+			System.out.println("X");
+		if(cam.d - cam.c > map.length)
+			System.out.println("Y");
+		
 		int x = mod(field.getX() - cam.a, mapWidth);
     	int y = mod(field.getY() - cam.c, mapHeight);
     	drawField(field, x, y);

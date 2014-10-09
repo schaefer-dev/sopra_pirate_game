@@ -64,8 +64,14 @@ public class SimpleEntity implements Comparable<SimpleEntity> {
 	public int compareTo(SimpleEntity o) {
 		if(fleet.getID() < o.getFleet().getID())
 			return -1;
-		if(fleet.getID() == o.getFleet().getID())
-			return 0;
+		if(fleet.getID() == o.getFleet().getID()){
+			if(value < o.getValue())
+				return -1;
+			if(value < o.getValue())
+				return 0;
+			else
+				return 1;	
+		}
 		else
 			return 1;
 	}

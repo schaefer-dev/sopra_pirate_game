@@ -316,6 +316,16 @@ public class InGameState implements GameState, LogWriter {
 		slowDown.setVisible(false);
 		speedUp.setVisible(false);
 		speed.setVisible(false);
+		
+		Team winner = teams.get(0);
+		for(Team team: teams){
+			if(team.getScore() > winner.getScore())
+				winner = team;
+		}
+		
+		int teamIndex = teams.indexOf(winner);
+		TitledPane winnerPane = teamWindow.getPanes().get(teamIndex);
+		winnerPane.setExpanded(true);
 	}
 	
 	@Override

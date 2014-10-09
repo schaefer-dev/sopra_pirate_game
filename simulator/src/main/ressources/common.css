@@ -32,7 +32,19 @@
 
 .titled-pane:focused > .title {
     -fx-background-color: #A6A6A6;
-    -fx-color: black;
+    /*-fx-color: black;*/
+}
+
+
+.combo-box-popup .list-view .list-cell {
+    -fx-font-family: "Ubuntu Mono";
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
+    -fx-font-family: "Ubuntu Mono";
+    -fx-background: -fx-accent;
+    -fx-background-color: #3F4D59;
+    -fx-text-fill: -fx-selection-bar-text;
 }
 
 .tooltipi{
@@ -212,13 +224,13 @@
 }
 
 .maplist-view .list-cell:filled:hover {
-    -fx-text-fill: #AB3528; 
+    -fx-text-fill: #5A7058; 
     -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 10, 0.0 , 5 , 1);  
     -fx-font-weight: bold;
 }
 
 .maplist-view .list-cell:selected {
-    -fx-text-fill: #799235;
+    -fx-text-fill: #749171;
     -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);
 }
 
