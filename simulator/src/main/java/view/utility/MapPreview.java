@@ -122,7 +122,7 @@ public class MapPreview {
 	
 	
 	private boolean isTeamLetter(char c){
-		if(c >= 'a' && c < 'z')
+		if(c >= 'a' && c <= 'z')
 			return true;
 		
 		return false;

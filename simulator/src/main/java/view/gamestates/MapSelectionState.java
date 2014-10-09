@@ -124,21 +124,21 @@ public class MapSelectionState implements GameState {
 					"This test, set up to test important \nnavigation skills, has to be passed \nby every pirate apprentice before \nhe is allowed to command his own ship.\n\n", new File("src/main/ressources/maps/CrazyHexagon.map"));
 			somalia 	= new SelectionPreview(manager.getConfiguration(), "Somalia", "10000", "170x170", 5, 
 					"'Piracy off the coast of Somalia has \nbeen a threat to international shipping \nsince the second phase of the Somali \nCivil War in the early 21st century'\n\n", new File("src/main/ressources/maps/somalia.map"));
-			bermudaTri  = new SelectionPreview(manager.getConfiguration(), "Bermuda Triangle", "1000", "100x100", 2, 
-					"'The Bermuda Triangle is a region \nin the North Atlantic Ocean, where\na number of aircraft and ships are\nsaid to have disappeared under\nmysterious circumstances'\n", null);
+			bermudaTri  = new SelectionPreview(manager.getConfiguration(), "Bermuda Triangle", "1000", "94x94", 2, 
+					"'The Bermuda Triangle is a region \nin the North Atlantic Ocean, where\na number of aircraft and ships are\nsaid to have disappeared under\nmysterious circumstances'\n", new File("src/main/ressources/maps/BermudaTriangle.map"));
 			deceivingT  = new SelectionPreview(manager.getConfiguration(), "Deceiving Tides", "10000", "135x128", 6, "This region looks peacefull at first.\nBut don't let the rum go to your head.\nIf you don't pay attention the tides\nwill push you into the small canals\nand getting out again is diffcult,\nespecially when you're drunk.", new File("src/main/ressources/maps/deceivingTides.map"));
 			riffNoRet   = new SelectionPreview(manager.getConfiguration(), "Reef Of No Return", "10000", "148x148", 4, 
 					"The „Reef Of No Return“ is the \nultimate test for the navigation skills \nof every captain. Only the most advanced \nCaptains will even try to sail in these \nshallow waters. And most of them \nnever return …", new File("src/main/ressources/maps/ReefOfNoReturn.map"));
-			tortuga     = new SelectionPreview(manager.getConfiguration(), "Tortuga", "1000", "50x50", 2,
-					"On the epitome of all pirate islands,\nclaimed by the English, French and Spanish,\npiracy flourishs like nowhere else.\nIf you have never been to Tortuga,\nyou cannot be called a pirate.\n", null);
+			tortuga     = new SelectionPreview(manager.getConfiguration(), "Tortuga", "9000", "80x80", 26,
+					"On the epitome of all pirate islands,\nclaimed by the English, French and Spanish,\npiracy flourishs like nowhere else.\nIf you have never been to Tortuga,\nyou cannot be called a pirate.\n", new File("src/main/ressources/maps/tortuga.map"));
 			BullsEye  = new SelectionPreview(manager.getConfiguration(), "Bulls Eye", "8000", "94x94", 2,
 					"In this map two Teams struggle\nfor the pityfull gold ressources found \nin the Bulls eye in the middle of the \nmap.\n\n", new File("src/main/ressources/maps/bullseye.map"));
 			capeFear    = new SelectionPreview(manager.getConfiguration(), "Cape Fear", "10000", "180x180", 3,
 					"Just the name of this beautiful costal region\ncan spread terror among any group of sailors.\nAnd not without reason, for among the picuresque \ncoral reefs\nlurks the archenemy of every saillor: the kraken.\nAnd it is hungry, very hungry indeed.", new File("src/main/ressources/maps/CapeFear.map"));
-			goldenGoal  = new SelectionPreview(manager.getConfiguration(), "Golden Goal", "1000", "100x100", 2,
-					"Two Teams and whoever\nscores first will win.\nThis map guarantees tension\nuntil the very end.\n\n", null);
-			jerseyShore = new SelectionPreview(manager.getConfiguration(), "Jersey Shore", "1000", "100x100", 2, 
-					"This is the retirement dream of every pirate.\nMany islands, rich treasures.\nThe land of milk and honey, err,\n sorry, gold and rum.\n\n", null);	
+			goldenGoal  = new SelectionPreview(manager.getConfiguration(), "Golden Goal", "1000", "70x70", 2,
+					"Two Teams and whoever\nscores first will win.\nThis map guarantees tension\nuntil the very end.\n\n", new File("src/main/ressources/maps/goldenGoal.map"));
+			jerseyShore = new SelectionPreview(manager.getConfiguration(), "Jersey Shore", "1000", "100x100", 5, 
+					"This is the retirement dream of every pirate.\nMany islands, rich treasures.\nThe land of milk and honey, err,\n sorry, gold and rum.\n\n", new File("src/main/ressources/maps/JerseyShore.map"));	
 
 		}
 		catch(Exception e){
