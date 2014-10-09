@@ -139,18 +139,11 @@ public class Map {
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		if(field.getShipImage() != null){
 			Ship ship = field.getShip();
-			//if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
-			//	gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-			System.out.println(field.getX() + ", " + field.getY());
 			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-		}/*
-		else{
-			if(cam.zoomLevelAbsolute() > 4 && field.sailedAway){
-				System.out.println(field.getX() + ", " + field.getY());
-				field.sailedAway = false;
-				gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-			}
-		}*/
+		}
+		else if(cam.zoomLevelAbsolute() > 4 && field.sailedAway)
+			gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			
 		if(field.getShip() != null && field.getShip().marked)
 			markHex(mid, radius/1.4, field.getShip().getFleet().getColor(), false);
 		

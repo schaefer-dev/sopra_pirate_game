@@ -129,7 +129,7 @@ public class Field {
 	public Image getShipImage(){
 		int zoom =  map.getCam().zoomLevelAbsolute();
 		
-		if(shipImage != null && zoom < 6)
+		if(shipImage != null && zoom < 5)
 			return shipImage;
 		
 		return null;

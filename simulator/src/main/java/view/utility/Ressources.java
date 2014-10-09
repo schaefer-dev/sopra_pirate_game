@@ -225,9 +225,9 @@ public class Ressources {
 		defaultConfiguration.generate = true;
 		defaultConfiguration.setTreasureDensity(100);
 		defaultConfiguration.setSupplyDensity(2);
-		defaultConfiguration.setKrakenCount(10);
-		defaultConfiguration.setTeamCount(1);
-		defaultConfiguration.setShipCount(1);
+		defaultConfiguration.setKrakenCount(0);
+		defaultConfiguration.setTeamCount(10);
+		defaultConfiguration.setShipCount(10);
 		defaultConfiguration.setRounds(10000);
 		defaultConfiguration.getTactics().add("src/main/ressources/gruppe-05.ship");
 		
