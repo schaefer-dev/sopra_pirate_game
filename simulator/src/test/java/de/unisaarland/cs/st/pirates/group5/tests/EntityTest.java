@@ -1,11 +1,12 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
-import model.Team;
-import model.Treasure;
-import model.Buoy;
 
 import org.junit.*;
+
+import de.unisaarland.cs.st.pirates.group5.model.Buoy;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Treasure;
 
 public class EntityTest {
 	

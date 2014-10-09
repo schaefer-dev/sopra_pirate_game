@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import controller.BoolComparison;
-import controller.CellTypeComparison;
-import controller.IntComparison;
-import controller.ShipTypeComparison;
-import controller.TranslatorTools;
+import de.unisaarland.cs.st.pirates.group5.controller.BoolComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.CellTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.IntComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.ShipTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.TranslatorTools;
 
 public class TranslatorToolsTest {
 	TranslatorTools toolBox = new TranslatorTools();

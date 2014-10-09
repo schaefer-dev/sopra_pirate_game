@@ -9,25 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Field;
-import model.Map;
-import model.CellType;
-import model.Register;
-import model.Ship;
-import model.ShipType;
-import model.Treasure;
-import model.Kraken;
-import model.Water;
-
 import org.junit.Test;
 
-import controller.BoolComparison;
-import controller.CellTypeComparison;
-import controller.Command;
-import controller.IntComparison;
-import controller.Operator;
-import controller.ShipTypeComparison;
-import controller.Translator;
+import de.unisaarland.cs.st.pirates.group5.controller.BoolComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.CellTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.controller.IntComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Operator;
+import de.unisaarland.cs.st.pirates.group5.controller.ShipTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Translator;
+import de.unisaarland.cs.st.pirates.group5.model.CellType;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Kraken;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.Register;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.ShipType;
+import de.unisaarland.cs.st.pirates.group5.model.Treasure;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 public class BoostCoverageTest {
 	

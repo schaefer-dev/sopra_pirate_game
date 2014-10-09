@@ -7,20 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Base;
-import model.Field;
-import model.Map;
-import model.Register;
-import model.Ship;
-import model.ShipType;
-import model.Team;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.Command;
-import controller.Operator;
-import controller.ShipTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.controller.Operator;
+import de.unisaarland.cs.st.pirates.group5.controller.ShipTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.model.Base;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.Register;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.ShipType;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
 
 public class ShipTypeComparisonTest {
 

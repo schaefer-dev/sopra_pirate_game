@@ -5,15 +5,14 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Team;
-import model.Ship;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Flipzero;
-import commands.Goto;
-import controller.Command;
+import de.unisaarland.cs.st.pirates.group5.commands.Flipzero;
+import de.unisaarland.cs.st.pirates.group5.commands.Goto;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
 
 public class FlipzeroTest {
 	

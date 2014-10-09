@@ -5,17 +5,16 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Field;
-import model.Map;
-import model.Ship;
-import model.Team;
-import model.Water;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Goto;
-import controller.Command;
+import de.unisaarland.cs.st.pirates.group5.commands.Goto;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 public class CommandGotoTest {
 	int pc = 5;

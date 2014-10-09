@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.Simulator;
+import de.unisaarland.cs.st.pirates.group5.controller.Simulator;
 
 public class SimulatorSenseMoveTest {
 	String[] ships = {"src/test/ressources/sensemove01.ship","src/test/ressources/sensemove02doNothing.ship"};

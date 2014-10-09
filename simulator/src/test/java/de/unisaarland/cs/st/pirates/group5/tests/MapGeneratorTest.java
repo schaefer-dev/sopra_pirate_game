@@ -10,20 +10,19 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.Base;
-import model.Field;
-import model.Island;
-import model.Map;
-import model.ProvisionIsland;
-import model.Ship;
-import model.Team;
-import model.Water;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import view.Log;
-import controller.MapGenerator;
+import de.unisaarland.cs.st.pirates.group5.controller.MapGenerator;
+import de.unisaarland.cs.st.pirates.group5.model.Base;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Island;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
+import de.unisaarland.cs.st.pirates.group5.view.Log;
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
 public class MapGeneratorTest {
 	
