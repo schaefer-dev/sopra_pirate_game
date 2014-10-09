@@ -23,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -97,6 +98,11 @@ public class GUIController extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		File uglyFile = new File("src/main/ressources/Fonts/UglyQua.tff");
+		Font.loadFont(uglyFile.toURI().toString(), 10);
+		File monoFile = new File("src/main/ressources/Fonts/UbuntuMono.tff");
+		Font.loadFont(monoFile.toURI().toString(), 10);
+		
 		stage = primaryStage;
 		stage.setTitle("Pirates of the Saaribean");
 		title.setId("title");
@@ -115,7 +121,7 @@ public class GUIController extends Application {
 
 		scene = new Scene(borderPane, 1280, 720);
 		stage.setScene(scene);
-		//primaryStage.setResizable(false);
+		primaryStage.setResizable(false);
 		stage.show();
 		addState(new MainMenuState());
 		

@@ -37,7 +37,7 @@ public class Map {
 		gc.setFill(Color.web("5fb8b8"));
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
-    	for(int y = 0; y < cam.height(); y++){
+    	for(int y = 0; y < cam.width(); y++){
         	for(int x = 0; x < cam.width(); x++){
         		int xx = mod(x+cam.a, mapWidth);
         		int yy = mod(y+cam.c, mapHeight);
@@ -139,18 +139,22 @@ public class Map {
 			gc.drawImage(img, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		if(field.getShipImage() != null){
 			Ship ship = field.getShip();
-			//if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
-			//	gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-			System.out.println(field.getX() + ", " + field.getY());
-			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-		}/*
-		else{
-			if(cam.zoomLevelAbsolute() > 4 && field.sailedAway){
-				System.out.println(field.getX() + ", " + field.getY());
-				field.sailedAway = false;
+			if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
 				gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+		}
+		else{
+			if(cam.zoomLevelAbsolute() > 2 && field.sailedAway){
+				if(field.getFieldType() == FieldType.Water)
+					gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+				else if(field.getFieldType() == FieldType.Base){
+					if(cam.zoomLevelAbsolute() > 4)
+						gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+					else
+						gc.drawImage(field.getFieldImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+				}
 			}
-		}*/
+		}	
 		if(field.getShip() != null && field.getShip().marked)
 			markHex(mid, radius/1.4, field.getShip().getFleet().getColor(), false);
 		

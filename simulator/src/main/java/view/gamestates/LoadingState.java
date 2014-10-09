@@ -43,7 +43,7 @@ public class LoadingState implements GameState {
 		random = new Random();
 		shipFileList = manager.getConfiguration().getTactics();
 		turns = manager.getConfiguration().getRounds();
-		InGameState game = new InGameState(manager.getRessources(), turns, config);
+		InGameState game = new InGameState(manager.getRessources(), turns, config, manager);
 		initSimuator(game);
 		manager.addState(game);
 	}
@@ -60,7 +60,7 @@ public class LoadingState implements GameState {
 
 	@Override
 	public void revealed(){
-		InGameState game = new InGameState(manager.getRessources(), turns, manager.getConfiguration());
+		InGameState game = new InGameState(manager.getRessources(), turns, manager.getConfiguration(), manager);
 		initSimuator(game);
 		manager.addState(game);
 	}
