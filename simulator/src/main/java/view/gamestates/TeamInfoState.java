@@ -41,9 +41,9 @@ public class TeamInfoState implements GameState {
 		back.getStyleClass().add("menubutton");
 		Text text = new Text();
 		text.setText("Pirates of the S-aarrrr-ibean is a game developed by Group 5 during the 2014 \"Softwarepraktikum\" at Saarland University Germany\n"
-				+ "Group 5 consists of 5 people who are keen to present you the very best of Pirate adventures.\n"
-				+ "We are proud to announce that we did not only manage to present you with the most silly pirate names and map creations.\n We also succeded in finding the most hidious designs for ships\n"
-				+ "But enough of talking: This is your amazing team of game developers: Group 5\n");
+				+ "Group 5 consists of 5 people who are keen to present you the very best of Pirate adventures."
+				+ "We are proud to announce that we did not only manage\nto present you with the most silly pirate names and map creations. We also succeded in\nfinding the most hidious designs for ships."
+				+ "But enough of talking:\nThis is your amazing team of game developers: Group 5\n");
 		text.setFill(Color.RED);
 		texts.add(text);
 		thanks.setTextAlignment(TextAlignment.CENTER);
@@ -51,6 +51,9 @@ public class TeamInfoState implements GameState {
 		forText.add(text, 0, 0);
 		forText.add(new Text(""), 0,2);
 		forText.add(new Text(""), 0,1);
+		forText.add(new Text(""), 0,3);
+		forText.add(new Text(""), 0,4);
+		forText.add(new Text(""), 0,5);
 		forText.add(thanks,0,3);
 		HBox button = new HBox();
 		button.getChildren().add(back);
