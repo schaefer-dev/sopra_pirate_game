@@ -1,12 +1,12 @@
 #title {
     -fx-font-size: 60px;
-  	-fx-font-family: "UglyQua";
+  	-fx-font-family: UglyQua;
    	-fx-fill: #818181;
 	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
 #hover {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
 }
 
 .text {
@@ -14,12 +14,12 @@
 }
 
 .menulabel {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-background-color: transparent;
 }
 
 .titled-pane > .title {
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
     -fx-font-size: 12px;
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-color: white;
@@ -37,18 +37,18 @@
 
 
 .combo-box-popup .list-view .list-cell {
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
 }
 
 .combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
     -fx-background: -fx-accent;
     -fx-background-color: #3F4D59;
     -fx-text-fill: -fx-selection-bar-text;
 }
 
 .tooltipi{
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
     -fx-background-color: #FFFFFF;
     -fx-border-color: #585858;
     -fx-border-width: 1px; 
@@ -57,20 +57,20 @@
 }
 
 .menubutton {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-background-color: transparent;
     -fx-alignment: CENTER;
 }
 
 .inmenubutton{
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
     -fx-background-color: transparent;
     -fx-alignment: CENTER;
     -fx-font-size: 13px;
 }
 
 .canvasbutton {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-background-color: transparent;
     -fx-alignment: BOTTOM_CENTER;
 }
@@ -86,25 +86,25 @@
 }
 
 .errorlabel{
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-font-size: 60px;
 }
 
 .selectionbutton {
     -fx-font-size: 12px;
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-background-color: transparent;
 }
 
 .openbutton {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-background-color: transparent;
     -fx-alignment: CENTER;
     -fx-font-size: 30px;
 }
 
 .deletebutton {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-background-color: transparent;
     -fx-text-fill: #A62E2E;
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
@@ -127,12 +127,12 @@
 
 .teamwindowbutton{
     -fx-background-color: transparent;
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
 }
 
 .teamselectionbutton{
     -fx-font-size: 22px;
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
     -fx-background-color: transparent;
 }
 
@@ -162,7 +162,7 @@
 
 
 .combo-box {
-    -fx-font-family: "Ubuntu Mono";
+    -fx-font-family: Ubuntu Mono;
     -fx-background-color: transparent;
     /*-fx-background-image: url("storm.jpg");*/
     -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1);
@@ -216,7 +216,7 @@
 
 
 .maplist-view .list-cell {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-text-fill: -fx-text-inner-color;
     -fx-background-color: transparent;
     -fx-opacity: 1;
@@ -240,7 +240,7 @@
 }
 
 .preview {
-    -fx-font-family: "UglyQua";
+    -fx-font-family: UglyQua;
     -fx-font-style: italic;
     -fx-font-size: 19px;
     -fx-padding: 0 200 0 0;

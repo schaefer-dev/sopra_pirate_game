@@ -391,7 +391,7 @@ public class InGameState implements GameState, LogWriter {
 	}
 
 	@Override
-	public void logStep() throws IllegalStateException, IOException {		
+	public void logStep() throws IllegalStateException, IOException {	
 		rounds++;
 		roundCounter.setText(rounds.toString());
 	}
