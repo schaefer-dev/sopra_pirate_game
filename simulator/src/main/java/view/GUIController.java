@@ -1,7 +1,6 @@
 package view;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.EmptyStackException;
 import java.util.Stack;
 

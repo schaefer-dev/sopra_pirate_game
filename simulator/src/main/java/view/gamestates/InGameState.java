@@ -68,8 +68,9 @@ public class InGameState implements GameState, LogWriter {
 	private GameFlowControl control;
 	private Configuration config;
 	
-	public InGameState(Ressources res, Integer turns, Configuration config) {
+	public InGameState(Ressources res, Integer turns, Configuration config, GUIController manager) {
 		this.config = config;
+		this.manager = manager;
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
