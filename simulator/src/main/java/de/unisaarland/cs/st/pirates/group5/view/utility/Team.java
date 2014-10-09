@@ -10,6 +10,7 @@ public class Team {
 	private String name;
 	private int id;
 	private int score;
+	private int shipLoads;
 	private List<Ship> ships;
 	
 	private String colorString;
@@ -67,6 +68,13 @@ public class Team {
 		return colorString;
 	}
 	
+	public int getShipLoads(){
+		return shipLoads;
+	}
+	
+	public void setShipLoads(int load){
+		this.shipLoads = load;
+	}
 	@Override
 	public String toString(){
 		return name;

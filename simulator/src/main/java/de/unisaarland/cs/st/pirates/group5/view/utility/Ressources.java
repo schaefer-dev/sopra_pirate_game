@@ -16,6 +16,7 @@ public class Ressources {
 	private Image island;
 	private Image provision;
 	private Image ship;
+	private Image shipDestroyed;
 	private Image treasureWaterImage;
 	private Image treasureIslandImage;
 	private Image buoyImage;
@@ -58,6 +59,10 @@ public class Ressources {
 	    	file = new File("src/main/ressources/ship.png");
 	    	stream = new FileInputStream(file);
 	    	ship = new Image(stream);
+	    	
+	    	file = new File("src/main/ressources/ships/shipdestroyed.png");
+	    	stream = new FileInputStream(file);
+	    	shipDestroyed = new Image(stream);
 	    	
 	    	file = new File("src/main/ressources/kraken3.png");
 	    	stream = new FileInputStream(file);
@@ -152,6 +157,10 @@ public class Ressources {
 	
 	public Image getShipImage(){
 		return ship;
+	}
+	
+	public Image getDestroyedShipImage(){
+		return shipDestroyed;
 	}
 	
 	public Image getShipImage(int fleet){

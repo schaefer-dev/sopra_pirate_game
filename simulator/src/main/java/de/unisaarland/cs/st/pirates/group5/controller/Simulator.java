@@ -205,4 +205,8 @@ public class Simulator {
 				System.out.println(team.getScore());
 		}
 	}
+	
+	public List<Team> getTeams(){
+		return teams;
+	}
 }

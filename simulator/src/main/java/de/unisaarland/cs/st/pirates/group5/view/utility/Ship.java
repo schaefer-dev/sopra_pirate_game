@@ -28,7 +28,7 @@ public class Ship {
 
 	public void setDirection(int direction) {
 		if(field != null)
-			field.setShip(this);
+			field.setShip(this, false);
 			
 		this.direction = direction;
 	}

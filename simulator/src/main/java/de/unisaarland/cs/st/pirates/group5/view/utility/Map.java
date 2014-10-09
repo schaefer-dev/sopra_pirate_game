@@ -141,7 +141,11 @@ public class Map {
 			Ship ship = field.getShip();
 			if(cam.zoomLevelAbsolute() > 1 && field.getFieldType() == FieldType.Water)
 				gc.drawImage(ressources.getWaterFarImage(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
-			drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			
+			if(ship != null)
+				drawRotatedImage(field.getShipImage(), 60*ship.getDirection(), up.getX()-radius, up.getY(), 2*radius, 2*radius);
+			else
+				drawRotatedImage(field.getShipImage(), 0, up.getX()-radius, up.getY(), 2*radius, 2*radius);
 		}
 		else{
 			if(cam.zoomLevelAbsolute() > 2 && field.sailedAway){
