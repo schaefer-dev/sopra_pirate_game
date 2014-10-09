@@ -75,6 +75,7 @@ public class TeamInfoState implements GameState {
 		temp = new File("src/main/ressources/bildJan.jpg");
 		Image picture2 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v3 = new ImageView();
+		temp = new File("src/main/ressources/pirate_dude.png");
 		Image picture3 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v4 = new ImageView();
 		Image picture4 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
