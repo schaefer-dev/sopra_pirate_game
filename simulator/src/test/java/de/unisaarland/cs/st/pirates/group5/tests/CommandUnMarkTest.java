@@ -1,19 +1,19 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
-import model.Field;
-import model.Map;
-import model.Ship;
-import model.Team;
-import model.Water;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import view.SimpleLogWriter;
-import commands.Mark;
-import commands.Turn;
-import commands.Unmark;
+import de.unisaarland.cs.st.pirates.group5.commands.Mark;
+import de.unisaarland.cs.st.pirates.group5.commands.Turn;
+import de.unisaarland.cs.st.pirates.group5.commands.Unmark;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
+import de.unisaarland.cs.st.pirates.group5.view.SimpleLogWriter;
 
 public class CommandUnMarkTest {
 	

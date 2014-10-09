@@ -5,23 +5,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import model.CellType;
-import model.Register;
-import commands.Drop;
-import commands.Flipzero;
-import commands.Goto;
-import commands.If;
-import commands.IfAll;
-import commands.Move;
-import commands.Pickup;
-import commands.Sense;
-import commands.Turn;
-import controller.BoolComparison;
-import controller.CellTypeComparison;
-import controller.Command;
-import controller.Comparison;
-import controller.IntComparison;
-import controller.Operator;
+import de.unisaarland.cs.st.pirates.group5.commands.Drop;
+import de.unisaarland.cs.st.pirates.group5.commands.Flipzero;
+import de.unisaarland.cs.st.pirates.group5.commands.Goto;
+import de.unisaarland.cs.st.pirates.group5.commands.If;
+import de.unisaarland.cs.st.pirates.group5.commands.IfAll;
+import de.unisaarland.cs.st.pirates.group5.commands.Move;
+import de.unisaarland.cs.st.pirates.group5.commands.Pickup;
+import de.unisaarland.cs.st.pirates.group5.commands.Sense;
+import de.unisaarland.cs.st.pirates.group5.commands.Turn;
+import de.unisaarland.cs.st.pirates.group5.controller.BoolComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.CellTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.controller.Comparison;
+import de.unisaarland.cs.st.pirates.group5.controller.IntComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Operator;
+import de.unisaarland.cs.st.pirates.group5.model.CellType;
+import de.unisaarland.cs.st.pirates.group5.model.Register;
  
 
 public class ObjectConstructorTest {

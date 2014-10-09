@@ -6,28 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Base;
-import model.BoolWert;
-import model.CellType;
-import model.Field;
-import model.Island;
-import model.Kraken;
-import model.Map;
-import model.ProvisionIsland;
-import model.Ship;
-import model.ShipType;
-import model.Team;
-import model.Treasure;
-import model.Water;
-import model.Register;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Goto;
-import commands.Move;
-import commands.Sense;
-import controller.Command;
+import de.unisaarland.cs.st.pirates.group5.commands.Goto;
+import de.unisaarland.cs.st.pirates.group5.commands.Move;
+import de.unisaarland.cs.st.pirates.group5.commands.Sense;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.model.Base;
+import de.unisaarland.cs.st.pirates.group5.model.BoolWert;
+import de.unisaarland.cs.st.pirates.group5.model.CellType;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Island;
+import de.unisaarland.cs.st.pirates.group5.model.Kraken;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
+import de.unisaarland.cs.st.pirates.group5.model.Register;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.ShipType;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Treasure;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 public class CommandSenseTest {
 	

@@ -1,17 +1,17 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
 import static org.junit.Assert.*;
-import model.CellType;
-import model.Register;
-import model.ShipType;
 
 import org.junit.Test;
 
-import controller.BoolComparison;
-import controller.CellTypeComparison;
-import controller.IntComparison;
-import controller.Operator;
-import controller.ShipTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.BoolComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.CellTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.IntComparison;
+import de.unisaarland.cs.st.pirates.group5.controller.Operator;
+import de.unisaarland.cs.st.pirates.group5.controller.ShipTypeComparison;
+import de.unisaarland.cs.st.pirates.group5.model.CellType;
+import de.unisaarland.cs.st.pirates.group5.model.Register;
+import de.unisaarland.cs.st.pirates.group5.model.ShipType;
 
 public class ComparisonTest {
 

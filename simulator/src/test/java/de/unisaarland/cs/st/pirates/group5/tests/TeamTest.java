@@ -4,17 +4,16 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import model.Field;
-import model.Ship;
-import model.Team;
-import model.Water;
-
 import org.junit.Test;
 
-import commands.Drop;
-import commands.Move;
-import commands.Unmark;
-import controller.Command;
+import de.unisaarland.cs.st.pirates.group5.commands.Drop;
+import de.unisaarland.cs.st.pirates.group5.commands.Move;
+import de.unisaarland.cs.st.pirates.group5.commands.Unmark;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 public class TeamTest {
 
