@@ -30,6 +30,7 @@ public class Field {
 	
 	private boolean farAway;
 	public boolean marked = false;
+	public boolean sailedAway = false;
 	
 	public Field(Map map, int x, int y, FieldType type){
 		this.x = x;
@@ -128,7 +129,7 @@ public class Field {
 	public Image getShipImage(){
 		int zoom =  map.getCam().zoomLevelAbsolute();
 		
-		if(shipImage != null && zoom < 5)
+		if(shipImage != null && zoom < 6)
 			return shipImage;
 		
 		return null;
@@ -164,6 +165,7 @@ public class Field {
 	
 	public void setShip(Ship ship){
 		if(ship == null){
+			sailedAway = true;
 			this.shipImage = null;
 			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
 				farAway = true;
