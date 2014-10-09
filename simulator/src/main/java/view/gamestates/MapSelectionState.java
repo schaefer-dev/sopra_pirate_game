@@ -122,11 +122,11 @@ public class MapSelectionState implements GameState {
 			ownMap		= new SelectionFile(manager, gc);
 			CrazyHexagon = new SelectionPreview(manager.getConfiguration(), "Crazy Hexagon", "10000", "200x200", 3, 
 					"This test, set up to test important \nnavigation skills, has to be passed \nby every pirate apprentice before \nhe is allowed to command his own ship.\n\n", new File("src/main/ressources/maps/CrazyHexagon.map"));
-			somalia 	= new SelectionPreview(manager.getConfiguration(), "Somalia", "1000", "100x100", 2, 
-					"'Piracy off the coast of Somalia has \nbeen a threat to international shipping \nsince the second phase of the Somali \nCivil War in the early 21st century'\n\n", null);
+			somalia 	= new SelectionPreview(manager.getConfiguration(), "Somalia", "10000", "170x170", 5, 
+					"'Piracy off the coast of Somalia has \nbeen a threat to international shipping \nsince the second phase of the Somali \nCivil War in the early 21st century'\n\n", new File("src/main/ressources/maps/somalia.map"));
 			bermudaTri  = new SelectionPreview(manager.getConfiguration(), "Bermuda Triangle", "1000", "100x100", 2, 
 					"'The Bermuda Triangle is a region \nin the North Atlantic Ocean, where\na number of aircraft and ships are\nsaid to have disappeared under\nmysterious circumstances'\n", null);
-			deceivingT  = new SelectionPreview(manager.getConfiguration(), "Deceiving Tides", "1000", "100x100", 2, "This region looks peacefull at first.\nBut don't let the rum go to your head.\nIf you don't pay attention the tides\nwill push you into the small canals\nand getting out again is diffcult,\nespecially when you're drunk.", null);
+			deceivingT  = new SelectionPreview(manager.getConfiguration(), "Deceiving Tides", "10000", "135x128", 6, "This region looks peacefull at first.\nBut don't let the rum go to your head.\nIf you don't pay attention the tides\nwill push you into the small canals\nand getting out again is diffcult,\nespecially when you're drunk.", new File("src/main/ressources/maps/deceivingTides.map"));
 			riffNoRet   = new SelectionPreview(manager.getConfiguration(), "Reef Of No Return", "10000", "148x148", 4, 
 					"The „Reef Of No Return“ is the \nultimate test for the navigation skills \nof every captain. Only the most advanced \nCaptains will even try to sail in these \nshallow waters. And most of them \nnever return …", new File("src/main/ressources/maps/ReefOfNoReturn.map"));
 			tortuga     = new SelectionPreview(manager.getConfiguration(), "Tortuga", "1000", "50x50", 2,
