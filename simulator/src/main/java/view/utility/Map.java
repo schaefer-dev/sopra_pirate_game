@@ -37,7 +37,7 @@ public class Map {
 		gc.setFill(Color.web("5fb8b8"));
     	gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     	
-    	for(int y = 0; y < cam.height(); y++){
+    	for(int y = 0; y < cam.width(); y++){
         	for(int x = 0; x < cam.width(); x++){
         		int xx = mod(x+cam.a, mapWidth);
         		int yy = mod(y+cam.c, mapHeight);

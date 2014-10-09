@@ -43,7 +43,7 @@ import view.utility.TeamPane;
 public class InGameState implements GameState, LogWriter {
 
 	private GUIController manager;
-	private final Canvas canvas;
+	private Canvas canvas;
 	private Group root;
 	private Label tooltip;
 	private GraphicsContext gc;
@@ -68,13 +68,17 @@ public class InGameState implements GameState, LogWriter {
 	private GameFlowControl control;
 	private Configuration config;
 	
+	private double sWidth;
+	private double sHeight;
+	private double buttonSize;
+	
 	public InGameState(Ressources res, Integer turns, Configuration config, GUIController manager) {
 		this.config = config;
 		this.manager = manager;
 		ships = new ArrayList<Ship>();
 		entities = new ArrayList<SimpleEntity>();
 		maxRounds = turns;
-		canvas = new Canvas(1280, 939);
+		canvas = new Canvas(manager.getScene().getWidth(), manager.getScene().getWidth()*0.733);
 		tooltip = new Label();
 		tooltip.getStyleClass().add("tooltipi");
 		tooltip.setVisible(false);
@@ -83,6 +87,9 @@ public class InGameState implements GameState, LogWriter {
         gc = canvas.getGraphicsContext2D();
         map = new Map(gc, res);
         rounds = 0;
+        sWidth = manager.getScene().getWidth();
+        sHeight = manager.getScene().getHeight();
+        buttonSize = sWidth/40;
 	}
 	
 	@Override
@@ -100,12 +107,12 @@ public class InGameState implements GameState, LogWriter {
         roundCounter.setTranslateX(10);
         
 		ImageView nextImage = new ImageView(manager.getRessources().getNextImage());
-		nextImage.setFitHeight(30);
-		nextImage.setFitWidth(30);
+		nextImage.setFitHeight(buttonSize);
+		nextImage.setFitWidth(buttonSize);
         next = new Button();
         next.setGraphic(nextImage);
-        next.setTranslateY(665);
-        next.setTranslateX(500);
+        next.setTranslateY(sHeight/1.08);
+        next.setTranslateX(sWidth/2.5);
 		next.getStyleClass().add("canvasbutton");
 		next.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -121,45 +128,45 @@ public class InGameState implements GameState, LogWriter {
 		});
 		
 		ImageView playImage = new ImageView(manager.getRessources().getPlayImage());
-		playImage.setFitHeight(30);
-		playImage.setFitWidth(30);
+		playImage.setFitHeight(buttonSize);
+		playImage.setFitWidth(buttonSize);
         play = new Button();
         play.setGraphic(playImage);
-        play.setTranslateY(665);
-        play.setTranslateX(550);
+        play.setTranslateY(sHeight/1.08);
+        play.setTranslateX(sWidth/2.3);
         play.getStyleClass().add("canvasbutton");
         
 		ImageView pauseImage = new ImageView(manager.getRessources().getPauseImage());
-		pauseImage.setFitHeight(30);
-		pauseImage.setFitWidth(30);
+		pauseImage.setFitHeight(buttonSize);
+		pauseImage.setFitWidth(buttonSize);
         pause = new Button();
         pause.setGraphic(pauseImage);
         pause.setVisible(false);
-        pause.setTranslateY(665);
-        pause.setTranslateX(550);
+        pause.setTranslateY(sHeight/1.08);
+        pause.setTranslateX(sWidth/2.3);
         pause.getStyleClass().add("canvasbutton");
 		
 		ImageView slowDownImage = new ImageView(manager.getRessources().getSlowDownImage());
-		slowDownImage.setFitHeight(30);
-		slowDownImage.setFitWidth(30);
+		slowDownImage.setFitHeight(buttonSize);
+		slowDownImage.setFitWidth(buttonSize);
 		slowDown = new Button();
 		slowDown.setGraphic(slowDownImage);
-		slowDown.setTranslateY(665);
-		slowDown.setTranslateX(600);
+		slowDown.setTranslateY(sHeight/1.08);
+		slowDown.setTranslateX(sWidth/2.1);
 		slowDown.getStyleClass().add("canvasbutton");
 		
 		ImageView speedUpImage = new ImageView(manager.getRessources().getSpeedUpImage());
-		speedUpImage.setFitHeight(30);
-		speedUpImage.setFitWidth(30);
+		speedUpImage.setFitHeight(buttonSize);
+		speedUpImage.setFitWidth(buttonSize);
 		speedUp = new Button();
 		speedUp.setGraphic(speedUpImage);
-		speedUp.setTranslateY(665);
-		speedUp.setTranslateX(635);
+		speedUp.setTranslateY(sHeight/1.08);
+		speedUp.setTranslateX(sWidth/1.95);
 		speedUp.getStyleClass().add("canvasbutton");
 		
 		speed = new Label("10x");
-		speed.setTranslateY(670);
-		speed.setTranslateX(700);
+		speed.setTranslateY(sHeight/1.075);
+		speed.setTranslateX(sWidth/1.75);
 		speed.getStyleClass().add("menulabel");
 		
 		this.control = new GameFlowControl(this, play, pause, speedUp, slowDown, speed);
@@ -195,7 +202,7 @@ public class InGameState implements GameState, LogWriter {
 		
         final TitledPane menu = new TitledPane("Menu", menuselection);
         menu.setExpanded(false);
-        menu.setTranslateX(1020);  
+        menu.setTranslateX(sWidth/1.26);  
         menu.setOnMouseExited(new EventHandler<Event>() {
 
 			@Override
@@ -242,7 +249,7 @@ public class InGameState implements GameState, LogWriter {
         });
 
         final TitledPane teamOpen = new TitledPane("Teams", teamWindow);
-        teamOpen.setTranslateX(1115);        
+        teamOpen.setTranslateX(sWidth/1.15);        
 		
 		root = new Group();
 		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedUp, slowDown, speed, menu, tooltip, teamOpen);
@@ -295,6 +302,9 @@ public class InGameState implements GameState, LogWriter {
 		i = rest.indexOf('\n');
 		String y = rest.substring(0, i);
 		fields = new Field[Integer.parseInt(x)][Integer.parseInt(y)];
+		
+		double mapRatio = (double)fields[0].length/(double)fields.length;
+		canvas.setHeight(manager.getScene().getWidth()*(0.733*mapRatio));
 		
 		teams = new ArrayList<Team>();
 		if(arg2.length == 1){

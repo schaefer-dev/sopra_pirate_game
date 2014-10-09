@@ -121,7 +121,7 @@ public class GUIController extends Application {
 
 		scene = new Scene(borderPane, 1280, 720);
 		stage.setScene(scene);
-		//primaryStage.setResizable(false);
+		primaryStage.setResizable(false);
 		stage.show();
 		addState(new MainMenuState());
 		
