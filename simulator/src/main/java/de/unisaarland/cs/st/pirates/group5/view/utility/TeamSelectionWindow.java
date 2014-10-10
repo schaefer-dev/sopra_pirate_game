@@ -84,7 +84,6 @@ public class TeamSelectionWindow {
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SHIP", "*.ship"));
 		openFile = new Button("Choose Tactic");
 		openFile.getStyleClass().add("teamwindowbutton");
-		openFile.setStyle("-fx-font-size: 15px;");
         openFile.setOnAction(new EventHandler<ActionEvent>(){
         	
             @Override
@@ -108,7 +107,6 @@ public class TeamSelectionWindow {
         removeTeam = new Button("x");
         removeTeam.setAlignment(Pos.TOP_CENTER);
         removeTeam.getStyleClass().add("teamwindowbutton");
-        removeTeam.setStyle("-fx-font-size: 15px;");
         removeTeam.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

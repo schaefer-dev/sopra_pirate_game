@@ -163,6 +163,9 @@ public class Generator {
 	}
 	
 	public void setBases(){
+		if(boatsPerTeam*bases.length >= countFieldType(water))
+			throw new IllegalArgumentException("It's not possible to place more ships than existing water fields on  the map");
+		
 		Random gen = new Random();
 		
 		Arrays.fill(bases, boatsPerTeam);	

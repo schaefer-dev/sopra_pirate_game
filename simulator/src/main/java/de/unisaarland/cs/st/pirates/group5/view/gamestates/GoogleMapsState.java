@@ -30,7 +30,7 @@ public class GoogleMapsState implements GameState {
 		manager = control;
 		manager.getTitleText().setText(title);	
 
-		Canvas mapPreview = new Canvas(350, 350);
+		Canvas mapPreview = new Canvas(manager.getStage().getWidth()/3.7, manager.getStage().getWidth()/3.7);
 		GraphicsContext gc = mapPreview.getGraphicsContext2D();
 		
 		try{
@@ -43,6 +43,8 @@ public class GoogleMapsState implements GameState {
 		Label location = new Label("Location");
 		location.getStyleClass().add("menulabel");
 		final TextField locationField = new TextField("");
+		locationField.setOnMouseEntered(new HoverEvent(manager.getHoverText(), "Type in a desired location. Don't be shy! "));
+		locationField.setOnMouseExited(new HoverEvent(manager.getHoverText(), ""));
 		
 		Label zoom = new Label("Zoom");
 		zoom.getStyleClass().add("menulabel");

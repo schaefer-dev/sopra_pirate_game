@@ -167,9 +167,9 @@ public class InGameState implements GameState, LogWriter {
 		speedUp.getStyleClass().add("canvasbutton");
 		
 		speed = new Label("10x");
-		speed.setTranslateY(sHeight/1.075);
+		speed.setTranslateY(sHeight/1.08);
 		speed.setTranslateX(sWidth/1.75);
-		speed.getStyleClass().add("menulabel");
+		speed.getStyleClass().add("speedlabel");
 		
 		this.control = new GameFlowControl(this, play, pause, speedUp, slowDown, speed);
 		

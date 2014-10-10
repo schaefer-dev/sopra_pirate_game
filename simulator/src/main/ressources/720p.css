@@ -2,8 +2,16 @@
     -fx-font-size: 25px;
 }
 
+#title {
+    -fx-font-size: 60px;
+ }
+
 .menulabel {
     -fx-font-size: 22px;
+}
+
+.speedlabel {
+    -fx-font-size: 26px;
 }
 
 .menubutton {
@@ -19,7 +27,78 @@
     -fx-spacing: 20;
 }
 
+.grid{
+    -fx-padding: 25 0 25 0;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
 .scroll-pane {
     -fx-padding: 40 120 40 120;
 
+}
+
+.titled-pane > .title {
+    -fx-font-size: 12px;
+    -fx-background-insets: -1.4, 0, 1, 2;
+    -fx-padding: 5 10 5 10;
+}
+
+.tooltipi{
+    -fx-border-width: 1px; 
+    -fx-font-size: 11px;
+    -fx-padding: 5 10 5 10;
+}
+
+.inmenubutton{
+    -fx-font-size: 13px;
+}
+
+.errorlabel{
+    -fx-font-size: 60px;
+}
+
+.selectionbutton {
+    -fx-font-size: 12px;
+}
+
+.openbutton {
+    -fx-font-size: 30px;
+}
+
+.teamwindow{
+    -fx-padding: 0 0 0 50;
+}
+
+.formattingfixer{
+    -fx-padding: 0 150 0 150;
+}
+
+.formattingfixer2{
+    -fx-padding: 0 210 0 200;
+}
+
+.maplist-view .list-cell {
+    -fx-font-size: 19px;
+}
+
+.preview {
+    -fx-font-size: 19px;
+    -fx-padding: 0 200 0 0;
+}
+
+.teamwindowbutton{
+    -fx-font-size: 15px;
+}
+
+.combo-box {
+    -fx-font-size: 15px;
+}
+
+.combo-box-popup .list-view {
+    -fx-font-size: 13px;
+}
+
+.maplist-view .list-cell {
+    -fx-padding: 15 0 0 0;
 }

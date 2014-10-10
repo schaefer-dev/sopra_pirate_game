@@ -232,7 +232,7 @@ public class Ressources {
 	public void createDefaultConfig() throws IOException{
 		defaultConfiguration = new Configuration();
 		defaultConfiguration.generate = true;
-		defaultConfiguration.setTreasureDensity(100);
+		defaultConfiguration.setTreasureDensity(70);
 		defaultConfiguration.setSupplyDensity(2);
 		defaultConfiguration.setKrakenCount(10);
 		defaultConfiguration.setTeamCount(10);
