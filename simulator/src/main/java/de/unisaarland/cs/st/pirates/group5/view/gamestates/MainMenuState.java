@@ -21,6 +21,7 @@ public class MainMenuState implements GameState {
 		manager.getTitleText().setText(title);
 		manager.setConfiguration(manager.getRessources().getDefaultConfig());
 		manager.resetRessources();
+		manager.changeMusicTrack(manager.getRessources().getMenuMusic());
 	
 		Button quickGame = new Button(" Quick Game ");
 		quickGame.getStyleClass().add("menubutton");

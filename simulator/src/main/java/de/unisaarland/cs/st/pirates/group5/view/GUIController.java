@@ -102,6 +102,7 @@ public class GUIController extends Application {
 		File monoFile = new File("src/main/ressources/Fonts/UbuntuMono.tff");
 		Font.loadFont(monoFile.toURI().toString(), 10);
 		
+		player = new MediaPlayer(res.getMenuMusic());
 		stage = primaryStage;
 		stage.setTitle("Pirates of the Saaribean");
 		title.setId("title");
@@ -128,12 +129,14 @@ public class GUIController extends Application {
 		addResizeListener(scene);
 		addKeyListener(scene);
 		
-		changeMusicTrack(res.getInGameMusic());
+		changeMusicTrack(res.getMenuMusic());
 	}
 	
 	public void changeMusicTrack(Media media){
 		try{
+			player.stop();
 			player = new MediaPlayer(media);
+			
 			player.play();
 			player.setCycleCount(MediaPlayer.INDEFINITE);
 		}

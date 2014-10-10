@@ -32,6 +32,7 @@ public class LoadingState implements GameState {
 	public void entered(GUIController control) {
 		manager = control;
 		manager.getTitleText().setText("");
+		manager.changeMusicTrack(manager.getRessources().getInGameMusic());
 		
 		Label errorIntro = new Label("Error");
 		errorIntro.getStyleClass().add("errorlabel");
