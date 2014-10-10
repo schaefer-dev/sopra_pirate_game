@@ -135,8 +135,11 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	slowDownImage = new Image(stream);
 	    	
-			File temp = new File("src/main/ressources/GUIMusik.mp3");
-			inGameMusic = new Media(temp.toURI().toString());
+			file = new File("src/main/ressources/Music/InGameMusic.mp3");
+			inGameMusic = new Media(file.toURI().toString());
+			
+			file = new File("src/main/ressources/Music/MenuMusic2.mp3");
+			menuMusic = new Media(file.toURI().toString());
 	    	
 	    	stream.close();
 	    	createDefaultConfig();
@@ -252,7 +255,7 @@ public class Ressources {
 		defaultConfiguration.setKrakenCount(10);
 		defaultConfiguration.setTeamCount(10);
 		defaultConfiguration.setShipCount(10);
-		defaultConfiguration.setRounds(10000);
+		defaultConfiguration.setRounds(500);
 		defaultConfiguration.getTactics().add("src/main/ressources/gruppe-05.ship");
 		
 		File file = new File("src/main/ressources/default.map");
