@@ -116,7 +116,7 @@ public class MouseEvents {
 		        		//double actualCamHeight = (cam.height()/canvasWidth)*canvasHeight;
 		        		
 		    			double midX = (cam.width()/canvasWidth)*newX + cam.a;
-		    			double midY = (cam.height()/canvasHeight)*(newY) + cam.c;
+		    			double midY = (cam.height()/canvasHeight)*newY + cam.c;
 		    			midX = mod(midX, map.getWidth());
 		    			midY = mod(midY, map.getHeight());
 

@@ -134,9 +134,10 @@ public class GUIController extends Application {
 	
 	public void changeMusicTrack(Media media){
 		try{
+			double volume = player.getVolume();
 			player.stop();
 			player = new MediaPlayer(media);
-			
+			player.setVolume(volume);
 			player.play();
 			player.setCycleCount(MediaPlayer.INDEFINITE);
 		}

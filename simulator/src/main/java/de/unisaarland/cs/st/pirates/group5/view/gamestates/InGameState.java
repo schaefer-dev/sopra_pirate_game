@@ -23,6 +23,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import de.unisaarland.cs.st.pirates.group5.controller.Simulator;
 import de.unisaarland.cs.st.pirates.group5.model.FieldType;
@@ -56,6 +57,7 @@ public class InGameState implements GameState, LogWriter {
 	private Button speedUp;
 	private Button slowDown;
 	private Label speed;
+	private MediaPlayer windPlayer;
 	
 	private Map map;
 	private Camera cam;
@@ -99,6 +101,11 @@ public class InGameState implements GameState, LogWriter {
 	public void entered(GUIController control) {
 		manager = control;
 		manager.getTitleText().setText("");
+		
+		windPlayer = new MediaPlayer(manager.getRessources().getWindSound());
+		windPlayer.setVolume(0.05 * manager.getPlayer().getVolume());
+		windPlayer.play();
+		windPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		
         cam = new Camera(fields);
         map.initMap(fields, cam);
@@ -186,6 +193,7 @@ public class InGameState implements GameState, LogWriter {
 			@Override
 			public void handle(ActionEvent arg0) {
 				manager.switchState(new MainMenuState());
+				windPlayer.stop();
 			}
 		});
 		
@@ -195,6 +203,7 @@ public class InGameState implements GameState, LogWriter {
 
 			@Override
 			public void handle(ActionEvent arg0) {
+				windPlayer.stop();
 				manager.removeState();
 				manager.getRoot().setCenter(null);
 			}
@@ -250,6 +259,8 @@ public class InGameState implements GameState, LogWriter {
     			}
             }
         });
+        
+
         
         winnerText = new Text();
         winnerText.setTranslateY(sHeight/1.03);
@@ -384,7 +395,20 @@ public class InGameState implements GameState, LogWriter {
 			}
 		}
 		
-		winnerText.setText(winner.toString() + " won with " + winner.getScore() + " points. Congratulations!");
+        ImageView trophy = new ImageView(manager.getRessources().getCupImage());
+        trophy.setFitHeight(sWidth/8);
+        trophy.setFitWidth(sWidth/8);
+        trophy.setTranslateY(sHeight/1.3);
+        trophy.setTranslateX(sWidth/2.35);
+        root.getChildren().add(trophy);
+		
+		if(winner.toString().equals("Jack Sparrow")){
+			winnerText.setTranslateX(sWidth/3.7);
+			winnerText.setText("You never really forget the day that you almost caught Captain Jack Sparrow!");
+		}
+		else
+			winnerText.setText(winner.toString() + " won with " + winner.getScore() + " points. Congratulations!");
+		
 		int teamIndex = teams.indexOf(winner);
 		TitledPane winnerPane = teamWindow.getPanes().get(teamIndex);
 		winnerPane.setExpanded(true);
@@ -477,12 +501,12 @@ public class InGameState implements GameState, LogWriter {
 		}
 		
 		if(arg1 == null)
-			fields[arg2][arg3] = new Field(map, arg2, arg3, type);
+			fields[arg2][arg3] = new Field(map, arg2, arg3, type, config.captainNames);
 		else{
 			if(teams.get(arg1) == null)
 				teams.set(arg1, new Team(arg1, config));
 			
-			fields[arg2][arg3] = new Field(map, arg2, arg3, teams.get(arg1));
+			fields[arg2][arg3] = new Field(map, arg2, arg3, teams.get(arg1), config.captainNames);
 		}
 		
 		return this;

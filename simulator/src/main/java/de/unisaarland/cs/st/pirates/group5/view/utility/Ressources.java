@@ -25,6 +25,7 @@ public class Ressources {
 	private Image krakenFarImage;
 	private Image shoreIsland;
 	private Image shoreWater;
+	private Image cupImage;
 	
 	private Image playImage;
 	private Image pauseImage;
@@ -34,6 +35,7 @@ public class Ressources {
 	
 	private Media inGameMusic;
 	private Media menuMusic;
+	private Media windSound;
 	
 	private List<Image> islandDetails = new ArrayList<Image>();
 	private List<Image> shipImages = new ArrayList<Image>();
@@ -96,6 +98,10 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	buoyImage = new Image(stream);
 	    	
+	    	file = new File("src/main/ressources/cup.png");
+	    	stream = new FileInputStream(file);
+	    	cupImage = new Image(stream);
+	    	
 	    	
 	    	for(int i = 1; i < 6; i++){
 		    	file = new File("src/main/ressources/IslandDetails/"+i+".png");
@@ -140,6 +146,9 @@ public class Ressources {
 			
 			file = new File("src/main/ressources/Music/MenuMusic2.mp3");
 			menuMusic = new Media(file.toURI().toString());
+			
+			file = new File("src/main/ressources/Music/wind.mp3");
+			windSound = new Media(file.toURI().toString());
 	    	
 	    	stream.close();
 	    	createDefaultConfig();
@@ -209,6 +218,10 @@ public class Ressources {
 		return shoreIsland;
 	}
 	
+	public Image getCupImage(){
+		return cupImage;
+	}
+	
 	public List<Image> getIslandDetailImages(){
 		return islandDetails;
 	}
@@ -242,6 +255,10 @@ public class Ressources {
 		return menuMusic;
 	}
 	
+	public Media getWindSound(){
+		return windSound;
+	}
+	
 	
 	public Configuration getDefaultConfig(){
 		return defaultConfiguration;
@@ -250,13 +267,13 @@ public class Ressources {
 	public void createDefaultConfig() throws IOException{
 		defaultConfiguration = new Configuration();
 		defaultConfiguration.generate = true;
-		defaultConfiguration.setTreasureDensity(70);
-		defaultConfiguration.setSupplyDensity(2);
-		defaultConfiguration.setKrakenCount(10);
+		defaultConfiguration.setTreasureDensity(60);
+		defaultConfiguration.setSupplyDensity(20);
+		defaultConfiguration.setKrakenCount(20);
 		defaultConfiguration.setTeamCount(10);
 		defaultConfiguration.setShipCount(10);
-		defaultConfiguration.setRounds(500);
-		defaultConfiguration.getTactics().add("src/main/ressources/gruppe-05.ship");
+		defaultConfiguration.setRounds(10000);
+		defaultConfiguration.getTactics().add("src/main/ressources/guybrush.ship");
 		
 		File file = new File("src/main/ressources/default.map");
 		MapPreview preview = new MapPreview(file);

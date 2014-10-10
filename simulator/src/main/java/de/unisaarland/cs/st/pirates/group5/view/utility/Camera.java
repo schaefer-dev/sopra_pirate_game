@@ -150,7 +150,7 @@ public class Camera {
 	public int zoomLevelAbsolute(){
 		int zoom = b - a;
 		
-		if(zoom <= 30)
+		if(zoom <= 35)
 			return 0;
 		if(zoom <= 60)
 			return 1;

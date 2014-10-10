@@ -28,15 +28,18 @@ public class Field {
 	private Image buoysImage;
 	private Image krakenImage;
 	
+	private List<String> captainNames;
+	
 	private boolean farAway;
 	public boolean marked = false;
 	public boolean sailedAway = false;
 	
-	public Field(Map map, int x, int y, FieldType type){
+	public Field(Map map, int x, int y, FieldType type, List<String> captainNames){
 		this.x = x;
 		this.y = y;
 		this.map = map;
 		this.type = type;
+		this.captainNames = captainNames;
 		buoys = new LinkedList<SimpleEntity>();
 		farAway = false;
 		
@@ -61,14 +64,16 @@ public class Field {
 	}
 	
 	
-	public Field(Map map, int x, int y, Team affiliation){
+	public Field(Map map, int x, int y, Team affiliation, List<String> captainNames){
 		this.x = x;
 		this.y = y;
 		this.map = map;
 		this.type = FieldType.Base;
+		this.captainNames = captainNames;
 		this.team = affiliation;
 		this.buoys = new LinkedList<SimpleEntity>();
-		fieldImage = map.getRessources().getBaseImage(team.getID());
+		int index = captainNames.indexOf(team.toString());
+		fieldImage = map.getRessources().getBaseImage(index);
 		farAway = false;
 	}
 	
@@ -170,8 +175,11 @@ public class Field {
 			if(map.getCam().zoomLevelAbsolute() > 1 && type == FieldType.Water)
 				farAway = true;
 		}
-		else
-			this.shipImage = map.getRessources().getShipImage(ship.getFleet().getID());
+		else{
+			int index = captainNames.indexOf(ship.getFleet().toString());
+			this.shipImage = map.getRessources().getShipImage(index);
+		}
+			
 
 		this.ship = ship;
 		redraw();
