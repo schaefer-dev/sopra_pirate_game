@@ -37,7 +37,7 @@ public class MapSelectionState implements GameState {
 		list = new ListView<SelectionWindow>();
 		list.getStyleClass().add("maplist-view");
 		
-		Canvas mapPreview = new Canvas(250, 250);
+		Canvas mapPreview = new Canvas(manager.getStage().getWidth()/4.7, manager.getStage().getWidth()/4.7);
 		final GraphicsContext gc = mapPreview.getGraphicsContext2D();
 		
 		final VBox preview = new VBox(20);

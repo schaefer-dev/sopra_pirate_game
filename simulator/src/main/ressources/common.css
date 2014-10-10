@@ -20,10 +20,8 @@
 
 .titled-pane > .title {
     -fx-font-family: "Ubuntu Mono";
-    -fx-font-size: 12px;
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-color: white;
-    -fx-padding: 5 10 5 10;
 }
 
 .titled-pane > *.content {
@@ -32,7 +30,6 @@
 
 .titled-pane:focused > .title {
     -fx-background-color: #A6A6A6;
-    /*-fx-color: black;*/
 }
 
 
@@ -51,9 +48,6 @@
     -fx-font-family: "Ubuntu Mono";
     -fx-background-color: #FFFFFF;
     -fx-border-color: #585858;
-    -fx-border-width: 1px; 
-    -fx-font-size: 11px;
-    -fx-padding: 5 10 5 10;
 }
 
 .menubutton {
@@ -66,7 +60,6 @@
     -fx-font-family: "Ubuntu Mono";
     -fx-background-color: transparent;
     -fx-alignment: CENTER;
-    -fx-font-size: 13px;
 }
 
 .canvasbutton {
@@ -87,7 +80,6 @@
 
 .errorlabel{
     -fx-font-family: "UglyQua";
-    -fx-font-size: 60px;
 }
 
 .selectionbutton {
@@ -110,6 +102,11 @@
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0.0, 0, 2 );
 }
 
+.speedlabel{
+    -fx-font-family: "UglyQua";
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;;
+}
 
 .button:hover {
 	-fx-text-fill: #A62E2E;
@@ -169,9 +166,6 @@
     -fx-background-size: stretch;
 }
 
-.combo-box .arrow{
-}
-
 .combo-box .arrow-button{
    -fx-background-color: transparent;
 }
@@ -211,7 +205,6 @@
 
 .maplist-view {
     -fx-background-color: transparent;
-    /*-fx-padding: 0 200 0 450;*/
 }
 
 

@@ -14,3 +14,102 @@
     -fx-padding: 10 0 10 0;
     -fx-spacing: 5;
 }
+
+
+.combo-box {
+    -fx-font-size: 15px;
+}
+
+.combo-box-popup .list-view {
+    -fx-font-size: 13px;
+}
+
+/**********************************************************/
+
+.grid{
+    -fx-hgap: 15;
+    -fx-vgap: 15;
+}
+
+.scroll-pane {
+    -fx-padding: 40 120 40 120;
+
+}
+
+.titled-pane > .title {
+    -fx-font-size: 10px;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.tooltipi{
+    -fx-border-width: 1px; 
+    -fx-font-size: 10px;
+    -fx-padding: 5 10 5 10;
+}
+
+.inmenubutton{
+    -fx-font-size: 12px;
+}
+
+.errorlabel{
+    -fx-font-size: 50px;
+}
+
+.selectionbutton {
+    -fx-font-size: 12px;
+}
+
+.openbutton {
+    -fx-font-size: 20px;
+}
+
+
+
+/*Team Selection*/
+.formattingfixer{
+    -fx-padding: 0 70 0 70;
+}
+
+.teamselectionbutton{
+    -fx-font-size: 15px;
+}
+
+.teamwindowbutton{
+    -fx-font-size: 11px;
+}
+
+
+
+.teamwindow{
+	-fx-font-size: 12px;
+    -fx-padding: 0 0 0 10;
+}
+
+.scroll-pane .list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+/*Map Selection*/
+.formattingfixer2{
+    -fx-padding: 0 120 0 90;
+}
+
+.maplist-view .list-cell {
+    -fx-font-size: 12px;
+    -fx-padding: 10 0 0 0;
+}
+
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+.preview {
+    -fx-font-size: 12px;
+}
+

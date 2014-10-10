@@ -86,7 +86,7 @@ public class SelectionFile extends SelectionWindow {
 			control.getConfiguration().setMap(map, false);
 		}
 		catch(Exception e){
-			control.getHoverText().setText("Please try select a valid file");
+			//control.getHoverText().setText("Please try select a valid file");
 		}
 	}
 	
