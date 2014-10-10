@@ -25,7 +25,6 @@ import de.unisaarland.cs.st.pirates.group5.model.Map;
 import de.unisaarland.cs.st.pirates.group5.model.Register;
 import de.unisaarland.cs.st.pirates.group5.model.Ship;
 import de.unisaarland.cs.st.pirates.group5.model.Team;
-import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 public class IfTest {
 

@@ -8,7 +8,6 @@ import de.unisaarland.cs.st.pirates.group5.model.Island;
 import de.unisaarland.cs.st.pirates.group5.model.Map;
 import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
 import de.unisaarland.cs.st.pirates.group5.model.Team;
-import de.unisaarland.cs.st.pirates.group5.model.Treasure;
 
 public class FieldTypeTest {
 	

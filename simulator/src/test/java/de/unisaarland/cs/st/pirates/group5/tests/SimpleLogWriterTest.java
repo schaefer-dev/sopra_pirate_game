@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import de.unisaarland.cs.st.pirates.group5.view.GUIController;
 import de.unisaarland.cs.st.pirates.group5.view.Log;
 import de.unisaarland.cs.st.pirates.group5.view.SimpleLogWriter;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;

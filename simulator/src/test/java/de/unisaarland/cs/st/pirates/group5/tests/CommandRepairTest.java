@@ -1,7 +1,4 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
