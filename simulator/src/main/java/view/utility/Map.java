@@ -159,6 +159,7 @@ public class Map {
 				}
 			}
 		}	
+		
 		if(field.getShip() != null && field.getShip().marked)
 			markHex(mid, radius/1.4, field.getShip().getFleet().getColor(), false);
 		

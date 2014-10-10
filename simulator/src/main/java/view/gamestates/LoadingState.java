@@ -20,6 +20,8 @@ import view.GUIController;
 public class LoadingState implements GameState {
 
 	private GUIController manager;
+	private Label error;
+	private BorderPane pain;
 	
 	private Random random;
 	private List<String> shipFileList;
@@ -30,11 +32,44 @@ public class LoadingState implements GameState {
 	public void entered(GUIController control) {
 		manager = control;
 		manager.getTitleText().setText("");
+		
+		Label errorIntro = new Label("Error");
+		errorIntro.getStyleClass().add("errorlabel");
+		error = new Label();
+		error.getStyleClass().add("menulabel");
+		Label errorSmiley = new Label(":-(");
+		errorSmiley.getStyleClass().add("errorlabel");
+		
+		VBox errorBox = new VBox();
+		errorBox.getStyleClass().add("vbox");
+		errorBox.getChildren().addAll(errorIntro, error, errorSmiley);
+		
+		Button back = new Button("Back To Menu");
+		back.getStyleClass().add("menubutton");
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				manager.switchState(new MainMenuState());
+			}
+		});
+		
+		BorderPane.setAlignment(back, Pos.BOTTOM_CENTER);
+		pain = new BorderPane();
+		pain.setCenter(errorBox);
+		pain.setBottom(back);
 
 		Configuration config = manager.getConfiguration();
 		if(config.generate){
-			config.placeObjectsOnMap();
-			config.addTeamsToMap();
+			try{
+				config.placeObjectsOnMap();
+				config.addTeamsToMap();
+			}
+			catch(Exception e){
+				error.setText(e.getMessage());
+				manager.getRoot().setCenter(pain);
+				return;
+			}
 		}
 
 		char[][] map = config.getMap();
@@ -44,8 +79,8 @@ public class LoadingState implements GameState {
 		shipFileList = manager.getConfiguration().getTactics();
 		turns = manager.getConfiguration().getRounds();
 		InGameState game = new InGameState(manager.getRessources(), turns, config, manager);
-		initSimuator(game);
-		manager.addState(game);
+		if(initSimuator(game))
+			manager.addState(game);
 	}
 
 	@Override
@@ -66,41 +101,19 @@ public class LoadingState implements GameState {
 	}
 
 	
-	private void initSimuator(InGameState game){
+	private boolean initSimuator(InGameState game){
 		try{
 			String[] shipFiles = shipFileList.toArray(new String[shipFileList.size()]);
 			Simulator sim = new Simulator(shipFiles, mapFile, random.nextInt(Integer.MAX_VALUE), null, turns, game);
 			game.setSimulator(sim);
 		}
 		catch(Exception e){	
-			Label errorIntro = new Label("Error");
-			errorIntro.getStyleClass().add("errorlabel");
-			Label error = new Label(e.getMessage());
-			error.getStyleClass().add("menulabel");
-			Label errorSmiley = new Label(":-(");
-			errorSmiley.getStyleClass().add("errorlabel");
-			
-			VBox errorBox = new VBox();
-			errorBox.getStyleClass().add("vbox");
-			errorBox.getChildren().addAll(errorIntro, error, errorSmiley);
-			
-			Button back = new Button("Back To Menu");
-			back.getStyleClass().add("menubutton");
-			back.setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent arg0) {
-					manager.switchState(new MainMenuState());
-				}
-			});
-			
-			BorderPane.setAlignment(back, Pos.BOTTOM_CENTER);
-			BorderPane pain = new BorderPane();
-			pain.setCenter(errorBox);
-			pain.setBottom(back);
+			error.setText(e.getMessage());
 			manager.getRoot().setCenter(pain);
-			return;
+			return false;
 		}
+		
+		return true;
 	}
 	
 	

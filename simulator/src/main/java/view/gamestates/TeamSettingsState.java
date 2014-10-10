@@ -52,6 +52,7 @@ public class TeamSettingsState implements GameState {
 				TeamSelectionWindow tSelect = new TeamSelectionWindow(manager, this , false);
 				teamWindows.add(tSelect);
 				teamSelection.getChildren().add(tSelect.getRoot());
+				tSelect.getRoot().getStyleClass().add("teamwindow");
 			}
 			removable = false;
 		}

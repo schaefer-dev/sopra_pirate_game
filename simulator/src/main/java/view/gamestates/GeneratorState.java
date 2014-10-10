@@ -29,7 +29,7 @@ public class GeneratorState implements GameState {
 		manager = control;
 		manager.getTitleText().setText(title);
 	
-		Canvas mapPreview = new Canvas(350, 350);
+		Canvas mapPreview = new Canvas(manager.getStage().getWidth()/3.7, manager.getStage().getWidth()/3.7);
 		GraphicsContext gc = mapPreview.getGraphicsContext2D();
 		
 		try{

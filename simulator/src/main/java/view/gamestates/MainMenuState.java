@@ -48,6 +48,8 @@ public class MainMenuState implements GameState {
 		
 		Button settings = new Button("Settings");
 		settings.getStyleClass().add("menubutton");
+		settings.setOnMouseEntered(new HoverEvent(control.getHoverText(), "Go to game settings"));
+		settings.setOnMouseExited(new HoverEvent(control.getHoverText(), ""));
 		settings.setOnAction(new SwitchState(manager, new SettingsState(), false));
 		
 		root = new VBox();
