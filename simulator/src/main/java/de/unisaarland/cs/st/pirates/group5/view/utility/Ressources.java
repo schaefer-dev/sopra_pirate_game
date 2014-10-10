@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 
 public class Ressources {
 
@@ -30,6 +31,9 @@ public class Ressources {
 	private Image nextImage;
 	private Image speedUpImage;
 	private Image slowDownImage;
+	
+	private Media inGameMusic;
+	private Media menuMusic;
 	
 	private List<Image> islandDetails = new ArrayList<Image>();
 	private List<Image> shipImages = new ArrayList<Image>();
@@ -131,6 +135,12 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	slowDownImage = new Image(stream);
 	    	
+			file = new File("src/main/ressources/Music/InGameMusic.mp3");
+			inGameMusic = new Media(file.toURI().toString());
+			
+			file = new File("src/main/ressources/Music/MenuMusic2.mp3");
+			menuMusic = new Media(file.toURI().toString());
+	    	
 	    	stream.close();
 	    	createDefaultConfig();
     	}
@@ -224,6 +234,14 @@ public class Ressources {
 		return slowDownImage;
 	}
 	
+	public Media getInGameMusic(){
+		return inGameMusic;
+	}
+	
+	public Media getMenuMusic(){
+		return menuMusic;
+	}
+	
 	
 	public Configuration getDefaultConfig(){
 		return defaultConfiguration;
@@ -237,7 +255,7 @@ public class Ressources {
 		defaultConfiguration.setKrakenCount(10);
 		defaultConfiguration.setTeamCount(10);
 		defaultConfiguration.setShipCount(10);
-		defaultConfiguration.setRounds(10000);
+		defaultConfiguration.setRounds(500);
 		defaultConfiguration.getTactics().add("src/main/ressources/gruppe-05.ship");
 		
 		File file = new File("src/main/ressources/default.map");

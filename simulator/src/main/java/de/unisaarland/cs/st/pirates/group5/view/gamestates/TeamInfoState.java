@@ -68,18 +68,20 @@ public class TeamInfoState implements GameState {
 		
 		}
 		ImageView v1 = new ImageView();
-		File temp = new File("src/main/ressources/bildJanna.jpg");
+		File temp = new File("src/main/ressources/Janna.png");
 		Image picture1 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		v1.setImage(picture1);
 		ImageView v2 = new ImageView();
-		temp = new File("src/main/ressources/bildJan.jpg");
+		temp = new File("src/main/ressources/blackbeard.png");
 		Image picture2 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v3 = new ImageView();
-		temp = new File("src/main/ressources/pirate_dude.png");
+		temp = new File("src/main/ressources/blaubaer.png");
 		Image picture3 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v4 = new ImageView();
+		temp = new File("src/main/ressources/morgan.png");
 		Image picture4 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		ImageView v5 = new ImageView();
+		temp = new File("src/main/ressources/pirate_dude.png");
 		Image picture5 = new Image(temp.toURI().toString(),imageSize,imageSize,true,true);
 		v2.setImage(picture2);
 		v3.setImage(picture3);

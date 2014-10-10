@@ -69,6 +69,7 @@ public class InGameState implements GameState, LogWriter {
 	private Simulator sim;
 	private GameFlowControl control;
 	private Configuration config;
+	private Text winnerText;
 	
 	private double sWidth;
 	private double sHeight;
@@ -91,7 +92,7 @@ public class InGameState implements GameState, LogWriter {
         rounds = 0;
         sWidth = manager.getScene().getWidth();
         sHeight = manager.getScene().getHeight();
-        buttonSize = sWidth/40;
+        buttonSize = sWidth/50;
 	}
 	
 	@Override
@@ -249,12 +250,17 @@ public class InGameState implements GameState, LogWriter {
     			}
             }
         });
+        
+        winnerText = new Text();
+        winnerText.setTranslateY(sHeight/1.03);
+        winnerText.setTranslateX(sWidth/3.3);
+        winnerText.getStyleClass().add("menulabel");
 
         final TitledPane teamOpen = new TitledPane("Teams", teamWindow);
         teamOpen.setTranslateX(sWidth/1.15);        
 		
 		root = new Group();
-		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedUp, slowDown, speed, menu, tooltip, teamOpen);
+		root.getChildren().addAll(canvas, roundCounter, play, pause, next, speedUp, slowDown, speed, menu, tooltip, teamOpen, winnerText);
 		manager.getScene().setRoot(root);
 	}
 
@@ -378,7 +384,7 @@ public class InGameState implements GameState, LogWriter {
 			}
 		}
 		
-		
+		winnerText.setText(winner.toString() + " won with " + winner.getScore() + " points. Congratulations!");
 		int teamIndex = teams.indexOf(winner);
 		TitledPane winnerPane = teamWindow.getPanes().get(teamIndex);
 		winnerPane.setExpanded(true);
