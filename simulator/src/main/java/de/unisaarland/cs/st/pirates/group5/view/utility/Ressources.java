@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 
 public class Ressources {
 
@@ -30,6 +31,9 @@ public class Ressources {
 	private Image nextImage;
 	private Image speedUpImage;
 	private Image slowDownImage;
+	
+	private Media inGameMusic;
+	private Media menuMusic;
 	
 	private List<Image> islandDetails = new ArrayList<Image>();
 	private List<Image> shipImages = new ArrayList<Image>();
@@ -131,6 +135,9 @@ public class Ressources {
 	    	stream = new FileInputStream(file);
 	    	slowDownImage = new Image(stream);
 	    	
+			File temp = new File("src/main/ressources/GUIMusik.mp3");
+			inGameMusic = new Media(temp.toURI().toString());
+	    	
 	    	stream.close();
 	    	createDefaultConfig();
     	}
@@ -222,6 +229,14 @@ public class Ressources {
 	
 	public Image getSlowDownImage(){
 		return slowDownImage;
+	}
+	
+	public Media getInGameMusic(){
+		return inGameMusic;
+	}
+	
+	public Media getMenuMusic(){
+		return menuMusic;
 	}
 	
 	

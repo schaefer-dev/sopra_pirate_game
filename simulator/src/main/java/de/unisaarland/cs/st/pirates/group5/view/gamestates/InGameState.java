@@ -91,7 +91,7 @@ public class InGameState implements GameState, LogWriter {
         rounds = 0;
         sWidth = manager.getScene().getWidth();
         sHeight = manager.getScene().getHeight();
-        buttonSize = sWidth/40;
+        buttonSize = sWidth/50;
 	}
 	
 	@Override
