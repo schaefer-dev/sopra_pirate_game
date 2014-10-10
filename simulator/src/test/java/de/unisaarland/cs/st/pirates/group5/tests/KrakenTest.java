@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Base;
-import model.Field;
-import model.Island;
-import model.Kraken;
-import model.Map;
-import model.ProvisionIsland;
-import model.Team;
-import model.Water;
-
 import org.junit.Test;
+
+import de.unisaarland.cs.st.pirates.group5.model.Base;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Island;
+import de.unisaarland.cs.st.pirates.group5.model.Kraken;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 
 

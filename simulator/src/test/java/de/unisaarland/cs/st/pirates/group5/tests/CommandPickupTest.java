@@ -6,17 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Field;
-import model.Island;
-import model.Map;
-import model.Ship;
-import model.Treasure;
-import model.Water;
-import model.Kraken;
-
 import org.junit.Test;
 
-import commands.Pickup;
+import de.unisaarland.cs.st.pirates.group5.commands.Pickup;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Island;
+import de.unisaarland.cs.st.pirates.group5.model.Kraken;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Treasure;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 
 public class CommandPickupTest {
 	/**

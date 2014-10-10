@@ -6,21 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Map;
-import model.Team;
-import model.Ship;
-import model.Field;
-import model.Water;
-import model.Island; 
-import model.ProvisionIsland;
-import model.FieldType;
-import model.Kraken;
-import model.Base;
-import controller.Command;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.model.Base;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.FieldType;
+import de.unisaarland.cs.st.pirates.group5.model.Island;
+import de.unisaarland.cs.st.pirates.group5.model.Kraken;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
 import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
 

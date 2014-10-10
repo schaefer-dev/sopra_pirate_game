@@ -6,19 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.Map;
-import model.Register;
-import model.Ship;
-import model.Field;
-import model.Team;
-import model.Water;
-
 import org.junit.Test;
 
-import view.SimpleLogWriter;
-import commands.Drop;
-import commands.Goto;
-import controller.Command;
+import de.unisaarland.cs.st.pirates.group5.commands.Drop;
+import de.unisaarland.cs.st.pirates.group5.commands.Goto;
+import de.unisaarland.cs.st.pirates.group5.controller.Command;
+import de.unisaarland.cs.st.pirates.group5.model.Field;
+import de.unisaarland.cs.st.pirates.group5.model.Map;
+import de.unisaarland.cs.st.pirates.group5.model.Register;
+import de.unisaarland.cs.st.pirates.group5.model.Ship;
+import de.unisaarland.cs.st.pirates.group5.model.Team;
+import de.unisaarland.cs.st.pirates.group5.model.Water;
+import de.unisaarland.cs.st.pirates.group5.view.SimpleLogWriter;
 
 
 public class ShipTest {
