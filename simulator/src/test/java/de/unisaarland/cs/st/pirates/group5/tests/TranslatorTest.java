@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import de.unisaarland.cs.st.pirates.group5.commands.Flipzero;
 import de.unisaarland.cs.st.pirates.group5.commands.Goto;
 import de.unisaarland.cs.st.pirates.group5.commands.If;
 import de.unisaarland.cs.st.pirates.group5.commands.IfAll;
@@ -19,7 +18,6 @@ import de.unisaarland.cs.st.pirates.group5.commands.Pickup;
 import de.unisaarland.cs.st.pirates.group5.commands.Refresh;
 import de.unisaarland.cs.st.pirates.group5.commands.Repair;
 import de.unisaarland.cs.st.pirates.group5.commands.Sense;
-import de.unisaarland.cs.st.pirates.group5.commands.Turn;
 import de.unisaarland.cs.st.pirates.group5.commands.Unmark;
 import de.unisaarland.cs.st.pirates.group5.controller.*;
 import de.unisaarland.cs.st.pirates.group5.model.CellType;

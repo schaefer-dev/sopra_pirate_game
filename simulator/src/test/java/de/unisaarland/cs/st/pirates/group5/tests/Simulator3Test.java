@@ -1,6 +1,6 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 
-import static org.junit.Assert.*;
+
 
 import java.io.IOException;
 import java.net.URISyntaxException;

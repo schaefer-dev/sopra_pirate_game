@@ -9,18 +9,15 @@ import java.util.Random;
 import org.junit.Test;
 
 import de.unisaarland.cs.st.pirates.group5.commands.Drop;
-import de.unisaarland.cs.st.pirates.group5.commands.Pickup;
 import de.unisaarland.cs.st.pirates.group5.model.Base;
 import de.unisaarland.cs.st.pirates.group5.model.Field;
-import de.unisaarland.cs.st.pirates.group5.model.Island;
 import de.unisaarland.cs.st.pirates.group5.model.Kraken;
 import de.unisaarland.cs.st.pirates.group5.model.Map;
-import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
 import de.unisaarland.cs.st.pirates.group5.model.Ship;
 import de.unisaarland.cs.st.pirates.group5.model.Team;
 import de.unisaarland.cs.st.pirates.group5.model.Treasure;
 import de.unisaarland.cs.st.pirates.group5.model.Water;
-import de.unisaarland.cs.st.pirates.group5.view.SimpleLogWriter;
+
 
 public class CommandDropTest {
 	/*

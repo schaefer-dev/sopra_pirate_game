@@ -1,7 +1,6 @@
 package de.unisaarland.cs.st.pirates.group5.tests;
 import static org.junit.Assert.*;
 
-import java.awt.List;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,8 +21,6 @@ import de.unisaarland.cs.st.pirates.group5.model.ProvisionIsland;
 import de.unisaarland.cs.st.pirates.group5.model.Ship;
 import de.unisaarland.cs.st.pirates.group5.model.Team;
 import de.unisaarland.cs.st.pirates.group5.model.Water;
-import de.unisaarland.cs.st.pirates.group5.view.Log;
-import de.unisaarland.cs.st.pirates.logger.LogWriter;
 public class MapGeneratorTest {
 	
 	

@@ -6,10 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.unisaarland.cs.st.pirates.logger.LogWriter;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Cell;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Entity;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Key;
-import de.unisaarland.cs.st.pirates.logger.LogWriter.Transaction;
 
 public class DummyLogWriter implements LogWriter {
 
